@@ -179,7 +179,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-08 08:56:25" itemprop="dateModified" datetime="2021-09-08T08:56:25+08:00">2021-09-08</time>
+                <time title="Modified: 2021-09-08 09:37:18" itemprop="dateModified" datetime="2021-09-08T09:37:18+08:00">2021-09-08</time>
               </span>
 
           
@@ -210,6 +210,19 @@
 <p>替换较大分数并按照以上添加首尾部即可</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET /score.php?score=4000&amp;ip=106.39.42.143&amp;sign=zMNDAwMA==== HTTP/1.1</span><br><span class="line">Host: 114.67.246.176:11523</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36</span><br><span class="line">Accept: */*</span><br><span class="line">Referer: http://114.67.246.176:11523/?s=1631061774862?s=1631062331778</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line">Cookie: _ga=GA1.1.1016401715.1631061825; _gid=GA1.1.1665857216.1631061825; Hm_lvt_c1b044f909411ac4213045f0478e96fc=1631061825; _gat=1; Hm_lpvt_c1b044f909411ac4213045f0478e96fc=1631062340</span><br><span class="line">Connection: close</span><br></pre></td></tr></table></figure>
 
+<h1 id="Bugku-前女友（php绕过）"><a href="#Bugku-前女友（php绕过）" class="headerlink" title="Bugku-前女友（php绕过）"></a>Bugku-前女友（php绕过）</h1><p>弱类型比较</p>
+<ul>
+<li>===: 在进行比较的时候，会先判断两种字符串的类型是否相等，再比较，03开头的字符串结果为0</li>
+<li>==: 在进行比较的时候，会先将字符串类型转化成相同，再比较，如果比较的是一个字符串和一个数字，则字符串会被转化为数值。</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;v1&#x27;</span>]) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;v2&#x27;</span>]) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;v3&#x27;</span>]))&#123;</span><br><span class="line">    <span class="variable">$v1</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;v1&#x27;</span>];</span><br><span class="line">    <span class="variable">$v2</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;v2&#x27;</span>];</span><br><span class="line">    <span class="variable">$v3</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;v3&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$v1</span> != <span class="variable">$v2</span> &amp;&amp; md5(<span class="variable">$v1</span>) == md5(<span class="variable">$v2</span>))&#123;</span><br><span class="line">        <span class="keyword">if</span>(!strcmp(<span class="variable">$v3</span>, <span class="variable">$flag</span>))&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://114.67.246.176:11128/?v1=240610708&amp;v2=QNKCDZO&amp;v3[]=1</span><br></pre></td></tr></table></figure>
+
+<p>利用md5()函数的特点。   md5()函数加密一个数组时会报错，返回null。   因此，只要另$v1，$v2为两个值不同的数组即可绕过。 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://114.67.246.176:11128/?v1[]=240610708&amp;v2[]=QNKCDZO&amp;v3[]=1</span><br></pre></td></tr></table></figure>
+
+<p>strcmp()函数用来判断两个字符串是否相等，若相等，返回0。php在5.3版本之前若传入的是一个非字符串类型数据，比如数组和对象，则会报错，但在报错的同时会返回0。</p>
 
       
     </div>
