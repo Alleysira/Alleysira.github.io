@@ -31,10 +31,15 @@
 <meta property="og:image" content="https://s2.loli.net/2022/01/08/f49EResTSny3lrz.png">
 <meta property="og:image" content="https://s2.loli.net/2022/01/08/JniMaAdgIQHZpxK.png">
 <meta property="og:image" content="https://s2.loli.net/2022/01/08/VzaibB1eJtrDTsM.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/08/E72uvNIVbtCBlWa.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/01/08/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE.assets/image-20220108203226857.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/08/qBrmIP7YZwOnMod.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/08/QJav9PzEIULHnpe.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/08/auCEmwNpTbPfFBX.png">
 <meta property="article:published_time" content="2022-01-08T07:55:29.000Z">
-<meta property="article:modified_time" content="2022-01-08T09:59:06.597Z">
+<meta property="article:modified_time" content="2022-01-08T14:38:26.330Z">
 <meta property="article:author" content="Alleysira">
-<meta property="article:tag" content="secure protocol">
+<meta property="article:tag" content="crypto">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2022/01/08/GoAsRY5lJ7iSb8k.png">
 
@@ -180,7 +185,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-01-08 15:55:29 / Modified: 17:59:06" itemprop="dateCreated datePublished" datetime="2022-01-08T15:55:29+08:00">2022-01-08</time>
+              <time title="Created: 2022-01-08 15:55:29 / Modified: 22:38:26" itemprop="dateCreated datePublished" datetime="2022-01-08T15:55:29+08:00">2022-01-08</time>
             </span>
 
           
@@ -210,7 +215,7 @@
 <li>协议有明确的目的，需要完成的目标，防范的风险<h2 id="两个例子"><a href="#两个例子" class="headerlink" title="两个例子"></a>两个例子</h2><h3 id="NSSK协议"><a href="#NSSK协议" class="headerlink" title="NSSK协议"></a>NSSK协议</h3></li>
 </ul>
 <p><img src="https://s2.loli.net/2022/01/08/GoAsRY5lJ7iSb8k.png" alt="image-20220108155634724"></p>
-<p>若敌手获得曾经的$K_{ab’}$，重放3即可欺骗B，根本原因在于B对于协议的通信没有控制权</p>
+<p>若敌手获得曾经的$K_{ab’}$，重放3即可欺骗B，根本原因在于B对于协议的通信没有控制权，此时B只能相信A在场，而无法相信$K_{ab}$新鲜</p>
 <img src="https://s2.loli.net/2022/01/08/f49EResTSny3lrz.png" alt="image-20220108175844468" style="zoom:50%;" />
 
 <h3 id="TLS协议"><a href="#TLS协议" class="headerlink" title="TLS协议"></a>TLS协议</h3><ul>
@@ -385,10 +390,133 @@
 <li>安全需求</li>
 <li>自然语言推理</li>
 <li>形式化推理 BAN逻辑</li>
+<li>某个安全模型下安全，满足了安全需求</li>
 </ul>
 </li>
 </ul>
-<h2 id="TO-DO"><a href="#TO-DO" class="headerlink" title="TO DO"></a>TO DO</h2><ul>
+<p>协议设计过程是一个重复迭代的过程，在一轮迭代中设计出安全严谨的安全协议是不现实的</p>
+<h2 id="安全协议设计准则"><a href="#安全协议设计准则" class="headerlink" title="安全协议设计准则"></a>安全协议设计准则</h2><p>缺陷的来源</p>
+<ul>
+<li>设计不规范</li>
+<li>具体执行时产生</li>
+</ul>
+<h3 id="消息独立完整性"><a href="#消息独立完整性" class="headerlink" title="消息独立完整性"></a>消息独立完整性</h3><p>消息的解释完全由内容决定，不必借助上下文推断</p>
+<h3 id="消息前提准确原则"><a href="#消息前提准确原则" class="headerlink" title="消息前提准确原则"></a>消息前提准确原则</h3><p>应当明确指出与消息的执行相关的前提条件，并且正确性和合理性可以验证，判断消息是否应该接收</p>
+<h4 id="大嘴青蛙协议"><a href="#大嘴青蛙协议" class="headerlink" title="大嘴青蛙协议"></a>大嘴青蛙协议</h4><img src="https://s2.loli.net/2022/01/08/E72uvNIVbtCBlWa.png" alt="image-20220108201632195" style="zoom: 50%;" />
+
+<h3 id="主体身份标识原则"><a href="#主体身份标识原则" class="headerlink" title="主体身份标识原则"></a>主体身份标识原则</h3><p>消息中最好附上主体名称</p>
+<img src="%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE.assets/image-20220108203226857.png" alt="image-20220108203226857" style="zoom:67%;" />
+
+<ul>
+<li>密钥交换协议</li>
+<li>第一步是请求两个实体的证书（为什么A能得到B的证书呢）</li>
+<li>第二步是S响应发送证书</li>
+<li>第三步是A先用自己的私钥签名再用B的公钥加密</li>
+</ul>
+<h3 id="加密目的明确性原则"><a href="#加密目的明确性原则" class="headerlink" title="加密目的明确性原则"></a>加密目的明确性原则</h3><p>加密可实现多种安全目的，明白使用加密技术的目的，尽可能减少冗余</p>
+<h3 id="签名含义清晰性原则"><a href="#签名含义清晰性原则" class="headerlink" title="签名含义清晰性原则"></a>签名含义清晰性原则</h3><p>先签名再加密，表明对消息知情</p>
+<h3 id="临时值使用原则"><a href="#临时值使用原则" class="headerlink" title="临时值使用原则"></a>临时值使用原则</h3><p>临时值可以用来确保时间连续性（新鲜性），可以用来确保关联性</p>
+<img src="https://s2.loli.net/2022/01/08/qBrmIP7YZwOnMod.png" alt="image-20220108205220717" style="zoom:67%;" />
+
+<ul>
+<li>1表明A想要和B协商密钥，采用A和S的对称密钥加密了此时的随机数，M是单次会话的标识符 ，B无法解密$N_a$，发给S的时候传递了联系</li>
+</ul>
+<h3 id="随机数使用原则"><a href="#随机数使用原则" class="headerlink" title="随机数使用原则"></a>随机数使用原则</h3><p>作用：提供新鲜性</p>
+<p>关键问题：真正的随机性伪随机</p>
+<h3 id="时间戳使用原则"><a href="#时间戳使用原则" class="headerlink" title="时间戳使用原则"></a>时间戳使用原则</h3><p>问题在于时钟的同步</p>
+<h3 id="密钥使用原则"><a href="#密钥使用原则" class="headerlink" title="密钥使用原则"></a>密钥使用原则</h3><p>考虑密钥是否最近使用过，指出密钥的编码方式</p>
+<h3 id="消息识别和编码准则"><a href="#消息识别和编码准则" class="headerlink" title="消息识别和编码准则"></a>消息识别和编码准则</h3><p>编码和协议相关</p>
+<p>根据编码后的消息能够推断出消息来自于哪一条(例如NSSK的$N_b-1$)</p>
+<p>否则可能被恶意重放</p>
+<h3 id="信任准则"><a href="#信任准则" class="headerlink" title="信任准则"></a>信任准则</h3><p>协议设计者应该知道设计的协议依赖的信任关系</p>
+<p>通常不能相信参与者选择一个好的会话密钥</p>
+<h2 id="安全协议缺陷分类"><a href="#安全协议缺陷分类" class="headerlink" title="安全协议缺陷分类"></a>安全协议缺陷分类</h2><p>如果一个协议使得非法用户不能从协议中获得比此协议本身体现的更多的有用信息，称为该协议安全（太可证明了）<br>$$<br>Pr[M=m|C=c]=Pr[M=m]<br>$$</p>
+<ul>
+<li>基本协议缺陷：设计时没有考虑攻击</li>
+<li>口令/密钥猜测缺陷<ul>
+<li>能够检测不成功的登录，并限定</li>
+<li>对于不可检测的以及离线的猜测<ul>
+<li>认证服务器只响应新鲜的请求</li>
+<li>只响应可验证的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>陈旧消息缺陷：没有考虑重放攻击<ul>
+<li>消息源、消息目的</li>
+</ul>
+</li>
+<li>并行会话缺陷<ul>
+<li>交换一定的协议消息</li>
+</ul>
+</li>
+<li>内部协议缺陷：协议的可达性存在问题</li>
+<li>密码系统缺陷：密码强度不够</li>
+</ul>
+<h3 id="重放攻击"><a href="#重放攻击" class="headerlink" title="重放攻击"></a>重放攻击</h3><p>攻击者利用消息再生能力生成诚实用户期望的消息格式并重放</p>
+<ul>
+<li>根据消息来源分为<ul>
+<li>轮内攻击：本次会话中的消息进行重放</li>
+<li>轮外攻击：多轮会话之间进行重放</li>
+</ul>
+</li>
+<li>根据消息去向<ul>
+<li>偏转攻击：把消息传递给非意向实体</li>
+<li>直接攻击：目标正确，延迟发送了</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/08/QJav9PzEIULHnpe.png" alt="image-20220108214906118"></p>
+<p>对策：提供消息的新鲜性</p>
+<ul>
+<li>序列号<ul>
+<li>接收方比较消息中的序列号</li>
+<li>每个消息实体都需要存储一对序列号，以及商议递增的方法</li>
+<li>分布式系统中，存储开销太大</li>
+<li>适合于通信成员少</li>
+</ul>
+</li>
+<li>时间戳<ul>
+<li>消息上的时间戳与当前时钟差值在一定范围内</li>
+<li>全局时钟的问题</li>
+<li>验证者弄错了时间，很容易攻击</li>
+<li>接收方使用的是接收窗口</li>
+</ul>
+</li>
+<li>挑战响应机制(Challenge/response authentication)<ul>
+<li>简单的例子就是登录时需要口令（正确的应答）</li>
+<li>多次握手增加了开销</li>
+<li>适合于面向连接的通信</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/08/auCEmwNpTbPfFBX.png" alt="image-20220108215814048"></p>
+<h3 id="安全协议分析基础理论与方法概述"><a href="#安全协议分析基础理论与方法概述" class="headerlink" title="安全协议分析基础理论与方法概述"></a>安全协议分析基础理论与方法概述</h3><ul>
+<li>可证明安全性理论与方法<ul>
+<li>公理化分析方法</li>
+<li>构造敌手 协议规约到基本数学问题</li>
+<li>明确安全性定义 计算化语义 难以自动化分析</li>
+</ul>
+</li>
+<li>形式化分析理论与方法<ul>
+<li>BAN逻辑为代表的基于推理结构性方法</li>
+<li>以基于Dolev-Yao模型攻击结构性方法，自动化</li>
+<li>基于证明结构性方法</li>
+<li>缺点：容易自动化，语义不清楚</li>
+</ul>
+</li>
+<li>混合理论与方法<ul>
+<li>结合以上两种</li>
+</ul>
+</li>
+<li>零知识证明理论与方法<ul>
+<li>交互</li>
+<li>非交互</li>
+</ul>
+</li>
+<li>安全多方计算理论与方法</li>
+</ul>
+<h1 id="2-认证协议"><a href="#2-认证协议" class="headerlink" title="2.认证协议"></a>2.认证协议</h1><h2 id="TO-DO"><a href="#TO-DO" class="headerlink" title="TO DO"></a>TO DO</h2><ul>
 <li>作业</li>
 </ul>
 
@@ -400,7 +528,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/secure-protocol/" rel="tag"># secure protocol</a>
+              <a href="/tags/crypto/" rel="tag"># crypto</a>
           </div>
 
         
@@ -471,7 +599,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">1.安全协议概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.</span> <span class="nav-text">两个例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSSK%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.1.1.</span> <span class="nav-text">NSSK协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.1.2.</span> <span class="nav-text">TLS协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">安全协议的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.2.1.</span> <span class="nav-text">安全协议的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.2.</span> <span class="nav-text">安全协议的特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">安全协议模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dolev-Yao%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">Dolev-Yao模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%89%E5%85%A8%E5%B1%9E%E6%80%A7"><span class="nav-number">1.5.</span> <span class="nav-text">安全协议的安全属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B"><span class="nav-number">1.6.</span> <span class="nav-text">安全协议的设计过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TO-DO"><span class="nav-number">1.7.</span> <span class="nav-text">TO DO</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">1.安全协议概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.</span> <span class="nav-text">两个例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSSK%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.1.1.</span> <span class="nav-text">NSSK协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.1.2.</span> <span class="nav-text">TLS协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">安全协议的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.2.1.</span> <span class="nav-text">安全协议的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.2.</span> <span class="nav-text">安全协议的特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">安全协议模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dolev-Yao%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">Dolev-Yao模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%89%E5%85%A8%E5%B1%9E%E6%80%A7"><span class="nav-number">1.5.</span> <span class="nav-text">安全协议的安全属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B"><span class="nav-number">1.6.</span> <span class="nav-text">安全协议的设计过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E8%AE%BE%E8%AE%A1%E5%87%86%E5%88%99"><span class="nav-number">1.7.</span> <span class="nav-text">安全协议设计准则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E7%8B%AC%E7%AB%8B%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">1.7.1.</span> <span class="nav-text">消息独立完整性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E5%89%8D%E6%8F%90%E5%87%86%E7%A1%AE%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.2.</span> <span class="nav-text">消息前提准确原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%A7%E5%98%B4%E9%9D%92%E8%9B%99%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">大嘴青蛙协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E4%BD%93%E8%BA%AB%E4%BB%BD%E6%A0%87%E8%AF%86%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.3.</span> <span class="nav-text">主体身份标识原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E7%9B%AE%E7%9A%84%E6%98%8E%E7%A1%AE%E6%80%A7%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.4.</span> <span class="nav-text">加密目的明确性原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%BE%E5%90%8D%E5%90%AB%E4%B9%89%E6%B8%85%E6%99%B0%E6%80%A7%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.5.</span> <span class="nav-text">签名含义清晰性原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%B4%E6%97%B6%E5%80%BC%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.6.</span> <span class="nav-text">临时值使用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%95%B0%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.7.</span> <span class="nav-text">随机数使用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%88%B3%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.8.</span> <span class="nav-text">时间戳使用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E9%92%A5%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.9.</span> <span class="nav-text">密钥使用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E8%AF%86%E5%88%AB%E5%92%8C%E7%BC%96%E7%A0%81%E5%87%86%E5%88%99"><span class="nav-number">1.7.10.</span> <span class="nav-text">消息识别和编码准则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E4%BB%BB%E5%87%86%E5%88%99"><span class="nav-number">1.7.11.</span> <span class="nav-text">信任准则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%BC%BA%E9%99%B7%E5%88%86%E7%B1%BB"><span class="nav-number">1.8.</span> <span class="nav-text">安全协议缺陷分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E6%94%BE%E6%94%BB%E5%87%BB"><span class="nav-number">1.8.1.</span> <span class="nav-text">重放攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA%E4%B8%8E%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="nav-number">1.8.2.</span> <span class="nav-text">安全协议分析基础理论与方法概述</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">2.认证协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TO-DO"><span class="nav-number">2.1.</span> <span class="nav-text">TO DO</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -490,11 +618,16 @@
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
 
 
 
@@ -574,6 +707,61 @@
 
 
   
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
