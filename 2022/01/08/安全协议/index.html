@@ -29,6 +29,8 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s2.loli.net/2022/01/08/GoAsRY5lJ7iSb8k.png">
 <meta property="og:image" content="https://s2.loli.net/2022/01/08/f49EResTSny3lrz.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/09/bZHAxh5MXyiNKJd.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/09/UzpPMabtDcO2igx.png">
 <meta property="og:image" content="https://s2.loli.net/2022/01/08/JniMaAdgIQHZpxK.png">
 <meta property="og:image" content="https://s2.loli.net/2022/01/08/VzaibB1eJtrDTsM.png">
 <meta property="og:image" content="https://s2.loli.net/2022/01/08/E72uvNIVbtCBlWa.png">
@@ -36,8 +38,12 @@
 <meta property="og:image" content="https://s2.loli.net/2022/01/08/qBrmIP7YZwOnMod.png">
 <meta property="og:image" content="https://s2.loli.net/2022/01/08/QJav9PzEIULHnpe.png">
 <meta property="og:image" content="https://s2.loli.net/2022/01/08/auCEmwNpTbPfFBX.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/09/zuyhaUeYKnlHi64.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/09/B7OJiuXh9SzjLo8.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/09/oEI3O1ku8pULm6b.png">
+<meta property="og:image" content="https://s2.loli.net/2022/01/09/XuoBG2aNRSzJwDc.png">
 <meta property="article:published_time" content="2022-01-08T07:55:29.000Z">
-<meta property="article:modified_time" content="2022-01-08T14:49:26.873Z">
+<meta property="article:modified_time" content="2022-01-09T07:18:27.390Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="crypto">
 <meta name="twitter:card" content="summary">
@@ -193,10 +199,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-01-08 15:55:29 / Modified: 22:49:26" itemprop="dateCreated datePublished" datetime="2022-01-08T15:55:29+08:00">2022-01-08</time>
+              <time title="Created: 2022-01-08 15:55:29" itemprop="dateCreated datePublished" datetime="2022-01-08T15:55:29+08:00">2022-01-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-09 15:18:27" itemprop="dateModified" datetime="2022-01-09T15:18:27+08:00">2022-01-09</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -236,6 +248,19 @@
 <p><img src="https://s2.loli.net/2022/01/08/GoAsRY5lJ7iSb8k.png" alt="image-20220108155634724"></p>
 <p>若敌手获得曾经的$K_{ab’}$，重放3即可欺骗B，根本原因在于B对于协议的通信没有控制权，此时B只能相信A在场，而无法相信$K_{ab}$新鲜</p>
 <img src="https://s2.loli.net/2022/01/08/f49EResTSny3lrz.png" alt="image-20220108175844468" style="zoom:50%;" />
+
+<p>攻击</p>
+<ul>
+<li>假冒A与B通信让B以为在和A通信，可以在A离线时就进行重放消息3</li>
+</ul>
+<img src="https://s2.loli.net/2022/01/09/bZHAxh5MXyiNKJd.png" alt="image-20220109102455064" style="zoom:67%;" />
+
+<ul>
+<li>冒充B，因为A无法确认B是否拥有会话密钥，即</li>
+</ul>
+<p>$$<br>A \gets N_p \<br>  P \gets { \  {N_p}<em>{k</em>{ab} \ }^{-1}-1}<em>{k</em>{ab} \  }<br>$$</p>
+<p>  改进：</p>
+  <img src="https://s2.loli.net/2022/01/09/UzpPMabtDcO2igx.png" alt="image-20220109110318756" style="zoom: 50%;" />
 
 <h3 id="TLS协议"><a href="#TLS协议" class="headerlink" title="TLS协议"></a>TLS协议</h3><ul>
 <li><p>握手协议</p>
@@ -359,7 +384,7 @@
 <li>认证性：对抗假冒攻击<ul>
 <li>确保身份，获得信任</li>
 <li>单向/双向认证</li>
-<li>claimer拿出证明身份证据的过程称为认证</li>
+<li>claimant拿出证明身份证据的过程称为认证</li>
 </ul>
 </li>
 <li>机密性：抵抗被动攻击<ul>
@@ -535,7 +560,60 @@
 </li>
 <li>安全多方计算理论与方法</li>
 </ul>
-<h1 id="2-认证协议"><a href="#2-认证协议" class="headerlink" title="2.认证协议"></a>2.认证协议</h1><h2 id="TO-DO"><a href="#TO-DO" class="headerlink" title="TO DO"></a>TO DO</h2><ul>
+<h1 id="2-认证协议"><a href="#2-认证协议" class="headerlink" title="2.认证协议"></a>2.认证协议</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>认证协议是网络安全的一个重要组成部分，需要通过认证协议进行</p>
+<ul>
+<li>实体间的认证</li>
+<li>实体间安全分配密钥</li>
+<li>确认发送、不可抵赖性</li>
+</ul>
+<p>认证是一个通信过程，verifier验证claimant声称的某种属性，至少涉及两个实体</p>
+<ul>
+<li>验证消息的某种属性，称为数据源认证，消息认证</li>
+<li>验证实体的身份，称为实体认证</li>
+</ul>
+<p>攻击者成功攻击：不攻破密码算法的前提下，已未经授权且不被察觉的方式获得某种信任或者破坏了密码服务，设计缺陷</p>
+<h2 id="经典认证协议"><a href="#经典认证协议" class="headerlink" title="经典认证协议"></a>经典认证协议</h2><h3 id="基于对称密码的实体认证"><a href="#基于对称密码的实体认证" class="headerlink" title="基于对称密码的实体认证"></a>基于对称密码的实体认证</h3><p>目的：实体和消息</p>
+<h4 id="单次传输，单向认证"><a href="#单次传输，单向认证" class="headerlink" title="单次传输，单向认证"></a>单次传输，单向认证</h4><p>一次传输，非交互，采用了时间戳或者序列号，前提是需要同步<br>$$<br>SE_{K{ab}}([T_a|SN_a],Bob)<br>$$<br>同样可以采用随机数，但是协议需要进行交互，增加了交互的开销</p>
+<h4 id="两次传输，单向认证"><a href="#两次传输，单向认证" class="headerlink" title="两次传输，单向认证"></a>两次传输，单向认证</h4><p>$$<br>A \gets N_b\<br>B \gets SE_{K{ab}}(N_b,Bob)<br>$$</p>
+<p>第一条消息为challenge</p>
+<p>第二条消息为response</p>
+<p>随机数只使用一次，称为$Nonce$</p>
+<p>临时值与时间戳的区别</p>
+<ul>
+<li>临时值是某个主体产生的随机数，只能验证对方是否真实</li>
+<li>时间戳不和某个主体关联，任何一个主体产生的时间戳都能被其他主体用来检验消息的随机性</li>
+<li>时间戳不具有唯一性，带有一个有效范围</li>
+<li>临时值具有唯一性，很长一段时间内临时值不会重复</li>
+</ul>
+<h4 id="两次传输，双向认证"><a href="#两次传输，双向认证" class="headerlink" title="两次传输，双向认证"></a>两次传输，双向认证</h4><p>$$<br>B\gets SE_{K{ab}}(T_a,Bob) \<br>A\gets SE_{K{ab}}(T_b,Alice)<br>$$</p>
+<p>缺点是时钟同步问题</p>
+<h4 id="三次传输，双向认证"><a href="#三次传输，双向认证" class="headerlink" title="三次传输，双向认证"></a>三次传输，双向认证</h4><p>$$<br>A \gets N_b \<br>B\gets SE_{K{ab}}(N_a,N_b,Bob) \<br>A\gets SE_{K{ab}}(N_a,Alice)<br>$$</p>
+<h3 id="基于哈希函数的实体认证"><a href="#基于哈希函数的实体认证" class="headerlink" title="基于哈希函数的实体认证"></a>基于哈希函数的实体认证</h3><h4 id="一次传输，单向认证"><a href="#一次传输，单向认证" class="headerlink" title="一次传输，单向认证"></a>一次传输，单向认证</h4><p>$$<br>B \gets Hash_{K{ab}}(T_a,Bob),T_a,Bob<br>$$</p>
+<h4 id="两次传输，单向认证-1"><a href="#两次传输，单向认证-1" class="headerlink" title="两次传输，单向认证"></a>两次传输，单向认证</h4><p>$$<br>A \gets N_b \<br>B \gets Hash_{K{ab}}(N_b,Bob)<br>$$</p>
+<h4 id="两次传输，双向认证-1"><a href="#两次传输，双向认证-1" class="headerlink" title="两次传输，双向认证"></a>两次传输，双向认证</h4><p>$$<br>B \gets Hash_{K{ab}}(T_a,Bob),T_a,Bob \<br>A \gets Hash_{K{ab}}(T_b,Alice),T_b,Alice<br>$$</p>
+<h4 id="三次传输，双向认证-1"><a href="#三次传输，双向认证-1" class="headerlink" title="三次传输，双向认证"></a>三次传输，双向认证</h4><p>$$<br>A \gets N_b \<br>B \gets Hash_{K_{ab}}(N_a,N_b,Bob),N_a \<br>A \gets Hash_{K{ab}}(N_a,N_b) \<br>$$</p>
+<p>这里的$N_b$冗余？</p>
+<h3 id="基于公钥密码的实体认证"><a href="#基于公钥密码的实体认证" class="headerlink" title="基于公钥密码的实体认证"></a>基于公钥密码的实体认证</h3><h4 id="一次传输，双向认证"><a href="#一次传输，双向认证" class="headerlink" title="一次传输，双向认证"></a>一次传输，双向认证</h4><p>$$<br>B \gets Sign_{sk_a}(T_A,Bob)，T_a,Bob,Cert_A \<br>$$</p>
+<h4 id="两次传输，双向认证-2"><a href="#两次传输，双向认证-2" class="headerlink" title="两次传输，双向认证"></a>两次传输，双向认证</h4><p>$$<br>B \gets Sign_{sk_a}(T_A,Bob)，T_a,Bob,Cert_A \<br>A \gets Sign_{sk_b}(T_b,Alice)，T_b,Alice,Cert_b \<br>$$</p>
+<h4 id="两次传输，单向认证-2"><a href="#两次传输，单向认证-2" class="headerlink" title="两次传输，单向认证"></a>两次传输，单向认证</h4><p>$$<br>A \gets N_b \<br>B \gets Sign_{sk_a}(N_b,Bob)\<br>B \ verify<br>$$</p>
+<p>考虑此时若$N_b=Hash(把A的财产转移给B)$</p>
+<p>A对自己的签名中的随机数没有控制</p>
+<h4 id="三次传输，双向认证-2"><a href="#三次传输，双向认证-2" class="headerlink" title="三次传输，双向认证"></a>三次传输，双向认证</h4><p>存在中间人攻击</p>
+<p><img src="https://s2.loli.net/2022/01/09/zuyhaUeYKnlHi64.png" alt="image-20220109101826107"></p>
+<h3 id="基于TTP的认证协议"><a href="#基于TTP的认证协议" class="headerlink" title="基于TTP的认证协议"></a>基于TTP的认证协议</h3><ul>
+<li><p>nssk</p>
+</li>
+<li><p>nspk</p>
+</li>
+<li><p>otway-Rees</p>
+<p><img src="https://s2.loli.net/2022/01/09/B7OJiuXh9SzjLo8.png" alt="image-20220109112218189"></p>
+</li>
+</ul>
+<p>A和B分别请求得到对方的公钥</p>
+<p>后进行新鲜性认证</p>
+<p><img src="https://s2.loli.net/2022/01/09/oEI3O1ku8pULm6b.png" alt="image-20220109113343139"></p>
+<p><img src="https://s2.loli.net/2022/01/09/XuoBG2aNRSzJwDc.png" alt="image-20220109114150720"></p>
+<h2 id="TO-DO"><a href="#TO-DO" class="headerlink" title="TO DO"></a>TO DO</h2><ul>
 <li>作业</li>
 </ul>
 
@@ -618,7 +696,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">1.安全协议概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.</span> <span class="nav-text">两个例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSSK%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.1.1.</span> <span class="nav-text">NSSK协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.1.2.</span> <span class="nav-text">TLS协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">安全协议的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.2.1.</span> <span class="nav-text">安全协议的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.2.</span> <span class="nav-text">安全协议的特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">安全协议模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dolev-Yao%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">Dolev-Yao模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%89%E5%85%A8%E5%B1%9E%E6%80%A7"><span class="nav-number">1.5.</span> <span class="nav-text">安全协议的安全属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B"><span class="nav-number">1.6.</span> <span class="nav-text">安全协议的设计过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E8%AE%BE%E8%AE%A1%E5%87%86%E5%88%99"><span class="nav-number">1.7.</span> <span class="nav-text">安全协议设计准则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E7%8B%AC%E7%AB%8B%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">1.7.1.</span> <span class="nav-text">消息独立完整性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E5%89%8D%E6%8F%90%E5%87%86%E7%A1%AE%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.2.</span> <span class="nav-text">消息前提准确原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%A7%E5%98%B4%E9%9D%92%E8%9B%99%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">大嘴青蛙协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E4%BD%93%E8%BA%AB%E4%BB%BD%E6%A0%87%E8%AF%86%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.3.</span> <span class="nav-text">主体身份标识原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E7%9B%AE%E7%9A%84%E6%98%8E%E7%A1%AE%E6%80%A7%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.4.</span> <span class="nav-text">加密目的明确性原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%BE%E5%90%8D%E5%90%AB%E4%B9%89%E6%B8%85%E6%99%B0%E6%80%A7%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.5.</span> <span class="nav-text">签名含义清晰性原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%B4%E6%97%B6%E5%80%BC%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.6.</span> <span class="nav-text">临时值使用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%95%B0%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.7.</span> <span class="nav-text">随机数使用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%88%B3%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.8.</span> <span class="nav-text">时间戳使用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E9%92%A5%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.9.</span> <span class="nav-text">密钥使用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E8%AF%86%E5%88%AB%E5%92%8C%E7%BC%96%E7%A0%81%E5%87%86%E5%88%99"><span class="nav-number">1.7.10.</span> <span class="nav-text">消息识别和编码准则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E4%BB%BB%E5%87%86%E5%88%99"><span class="nav-number">1.7.11.</span> <span class="nav-text">信任准则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%BC%BA%E9%99%B7%E5%88%86%E7%B1%BB"><span class="nav-number">1.8.</span> <span class="nav-text">安全协议缺陷分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E6%94%BE%E6%94%BB%E5%87%BB"><span class="nav-number">1.8.1.</span> <span class="nav-text">重放攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA%E4%B8%8E%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="nav-number">1.8.2.</span> <span class="nav-text">安全协议分析基础理论与方法概述</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">2.认证协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TO-DO"><span class="nav-number">2.1.</span> <span class="nav-text">TO DO</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">1.安全协议概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.</span> <span class="nav-text">两个例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSSK%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.1.1.</span> <span class="nav-text">NSSK协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.1.2.</span> <span class="nav-text">TLS协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">安全协议的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.2.1.</span> <span class="nav-text">安全协议的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.2.</span> <span class="nav-text">安全协议的特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">安全协议模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dolev-Yao%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">Dolev-Yao模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%89%E5%85%A8%E5%B1%9E%E6%80%A7"><span class="nav-number">1.5.</span> <span class="nav-text">安全协议的安全属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B"><span class="nav-number">1.6.</span> <span class="nav-text">安全协议的设计过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E8%AE%BE%E8%AE%A1%E5%87%86%E5%88%99"><span class="nav-number">1.7.</span> <span class="nav-text">安全协议设计准则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E7%8B%AC%E7%AB%8B%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">1.7.1.</span> <span class="nav-text">消息独立完整性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E5%89%8D%E6%8F%90%E5%87%86%E7%A1%AE%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.2.</span> <span class="nav-text">消息前提准确原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%A7%E5%98%B4%E9%9D%92%E8%9B%99%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">大嘴青蛙协议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E4%BD%93%E8%BA%AB%E4%BB%BD%E6%A0%87%E8%AF%86%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.3.</span> <span class="nav-text">主体身份标识原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E7%9B%AE%E7%9A%84%E6%98%8E%E7%A1%AE%E6%80%A7%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.4.</span> <span class="nav-text">加密目的明确性原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%BE%E5%90%8D%E5%90%AB%E4%B9%89%E6%B8%85%E6%99%B0%E6%80%A7%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.5.</span> <span class="nav-text">签名含义清晰性原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%B4%E6%97%B6%E5%80%BC%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.6.</span> <span class="nav-text">临时值使用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%95%B0%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.7.</span> <span class="nav-text">随机数使用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%88%B3%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.8.</span> <span class="nav-text">时间戳使用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E9%92%A5%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.7.9.</span> <span class="nav-text">密钥使用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E8%AF%86%E5%88%AB%E5%92%8C%E7%BC%96%E7%A0%81%E5%87%86%E5%88%99"><span class="nav-number">1.7.10.</span> <span class="nav-text">消息识别和编码准则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E4%BB%BB%E5%87%86%E5%88%99"><span class="nav-number">1.7.11.</span> <span class="nav-text">信任准则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%BC%BA%E9%99%B7%E5%88%86%E7%B1%BB"><span class="nav-number">1.8.</span> <span class="nav-text">安全协议缺陷分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E6%94%BE%E6%94%BB%E5%87%BB"><span class="nav-number">1.8.1.</span> <span class="nav-text">重放攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA%E4%B8%8E%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="nav-number">1.8.2.</span> <span class="nav-text">安全协议分析基础理论与方法概述</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">2.认证协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.</span> <span class="nav-text">经典认证协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81%E7%9A%84%E5%AE%9E%E4%BD%93%E8%AE%A4%E8%AF%81"><span class="nav-number">2.2.1.</span> <span class="nav-text">基于对称密码的实体认证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E6%AC%A1%E4%BC%A0%E8%BE%93%EF%BC%8C%E5%8D%95%E5%90%91%E8%AE%A4%E8%AF%81"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">单次传输，单向认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E6%AC%A1%E4%BC%A0%E8%BE%93%EF%BC%8C%E5%8D%95%E5%90%91%E8%AE%A4%E8%AF%81"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">两次传输，单向认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E6%AC%A1%E4%BC%A0%E8%BE%93%EF%BC%8C%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">两次传输，双向认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E4%BC%A0%E8%BE%93%EF%BC%8C%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81"><span class="nav-number">2.2.1.4.</span> <span class="nav-text">三次传输，双向认证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9E%E4%BD%93%E8%AE%A4%E8%AF%81"><span class="nav-number">2.2.2.</span> <span class="nav-text">基于哈希函数的实体认证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E6%AC%A1%E4%BC%A0%E8%BE%93%EF%BC%8C%E5%8D%95%E5%90%91%E8%AE%A4%E8%AF%81"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">一次传输，单向认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E6%AC%A1%E4%BC%A0%E8%BE%93%EF%BC%8C%E5%8D%95%E5%90%91%E8%AE%A4%E8%AF%81-1"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">两次传输，单向认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E6%AC%A1%E4%BC%A0%E8%BE%93%EF%BC%8C%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81-1"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">两次传输，双向认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E4%BC%A0%E8%BE%93%EF%BC%8C%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81-1"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">三次传输，双向认证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E7%9A%84%E5%AE%9E%E4%BD%93%E8%AE%A4%E8%AF%81"><span class="nav-number">2.2.3.</span> <span class="nav-text">基于公钥密码的实体认证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E6%AC%A1%E4%BC%A0%E8%BE%93%EF%BC%8C%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">一次传输，双向认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E6%AC%A1%E4%BC%A0%E8%BE%93%EF%BC%8C%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81-2"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">两次传输，双向认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E6%AC%A1%E4%BC%A0%E8%BE%93%EF%BC%8C%E5%8D%95%E5%90%91%E8%AE%A4%E8%AF%81-2"><span class="nav-number">2.2.3.3.</span> <span class="nav-text">两次传输，单向认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E4%BC%A0%E8%BE%93%EF%BC%8C%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81-2"><span class="nav-number">2.2.3.4.</span> <span class="nav-text">三次传输，双向认证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8ETTP%E7%9A%84%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.4.</span> <span class="nav-text">基于TTP的认证协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TO-DO"><span class="nav-number">2.3.</span> <span class="nav-text">TO DO</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
