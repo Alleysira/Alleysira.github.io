@@ -189,7 +189,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-11 23:13:58" itemprop="dateModified" datetime="2022-01-11T23:13:58+08:00">2022-01-11</time>
+                <time title="Modified: 2022-01-12 10:46:14" itemprop="dateModified" datetime="2022-01-12T10:46:14+08:00">2022-01-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -756,7 +756,7 @@
 <ul>
 <li>第一条消息是ClientHello，客户端发送支持的tls版本以及加密、压缩算法集合</li>
 <li>服务器收到后选定ssl/tls版本和算法，并发送ServerHello</li>
-<li>可选字段 公钥算法就发送X。509v3</li>
+<li>可选字段 公钥算法就发送X.509v3</li>
 <li>证书信息不足时额外发送serverKeyExchange</li>
 <li>服务端可以验证客户机，要求客户机发送证书</li>
 <li>Hello消息处理结束后发送Done</li>
@@ -836,11 +836,12 @@
 </ul>
 <p>设计可验证的秘密分享体制</p>
 <p>分发中心广播对秘密的承诺</p>
-<h3 id="2选1OT"><a href="#2选1OT" class="headerlink" title="2选1OT"></a>2选1OT</h3><p>Sender with input $m_0,m_1$,outputs nothing. Receiver with input $b$, outputs $m_b$</p>
+<h2 id="2选1OT"><a href="#2选1OT" class="headerlink" title="2选1OT"></a>2选1OT</h2><p>Sender with input $m_0,m_1$,outputs nothing. Receiver with input $b$, outputs $m_b$</p>
 <p>Sender sends $pk_0,pk_1$</p>
 <p>Receiver gets $r\gets {0,1}^n,c\gets Enc_{pk_b}(r)$</p>
 <p>Senders calculates<br>$$<br>r_0=Dec_{sk_0}(c),r_1=Dec_{sk_1}(c),d_0=m_0\oplus r_0,d_1=m_1\oplus r_1<br>$$<br>Receivers calculates $m_b=d_b\oplus r$</p>
-<p>分析方案，首先是效率上采用公钥加密长秘密值没有必要，带来了生成两次公钥并传输的额外开销。</p>
+<p>考虑使用一组公钥原语，根据生成随机数和生成公钥的效率选择不同方案</p>
+<p><img src="https://s2.loli.net/2022/01/12/PwgoWBmHYMEKeyF.png" alt="image-20220112103041021"></p>
 
       
     </div>
