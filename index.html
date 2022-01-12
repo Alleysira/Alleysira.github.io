@@ -189,7 +189,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-10 20:57:15" itemprop="dateModified" datetime="2022-01-10T20:57:15+08:00">2022-01-10</time>
+                <time title="Modified: 2022-01-11 23:13:58" itemprop="dateModified" datetime="2022-01-11T23:13:58+08:00">2022-01-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -459,8 +459,10 @@
 <p>通常不能相信参与者选择一个好的会话密钥</p>
 <h2 id="安全协议缺陷分类"><a href="#安全协议缺陷分类" class="headerlink" title="安全协议缺陷分类"></a>安全协议缺陷分类</h2><p>如果一个协议使得非法用户不能从协议中获得比此协议本身体现的更多的有用信息，称为该协议安全（太可证明了）<br>$$<br>Pr[M=m|C=c]=Pr[M=m]<br>$$</p>
 <ul>
-<li>基本协议缺陷：设计时没有考虑攻击</li>
-<li>口令/密钥猜测缺陷<ul>
+<li><p>基本协议缺陷：设计时没有考虑攻击</p>
+</li>
+<li><p>口令/密钥猜测缺陷：口令容易猜测，不安全的伪随机函数构造密钥</p>
+<ul>
 <li>能够检测不成功的登录，并限定</li>
 <li>对于不可检测的以及离线的猜测<ul>
 <li>认证服务器只响应新鲜的请求</li>
@@ -469,16 +471,20 @@
 </li>
 </ul>
 </li>
-<li>陈旧消息缺陷：没有考虑重放攻击<ul>
+<li><p>陈旧消息缺陷：没有考虑重放攻击</p>
+<ul>
 <li>消息源、消息目的</li>
 </ul>
 </li>
-<li>并行会话缺陷<ul>
+<li><p>并行会话缺陷</p>
+<ul>
 <li>交换一定的协议消息</li>
 </ul>
 </li>
-<li>内部协议缺陷：协议的可达性存在问题</li>
-<li>密码系统缺陷：密码强度不够</li>
+<li><p>内部协议缺陷：协议的可达性存在问题</p>
+</li>
+<li><p>密码系统缺陷：密码强度不够</p>
+</li>
 </ul>
 <h3 id="重放攻击"><a href="#重放攻击" class="headerlink" title="重放攻击"></a>重放攻击</h3><p>攻击者利用消息再生能力生成诚实用户期望的消息格式并重放</p>
 <ul>
@@ -576,11 +582,12 @@
 <h4 id="两次传输，双向认证-1"><a href="#两次传输，双向认证-1" class="headerlink" title="两次传输，双向认证"></a>两次传输，双向认证</h4><p>$$<br>B \gets Hash_{K{ab}}(T_a,Bob),T_a,Bob \<br>A \gets Hash_{K{ab}}(T_b,Alice),T_b,Alice<br>$$</p>
 <h4 id="三次传输，双向认证-1"><a href="#三次传输，双向认证-1" class="headerlink" title="三次传输，双向认证"></a>三次传输，双向认证</h4><p>$$<br>A \gets N_b \<br>B \gets Hash_{K_{ab}}(N_a,N_b,Bob),N_a \<br>A \gets Hash_{K{ab}}(N_a,N_b) \<br>$$</p>
 <p>这里的$N_b$冗余？</p>
-<h3 id="基于公钥密码的实体认证"><a href="#基于公钥密码的实体认证" class="headerlink" title="基于公钥密码的实体认证"></a>基于公钥密码的实体认证</h3><h4 id="一次传输，双向认证"><a href="#一次传输，双向认证" class="headerlink" title="一次传输，双向认证"></a>一次传输，双向认证</h4><p>$$<br>B \gets Sign_{sk_a}(T_A,Bob)，T_a,Bob,Cert_A \<br>$$</p>
+<h3 id="基于公钥密码的实体认证"><a href="#基于公钥密码的实体认证" class="headerlink" title="基于公钥密码的实体认证"></a>基于公钥密码的实体认证</h3><h4 id="一次传输，单向认证-1"><a href="#一次传输，单向认证-1" class="headerlink" title="一次传输，单向认证"></a>一次传输，单向认证</h4><p>$$<br>B \gets Sign_{sk_a}(T_A,Bob)，T_a,Bob,Cert_A \<br>$$</p>
 <h4 id="两次传输，双向认证-2"><a href="#两次传输，双向认证-2" class="headerlink" title="两次传输，双向认证"></a>两次传输，双向认证</h4><p>$$<br>B \gets Sign_{sk_a}(T_A,Bob)，T_a,Bob,Cert_A \<br>A \gets Sign_{sk_b}(T_b,Alice)，T_b,Alice,Cert_b \<br>$$</p>
 <h4 id="两次传输，单向认证-2"><a href="#两次传输，单向认证-2" class="headerlink" title="两次传输，单向认证"></a>两次传输，单向认证</h4><p>$$<br>A \gets N_b \<br>B \gets Sign_{sk_a}(N_b,Bob)\<br>B \ verify<br>$$</p>
 <p>考虑此时若$N_b=Hash(把A的财产转移给B)$</p>
 <p>A对自己的签名中的随机数没有控制</p>
+<p>改进，此时$A$可以加入自己的随机数$N_a$</p>
 <h4 id="三次传输，双向认证-2"><a href="#三次传输，双向认证-2" class="headerlink" title="三次传输，双向认证"></a>三次传输，双向认证</h4><p>存在中间人攻击</p>
 <p><img src="https://s2.loli.net/2022/01/09/zuyhaUeYKnlHi64.png" alt="image-20220109101826107"></p>
 <h3 id="基于TTP的认证协议"><a href="#基于TTP的认证协议" class="headerlink" title="基于TTP的认证协议"></a>基于TTP的认证协议</h3><ul>
@@ -595,6 +602,8 @@
 <p>A和B分别请求得到对方的公钥</p>
 <p>后进行新鲜性认证</p>
 <p><img src="https://s2.loli.net/2022/01/09/oEI3O1ku8pULm6b.png" alt="image-20220109113343139"></p>
+<p><img src="https://s2.loli.net/2022/01/11/5wqminHLuByZpgE.png" alt="image-20220111220529827"></p>
+<p>存在类似中间人攻击的情况，区别在于A假装和B通信</p>
 <p><img src="https://s2.loli.net/2022/01/09/XuoBG2aNRSzJwDc.png" alt="image-20220109114150720"></p>
 <ul>
 <li>协议目的是A和B之间建立会话密钥</li>
@@ -663,7 +672,7 @@
 <li>模型检测方法：基于代数方法构造有限状态模型</li>
 <li>定理证明方法：将密码协议的安全性作为定理证明</li>
 </ul>
-<p>最早把形式化方法视为安全协议分析工具的是Needham和Schroeder，但最早的实际<br>工作由 Dolev 和 Yao 完3成。</p>
+<p>最早把形式化方法视为安全协议分析工具的是Needham和Schroeder，但最早的实际<br>工作由 Dolev 和 Yao 完成。</p>
 <h1 id="比特承诺"><a href="#比特承诺" class="headerlink" title="比特承诺"></a>比特承诺</h1><ul>
 <li>承诺阶段：发送方选择一个要承诺的比特b并发送给B</li>
 <li>打开阶段：A把用于打开承诺的消息d和b发送给B，b用d打开并验证是否是A承诺的比特</li>
