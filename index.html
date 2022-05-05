@@ -183,7 +183,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-05-05 13:54:46 / Modified: 19:18:40" itemprop="dateCreated datePublished" datetime="2022-05-05T13:54:46+08:00">2022-05-05</time>
+              <time title="Created: 2022-05-05 13:54:46 / Modified: 21:00:03" itemprop="dateCreated datePublished" datetime="2022-05-05T13:54:46+08:00">2022-05-05</time>
             </span>
 
           
@@ -198,40 +198,14 @@
 
       
           <h1 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h1><p><img src="https://s2.loli.net/2022/05/05/IKti6LfV8MFAv4e.png" alt="画布 1"></p>
-<h1 id="From-C-to-CPP"><a href="#From-C-to-CPP" class="headerlink" title="From C to CPP"></a>From C to CPP</h1><h2 id="macro"><a href="#macro" class="headerlink" title="macro"></a>macro</h2><h3 id="常量宏"><a href="#常量宏" class="headerlink" title="常量宏"></a>常量宏</h3><p>在编译的预处理阶段进行简单的字符替换，为程序提供更好的可读性，避免魔法数</p>
-<p>C语言的<em>NULL</em>就是语言预定义的宏</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.14 <span class="comment">//no magic number</span></span></span><br></pre></td></tr></table></figure>
-
-<h3 id="函数宏"><a href="#函数宏" class="headerlink" title="函数宏"></a>函数宏</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#defien ARRAy_SIZE(a) sizeof(a)/sizeof(a[0])</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ADD(a,b) a+b</span></span><br></pre></td></tr></table></figure>
-
-<p>函数宏的初衷是消除函数调用的开销，保持函数的结构。在运行时，不会带来额外的时间和空间开销，而函数会在运行时执行压栈出栈的操作，存在函数调用的开销。</p>
-<p>但是建议写函数，由于函数宏可读性差，可能出现奇怪的bug</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> sqr(x) ((x)*(x))</span></span><br><span class="line"><span class="comment">//considering sqr(a++),returns (a+1)*(a+2)</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="控制宏"><a href="#控制宏" class="headerlink" title="控制宏"></a>控制宏</h3><p>用于防止头文件重复包含，实现一种代码开关控制</p>
-<p>规范的头文件的结构都应该是如下结构：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL_VER </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOCAL_VER </span></span><br><span class="line">...</span><br><span class="line">.h contents</span><br><span class="line">...</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
-<h4 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h4><p>头文件应该含有如下内容：</p>
-<ul>
-<li>macro</li>
-<li>function declearation</li>
-<li>struct</li>
-</ul>
-<p>头文件只能被包含一次</p>
-<h2 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h2><p>*sizeof()*是一个操作符，结构体的sizeof涉及到字节对齐的问题</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span>  <span class="keyword">namespace</span> std; </span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Test</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> i;<span class="comment">// 4</span></span><br><span class="line">	<span class="keyword">double</span> d;<span class="comment">// 8</span></span><br><span class="line">	<span class="keyword">char</span> c;<span class="comment">// 1</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">cout&lt;&lt;<span class="built_in"><span class="keyword">sizeof</span></span>(Test)&lt;&lt;endl;<span class="comment">// 24</span></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>字节对齐的细节和编译器的实现相关，但一般而言，满足三个准则：</p>
-<ul>
-<li><p>结构体变量的首地址能够被其最宽基本类型成员的大小所整除。</p>
-</li>
-<li><p>结构体的每个成员相对于结构体首地址的偏移量（offset）都是成员大小的整数倍，如有需要，编译器会在成员之间加上填充字节（internal adding）。</p>
-</li>
-<li><p>结构体的总大小为结构体最宽基本类型成员大小的整数倍，如有需要，编译器会在最末一个成员后加上填充字节（trailing padding）。</p>
-</li>
-</ul>
-<h2 id="run-time-memory"><a href="#run-time-memory" class="headerlink" title="run time memory"></a>run time memory</h2><h3 id="stack"><a href="#stack" class="headerlink" title="stack"></a>stack</h3><h3 id="heap"><a href="#heap" class="headerlink" title="heap"></a>heap</h3><h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><h3 id="text"><a href="#text" class="headerlink" title="text"></a>text</h3><h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/05/05/C-OOP/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
