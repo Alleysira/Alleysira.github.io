@@ -20,13 +20,15 @@
     var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="查询">
+<meta property="og:type" content="article">
 <meta property="og:title" content="sql1">
 <meta property="og:url" content="https://alleysira.github.io/2021/09/08/sql1/">
 <meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="查询">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-09-08T11:21:47.000Z">
-<meta property="article:modified_time" content="2022-05-12T14:01:47.640Z">
+<meta property="article:modified_time" content="2022-05-13T02:10:31.454Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="database">
 <meta name="twitter:card" content="summary">
@@ -189,7 +191,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-12 22:01:47" itemprop="dateModified" datetime="2022-05-12T22:01:47+08:00">2022-05-12</time>
+                <time title="Modified: 2022-05-13 10:10:31" itemprop="dateModified" datetime="2022-05-13T10:10:31+08:00">2022-05-13</time>
               </span>
 
           
@@ -203,17 +205,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <!--toc-->
+        <h1><span id="查询">查询</span></h1><span id="more"></span>
 
-<span id="more"></span>
-
-<h1><span id="cha-xun">查询</span><a href="#cha-xun" class="header-anchor">#</a></h1><h2><span id="ji-ben-cha-xun">基本查询</span><a href="#ji-ben-cha-xun" class="header-anchor">#</a></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="operator">&lt;</span>表名<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+<h2><span id="基本查询">基本查询</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="operator">&lt;</span>表名<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>*表示所有列，FROM 表示从哪个表查询</p>
 <p>SELECT语句可以用来计算，不一定需要FROM,一般用于测试数据库连接</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="number">100</span><span class="operator">+</span><span class="number">200</span>;</span><br></pre></td></tr></table></figure>
 
-<h2><span id="tiao-jian-cha-xun">条件查询</span><a href="#tiao-jian-cha-xun" class="header-anchor">#</a></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> students <span class="keyword">WHERE</span> score<span class="operator">&gt;=</span><span class="number">80</span>;</span><br></pre></td></tr></table></figure>
+<h2><span id="条件查询">条件查询</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> students <span class="keyword">WHERE</span> score<span class="operator">&gt;=</span><span class="number">80</span>;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM &lt;表名&gt; WHERE &lt;条件表达式&gt;</span><br></pre></td></tr></table></figure>
 
@@ -223,26 +223,26 @@
 <li>&lt;条件1&gt; OR &lt;条件2&gt;</li>
 <li>NOT &lt;条件&gt;</li>
 </ul>
-<h2><span id="tou-ying-cha-xun">投影查询</span><a href="#tou-ying-cha-xun" class="header-anchor">#</a></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 列<span class="number">1</span>, 列<span class="number">2</span>, 列<span class="number">3</span> <span class="keyword">FROM</span> ...</span><br><span class="line"><span class="keyword">SELECT</span> 列<span class="number">1</span> 别名<span class="number">1</span>, 列<span class="number">2</span> 别名<span class="number">2</span>, 列<span class="number">3</span> 别名<span class="number">3</span> <span class="keyword">FROM</span> ...</span><br></pre></td></tr></table></figure>
+<h2><span id="投影查询">投影查询</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 列<span class="number">1</span>, 列<span class="number">2</span>, 列<span class="number">3</span> <span class="keyword">FROM</span> ...</span><br><span class="line"><span class="keyword">SELECT</span> 列<span class="number">1</span> 别名<span class="number">1</span>, 列<span class="number">2</span> 别名<span class="number">2</span>, 列<span class="number">3</span> 别名<span class="number">3</span> <span class="keyword">FROM</span> ...</span><br></pre></td></tr></table></figure>
 
 <p>返回表中指定的列</p>
-<h2><span id="pai-xu">排序</span><a href="#pai-xu" class="header-anchor">#</a></h2><p>ORDER BY 子句加入后不按照id进行排序</p>
+<h2><span id="排序">排序</span></h2><p>ORDER BY 子句加入后不按照id进行排序</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id, name, gender, score</span><br><span class="line"><span class="keyword">FROM</span> students</span><br><span class="line"><span class="keyword">WHERE</span> class_id <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> score <span class="keyword">DESC</span>; # <span class="keyword">ASC</span> 升序，<span class="keyword">DESC</span> 降序</span><br></pre></td></tr></table></figure>
 
-<h2><span id="duo-biao-cha-xun">多表查询</span><a href="#duo-biao-cha-xun" class="header-anchor">#</a></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="operator">&lt;</span>表<span class="number">1</span><span class="operator">&gt;</span> <span class="operator">&lt;</span>表<span class="number">2</span><span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+<h2><span id="多表查询">多表查询</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="operator">&lt;</span>表<span class="number">1</span><span class="operator">&gt;</span> <span class="operator">&lt;</span>表<span class="number">2</span><span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>选择使用投影查询比较好</p>
-<h1><span id="xiu-gai">修改</span><a href="#xiu-gai" class="header-anchor">#</a></h1><h2><span id="cha-ru">插入</span><a href="#cha-ru" class="header-anchor">#</a></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="operator">&lt;</span>表名<span class="operator">&gt;</span> (字段<span class="number">1</span>, 字段<span class="number">2</span>, ...) <span class="keyword">VALUES</span> (值<span class="number">1</span>, 值<span class="number">2</span>, ...);</span><br></pre></td></tr></table></figure>
+<h1><span id="修改">修改</span></h1><h2><span id="插入">插入</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="operator">&lt;</span>表名<span class="operator">&gt;</span> (字段<span class="number">1</span>, 字段<span class="number">2</span>, ...) <span class="keyword">VALUES</span> (值<span class="number">1</span>, 值<span class="number">2</span>, ...);</span><br></pre></td></tr></table></figure>
 
 <p>id是自增的，可以由数据库推算；有默认值的字段也可以不赋值</p>
-<h2><span id="geng-xin">更新</span><a href="#geng-xin" class="header-anchor">#</a></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE <span class="operator">&lt;</span>表名<span class="operator">&gt;</span> <span class="keyword">SET</span> 字段<span class="number">1</span><span class="operator">=</span>值<span class="number">1</span>, 字段<span class="number">2</span><span class="operator">=</span>值<span class="number">2</span>, ... <span class="keyword">WHERE</span> ...;</span><br></pre></td></tr></table></figure>
+<h2><span id="更新">更新</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE <span class="operator">&lt;</span>表名<span class="operator">&gt;</span> <span class="keyword">SET</span> 字段<span class="number">1</span><span class="operator">=</span>值<span class="number">1</span>, 字段<span class="number">2</span><span class="operator">=</span>值<span class="number">2</span>, ... <span class="keyword">WHERE</span> ...;</span><br></pre></td></tr></table></figure>
 
 <p>如果<code>WHERE</code>条件没有匹配到任何记录，<code>UPDATE</code>语句不会报错，也不会有任何记录被更新。</p>
 <p>update可以没有条件，即更新所有表</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE students <span class="keyword">SET</span> score<span class="operator">=</span><span class="number">60</span>;</span><br></pre></td></tr></table></figure>
 
 <p>真实的数据库会返回更新的行数和<code>where</code>匹配的行数</p>
-<h2><span id="shan-chu">删除</span><a href="#shan-chu" class="header-anchor">#</a></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> <span class="operator">&lt;</span>表名<span class="operator">&gt;</span> <span class="keyword">WHERE</span> ...;</span><br></pre></td></tr></table></figure>
+<h2><span id="删除">删除</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> <span class="operator">&lt;</span>表名<span class="operator">&gt;</span> <span class="keyword">WHERE</span> ...;</span><br></pre></td></tr></table></figure>
 
 <p>如果<code>WHERE</code>条件没有匹配到任何记录，<code>DELETE</code>语句不会报错，也不会有任何记录被删除。</p>
 <p><code>UPDATE</code>类似，不带<code>WHERE</code>条件的<code>DELETE</code>语句会删除整个表的数据</p>
@@ -344,7 +344,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

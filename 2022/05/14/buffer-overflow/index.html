@@ -20,18 +20,23 @@
     var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="School of Cyber Science and Teconology, BUAA">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Alleysira&#39;s blog">
-<meta property="og:url" content="https://alleysira.github.io/archives/2021/08/">
+  <meta name="description" content="栈溢出函数调用时入栈情况  call指令压入返回地址 ret弹出返回地址 堆溢出 堆溢出更加困难 BSS溢出全局和静态的未初始化变量，连续存放 格式化串溢出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="buffer_overflow">
+<meta property="og:url" content="https://alleysira.github.io/2022/05/14/buffer-overflow/">
 <meta property="og:site_name" content="Alleysira&#39;s blog">
-<meta property="og:description" content="School of Cyber Science and Teconology, BUAA">
+<meta property="og:description" content="栈溢出函数调用时入栈情况  call指令压入返回地址 ret弹出返回地址 堆溢出 堆溢出更加困难 BSS溢出全局和静态的未初始化变量，连续存放 格式化串溢出">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/05/14/6oJeyQ27MnrwL3R.png">
+<meta property="og:image" content="https://s2.loli.net/2022/05/14/JMnBTvjI2s19eXO.png">
+<meta property="article:published_time" content="2022-05-14T00:25:31.000Z">
+<meta property="article:modified_time" content="2022-05-14T00:54:59.144Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/05/14/6oJeyQ27MnrwL3R.png">
 
-<link rel="canonical" href="https://alleysira.github.io/archives/2021/08/">
+<link rel="canonical" href="https://alleysira.github.io/2022/05/14/buffer-overflow/">
 
 
 <script id="page-configurations">
@@ -39,12 +44,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Archive | Alleysira's blog</title>
+  <title>buffer_overflow | Alleysira's blog</title>
   
 
 
@@ -152,70 +157,84 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 14 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2022/05/14/buffer-overflow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          buffer_overflow
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-05-14 08:25:31 / Modified: 08:54:59" itemprop="dateCreated datePublished" datetime="2022-05-14T08:25:31+08:00">2022-05-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-02T12:32:47+08:00"
-              content="2021-08-02">
-          08-02
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/02/sql0/" itemprop="url">
-            <span itemprop="name">sql0</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-01T18:20:23+08:00"
-              content="2021-08-01">
-          08-01
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/01/web0/" itemprop="url">
-            <span itemprop="name">web0</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        <h1><span id="栈溢出">栈溢出</span></h1><p>函数调用时入栈情况</p>
+<p><img src="https://s2.loli.net/2022/05/14/6oJeyQ27MnrwL3R.png" alt="image-20220514082742104"></p>
+<p>call指令压入返回地址</p>
+<p>ret弹出返回地址</p>
+<h1><span id="堆溢出">堆溢出</span></h1><p><img src="https://s2.loli.net/2022/05/14/JMnBTvjI2s19eXO.png" alt="image-20220514084505285"></p>
+<p>堆溢出更加困难</p>
+<h1><span id="bss溢出">BSS溢出</span></h1><p>全局和静态的未初始化变量，连续存放</p>
+<p>格式化串溢出</p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/12/Assembly-language/" rel="prev" title="Assembly_language">
+      <i class="fa fa-chevron-left"></i> Assembly_language
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -268,6 +287,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">栈溢出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">堆溢出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">BSS溢出</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
