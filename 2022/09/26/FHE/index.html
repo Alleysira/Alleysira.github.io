@@ -20,18 +20,33 @@
     var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="School of Cyber Science and Teconology, BUAA">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Alleysira&#39;s blog">
-<meta property="og:url" content="https://alleysira.github.io/archives/2022/">
+  <meta name="description" content="A Decade (or so) of Fully Homocorphic Encryption Arthur: Craig Gentry, the first FHE   GSW BGV  Eurocrypt 2021 https:&#x2F;&#x2F;eurocrypt.iacr.org&#x2F;2021&#x2F;slides&#x2F;gentry.pdf  RSA   processing and access of data">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FHE">
+<meta property="og:url" content="https://alleysira.github.io/2022/09/26/FHE/">
 <meta property="og:site_name" content="Alleysira&#39;s blog">
-<meta property="og:description" content="School of Cyber Science and Teconology, BUAA">
+<meta property="og:description" content="A Decade (or so) of Fully Homocorphic Encryption Arthur: Craig Gentry, the first FHE   GSW BGV  Eurocrypt 2021 https:&#x2F;&#x2F;eurocrypt.iacr.org&#x2F;2021&#x2F;slides&#x2F;gentry.pdf  RSA   processing and access of data">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2022/09/26/FHE/FHE.assets/image-20220926094256541.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/09/26/FHE/FHE.assets/image-20220926100358511.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/09/26/FHE/FHE.assets/image-20220926100424032.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/09/26/FHE/FHE.assets/image-20220926100932030.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/09/26/FHE/FHE.assets/image-20220926101035267.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/09/26/FHE/FHE.assets/image-20220926100615012.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/09/26/FHE/FHE.assets/image-20220926102737018.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/09/26/FHE/FHE.assets/image-20220926103035092.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/09/26/FHE/FHE.assets/image-20220926103404636.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/09/26/FHE/FHE.assets/image-20220926103504388.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/09/26/FHE/FHE.assets/image-20220926103701950.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/09/26/FHE/FHE.assets/image-20220926104017854.png">
+<meta property="article:published_time" content="2022-09-26T01:35:44.000Z">
+<meta property="article:modified_time" content="2022-09-26T06:42:43.408Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2022/09/26/FHE/FHE.assets/image-20220926094256541.png">
 
-<link rel="canonical" href="https://alleysira.github.io/archives/2022/">
+<link rel="canonical" href="https://alleysira.github.io/2022/09/26/FHE/">
 
 
 <script id="page-configurations">
@@ -39,12 +54,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Archive | Alleysira's blog</title>
+  <title>FHE | Alleysira's blog</title>
   
 
 
@@ -153,210 +168,138 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 17 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2022/09/26/FHE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          FHE
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-09-26 09:35:44 / Modified: 14:42:43" itemprop="dateCreated datePublished" datetime="2022-09-26T09:35:44+08:00">2022-09-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+        <h1><span id="a-decade-or-so-of-fully-homocorphic-encryption">A Decade (or so) of Fully Homocorphic Encryption</span></h1><ul>
+<li><p>Arthur: Craig Gentry, the first FHE </p>
+</li>
+<li><p>GSW BGV</p>
+</li>
+<li><p>Eurocrypt 2021 <a target="_blank" rel="noopener" href="https://eurocrypt.iacr.org/2021/slides/gentry.pdf">https://eurocrypt.iacr.org/2021/slides/gentry.pdf</a></p>
+</li>
+<li><p>RSA </p>
+</li>
+<li><p>processing and access of data </p>
+</li>
+<li><p>cloud computing on Encrypted data</p>
+<img src="FHE.assets/image-20220926094256541.png" alt="image-20220926094256541" style="zoom:80%;"></li>
+<li><p>except length of the data nothing about of the data will be leaked. </p>
+</li>
+<li><p>FHE bootstrapping four generations</p>
+</li>
+</ul>
+<h2><span id="past">Past</span></h2><p>Proof of Concept -&gt; Useable Tool</p>
+<ul>
+<li><p>First</p>
+<p><img src="FHE.assets/image-20220926100358511.png" alt="image-20220926100358511"></p>
+</li>
+<li><p>Second: LWE Based</p>
+</li>
+</ul>
+<p><img src="FHE.assets/image-20220926100424032.png" alt="image-20220926100424032"></p>
+<ul>
+<li><p>Third: BGV </p>
+<ul>
+<li>parameter improvement</li>
+</ul>
+<p><img src="FHE.assets/image-20220926100932030.png" alt="image-20220926100932030"></p>
+<p>​    <img src="FHE.assets/image-20220926101035267.png" alt="image-20220926101035267"></p>
+<p>not supporting packing</p>
+</li>
+<li><p>Four: CKKS SIMD operation</p>
+<p><img src="FHE.assets/image-20220926100615012.png" alt="image-20220926100615012"></p>
+</li>
+</ul>
+<p>climeric FHE: switch between different schemes</p>
+<h3><span id="application">application</span></h3><ul>
+<li> gene analysis</li>
+<li>Idash challenges: MPC and FHE</li>
+<li>neural network</li>
+<li>PIR retrieval: like AES</li>
+</ul>
+<p>hardware accleration of FHE</p>
+<h3><span id="usability">usability</span></h3><p><img src="FHE.assets/image-20220926102737018.png" alt="image-20220926102737018"></p>
+<p>google transpiler</p>
+<h2><span id="present">Present</span></h2><p>divorce form lattice</p>
+<p><img src="FHE.assets/image-20220926103035092.png" alt="image-20220926103035092"></p>
+<ul>
+<li>Key generation and Encryption should be probalistic  </li>
+</ul>
+<p><img src="FHE.assets/image-20220926103404636.png" alt="image-20220926103404636"></p>
+<p><img src="FHE.assets/image-20220926103504388.png" alt="image-20220926103504388"></p>
+<p><img src="FHE.assets/image-20220926103701950.png" alt="image-20220926103701950"></p>
+<p><img src="FHE.assets/image-20220926104017854.png" alt="image-20220926104017854"></p>
+<h2><span id="future">Future</span></h2>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-10-03T11:24:07+08:00"
-              content="2022-10-03">
-          10-03
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/10/03/algorithm/" itemprop="url">
-            <span itemprop="name">algorithm</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-26T09:35:44+08:00"
-              content="2022-09-26">
-          09-26
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/26/FHE/" itemprop="url">
-            <span itemprop="name">FHE</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-20T14:35:35+08:00"
-              content="2022-09-20">
-          09-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/20/GRE/" itemprop="url">
-            <span itemprop="name">GRE</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-05-14T08:25:31+08:00"
-              content="2022-05-14">
-          05-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/14/buffer-overflow/" itemprop="url">
-            <span itemprop="name">buffer_overflow</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-05-12T21:23:54+08:00"
-              content="2022-05-12">
-          05-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/12/Assembly-language/" itemprop="url">
-            <span itemprop="name">Assembly_language</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-05-05T13:54:46+08:00"
-              content="2022-05-05">
-          05-05
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/05/C-OOP/" itemprop="url">
-            <span itemprop="name">C++_OOP</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-04-27T11:56:15+08:00"
-              content="2022-04-27">
-          04-27
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/04/27/CSAPP/" itemprop="url">
-            <span itemprop="name">CSAPP</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-04-02T11:10:26+08:00"
-              content="2022-04-02">
-          04-02
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/04/02/IELTS/" itemprop="url">
-            <span itemprop="name">IELTS</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-01-08T15:55:29+08:00"
-              content="2022-01-08">
-          01-08
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/01/08/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE/" itemprop="url">
-            <span itemprop="name">安全协议</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        
 
 
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/20/GRE/" rel="prev" title="GRE">
+      <i class="fa fa-chevron-left"></i> GRE
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/03/algorithm/" rel="next" title="algorithm">
+      algorithm <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-  </div>
+      </footer>
+    
+  </article>
   
   
-  
-
   
 
 
@@ -409,6 +352,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">A Decade (or so) of Fully Homocorphic Encryption</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">Past</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.1.</span> <span class="nav-text">application</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.2.</span> <span class="nav-text">usability</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">Present</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.3.</span> <span class="nav-text">Future</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
