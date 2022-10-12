@@ -22,8 +22,8 @@ https://alleysira.github.io/tags/Architecture/
 https://alleysira.github.io/tags/C/
 https://alleysira.github.io/tags/Language/
 https://alleysira.github.io/tags/Database/
-https://alleysira.github.io/tags/Web/
 https://alleysira.github.io/tags/Virus/
+https://alleysira.github.io/tags/Web/
 https://alleysira.github.io/tags/Crypto/
 https://alleysira.github.io/categories/Architecture/
 https://alleysira.github.io/categories/CTF/
