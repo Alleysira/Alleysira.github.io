@@ -11,6 +11,24 @@
   </url>
   
   <url>
+    <loc>https://alleysira.github.io/2022/10/12/git/</loc>
+    
+    <lastmod>2022-10-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/2021/08/01/web0/</loc>
+    
+    <lastmod>2022-10-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/2022/09/20/GRE/</loc>
     
     <lastmod>2022-10-02</lastmod>
@@ -84,15 +102,6 @@
   
   <url>
     <loc>https://alleysira.github.io/2021/09/06/web1/</loc>
-    
-    <lastmod>2022-07-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://alleysira.github.io/2021/08/01/web0/</loc>
     
     <lastmod>2022-07-08</lastmod>
     
@@ -203,6 +212,13 @@
   </url>
   
   <url>
+    <loc>https://alleysira.github.io/tags/Web/</loc>
+    <lastmod>2022-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/tags/Database/</loc>
     <lastmod>2022-10-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -211,13 +227,6 @@
   
   <url>
     <loc>https://alleysira.github.io/tags/Virus/</loc>
-    <lastmod>2022-10-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://alleysira.github.io/tags/Web/</loc>
     <lastmod>2022-10-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
