@@ -184,7 +184,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-10-12 19:16:53 / Modified: 19:22:38" itemprop="dateCreated datePublished" datetime="2022-10-12T19:16:53+08:00">2022-10-12</time>
+              <time title="Created: 2022-10-12 19:16:53 / Modified: 19:49:27" itemprop="dateCreated datePublished" datetime="2022-10-12T19:16:53+08:00">2022-10-12</time>
             </span>
 
           
@@ -198,7 +198,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2><span id="配置bash代理">配置bash代理</span></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//配置部分代理</span><br><span class="line">git config --global http.https://github.com.proxy https://127.0.0.1:xxx</span><br><span class="line">git config --global https.https://github.com.proxy https://127.0.0.1:xxx</span><br><span class="line">//配置全局代理</span><br><span class="line">git config --global https.proxy http://127.0.0.1:xxx</span><br><span class="line">git config --global https.proxy https://127.0.0.1:xxx</span><br><span class="line">//取消部分代理</span><br><span class="line">git config --global --unset https.https://github.com.proxy</span><br><span class="line">git config --global --unset http.https://github.com.proxy</span><br><span class="line">//取消全局代理</span><br><span class="line">git config --global --unset http.proxy</span><br><span class="line">git config --global --unset https.proxy</span><br><span class="line">//查看当前局部代理</span><br><span class="line">git config --global --get https.https://github.com.proxy</span><br><span class="line">git config --global --get http.https://github.com.proxy</span><br><span class="line">//查看当前全局代理</span><br><span class="line">git config --global --get https.proxy</span><br><span class="line">git config --global --get http.proxy</span><br></pre></td></tr></table></figure>
+          <h2><span id="配置bash代理">配置bash代理</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//配置部分代理</span><br><span class="line">git config --global http.https://github.com.proxy https://127.0.0.1:xxx</span><br><span class="line">git config --global https.https://github.com.proxy https://127.0.0.1:xxx</span><br><span class="line">//配置全局代理</span><br><span class="line">git config --global https.proxy http://127.0.0.1:xxx</span><br><span class="line">git config --global http.proxy https://127.0.0.1:xxx</span><br><span class="line">//取消部分代理</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.https://github.com.proxy</span><br><span class="line">git config --global --<span class="built_in">unset</span> http.https://github.com.proxy</span><br><span class="line">//取消全局代理</span><br><span class="line">git config --global --<span class="built_in">unset</span> http.proxy</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy</span><br><span class="line">//查看当前局部代理</span><br><span class="line">git config --global --get https.https://github.com.proxy</span><br><span class="line">git config --global --get http.https://github.com.proxy</span><br><span class="line">//查看当前全局代理</span><br><span class="line">git config --global --get https.proxy</span><br><span class="line">git config --global --get http.proxy</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -249,7 +249,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-12 19:46:32" itemprop="dateModified" datetime="2022-10-12T19:46:32+08:00">2022-10-12</time>
+                <time title="Modified: 2022-10-12 19:53:00" itemprop="dateModified" datetime="2022-10-12T19:53:00+08:00">2022-10-12</time>
               </span>
 
           
@@ -282,8 +282,7 @@ Hailstone(n)= \left\{
 \{n\} \cup  Hailstone(3n+1),\ n \ is \ odd
 
 \end{array}\right.
-\end{align}\\
-|Hailstone(n)|<\infty \ ?</script><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hailstone</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>&lt;n)&#123;</span><br><span class="line">	(n%<span class="number">2</span>)?n=<span class="number">3</span>*n+<span class="number">1</span>;n/=<span class="number">2</span>;</span><br><span class="line">	len++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+\end{align}\\</script><script type="math/tex; mode=display">|Hailstone(n)|<\infty \ ?</script><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hailstone</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>&lt;n)&#123;</span><br><span class="line">	(n%<span class="number">2</span>)?n=<span class="number">3</span>*n+<span class="number">1</span>;n/=<span class="number">2</span>;</span><br><span class="line">	len++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <script type="math/tex; mode=display">程序\neq算法</script><h3><span id="好的算法">好的算法</span></h3><ul>
 <li>正确性</li>
 <li>健壮性</li>
@@ -330,7 +329,7 @@ Hailstone(n)= \left\{
 <p>提供简化的计算工具，独立于平台进行比较合评判</p>
 <p>算法的运行时间 算法需要执行的基本操作次数</p>
 <p>$T(n)$ 算法为求解规模为n的问题，所需执行的基本操作次数</p>
-<p>实例：<img src="/.io//image-20221003153853927.png" alt="image-20221003153853927"></p>
+<p>实例：<img src="/2022/10/03/algorithm/image-20221003153853927.png" alt="image-20221003153853927"></p>
 
       
     </div>
@@ -407,7 +406,7 @@ Hailstone(n)= \left\{
 <li><p>processing and access of data </p>
 </li>
 <li><p>cloud computing on Encrypted data</p>
-<p><img src="/.io//image-20220926094256541.png" alt="image-20220926094256541" style="zoom:80%;"></p>
+<p><img src="/2022/09/26/FHE/image-20220926094256541.png" alt="image-20220926094256541" style="zoom:80%;"></p>
 </li>
 <li><p>except length of the data nothing about of the data will be leaked. </p>
 </li>
@@ -416,23 +415,23 @@ Hailstone(n)= \left\{
 <h2><span id="past">Past</span></h2><p>Proof of Concept -&gt; Useable Tool</p>
 <ul>
 <li><p>First</p>
-<p><img src="/.io//image-20220926100358511.png" alt="image-20220926100358511"></p>
+<p><img src="/2022/09/26/FHE/image-20220926100358511.png" alt="image-20220926100358511"></p>
 </li>
 <li><p>Second: LWE Based</p>
 </li>
 </ul>
-<p><img src="/.io//image-20220926100424032.png" alt="image-20220926100424032"></p>
+<p><img src="/2022/09/26/FHE/image-20220926100424032.png" alt="image-20220926100424032"></p>
 <ul>
 <li><p>Third: BGV </p>
 <ul>
 <li>parameter improvement</li>
 </ul>
-<p><img src="/.io//image-20220926100932030.png" alt="image-20220926100932030"></p>
-<p>​    <img src="/.io//image-20220926101035267.png" alt="image-20220926101035267"></p>
+<p><img src="/2022/09/26/FHE/image-20220926100932030.png" alt="image-20220926100932030"></p>
+<p>​    <img src="/2022/09/26/FHE/image-20220926101035267.png" alt="image-20220926101035267"></p>
 <p>not supporting packing</p>
 </li>
 <li><p>Four: CKKS SIMD operation</p>
-<p><img src="/.io//image-20220926100615012.png" alt="image-20220926100615012"></p>
+<p><img src="/2022/09/26/FHE/image-20220926100615012.png" alt="image-20220926100615012"></p>
 </li>
 </ul>
 <p>climeric FHE: switch between different schemes</p>
@@ -443,17 +442,17 @@ Hailstone(n)= \left\{
 <li>PIR retrieval: like AES</li>
 </ul>
 <p>hardware accleration of FHE</p>
-<h3><span id="usability">usability</span></h3><p><img src="/.io//image-20220926102737018.png" alt="image-20220926102737018"></p>
+<h3><span id="usability">usability</span></h3><p><img src="/2022/09/26/FHE/image-20220926102737018.png" alt="image-20220926102737018"></p>
 <p>google transpiler</p>
 <h2><span id="present">Present</span></h2><p>divorce form lattice</p>
-<p><img src="/.io//image-20220926103035092.png" alt="image-20220926103035092"></p>
+<p><img src="/2022/09/26/FHE/image-20220926103035092.png" alt="image-20220926103035092"></p>
 <ul>
 <li>Key generation and Encryption should be probalistic  </li>
 </ul>
-<p><img src="/.io//image-20220926103404636.png" alt="image-20220926103404636"></p>
-<p><img src="/.io//image-20220926103504388.png" alt="image-20220926103504388"></p>
-<p><img src="/.io//image-20220926103701950.png" alt="image-20220926103701950"></p>
-<p><img src="/.io//image-20220926104017854.png" alt="image-20220926104017854"></p>
+<p><img src="/2022/09/26/FHE/image-20220926103404636.png" alt="image-20220926103404636"></p>
+<p><img src="/2022/09/26/FHE/image-20220926103504388.png" alt="image-20220926103504388"></p>
+<p><img src="/2022/09/26/FHE/image-20220926103701950.png" alt="image-20220926103701950"></p>
+<p><img src="/2022/09/26/FHE/image-20220926104017854.png" alt="image-20220926104017854"></p>
 <h2><span id="future">Future</span></h2>
       
     </div>
