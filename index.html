@@ -182,10 +182,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-10-03 11:24:07 / Modified: 15:57:05" itemprop="dateCreated datePublished" datetime="2022-10-03T11:24:07+08:00">2022-10-03</time>
+              <time title="Created: 2022-10-03 11:24:07" itemprop="dateCreated datePublished" datetime="2022-10-03T11:24:07+08:00">2022-10-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-12 17:44:22" itemprop="dateModified" datetime="2022-10-12T17:44:22+08:00">2022-10-12</time>
+              </span>
 
           
 
@@ -208,12 +214,18 @@
 <li>可行性：每一基本操作可实现，可以在常数时间内完成</li>
 <li><em>有穷性</em>：对于任何输入，经过有穷次基本操作可以得到输出；下例</li>
 </ul>
-<p>$$<br>\begin{equation}<br>Hailstone(n)= \left{<br>\begin{array}{l}<br>{1} ,n\leq1 \<br>{n} \cup  Hailstone(n/2),\ n \ is \  even\<br>{n} \cup  Hailstone(3n+1),\ n \ is \ odd</p>
-<p>\end{array}\right.<br>\end{equation}\<br>|Hailstone(n)|&lt;\infty \ ?<br>$$</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hailstone</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>&lt;n)&#123;</span><br><span class="line">	(n%<span class="number">2</span>)?n=<span class="number">3</span>*n+<span class="number">1</span>;n/=<span class="number">2</span>;</span><br><span class="line">	len++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">
+\begin{equation} 
+Hailstone(n)= \left\{ 
+\begin{array}{l} 
+\{1\} ,n\leq1 \\
+\{n\} \cup  Hailstone(n/2),\ n \ is \  even\\
+\{n\} \cup  Hailstone(3n+1),\ n \ is \ odd
 
-<p>$$程序\neq算法$$</p>
-<h3><span id="好的算法">好的算法</span></h3><ul>
+\end{array}\right.
+\end{equation}\\
+|Hailstone(n)|<\infty \ ?</script><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hailstone</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>&lt;n)&#123;</span><br><span class="line">	(n%<span class="number">2</span>)?n=<span class="number">3</span>*n+<span class="number">1</span>;n/=<span class="number">2</span>;</span><br><span class="line">	len++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">程序\neq算法</script><h3><span id="好的算法">好的算法</span></h3><ul>
 <li>正确性</li>
 <li>健壮性</li>
 <li>可读</li>
@@ -231,7 +243,7 @@
 <li>规模接近，计算成本接近；规模增加；计算成本上升</li>
 <li>$T_A(n)=用算法A求解某一问题规模为n的实例$</li>
 <li>可能存在较好/较坏的情况</li>
-<li>$T_A(n)=用算法A求解某一问题规模为n的实例，T(n)=max{T(P)||P|=n}$</li>
+<li>$T_A(n)=用算法A求解某一问题规模为n的实例，T(n)=max\{T(P)||P|=n\}$</li>
 </ul>
 </li>
 </ul>
@@ -330,11 +342,11 @@
 <li><p>processing and access of data </p>
 </li>
 <li><p>cloud computing on Encrypted data</p>
-<img src="FHE.assets/image-20220926094256541.png" alt="image-20220926094256541" style="zoom:80%;"></li>
+<p><img src="FHE.assets/image-20220926094256541.png" alt="image-20220926094256541" style="zoom:80%;"></p>
+</li>
 <li><p>except length of the data nothing about of the data will be leaked. </p>
 </li>
-<li><p>FHE bootstrapping four generations</p>
-</li>
+<li>FHE bootstrapping four generations</li>
 </ul>
 <h2><span id="past">Past</span></h2><p>Proof of Concept -&gt; Useable Tool</p>
 <ul>
@@ -360,7 +372,7 @@
 </ul>
 <p>climeric FHE: switch between different schemes</p>
 <h3><span id="application">application</span></h3><ul>
-<li> gene analysis</li>
+<li>gene analysis</li>
 <li>Idash challenges: MPC and FHE</li>
 <li>neural network</li>
 <li>PIR retrieval: like AES</li>
@@ -442,7 +454,6 @@
 
       
           <span id="more"></span>
-
 <h1><span id="gre">GRE</span></h1><p>6 sections</p>
 <ul>
 <li>作文 6<ul>
@@ -455,7 +466,8 @@
 </ul>
 <p>计划有变</p>
 <h2><span id="资料">资料</span></h2><ul>
-<li>OG<ul>
+<li><p>OG</p>
+<ul>
 <li><p><a target="_blank" rel="noopener" href="https://www.ets.org/gre/revised_general/prepare">https://www.ets.org/gre/revised_general/prepare</a></p>
 </li>
 <li><p>Verbal Reasoning Measure</p>
@@ -468,13 +480,14 @@
 </li>
 </ul>
 </li>
-<li><p>Sentence Equivalence Questions</p>
-<ul>
+<li>Sentence Equivalence Questions<ul>
 <li>a single sentence </li>
 <li>one blank</li>
 <li>six answer choices</li>
-<li>select 2 </li>
+<li>select 2 <ul>
 <li>Reading Comprehension Questions</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -493,13 +506,13 @@
 </li>
 </ul>
 <h2><span id="词汇">词汇</span></h2><h3><span id="919">9.19</span></h3><ul>
-<li><input checked disabled type="checkbox"> 地基词 sec1 sec2 sec3</li>
-<li><input checked disabled type="checkbox"> 不背50个</li>
+<li>[x] 地基词 sec1 sec2 sec3</li>
+<li>[x] 不背50个</li>
 </ul>
 <h3><span id="920">9.20</span></h3><ul>
-<li><input checked disabled type="checkbox"> 地基词 sec4 sec5 sec6</li>
-<li><input checked disabled type="checkbox"> 学习OG</li>
-<li><input checked disabled type="checkbox"> 高高频 六选二 sec1 sec2</li>
+<li>[x] 地基词 sec4 sec5 sec6</li>
+<li>[x] 学习OG</li>
+<li>[x] 高高频 六选二 sec1 sec2</li>
 <li>sparseness n.稀疏，稀少</li>
 <li>superficiality n. 浅薄；肤浅的</li>
 <li>plausibility  n. 可信；花言巧语；</li>
@@ -583,9 +596,9 @@
 <li>commodity  n. 商品commercial</li>
 </ul>
 <h3><span id="921">9.21</span></h3><ul>
-<li><input checked disabled type="checkbox"> 地基词 sec7 sec8 sec9 sec10</li>
-<li><input checked disabled type="checkbox"> 高高频 六选二 sec3 </li>
-<li><input disabled type="checkbox"> 修改文书1稿</li>
+<li>[x] 地基词 sec7 sec8 sec9 sec10</li>
+<li>[x] 高高频 六选二 sec3 </li>
+<li>[ ] 修改文书1稿</li>
 <li>exhaustive a. 全面的，彻底的 <ul>
 <li>encyclopedic a.百科全书的；知识渊博的</li>
 </ul>
@@ -1148,8 +1161,7 @@
 </li>
 <li><p>密码协议是安全协议的子集</p>
 </li>
-<li><p>安全协议就是在消息处理环节使用了若干密码算法的协议，在密码算法的基础上为各种安全性需求提供实现方案</p>
-</li>
+<li>安全协议就是在消息处理环节使用了若干密码算法的协议，在密码算法的基础上为各种安全性需求提供实现方案</li>
 </ul>
 <p>协议的概念包含了以下几层含义:</p>
 <ul>

@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="安全协议概述定义：建立在密码算法基础上的一种高互通协议，运行在计算机通信网或分布式系统中，为安全需求的各方提供一系列步骤，借助于密码算法达到密钥分发、身份认证、安全实现网络通信或电子交易的目的  密码算法是安全协议的基础和核心，安全协议是密码算法应用场景  密码协议是安全协议的子集  安全协议就是在消息处理环节使用了若干密码算法的协议，在密码算法的基础上为各种安全性需求提供实现方案   协议的概念">
+  <meta name="description" content="安全协议概述定义：建立在密码算法基础上的一种高互通协议，运行在计算机通信网或分布式系统中，为安全需求的各方提供一系列步骤，借助于密码算法达到密钥分发、身份认证、安全实现网络通信或电子交易的目的  密码算法是安全协议的基础和核心，安全协议是密码算法应用场景  密码协议是安全协议的子集  安全协议就是在消息处理环节使用了若干密码算法的协议，在密码算法的基础上为各种安全性需求提供实现方案  协议的概念包">
 <meta property="og:type" content="article">
 <meta property="og:title" content="安全协议">
 <meta property="og:url" content="https://alleysira.github.io/2022/01/08/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE/">
 <meta property="og:site_name" content="Alleysira&#39;s blog">
-<meta property="og:description" content="安全协议概述定义：建立在密码算法基础上的一种高互通协议，运行在计算机通信网或分布式系统中，为安全需求的各方提供一系列步骤，借助于密码算法达到密钥分发、身份认证、安全实现网络通信或电子交易的目的  密码算法是安全协议的基础和核心，安全协议是密码算法应用场景  密码协议是安全协议的子集  安全协议就是在消息处理环节使用了若干密码算法的协议，在密码算法的基础上为各种安全性需求提供实现方案   协议的概念">
+<meta property="og:description" content="安全协议概述定义：建立在密码算法基础上的一种高互通协议，运行在计算机通信网或分布式系统中，为安全需求的各方提供一系列步骤，借助于密码算法达到密钥分发、身份认证、安全实现网络通信或电子交易的目的  密码算法是安全协议的基础和核心，安全协议是密码算法应用场景  密码协议是安全协议的子集  安全协议就是在消息处理环节使用了若干密码算法的协议，在密码算法的基础上为各种安全性需求提供实现方案  协议的概念包">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s2.loli.net/2022/01/08/GoAsRY5lJ7iSb8k.png">
 <meta property="og:image" content="https://s2.loli.net/2022/01/08/f49EResTSny3lrz.png">
@@ -253,8 +253,7 @@
 </li>
 <li><p>密码协议是安全协议的子集</p>
 </li>
-<li><p>安全协议就是在消息处理环节使用了若干密码算法的协议，在密码算法的基础上为各种安全性需求提供实现方案</p>
-</li>
+<li>安全协议就是在消息处理环节使用了若干密码算法的协议，在密码算法的基础上为各种安全性需求提供实现方案</li>
 </ul>
 <p>协议的概念包含了以下几层含义:</p>
 <ul>
@@ -263,25 +262,21 @@
 <li>协议有明确的目的，需要完成的目标，防范的风险</li>
 </ul>
 <span id="more"></span>
-
 <h2><span id="两个例子">两个例子</span></h2><h3><span id="nssk协议">NSSK协议</span></h3><p><img src="https://s2.loli.net/2022/01/08/GoAsRY5lJ7iSb8k.png" alt="image-20220108155634724"></p>
 <p>若敌手获得曾经的$K_{ab’}$，重放3即可欺骗B，根本原因在于B对于协议的通信没有控制权，此时B只能相信A在场，而无法相信$K_{ab}$新鲜</p>
-<img src="https://s2.loli.net/2022/01/08/f49EResTSny3lrz.png" alt="image-20220108175844468" style="zoom:50%;">
-
+<p><img src="https://s2.loli.net/2022/01/08/f49EResTSny3lrz.png" alt="image-20220108175844468" style="zoom:50%;"></p>
 <p>攻击</p>
 <ul>
 <li>假冒A与B通信让B以为在和A通信，可以在A离线时就进行重放消息3</li>
 </ul>
-<img src="https://s2.loli.net/2022/01/09/bZHAxh5MXyiNKJd.png" alt="image-20220109102455064" style="zoom:67%;">
-
+<p><img src="https://s2.loli.net/2022/01/09/bZHAxh5MXyiNKJd.png" alt="image-20220109102455064" style="zoom:67%;"></p>
 <ul>
 <li>冒充B，因为A无法确认B是否拥有会话密钥，即</li>
 </ul>
 <p>$A \gets N_p$</p>
-<p>$P \gets {\ {N_p}_{K_{ab} }^{-1} -1 } _ {k_{ab} }$</p>
+<p>$P \gets \{\ \{N_p\}_{K_{ab} }^{-1} -1 \} _ {k_{ab} }$</p>
 <p>  改进：</p>
-  <img src="https://s2.loli.net/2022/01/09/UzpPMabtDcO2igx.png" alt="image-20220109110318756" style="zoom: 50%;">
-
+<p>  <img src="https://s2.loli.net/2022/01/09/UzpPMabtDcO2igx.png" alt="image-20220109110318756" style="zoom: 50%;"></p>
 <h3><span id="tls协议">TLS协议</span></h3><ul>
 <li><p>握手协议</p>
 <p>客户端和服务器协商，确定密钥</p>
@@ -290,22 +285,17 @@
 <p>使用客户端和服务器协商后的密钥进行数据加密传输</p>
 </li>
 </ul>
-<img src="https://s2.loli.net/2022/01/08/JniMaAdgIQHZpxK.png" alt="image-20220108162106833" style="zoom:50%;">
-
+<p><img src="https://s2.loli.net/2022/01/08/JniMaAdgIQHZpxK.png" alt="image-20220108162106833" style="zoom:50%;"></p>
 <h2><span id="安全协议的基本概念">安全协议的基本概念</span></h2><h3><span id="安全协议的分类">安全协议的分类</span></h3><p>从实现的目的来看：</p>
 <ul>
-<li><p>密钥交换协议：完成会话密钥的建立</p>
-</li>
-<li><p>认证协议：防止假冒、篡改、否认等攻击，实现身份认证、消息完整性认证、数据源认证等</p>
-</li>
+<li>密钥交换协议：完成会话密钥的建立</li>
+<li>认证协议：防止假冒、篡改、否认等攻击，实现身份认证、消息完整性认证、数据源认证等</li>
 <li><p>认证密钥交换协议：先认证实体身份再进行密钥交换</p>
 </li>
 <li><p>安全电子交易协议：set ikp</p>
 </li>
-<li><p>安全通信协议：ssl/tls</p>
-</li>
-<li><p>安全多方计算</p>
-<ul>
+<li>安全通信协议：ssl/tls</li>
+<li>安全多方计算<ul>
 <li>协议的正确性和参与方输入的保密性</li>
 </ul>
 </li>
@@ -320,15 +310,13 @@
 </li>
 <li><p>执行效率的要求</p>
 </li>
-<li><p>安全需求</p>
-<ul>
+<li>安全需求<ul>
 <li>保密性</li>
 <li>认证性</li>
 <li>不可抵赖性</li>
 </ul>
 </li>
-<li><p>鲁棒性：可能存在恶意参与者</p>
-<ul>
+<li>鲁棒性：可能存在恶意参与者<ul>
 <li>要求在恶意参与者的情况下能够部分正确的执行，保护其他诚实参与者的秘密信息</li>
 <li>恶意参与者的存在是安全协议和一般通信协议之间的重要区别</li>
 </ul>
@@ -386,8 +374,7 @@
 </li>
 <li>系统环境：发送者、接收者、攻击者、管理消息发送和接收的规则</li>
 </ul>
-<img src="https://s2.loli.net/2022/01/08/VzaibB1eJtrDTsM.png" alt="image-20220108163659008" style="zoom: 80%;">
-
+<p><img src="https://s2.loli.net/2022/01/08/VzaibB1eJtrDTsM.png" alt="image-20220108163659008" style="zoom: 80%;"></p>
 <h2><span id="dolev-yao模型">Dolev-Yao模型</span></h2><p>贡献</p>
 <ul>
 <li>将认证协议本身和采用的密码系统分开，在假定密码系统完美的基础上讨论协议本身的正确性、安全性、冗余性</li>
@@ -466,11 +453,9 @@
 </ul>
 <h3><span id="消息独立完整性">消息独立完整性</span></h3><p>消息的解释完全由内容决定，不必借助上下文推断</p>
 <h3><span id="消息前提准确原则">消息前提准确原则</span></h3><p>应当明确指出与消息的执行相关的前提条件，并且正确性和合理性可以验证，判断消息是否应该接收</p>
-<h4><span id="大嘴青蛙协议">大嘴青蛙协议</span></h4><img src="https://s2.loli.net/2022/01/08/E72uvNIVbtCBlWa.png" alt="image-20220108201632195" style="zoom: 50%;">
-
+<h4><span id="大嘴青蛙协议">大嘴青蛙协议</span></h4><p><img src="https://s2.loli.net/2022/01/08/E72uvNIVbtCBlWa.png" alt="image-20220108201632195" style="zoom: 50%;"></p>
 <h3><span id="主体身份标识原则">主体身份标识原则</span></h3><p>消息中最好附上主体名称</p>
-<img src="https://s2.loli.net/2022/01/09/md2D9SERLhaKFJQ.png" alt="image-20220108203226857" style="zoom:67%;">
-
+<p><img src="https://s2.loli.net/2022/01/09/md2D9SERLhaKFJQ.png" alt="image-20220108203226857" style="zoom:67%;"></p>
 <ul>
 <li>密钥交换协议</li>
 <li>第一步是请求两个实体的证书（为什么A能得到B的证书呢）</li>
@@ -480,8 +465,7 @@
 <h3><span id="加密目的明确性原则">加密目的明确性原则</span></h3><p>加密可实现多种安全目的，明白使用加密技术的目的，尽可能减少冗余</p>
 <h3><span id="签名含义清晰性原则">签名含义清晰性原则</span></h3><p>先签名再加密，表明对消息知情</p>
 <h3><span id="临时值使用原则">临时值使用原则</span></h3><p>临时值可以用来确保时间连续性（新鲜性），可以用来确保关联性</p>
-<img src="https://s2.loli.net/2022/01/08/qBrmIP7YZwOnMod.png" alt="image-20220108205220717" style="zoom:67%;">
-
+<p><img src="https://s2.loli.net/2022/01/08/qBrmIP7YZwOnMod.png" alt="image-20220108205220717" style="zoom:67%;"></p>
 <ul>
 <li>1表明A想要和B协商密钥，采用A和S的对称密钥加密了此时的随机数，M是单次会话的标识符 ，B无法解密$N_a$，发给S的时候传递了联系</li>
 </ul>
@@ -494,10 +478,10 @@
 <p>否则可能被恶意重放</p>
 <h3><span id="信任准则">信任准则</span></h3><p>协议设计者应该知道设计的协议依赖的信任关系</p>
 <p>通常不能相信参与者选择一个好的会话密钥</p>
-<h2><span id="安全协议缺陷分类">安全协议缺陷分类</span></h2><p>如果一个协议使得非法用户不能从协议中获得比此协议本身体现的更多的有用信息，称为该协议安全（太可证明了）<br>$$<br>Pr[M=m|C=c]=Pr[M=m]<br>$$</p>
-<ul>
-<li><p>基本协议缺陷：设计时没有考虑攻击</p>
-</li>
+<h2><span id="安全协议缺陷分类">安全协议缺陷分类</span></h2><p>如果一个协议使得非法用户不能从协议中获得比此协议本身体现的更多的有用信息，称为该协议安全（太可证明了）</p>
+<script type="math/tex; mode=display">
+Pr[M=m|C=c]=Pr[M=m]</script><ul>
+<li>基本协议缺陷：设计时没有考虑攻击</li>
 <li><p>口令/密钥猜测缺陷：口令容易猜测，不安全的伪随机函数构造密钥</p>
 <ul>
 <li>能够检测不成功的登录，并限定</li>
@@ -508,20 +492,16 @@
 </li>
 </ul>
 </li>
-<li><p>陈旧消息缺陷：没有考虑重放攻击</p>
-<ul>
+<li>陈旧消息缺陷：没有考虑重放攻击<ul>
 <li>消息源、消息目的</li>
 </ul>
 </li>
-<li><p>并行会话缺陷</p>
-<ul>
+<li>并行会话缺陷<ul>
 <li>交换一定的协议消息</li>
 </ul>
 </li>
-<li><p>内部协议缺陷：协议的可达性存在问题</p>
-</li>
-<li><p>密码系统缺陷：密码强度不够</p>
-</li>
+<li>内部协议缺陷：协议的可达性存在问题</li>
+<li>密码系统缺陷：密码强度不够</li>
 </ul>
 <h3><span id="重放攻击">重放攻击</span></h3><p>攻击者利用消息再生能力生成诚实用户期望的消息格式并重放</p>
 <ul>
@@ -599,9 +579,12 @@
 </ul>
 <p>攻击者成功攻击：不攻破密码算法的前提下，已未经授权且不被察觉的方式获得某种信任或者破坏了密码服务，设计缺陷</p>
 <h2><span id="经典认证协议">经典认证协议</span></h2><h3><span id="基于对称密码的实体认证">基于对称密码的实体认证</span></h3><p>目的：实体和消息</p>
-<h4><span id="单次传输单向认证">单次传输，单向认证</span></h4><p>一次传输，非交互，采用了时间戳或者序列号，前提是需要同步<br>$$<br>SE_{K{ab}}([T_a|SN_a],Bob)<br>$$<br>同样可以采用随机数，但是协议需要进行交互，增加了交互的开销</p>
-<h4><span id="两次传输单向认证">两次传输，单向认证</span></h4><p>$$<br>A \gets N_b\<br>B \gets SE_{K{ab}}(N_b,Bob)<br>$$</p>
-<p>第一条消息为challenge</p>
+<h4><span id="单次传输单向认证">单次传输，单向认证</span></h4><p>一次传输，非交互，采用了时间戳或者序列号，前提是需要同步</p>
+<script type="math/tex; mode=display">
+SE_{K{ab}}([T_a|SN_a],Bob)</script><p>同样可以采用随机数，但是协议需要进行交互，增加了交互的开销</p>
+<h4><span id="两次传输单向认证">两次传输，单向认证</span></h4><script type="math/tex; mode=display">
+A \gets N_b\\
+B \gets SE_{K{ab}}(N_b,Bob)</script><p>第一条消息为challenge</p>
 <p>第二条消息为response</p>
 <p>随机数只使用一次，称为$Nonce$</p>
 <p>临时值与时间戳的区别</p>
@@ -611,18 +594,28 @@
 <li>时间戳不具有唯一性，带有一个有效范围</li>
 <li>临时值具有唯一性，很长一段时间内临时值不会重复</li>
 </ul>
-<h4><span id="两次传输双向认证">两次传输，双向认证</span></h4><p>$$<br>B\gets SE_{K{ab}}(T_a,Bob) \<br>A\gets SE_{K{ab}}(T_b,Alice)<br>$$</p>
-<p>缺点是时钟同步问题</p>
-<h4><span id="三次传输双向认证">三次传输，双向认证</span></h4><p>$$<br>A \gets N_b \<br>B\gets SE_{K{ab}}(N_a,N_b,Bob) \<br>A\gets SE_{K{ab}}(N_a,Alice)<br>$$</p>
-<h3><span id="基于哈希函数的实体认证">基于哈希函数的实体认证</span></h3><h4><span id="一次传输单向认证">一次传输，单向认证</span></h4><p>$$<br>B \gets Hash_{K{ab}}(T_a,Bob),T_a,Bob<br>$$</p>
-<h4><span id="两次传输单向认证">两次传输，单向认证</span></h4><p>$$<br>A \gets N_b \<br>B \gets Hash_{K{ab}}(N_b,Bob)<br>$$</p>
-<h4><span id="两次传输双向认证">两次传输，双向认证</span></h4><p>$$<br>B \gets Hash_{K{ab}}(T_a,Bob),T_a,Bob \<br>A \gets Hash_{K{ab}}(T_b,Alice),T_b,Alice<br>$$</p>
-<h4><span id="三次传输双向认证">三次传输，双向认证</span></h4><p>$$<br>A \gets N_b \<br>B \gets Hash_{K_{ab}}(N_a,N_b,Bob),N_a \<br>A \gets Hash_{K{ab}}(N_a,N_b) \<br>$$</p>
-<p>这里的$N_b$冗余？</p>
-<h3><span id="基于公钥密码的实体认证">基于公钥密码的实体认证</span></h3><h4><span id="一次传输单向认证">一次传输，单向认证</span></h4><p>$$<br>B \gets Sign_{sk_a}(T_A,Bob)，T_a,Bob,Cert_A \<br>$$</p>
-<h4><span id="两次传输双向认证">两次传输，双向认证</span></h4><p>$$<br>B \gets Sign_{sk_a}(T_A,Bob)，T_a,Bob,Cert_A \<br>A \gets Sign_{sk_b}(T_b,Alice)，T_b,Alice,Cert_b \<br>$$</p>
-<h4><span id="两次传输单向认证">两次传输，单向认证</span></h4><p>$$<br>A \gets N_b \<br>B \gets Sign_{sk_a}(N_b,Bob)\<br>B \ verify<br>$$</p>
-<p>考虑此时若$N_b=Hash(把A的财产转移给B)$</p>
+<h4><span id="两次传输双向认证">两次传输，双向认证</span></h4><script type="math/tex; mode=display">
+B\gets SE_{K{ab}}(T_a,Bob) \\
+A\gets SE_{K{ab}}(T_b,Alice)</script><p>缺点是时钟同步问题</p>
+<h4><span id="三次传输双向认证">三次传输，双向认证</span></h4><script type="math/tex; mode=display">
+A \gets N_b \\
+B\gets SE_{K{ab}}(N_a,N_b,Bob) \\
+A\gets SE_{K{ab}}(N_a,Alice)</script><h3><span id="基于哈希函数的实体认证">基于哈希函数的实体认证</span></h3><h4><span id="一次传输单向认证">一次传输，单向认证</span></h4><script type="math/tex; mode=display">
+B \gets Hash_{K{ab}}(T_a,Bob),T_a,Bob</script><h4><span id="两次传输单向认证">两次传输，单向认证</span></h4><script type="math/tex; mode=display">
+A \gets N_b \\
+B \gets Hash_{K{ab}}(N_b,Bob)</script><h4><span id="两次传输双向认证">两次传输，双向认证</span></h4><script type="math/tex; mode=display">
+B \gets Hash_{K{ab}}(T_a,Bob),T_a,Bob \\
+A \gets Hash_{K{ab}}(T_b,Alice),T_b,Alice</script><h4><span id="三次传输双向认证">三次传输，双向认证</span></h4><script type="math/tex; mode=display">
+A \gets N_b \\ 
+B \gets Hash_{K_{ab}}(N_a,N_b,Bob),N_a \\
+A \gets Hash_{K{ab}}(N_a,N_b) \\</script><p>这里的$N_b$冗余？</p>
+<h3><span id="基于公钥密码的实体认证">基于公钥密码的实体认证</span></h3><h4><span id="一次传输单向认证">一次传输，单向认证</span></h4><script type="math/tex; mode=display">
+B \gets Sign_{sk_a}(T_A,Bob)，T_a,Bob,Cert_A \\</script><h4><span id="两次传输双向认证">两次传输，双向认证</span></h4><script type="math/tex; mode=display">
+B \gets Sign_{sk_a}(T_A,Bob)，T_a,Bob,Cert_A \\
+A \gets Sign_{sk_b}(T_b,Alice)，T_b,Alice,Cert_b \\</script><h4><span id="两次传输单向认证">两次传输，单向认证</span></h4><script type="math/tex; mode=display">
+A \gets N_b \\
+B \gets Sign_{sk_a}(N_b,Bob)\\
+B \ verify</script><p>考虑此时若$N_b=Hash(把A的财产转移给B)$</p>
 <p>A对自己的签名中的随机数没有控制</p>
 <p>改进，此时$A$可以加入自己的随机数$N_a$</p>
 <h4><span id="三次传输双向认证">三次传输，双向认证</span></h4><p>存在中间人攻击</p>
@@ -684,8 +677,7 @@
 <li>欺骗双方接收一个过期的密钥</li>
 <li>使得通信的某一方相信攻击者就是通信中的另一方，建立会话密钥</li>
 </ul>
-<h2><span id="两方dh密钥协商">两方DH密钥协商</span></h2><img src="https://s2.loli.net/2022/01/09/IW5HJBr2eypoL1x.png" alt="image-20220109165755640" style="zoom:50%;">
-
+<h2><span id="两方dh密钥协商">两方DH密钥协商</span></h2><p><img src="https://s2.loli.net/2022/01/09/IW5HJBr2eypoL1x.png" alt="image-20220109165755640" style="zoom:50%;"></p>
 <ul>
 <li><p>被动攻击</p>
 <ul>
@@ -694,11 +686,15 @@
 </ul>
 </li>
 <li><p>中间人攻击</p>
-<img src="https://s2.loli.net/2022/01/09/UR8Tb74jhMOZu1n.png" alt="image-20220109170031098" style="zoom: 80%;"></li>
+<p><img src="https://s2.loli.net/2022/01/09/UR8Tb74jhMOZu1n.png" alt="image-20220109170031098" style="zoom: 80%;"></p>
+</li>
 </ul>
 <h2><span id="mti协议">MTI协议</span></h2><p>不签名实现消息传递</p>
 <p><img src="https://s2.loli.net/2022/01/09/5r6Qd1mOiBy7YA3.png" alt="image-20220109170546319"></p>
-<p>记号一塌糊涂，实际上就是两对公私钥交叉使用,对b而言：<br>$$<br>(x_a,g^{x_a}),(r_a,g^{r_a})\<br>K=(g^{x_a})^{r_b} \cdot (g^{r_a})^{x_b}=g^{r_ax_b+r_bx_a}<br>$$<br>考虑中间人攻击，发现无法实现（证书中含有ID和公钥）</p>
+<p>记号一塌糊涂，实际上就是两对公私钥交叉使用,对b而言：</p>
+<script type="math/tex; mode=display">
+(x_a,g^{x_a}),(r_a,g^{r_a})\\
+K=(g^{x_a})^{r_b} \cdot (g^{r_a})^{x_b}=g^{r_ax_b+r_bx_a}</script><p>考虑中间人攻击，发现无法实现（证书中含有ID和公钥）</p>
 <h2><span id="ecmqv密钥交换">ECMQV密钥交换</span></h2><p>DH协议的扩展</p>
 <p><img src="https://s2.loli.net/2022/01/09/ZJLcK7QtDbpF2PB.png" alt="image-20220109172713527"></p>
 <h1><span id="安全协议的分析">安全协议的分析</span></h1><p>分类见第一部分</p>
@@ -816,8 +812,7 @@
 <h2><span id="真实-理想模型">真实-理想模型</span></h2><p>存在一个虚拟的理想与真实环境对比，参与方与可信第三方交互</p>
 <p>真实环境中无法产生比理想环境中的攻击者更多的危害</p>
 <ul>
-<li><p>半诚实模型</p>
-</li>
+<li>半诚实模型</li>
 <li><p>恶意模型</p>
 </li>
 <li><p>基于噪声的安全计算方法</p>
@@ -861,11 +856,12 @@
 </ul>
 <p>强健性：暴露至多t-1个份额不会危害密钥</p>
 <p>两个算法：</p>
-<p>$Shr(K,t,n)\to { k_1,\cdots k_n }, Rec(k_1,\cdots,k_n)\to K$</p>
+<p>$Shr(K,t,n)\to \{ k_1,\cdots k_n \}, Rec(k_1,\cdots,k_n)\to K$</p>
 <h3><span id="shamir-秘密分享">Shamir 秘密分享</span></h3><p>构造多项式$F(x)=K+a_1x+a_2x^2+ \cdots +a_{t-1}x^{t-1} \bmod p$</p>
 <p>分配$F(i),i\in[1,n]$</p>
-<p>恢复阶段用拉格朗日插值：<br>$$<br>K=\sum_{j-S}k_j\lambda_j,\lambda_j=\prod_{\alpha,\alpha \neq j}\frac{\alpha}{\alpha-j},S={k_1,\cdots,k_t}<br>$$</p>
-<h3><span id="blakley秘密分享">Blakley秘密分享</span></h3><p><img src="https://s2.loli.net/2022/01/10/3ArhmK2Vswl8e9x.png" alt="image-20220110151048972"></p>
+<p>恢复阶段用拉格朗日插值：</p>
+<script type="math/tex; mode=display">
+K=\sum_{j-S}k_j\lambda_j,\lambda_j=\prod_{\alpha,\alpha \neq j}\frac{\alpha}{\alpha-j},S=\{k_1,\cdots,k_t\}</script><h3><span id="blakley秘密分享">Blakley秘密分享</span></h3><p><img src="https://s2.loli.net/2022/01/10/3ArhmK2Vswl8e9x.png" alt="image-20220110151048972"></p>
 <p>以上秘密分享只能抵抗被动攻击</p>
 <ul>
 <li>分发阶段若庄家不诚实，可是使得分发的碎片不合法</li>
@@ -875,8 +871,10 @@
 <p>分发中心广播对秘密的承诺</p>
 <h2><span id="2选1ot">2选1OT</span></h2><p>Sender with input $m_0,m_1$,outputs nothing. Receiver with input $b$, outputs $m_b$</p>
 <p>Sender sends $pk_0,pk_1$</p>
-<p>Receiver gets $r\gets {0,1}^n,c\gets Enc_{pk_b}(r)$</p>
-<p>Senders calculates<br>$$<br>r_0=Dec_{sk_0}(c),r_1=Dec_{sk_1}(c),d_0=m_0\oplus r_0,d_1=m_1\oplus r_1<br>$$<br>Receivers calculates $m_b=d_b\oplus r$</p>
+<p>Receiver gets $r\gets \{0,1\}^n,c\gets Enc_{pk_b}(r)$</p>
+<p>Senders calculates </p>
+<script type="math/tex; mode=display">
+r_0=Dec_{sk_0}(c),r_1=Dec_{sk_1}(c),d_0=m_0\oplus r_0,d_1=m_1\oplus r_1</script><p>Receivers calculates $m_b=d_b\oplus r$</p>
 <p>考虑使用一组公钥原语，根据生成随机数和生成公钥的效率选择不同方案</p>
 <p><img src="https://s2.loli.net/2022/01/12/PwgoWBmHYMEKeyF.png" alt="image-20220112103041021"></p>
 

@@ -210,21 +210,16 @@
       
         <h1><span id="思维导图">思维导图</span></h1><p><img src="https://s2.loli.net/2022/05/05/IKti6LfV8MFAv4e.png" alt="画布 1"></p>
 <span id="more"></span>
-
 <h1><span id="from-c-to-cpp">From C to CPP</span></h1><h2><span id="macro">macro</span></h2><h3><span id="常量宏">常量宏</span></h3><p>在编译的预处理阶段进行简单的字符替换，为程序提供更好的可读性，避免魔法数</p>
 <p>C语言的<em>NULL</em>就是语言预定义的宏</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.14 <span class="comment">//no magic number</span></span></span><br></pre></td></tr></table></figure>
-
 <h3><span id="函数宏">函数宏</span></h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#defien ARRAy_SIZE(a) sizeof(a)/sizeof(a[0])</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ADD(a,b) a+b</span></span><br></pre></td></tr></table></figure>
-
 <p>函数宏的初衷是消除函数调用的开销，保持函数的结构。在运行时，不会带来额外的时间和空间开销，而函数会在运行时执行压栈出栈的操作，存在函数调用的开销。</p>
 <p>但是建议写函数，由于函数宏可读性差，可能出现奇怪的bug</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> sqr(x) ((x)*(x))</span></span><br><span class="line"><span class="comment">//considering sqr(a++),returns (a+1)*(a+2)</span></span><br></pre></td></tr></table></figure>
-
 <h3><span id="控制宏">控制宏</span></h3><p>用于防止头文件重复包含，实现一种代码开关控制</p>
 <p>规范的头文件的结构都应该是如下结构：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL_VER </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOCAL_VER </span></span><br><span class="line">...</span><br><span class="line">.h contents</span><br><span class="line">...</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
 <h4><span id="头文件">头文件</span></h4><p>头文件应该含有如下内容：</p>
 <ul>
 <li>macro</li>
@@ -232,9 +227,8 @@
 <li>struct</li>
 </ul>
 <p>头文件只能被包含一次</p>
-<h2><span id="struct">struct</span></h2><p>*sizeof()*是一个操作符，结构体的sizeof涉及到字节对齐的问题</p>
+<h2><span id="struct">struct</span></h2><p><em>sizeof()</em>是一个操作符，结构体的sizeof涉及到字节对齐的问题</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span>  <span class="keyword">namespace</span> std; </span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Test</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> i;<span class="comment">// 4</span></span><br><span class="line">	<span class="keyword">double</span> d;<span class="comment">// 8</span></span><br><span class="line">	<span class="keyword">char</span> c;<span class="comment">// 1</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">cout&lt;&lt;<span class="built_in"><span class="keyword">sizeof</span></span>(Test)&lt;&lt;endl;<span class="comment">// 24</span></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>字节对齐的细节和编译器的实现相关，但一般而言，满足三个准则：</p>
 <ul>
 <li>结构体变量的首地址能够被其最宽基本类型成员的大小所整除。</li>
@@ -242,7 +236,6 @@
 <li>结构体的总大小为结构体最宽基本类型成员大小的整数倍，如有需要，编译器会在最末一个成员后加上填充字节（trailing padding）。</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(1)</span></span><br></pre></td></tr></table></figure>
-
 <p>可以实现强制按字节对齐，网络通信节约带宽，降低性能</p>
 <h2><span id="run-time-memory">run time memory</span></h2><h3><span id="stack">stack</span></h3><ul>
 <li>parameter and local variables of the function</li>
@@ -267,7 +260,8 @@
 </li>
 <li><p>can’t use return type to overload, maybe the return value is not important at all.</p>
 <p>add c source file in c++ project</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function"><span class="keyword">void</span> <span class="title">c_fun</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function"><span class="keyword">void</span> <span class="title">c_fun</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <h2><span id="default-parameter">Default parameter</span></h2><ul>
 <li>add parameters when comiling</li>
@@ -275,17 +269,14 @@
 <li>declaration and function can’t both have default parameters. (Which one to follow?)</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b=<span class="number">1</span>,<span class="keyword">int</span> c=<span class="number">2</span>)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h2><span id="占位参数">占位参数</span></h2><ul>
 <li><p>初衷是高瞻远瞩，为了程序的迭代，未实现的方法；</p>
 </li>
 <li><p>实际不常用，用途主要是强制重载</p>
 </li>
-<li><p>c语言也可以在声明时使用占位参数，但不能在定义时使用</p>
-</li>
+<li>c语言也可以在声明时使用占位参数，但不能在定义时使用</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h1><span id="encapsulation">Encapsulation</span></h1><h2><span id="class">class</span></h2><ul>
 <li>how to display data (data member)</li>
 <li>how to manage data (method)</li>
@@ -300,7 +291,6 @@
 </ul>
 <h3><span id="友元">友元：</span></h3><p>定义在类外部，但有权访问类的所有私有（private）成员和保护（protected）成员，可以是友元函数也可以是友元类</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Box</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">   <span class="keyword">double</span> width;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   <span class="keyword">double</span> length;</span><br><span class="line">   <span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">printWidth</span><span class="params">( Box box )</span></span>;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">setWidth</span><span class="params">( <span class="keyword">double</span> wid )</span></span>;</span><br><span class="line">   <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Table</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <h2><span id="constrctor">constrctor</span></h2><ul>
 <li>与类同名</li>
 <li>任意参数</li>
@@ -339,7 +329,6 @@
 </ul>
 <p>先产生的后析构</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(p!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">    p=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 
     </div>
 

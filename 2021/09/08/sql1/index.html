@@ -216,44 +216,32 @@
 
       
         <h1><span id="查询">查询</span></h1><span id="more"></span>
-
 <h2><span id="基本查询">基本查询</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="operator">&lt;</span>表名<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>*表示所有列，FROM 表示从哪个表查询</p>
 <p>SELECT语句可以用来计算，不一定需要FROM,一般用于测试数据库连接</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="number">100</span><span class="operator">+</span><span class="number">200</span>;</span><br></pre></td></tr></table></figure>
-
 <h2><span id="条件查询">条件查询</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> students <span class="keyword">WHERE</span> score<span class="operator">&gt;=</span><span class="number">80</span>;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM &lt;表名&gt; WHERE &lt;条件表达式&gt;</span><br></pre></td></tr></table></figure>
-
 <p>条件表达式</p>
 <ul>
-<li> &lt;条件1&gt; AND &lt;条件2&gt; </li>
+<li>&lt;条件1&gt; AND &lt;条件2&gt; </li>
 <li>&lt;条件1&gt; OR &lt;条件2&gt;</li>
 <li>NOT &lt;条件&gt;</li>
 </ul>
 <h2><span id="投影查询">投影查询</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 列<span class="number">1</span>, 列<span class="number">2</span>, 列<span class="number">3</span> <span class="keyword">FROM</span> ...</span><br><span class="line"><span class="keyword">SELECT</span> 列<span class="number">1</span> 别名<span class="number">1</span>, 列<span class="number">2</span> 别名<span class="number">2</span>, 列<span class="number">3</span> 别名<span class="number">3</span> <span class="keyword">FROM</span> ...</span><br></pre></td></tr></table></figure>
-
 <p>返回表中指定的列</p>
 <h2><span id="排序">排序</span></h2><p>ORDER BY 子句加入后不按照id进行排序</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id, name, gender, score</span><br><span class="line"><span class="keyword">FROM</span> students</span><br><span class="line"><span class="keyword">WHERE</span> class_id <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> score <span class="keyword">DESC</span>; # <span class="keyword">ASC</span> 升序，<span class="keyword">DESC</span> 降序</span><br></pre></td></tr></table></figure>
-
 <h2><span id="多表查询">多表查询</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="operator">&lt;</span>表<span class="number">1</span><span class="operator">&gt;</span> <span class="operator">&lt;</span>表<span class="number">2</span><span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>选择使用投影查询比较好</p>
 <h1><span id="修改">修改</span></h1><h2><span id="插入">插入</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="operator">&lt;</span>表名<span class="operator">&gt;</span> (字段<span class="number">1</span>, 字段<span class="number">2</span>, ...) <span class="keyword">VALUES</span> (值<span class="number">1</span>, 值<span class="number">2</span>, ...);</span><br></pre></td></tr></table></figure>
-
 <p>id是自增的，可以由数据库推算；有默认值的字段也可以不赋值</p>
 <h2><span id="更新">更新</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE <span class="operator">&lt;</span>表名<span class="operator">&gt;</span> <span class="keyword">SET</span> 字段<span class="number">1</span><span class="operator">=</span>值<span class="number">1</span>, 字段<span class="number">2</span><span class="operator">=</span>值<span class="number">2</span>, ... <span class="keyword">WHERE</span> ...;</span><br></pre></td></tr></table></figure>
-
 <p>如果<code>WHERE</code>条件没有匹配到任何记录，<code>UPDATE</code>语句不会报错，也不会有任何记录被更新。</p>
 <p>update可以没有条件，即更新所有表</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE students <span class="keyword">SET</span> score<span class="operator">=</span><span class="number">60</span>;</span><br></pre></td></tr></table></figure>
-
 <p>真实的数据库会返回更新的行数和<code>where</code>匹配的行数</p>
 <h2><span id="删除">删除</span></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> <span class="operator">&lt;</span>表名<span class="operator">&gt;</span> <span class="keyword">WHERE</span> ...;</span><br></pre></td></tr></table></figure>
-
 <p>如果<code>WHERE</code>条件没有匹配到任何记录，<code>DELETE</code>语句不会报错，也不会有任何记录被删除。</p>
 <p><code>UPDATE</code>类似，不带<code>WHERE</code>条件的<code>DELETE</code>语句会删除整个表的数据</p>
 <p><code>DELETE</code>语句会返回删除的行数以及<code>WHERE</code>条件匹配的行数。</p>
