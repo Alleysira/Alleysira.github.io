@@ -1,5 +1,5 @@
-https://alleysira.github.io/2022/10/13/ccs17/
 https://alleysira.github.io/2022/10/03/algorithm/
+https://alleysira.github.io/2022/10/13/ccs17/
 https://alleysira.github.io/2022/10/12/git/
 https://alleysira.github.io/2022/09/26/FHE/
 https://alleysira.github.io/2021/08/01/web0/
@@ -23,6 +23,7 @@ https://alleysira.github.io/
 https://alleysira.github.io/tags/Architecture/
 https://alleysira.github.io/tags/C/
 https://alleysira.github.io/tags/Language/
+https://alleysira.github.io/tags/Algorithm/
 https://alleysira.github.io/tags/Federal-Learning/
 https://alleysira.github.io/tags/Web/
 https://alleysira.github.io/tags/Database/
