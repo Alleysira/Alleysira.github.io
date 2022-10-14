@@ -208,7 +208,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1><span id="第一章绪论">第一章：绪论</span></h1><h2><span id="计算">计算</span></h2><ul>
+        <h1 id="第一章：绪论"><a href="#第一章：绪论" class="headerlink" title="第一章：绪论"></a>第一章：绪论</h1><h2 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h2><ul>
 <li><p>计算=信息处理</p>
 </li>
 <li><p>计算：借助某种工具，遵照一定规则，以明确而机械的方法进行</p>
@@ -217,7 +217,7 @@
 </li>
 </ul>
 <span id="more"></span>
-<h3><span id="算法">算法</span></h3><p>算法：特定计算模型下，解决特定问题的指令序列</p>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>算法：特定计算模型下，解决特定问题的指令序列</p>
 <ul>
 <li>正确性：的确可以解决指定的问题</li>
 <li>确定性：基本操作组成的序列</li>
@@ -234,7 +234,7 @@ Hailstone(n)= \left\{
 
 \end{array}\right.
 \end{align}\\</script><script type="math/tex; mode=display">|Hailstone(n)|<\infty \ ?</script><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hailstone</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>&lt;n)&#123;</span><br><span class="line">	(n%<span class="number">2</span>)?n=<span class="number">3</span>*n+<span class="number">1</span>;n/=<span class="number">2</span>;</span><br><span class="line">	len++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<script type="math/tex; mode=display">程序\neq算法</script><h3><span id="好的算法">好的算法</span></h3><ul>
+<script type="math/tex; mode=display">程序\neq算法</script><h3 id="好的算法"><a href="#好的算法" class="headerlink" title="好的算法"></a>好的算法</h3><ul>
 <li>正确性</li>
 <li>健壮性</li>
 <li>可读</li>
@@ -243,8 +243,8 @@ Hailstone(n)= \left\{
 </ul>
 </li>
 </ul>
-<h2><span id="计算模型">计算模型</span></h2><p>性能测度：To measure is to know.</p>
-<h3><span id="算法分析">算法分析</span></h3><ul>
+<h2 id="计算模型"><a href="#计算模型" class="headerlink" title="计算模型"></a>计算模型</h2><p>性能测度：To measure is to know.</p>
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
 <li>正确性</li>
 <li>成本：运行时间+所需空间<ul>
 <li>如何进行度量？划分等价类</li>
@@ -256,16 +256,16 @@ Hailstone(n)= \left\{
 </ul>
 </li>
 </ul>
-<h3><span id="理想模型">理想模型</span></h3><p>如何评价针对同一问题多种算法的优劣？</p>
+<h3 id="理想模型"><a href="#理想模型" class="headerlink" title="理想模型"></a>理想模型</h3><p>如何评价针对同一问题多种算法的优劣？</p>
 <p>实验统计不准确；采用理想的模型</p>
-<h4><span id="图灵机模型">图灵机模型</span></h4><ul>
+<h4 id="图灵机模型"><a href="#图灵机模型" class="headerlink" title="图灵机模型"></a>图灵机模型</h4><ul>
 <li>tape：分为很多cell，默认均标记为特定符号</li>
 <li>alphabet：有限字符表</li>
 <li>head：读写头，任何时刻对准某一个cell</li>
 <li>state：有限种状态中的某一种；</li>
 <li>transition function：状态转移函数；</li>
 </ul>
-<h4><span id="ram">RAM</span></h4><ul>
+<h4 id="RAM"><a href="#RAM" class="headerlink" title="RAM"></a>RAM</h4><ul>
 <li>无限空间，顺序编号的寄存器：$R[0],R[1],…,R[n]$</li>
 <li>每一操作仅需要常数时间<ul>
 <li>R[i] &lt;- c</li>
@@ -364,7 +364,7 @@ Hailstone(n)= \left\{
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">第一章：绪论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.1.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.2.</span> <span class="nav-text">好的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">计算模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.1.</span> <span class="nav-text">算法分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.2.</span> <span class="nav-text">理想模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">图灵机模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">RAM</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0%EF%BC%9A%E7%BB%AA%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">第一章：绪论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97"><span class="nav-number">1.1.</span> <span class="nav-text">计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A5%BD%E7%9A%84%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.2.</span> <span class="nav-text">好的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">计算模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="nav-number">1.2.1.</span> <span class="nav-text">算法分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%90%86%E6%83%B3%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.2.</span> <span class="nav-text">理想模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E7%81%B5%E6%9C%BA%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">图灵机模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RAM"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">RAM</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

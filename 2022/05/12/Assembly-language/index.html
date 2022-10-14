@@ -221,7 +221,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1><span id="assembly-language">Assembly language</span></h1><p>machine language：机器语言是机器指令的集合，机器指令就是机器可以正确执行的命令，由于机器语言难以理解和记忆，产生了汇编语言</p>
+        <h1 id="Assembly-language"><a href="#Assembly-language" class="headerlink" title="Assembly language"></a>Assembly language</h1><p>machine language：机器语言是机器指令的集合，机器指令就是机器可以正确执行的命令，由于机器语言难以理解和记忆，产生了汇编语言</p>
 <p>汇编语言主体是汇编指令，汇编指令是机器指令的助记符</p>
 <p>编译器：将汇编指令转化为机器指令</p>
 <span id="more"></span>
@@ -249,7 +249,7 @@
 <p>内存地址空间：逻辑上将物理不连续的内存统一起来，由地址总线宽度决定</p>
 <p><img src="https://s2.loli.net/2022/07/07/dYmbL5ynsvfqpFD.png" alt="image-20220511103412882" style="zoom:67%;"></p>
 <p>x86的RAM地址空间为00000-9ffff</p>
-<h2><span id="寄存器">寄存器</span></h2><ul>
+<h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><ul>
 <li>通用寄存器：16bit，如AX,BX,CX,DX，可以划分为2个独立的8位寄存器，和上代的寄存器兼容，<ul>
 <li>AX的低八位构成AL，高八位为AH,?=044CH</li>
 </ul>
@@ -268,7 +268,7 @@
 <p>8086CPU将内存划分，$物理地址=段地址\times16+偏移地址（16位，64K）$</p>
 <p>不同的段地址和偏移地址可以形成同一个物理地址</p>
 <p>给定段地址，通过偏移地址可以寻址64K个内存单元</p>
-<h2><span id="x86汇编">x86汇编</span></h2><p>抽象层次（自底向上）：</p>
+<h2 id="x86汇编"><a href="#x86汇编" class="headerlink" title="x86汇编"></a>x86汇编</h2><p>抽象层次（自底向上）：</p>
 <ul>
 <li>硬件：数字逻辑</li>
 <li>微指令：固件，提供访问硬件的接口</li>
@@ -375,7 +375,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Assembly language</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">寄存器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">x86汇编</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Assembly-language"><span class="nav-number">1.</span> <span class="nav-text">Assembly language</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">寄存器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x86%E6%B1%87%E7%BC%96"><span class="nav-number">1.2.</span> <span class="nav-text">x86汇编</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

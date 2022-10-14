@@ -222,7 +222,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1><span id="notes-on-ccs-17-practical-secure-aggregation-for-privacy-preserving-machine-learning">Notes on CCS 17 Practical Secure Aggregation for Privacy-Preserving Machine Learning</span></h1><p>学习论文 <a target="_blank" rel="noopener" href="https://eprint.iacr.org/2017/281.pdf">https://eprint.iacr.org/2017/281.pdf</a></p>
+        <h1 id="Notes-on-CCS-17-Practical-Secure-Aggregation-for-Privacy-Preserving-Machine-Learning"><a href="#Notes-on-CCS-17-Practical-Secure-Aggregation-for-Privacy-Preserving-Machine-Learning" class="headerlink" title="Notes on CCS 17 Practical Secure Aggregation for Privacy-Preserving Machine Learning"></a>Notes on CCS 17 Practical Secure Aggregation for Privacy-Preserving Machine Learning</h1><p>学习论文 <a target="_blank" rel="noopener" href="https://eprint.iacr.org/2017/281.pdf">https://eprint.iacr.org/2017/281.pdf</a></p>
 <p><img src="/2022/10/13/ccs17/image-20221013103701919.png" alt="image-20221013103701919"></p>
 <span id="more"></span>
 <p>安全模型</p>
@@ -230,32 +230,32 @@
 <li>honest-but-curious</li>
 <li>active adversary</li>
 </ul>
-<h2><span id="secure-aggregation-for-federated-learning">Secure aggregation for federated learning</span></h2><p>利用用户的输入习惯训练神经网络，预测用户下一个可能输入的词</p>
+<h2 id="Secure-aggregation-for-federated-learning"><a href="#Secure-aggregation-for-federated-learning" class="headerlink" title="Secure aggregation for federated learning"></a>Secure aggregation for federated learning</h2><p>利用用户的输入习惯训练神经网络，预测用户下一个可能输入的词</p>
 <p>用户上传的参数是基于私人数据库的高维向量</p>
 <p>使用mini-batch随机梯度下降算法</p>
 <p>考虑中央服务器可能会观察某个用户多次上传的参数来学习该用户最常输入的词汇；实际上服务器只需要获得全体用户的子集的向量的加权平均即可</p>
 <p>采用安全聚合协议能够保证服务器只可能学习到随机选取的子集用户群体的特征，但无法确定是哪一个用户</p>
-<h3><span id="挑战">挑战</span></h3><ul>
+<h3 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h3><ul>
 <li>移动设备可能随时掉线，需要保证协议的鲁棒性</li>
 <li>由于上传的参数可能比较大，对流量计费的用户来说是额外负担</li>
 <li>移动设备无法直接与其他移动设备建立通信信道（通常需要服务器）</li>
 </ul>
-<h3><span id="安全聚合协议的需求">安全聚合协议的需求：</span></h3><ul>
+<h3 id="安全聚合协议的需求："><a href="#安全聚合协议的需求：" class="headerlink" title="安全聚合协议的需求："></a>安全聚合协议的需求：</h3><ul>
 <li>在高维数据上运行</li>
 <li>通信效率高，甚至包括对于每个实例上新的一群用户的情况</li>
 <li>对用户掉线鲁棒</li>
 <li>在服务器协调有限、无认证的网络中的提供尽可能强的安全性</li>
 </ul>
-<h2><span id="cryptographic-primitives">Cryptographic primitives</span></h2><h3><span id="secret-sharing">Secret sharing</span></h3><p>本文采用Shamir的秘密分享方案</p>
-<h4><span id="参数">参数</span></h4><p>有限域$\mathbb{F}=\mathbb{Z}_p,p$是公开的大素数，有限域的大小$l&gt;2^k$，$k$是方案的安全参数（由于协议需要秘密分享参与者的私钥）</p>
-<h4><span id="秘密分享算法">秘密分享算法</span></h4><p>$SS.share(s,t,\mathcal{U})\to \{(u,s_u)\}_{(u\in\mathcal{U})}$ </p>
+<h2 id="Cryptographic-primitives"><a href="#Cryptographic-primitives" class="headerlink" title="Cryptographic primitives"></a>Cryptographic primitives</h2><h3 id="Secret-sharing"><a href="#Secret-sharing" class="headerlink" title="Secret sharing"></a>Secret sharing</h3><p>本文采用Shamir的秘密分享方案</p>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p>有限域$\mathbb{F}=\mathbb{Z}_p,p$是公开的大素数，有限域的大小$l&gt;2^k$，$k$是方案的安全参数（由于协议需要秘密分享参与者的私钥）</p>
+<h4 id="秘密分享算法"><a href="#秘密分享算法" class="headerlink" title="秘密分享算法"></a>秘密分享算法</h4><p>$SS.share(s,t,\mathcal{U})\to \{(u,s_u)\}_{(u\in\mathcal{U})}$ </p>
 <p>$\mathcal{U}$是$n$个用户ID的集合,$t$是门限,满足$|t|\leq \mathcal{U}$。算法输出秘密碎片和用户id对的集合</p>
-<h4><span id="秘密重构算法">秘密重构算法</span></h4><p>$SS.recon(\{(u,s_u)\}_{u\in \mathcal{U}},t)\to s$</p>
+<h4 id="秘密重构算法"><a href="#秘密重构算法" class="headerlink" title="秘密重构算法"></a>秘密重构算法</h4><p>$SS.recon(\{(u,s_u)\}_{u\in \mathcal{U}},t)\to s$</p>
 <p>需要保证此时输入的秘密碎片和用户id对的集合$\mathcal{|V|}\geq t$</p>
-<h4><span id="正确性">正确性</span></h4><script type="math/tex; mode=display">\forall s \in \mathbb{F}, \forall t ,1 \leq t\leq n,\forall \mathcal{U} \subseteq \mathbb{F}, |\mathcal{U}|=n</script><p>如果<script type="math/tex">\{(u,s_u)\}_{(u\in\mathcal{U})}\gets SS.share(s,t,\mathcal{U}),\mathcal{V}\subseteq\mathcal{U},|\mathcal{V}|\geq t,]</script></p>
+<h4 id="正确性"><a href="#正确性" class="headerlink" title="正确性"></a>正确性</h4><script type="math/tex; mode=display">\forall s \in \mathbb{F}, \forall t ,1 \leq t\leq n,\forall \mathcal{U} \subseteq \mathbb{F}, |\mathcal{U}|=n</script><p>如果<script type="math/tex">\{(u,s_u)\}_{(u\in\mathcal{U})}\gets SS.share(s,t,\mathcal{U}),\mathcal{V}\subseteq\mathcal{U},|\mathcal{V}|\geq t,]</script></p>
 <p>满足<script type="math/tex">SS.recon(\{(u,s_u)\}_{u\in \mathcal{V}},t)= s</script></p>
 <script type="math/tex; mode=display">\{\{(u,s_u)\}_{(u\in\mathcal{U})}\gets SS.share(s,t,\mathcal{U}):{(u,s_u)}_{u\in \mathcal{V}}\} \equiv \{\{(u,s_u)\}_{(u\in\mathcal{U})}\gets SS.share(s^`,t,\mathcal{U}):{(u,s_u)}_{u\in \mathcal{V}}\}</script><p>即不同的密文产生的碎片是同分布的</p>
-<h3><span id="key-agreement">Key agreement</span></h3><p>密钥协商协议包括3个算法$(KA.param,KA.gen,KA.agree)$，具体采用了DH密钥协商协议和哈希函数</p>
+<h3 id="Key-agreement"><a href="#Key-agreement" class="headerlink" title="Key agreement"></a>Key agreement</h3><p>密钥协商协议包括3个算法$(KA.param,KA.gen,KA.agree)$，具体采用了DH密钥协商协议和哈希函数</p>
 <p>$KA.param()$产生公开参数，$KA.gen()$允许用户生成公私钥对，$KA.agree()$允许用户采用自己的私钥和另一用户的公钥协商一个新的密钥</p>
 <ul>
 <li>$KA.param(k)\to (\mathbb{G^{‘}},g,q,H)$</li>
@@ -266,7 +266,7 @@
 <p><img src="/2022/10/13/ccs17/image-20221013141833553.png" alt="image-20221013141833553" style="zoom: 50%;"></p>
 <p>考虑active adversary，敌手可以获得任意$s_u^{PK},s_v^{PK},KA.agree(s_u^{SK},s^{PK}),KA.agree(s_v^{SK},s^{PK})$，仍然无法分辨$s_{u,v}$和随机串（$s^{PK}$显然不能是$u/v$的）</p>
 <p><img src="/2022/10/13/ccs17/image-20221013142756384.png" alt="image-20221013142756384" style="zoom: 50%;"></p>
-<h3><span id="authenticated-encryption">Authenticated Encryption</span></h3><p>参考Introduction to Modern Cryptography中的定义，满足CCA安全和不可伪造</p>
+<h3 id="Authenticated-Encryption"><a href="#Authenticated-Encryption" class="headerlink" title="Authenticated Encryption"></a>Authenticated Encryption</h3><p>参考Introduction to Modern Cryptography中的定义，满足CCA安全和不可伪造</p>
 <p><img src="/2022/10/13/ccs17/image-20221014145121973.png" alt="image-20221014145121973"></p>
 <p><img src="/2022/10/13/ccs17/image-20221014145241663.png" alt="image-20221014145241663"></p>
 <p>不可伪造的非形式化理解是敌手可以任意查询带有正确密钥的加密算法Oracle，最后输出密文，满足密文正确解密且不在之前查询的序列中<img src="/2022/10/13/ccs17/image-20221014145241663.png" alt="image-20221014145241663"></p>
@@ -289,12 +289,12 @@
 </li>
 <li>先MAC再加密：$t\gets MAC_{K_M}(m),c\gets Enc_{k_E}(m|t)$</li>
 </ul>
-<h3><span id="prg">PRG</span></h3><p>保证接受定长的种子，输出和输出空间内随机均匀取值计算上不可区分</p>
-<h3><span id="signature-scheme">Signature Scheme</span></h3><p>UF-CMA secure signature scheme</p>
+<h3 id="PRG"><a href="#PRG" class="headerlink" title="PRG"></a>PRG</h3><p>保证接受定长的种子，输出和输出空间内随机均匀取值计算上不可区分</p>
+<h3 id="Signature-Scheme"><a href="#Signature-Scheme" class="headerlink" title="Signature Scheme"></a>Signature Scheme</h3><p>UF-CMA secure signature scheme</p>
 <p>包括三个算法$(SIG.gen,SIG.sign,SIG.ver)$</p>
-<h3><span id="pki">PKI</span></h3><p>防止服务器模拟任意的数量的客户端，需要引入PKI使得客户端注册身份，注册得到$(u,d_u^{PK})$</p>
-<h2><span id="technical-intuition">Technical Intuition</span></h2><p>协议的目标：server只能得到来自大部分用户的$\sum_{u\in \mathcal{U}}x_u$，用户无法得知任何其他人的信息</p>
-<h3><span id="masking-with-one-time-pads">Masking with One-Time Pads.</span></h3><p>aggregato# r计算并发送$y_u$</p>
+<h3 id="PKI"><a href="#PKI" class="headerlink" title="PKI"></a>PKI</h3><p>防止服务器模拟任意的数量的客户端，需要引入PKI使得客户端注册身份，注册得到$(u,d_u^{PK})$</p>
+<h2 id="Technical-Intuition"><a href="#Technical-Intuition" class="headerlink" title="Technical Intuition"></a>Technical Intuition</h2><p>协议的目标：server只能得到来自大部分用户的$\sum_{u\in \mathcal{U}}x_u$，用户无法得知任何其他人的信息</p>
+<h3 id="Masking-with-One-Time-Pads"><a href="#Masking-with-One-Time-Pads" class="headerlink" title="Masking with One-Time Pads."></a>Masking with One-Time Pads.</h3><p>aggregato# r计算并发送$y_u$</p>
 <script type="math/tex; mode=display">y_u=x_u+\sum\limits_{v\in\mathcal{U}:u< v}s_{u,v}-\sum\limits_{u\in \mathcal{U}:u>v}s_{v,u} \bmod R</script><p>server计算</p>
 <script type="math/tex; mode=display">
 \begin{align}
@@ -302,14 +302,14 @@ z&=\sum\limits_{u\in \mathcal{U}}y_u\\
 &=\sum\limits_{u\in \mathcal{U}}(x_u+\sum\limits_{v\in\mathcal{U}:u<v}s_{u,v}-\sum\limits_{v\in\mathcal{U}:u>v}s_{u,v})\\
 &=\sum\limits_{u\in \mathcal{U}}x_u \bmod R\\
 \end{align}</script><p>存在的问题是用户必须交换$s_{u,v}$即与其他用户协商的密钥，带来的通信开销是$|\mathcal{U}|\times|x|$；以及用户不能离线</p>
-<h3><span id="efficient-communication-and-handling-dropped-users">Efficient Communication and Handling Dropped Users</span></h3><ul>
+<h3 id="Efficient-Communication-and-Handling-Dropped-Users"><a href="#Efficient-Communication-and-Handling-Dropped-Users" class="headerlink" title="Efficient Communication and Handling Dropped Users"></a>Efficient Communication and Handling Dropped Users</h3><ul>
 <li>优化通信开销——令$s_{u,v}$为伪随机数生成器的输出，只需要约定种子即可</li>
 <li>解决离线问题，最朴素的做法是要求其余在线用户上传和离线用户协商的种子。如此做可能带来大的通信开销以及可能存在在线用户也掉线的情况，轮数可能等于用户个数$n$<ul>
 <li>采用门限秘密分享来解决这个问题，但可能用户的隐私信息可能会被服务器恢复，即$y_u-恢复的值$。恶意的敌手可以通过宣称用户掉线来获得该用户的隐私</li>
 </ul>
 </li>
 </ul>
-<h3><span id="double-masking-to-protect-security">Double-Masking to Protect Security</span></h3><ul>
+<h3 id="Double-Masking-to-Protect-Security"><a href="#Double-Masking-to-Protect-Security" class="headerlink" title="Double-Masking to Protect Security"></a>Double-Masking to Protect Security</h3><ul>
 <li>通过添加新的值$b_u$来防御中心服务器不可信的情况，同样采用秘密分享分享出去</li>
 </ul>
 <script type="math/tex; mode=display">
@@ -319,9 +319,9 @@ y_u&=x_u+\sum\limits_{v\in\mathcal{U}:u<v}PRG(s_{u,v})-\sum\limits_{v\in\mathcal
 <li>服务器对于每个用户$u$，必须选择向在线用户$v$请求$b_u$碎片还是$s_{u,v}$碎片；</li>
 <li>诚实的用户$v$不会同时泄露同一个用户的两个碎片</li>
 </ul>
-<h3><span id="putting-it-all-together">Putting it all Together</span></h3><p><img src="/2022/10/13/ccs17/image-20221014100912932.png" alt="image-20221014100912932" style="zoom:80%;"></p>
+<h3 id="Putting-it-all-Together"><a href="#Putting-it-all-Together" class="headerlink" title="Putting it all Together"></a>Putting it all Together</h3><p><img src="/2022/10/13/ccs17/image-20221014100912932.png" alt="image-20221014100912932" style="zoom:80%;"></p>
 <p><img src="/2022/10/13/ccs17/image-20221014100609602.png" alt="image-20221014100609602" style="zoom:80%;"></p>
-<h2><span id="a-practical-secure-aggregation-protocol">A Practical Secure Aggregation Protocol</span></h2><h3><span id="set-up">Set up</span></h3><p><img src="/2022/10/13/ccs17/image-20221014143442154.png" alt="image-20221014143442154"></p>
+<h2 id="A-Practical-Secure-Aggregation-Protocol"><a href="#A-Practical-Secure-Aggregation-Protocol" class="headerlink" title="A Practical Secure Aggregation Protocol"></a>A Practical Secure Aggregation Protocol</h2><h3 id="Set-up"><a href="#Set-up" class="headerlink" title="Set up"></a>Set up</h3><p><img src="/2022/10/13/ccs17/image-20221014143442154.png" alt="image-20221014143442154"></p>
 <p>此处标记的算法应该是$KA.para(k)$</p>
 <p>考虑参与的用户列表</p>
 <ul>
@@ -331,15 +331,15 @@ y_u&=x_u+\sum\limits_{v\in\mathcal{U}:u<v}PRG(s_{u,v})-\sum\limits_{v\in\mathcal
 <li>$\mathcal{U_4}$指的是上传之后掉线的用户，该用户的$s_{u,v}$已经被计算在结果中需要减去；$\mathcal{U_4} \subseteq \mathcal{U_3}$（方便理解，与原文记号不同）</li>
 <li>$\mathcal{U_5}$是指未掉线的用户（与原文记号不同）</li>
 </ul>
-<h3><span id="advertise-keys">Advertise keys</span></h3><p>每个用户生成两对公私钥，$c$用于进行密钥协商作为认证加密的密钥；$s$进行密钥协商后作为伪随机数生成器的种子</p>
+<h3 id="Advertise-keys"><a href="#Advertise-keys" class="headerlink" title="Advertise keys"></a>Advertise keys</h3><p>每个用户生成两对公私钥，$c$用于进行密钥协商作为认证加密的密钥；$s$进行密钥协商后作为伪随机数生成器的种子</p>
 <p><img src="/2022/10/13/ccs17/image-20221014144120142.png" alt="image-20221014144120142"></p>
-<h3><span id="share-keys">Share Keys</span></h3><p>$e_{u,v}$采用用户$u,v$协商的密钥加密了用户间的对应关系以及$u\to v$的私钥碎片和$b_u$的碎片，服务器无法解密</p>
+<h3 id="Share-Keys"><a href="#Share-Keys" class="headerlink" title="Share Keys"></a>Share Keys</h3><p>$e_{u,v}$采用用户$u,v$协商的密钥加密了用户间的对应关系以及$u\to v$的私钥碎片和$b_u$的碎片，服务器无法解密</p>
 <p><img src="/2022/10/13/ccs17/image-20221014153010286.png" alt="image-20221014153010286"></p>
-<h3><span id="maskedinput-collection">MaskedInput Collection</span></h3><p>用户之间协商出PRG的种子$s_{u,v}$之后，在本地计算$y_u\gets x_u+PRG(b_u)+\sum_{v\in\mathcal{U_2}}P_{u,v}$并发送</p>
+<h3 id="MaskedInput-Collection"><a href="#MaskedInput-Collection" class="headerlink" title="MaskedInput Collection"></a>MaskedInput Collection</h3><p>用户之间协商出PRG的种子$s_{u,v}$之后，在本地计算$y_u\gets x_u+PRG(b_u)+\sum_{v\in\mathcal{U_2}}P_{u,v}$并发送</p>
 <p><img src="/2022/10/13/ccs17/image-20221014154240414.png" alt="image-20221014154240414"></p>
-<h3><span id="unmasking">Unmasking</span></h3><p>服务器进行求和，由于服务器维护参与者的集合，能够发现用户掉线。对于掉线的用户，重构$s_u^{SK}$来计算需要加上的值</p>
+<h3 id="Unmasking"><a href="#Unmasking" class="headerlink" title="Unmasking"></a>Unmasking</h3><p>服务器进行求和，由于服务器维护参与者的集合，能够发现用户掉线。对于掉线的用户，重构$s_u^{SK}$来计算需要加上的值</p>
 <p><img src="/2022/10/13/ccs17/image-20221014155201142.png" alt="image-20221014155201142"></p>
-<h2><span id="performance-analysis">Performance analysis</span></h2><h3><span id="client">client</span></h3><h3><span id="server">server</span></h3><h2><span id="related-work">Related work</span></h2><p>基于MPC的方案</p>
+<h2 id="Performance-analysis"><a href="#Performance-analysis" class="headerlink" title="Performance analysis"></a>Performance analysis</h2><h3 id="client"><a href="#client" class="headerlink" title="client"></a>client</h3><h3 id="server"><a href="#server" class="headerlink" title="server"></a>server</h3><h2 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work"></a>Related work</h2><p>基于MPC的方案</p>
 <ul>
 <li><p>基于混淆电路的MPC适用于2-3个参与者</p>
 </li>
@@ -433,7 +433,7 @@ y_u&=x_u+\sum\limits_{v\in\mathcal{U}:u<v}PRG(s_{u,v})-\sum\limits_{v\in\mathcal
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Notes on CCS 17 Practical Secure Aggregation for Privacy-Preserving Machine Learning</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">Secure aggregation for federated learning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.1.</span> <span class="nav-text">挑战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.2.</span> <span class="nav-text">安全聚合协议的需求：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">Cryptographic primitives</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.1.</span> <span class="nav-text">Secret sharing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">秘密分享算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">秘密重构算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">正确性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.2.</span> <span class="nav-text">Key agreement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.3.</span> <span class="nav-text">Authenticated Encryption</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.4.</span> <span class="nav-text">PRG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.5.</span> <span class="nav-text">Signature Scheme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.6.</span> <span class="nav-text">PKI</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.3.</span> <span class="nav-text">Technical Intuition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.3.1.</span> <span class="nav-text">Masking with One-Time Pads.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.3.2.</span> <span class="nav-text">Efficient Communication and Handling Dropped Users</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.3.3.</span> <span class="nav-text">Double-Masking to Protect Security</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.3.4.</span> <span class="nav-text">Putting it all Together</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.4.</span> <span class="nav-text">A Practical Secure Aggregation Protocol</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.4.1.</span> <span class="nav-text">Set up</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.4.2.</span> <span class="nav-text">Advertise keys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.4.3.</span> <span class="nav-text">Share Keys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.4.4.</span> <span class="nav-text">MaskedInput Collection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.4.5.</span> <span class="nav-text">Unmasking</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.5.</span> <span class="nav-text">Performance analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.5.1.</span> <span class="nav-text">client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.5.2.</span> <span class="nav-text">server</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.6.</span> <span class="nav-text">Related work</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Notes-on-CCS-17-Practical-Secure-Aggregation-for-Privacy-Preserving-Machine-Learning"><span class="nav-number">1.</span> <span class="nav-text">Notes on CCS 17 Practical Secure Aggregation for Privacy-Preserving Machine Learning</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Secure-aggregation-for-federated-learning"><span class="nav-number">1.1.</span> <span class="nav-text">Secure aggregation for federated learning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%91%E6%88%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">挑战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E8%81%9A%E5%90%88%E5%8D%8F%E8%AE%AE%E7%9A%84%E9%9C%80%E6%B1%82%EF%BC%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">安全聚合协议的需求：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cryptographic-primitives"><span class="nav-number">1.2.</span> <span class="nav-text">Cryptographic primitives</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Secret-sharing"><span class="nav-number">1.2.1.</span> <span class="nav-text">Secret sharing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">秘密分享算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%98%E5%AF%86%E9%87%8D%E6%9E%84%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">秘密重构算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E7%A1%AE%E6%80%A7"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">正确性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-agreement"><span class="nav-number">1.2.2.</span> <span class="nav-text">Key agreement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Authenticated-Encryption"><span class="nav-number">1.2.3.</span> <span class="nav-text">Authenticated Encryption</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PRG"><span class="nav-number">1.2.4.</span> <span class="nav-text">PRG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Signature-Scheme"><span class="nav-number">1.2.5.</span> <span class="nav-text">Signature Scheme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PKI"><span class="nav-number">1.2.6.</span> <span class="nav-text">PKI</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Technical-Intuition"><span class="nav-number">1.3.</span> <span class="nav-text">Technical Intuition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Masking-with-One-Time-Pads"><span class="nav-number">1.3.1.</span> <span class="nav-text">Masking with One-Time Pads.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Efficient-Communication-and-Handling-Dropped-Users"><span class="nav-number">1.3.2.</span> <span class="nav-text">Efficient Communication and Handling Dropped Users</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Double-Masking-to-Protect-Security"><span class="nav-number">1.3.3.</span> <span class="nav-text">Double-Masking to Protect Security</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Putting-it-all-Together"><span class="nav-number">1.3.4.</span> <span class="nav-text">Putting it all Together</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-Practical-Secure-Aggregation-Protocol"><span class="nav-number">1.4.</span> <span class="nav-text">A Practical Secure Aggregation Protocol</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Set-up"><span class="nav-number">1.4.1.</span> <span class="nav-text">Set up</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Advertise-keys"><span class="nav-number">1.4.2.</span> <span class="nav-text">Advertise keys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Share-Keys"><span class="nav-number">1.4.3.</span> <span class="nav-text">Share Keys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MaskedInput-Collection"><span class="nav-number">1.4.4.</span> <span class="nav-text">MaskedInput Collection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unmasking"><span class="nav-number">1.4.5.</span> <span class="nav-text">Unmasking</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Performance-analysis"><span class="nav-number">1.5.</span> <span class="nav-text">Performance analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#client"><span class="nav-number">1.5.1.</span> <span class="nav-text">client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#server"><span class="nav-number">1.5.2.</span> <span class="nav-text">server</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-work"><span class="nav-number">1.6.</span> <span class="nav-text">Related work</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
