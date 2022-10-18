@@ -6,7 +6,7 @@
   <link href="https://alleysira.github.io/atom.xml" rel="self"/>
   
   <link href="https://alleysira.github.io/"/>
-  <updated>2022-10-17T09:37:04.140Z</updated>
+  <updated>2022-10-18T03:45:45.536Z</updated>
   <id>https://alleysira.github.io/</id>
   
   <author>
@@ -21,14 +21,14 @@
     <link href="https://alleysira.github.io/2022/10/17/Security-proof/"/>
     <id>https://alleysira.github.io/2022/10/17/Security-proof/</id>
     <published>2022-10-17T09:21:12.000Z</published>
-    <updated>2022-10-17T09:37:04.140Z</updated>
+    <updated>2022-10-18T03:45:45.536Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Random-oracle"><a href="#Random-oracle" class="headerlink" title="Random oracle"></a>Random oracle</h1><p>An idealized model ，尚无人证明random oracle存在，但可以使用可信方的形式来实现，</p><p>假设存在一个完全随机、公开可访问的哈希函数，只能通过查询oracle来取值</p><p>可采用以下形式化的方法来设计密码方案：</p><ul><li>假设世界上存在random oracle，并且方案在random oracle模型下可证明安全</li><li>需要在现实世界中实现方案时，采用一个恰当设计的密码学哈希函数$H(x)$即可，即当需要查询random oracle时，计算$H(x)$</li></ul><p>random oracle下的证明实际是在证明方案没有固有的设计缺陷，并没有证明任何实际的方案实现是安全的</p><p>参考Page187  <a href="http://www.cs.umd.edu/~jkatz/imc.html">Introduction to Modern Cryptography, 3rd edition</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="Random-oracle"><a href="#Random-oracle" class="headerlink" title="Random oracle"></a>Random oracle</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>An idealized model ，尚无人证明random oracle存在，但可以使用可信方的形式来实现，</p><p>假设存在一个完全随机、公开可访问的哈希函数，只能通过查询oracle来取值</p><p>可采用以下形式化的方法来设计密码方案：</p><ul><li>假设世界上存在random oracle，并且方案在random oracle模型下可证明安全</li><li>需要在现实世界中实现方案时，采用一个恰当设计的密码学哈希函数$H(x)$即可，即当需要查询random oracle时，计算$H(x)$</li></ul><p>以上的设计需要实际上使用的密码学哈希函数能够<em>足够好</em>地模拟random oracle，所以第一步的证明在现实世界中是安全的。问题在于没有理论证明以上的模拟是<em>足够好</em>的，具体的哈希函数代码实现也不能与随机函数的行为一致</p><p>random oracle下的证明实际是在证明方案没有<em>固有的设计缺陷</em>，并没有证明任何实际的方案实现是安全的</p><h2 id="Details"><a href="#Details" class="headerlink" title="Details"></a>Details</h2><p>黑盒，输入为比特串输出为比特串，内部的工作机理是未知且不可构造的，任何参与者（包括敌手）可以和黑盒交互；查询是隐私的，其他人无法观察参与者的输入$x$，甚至无法得知某个参与者是否查询过（合理性在于，参考本地调用哈希函数）</p><p>黑盒具有一致性，对于同一输入的输出保证不发生变化</p><p>如何构造$H$,考虑一个初始为空的$(x_i,y_i)$表，对于输入$x\neq x_i \in box$，随机选择$y\in \{0,1\}^l$并存入表内即可；如果输入$x = x_i \in box$，则输出对应的$y_i$。显然需要提前定义输出的域</p><p>Cons</p><ul><li><p>存在方案在RO下安全但是使用任何现实的哈希函数时都不安全</p></li><li><p>在许多现有方案中可能安全性要求过高</p></li></ul><p>Pros</p><ul><li>没有已知的在RO下安全但在现实世界中受到攻击的方案</li><li>如果攻击被发现了，可以更换哈希函数</li><li>有证明总比没有好（摆烂.jpg）</li></ul><p>参考Page187  <a href="http://www.cs.umd.edu/~jkatz/imc.html">Introduction to Modern Cryptography, 3rd edition</a></p>]]></content>
     
     
       
       
-    <summary type="html">&lt;h1 id=&quot;Random-oracle&quot;&gt;&lt;a href=&quot;#Random-oracle&quot; class=&quot;headerlink&quot; title=&quot;Random oracle&quot;&gt;&lt;/a&gt;Random oracle&lt;/h1&gt;&lt;p&gt;An idealized model ，尚无人证明r</summary>
+    <summary type="html">&lt;h1 id=&quot;Random-oracle&quot;&gt;&lt;a href=&quot;#Random-oracle&quot; class=&quot;headerlink&quot; title=&quot;Random oracle&quot;&gt;&lt;/a&gt;Random oracle&lt;/h1&gt;&lt;h2 id=&quot;Overview&quot;&gt;&lt;a href=&quot;#O</summary>
       
     
     
