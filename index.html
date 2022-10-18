@@ -159,6 +159,171 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2022/10/17/Security-proof/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/17/Security-proof/" class="post-title-link" itemprop="url">Security proof</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-17 17:21:12 / Modified: 17:37:04" itemprop="dateCreated datePublished" datetime="2022-10-17T17:21:12+08:00">2022-10-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Random-oracle"><a href="#Random-oracle" class="headerlink" title="Random oracle"></a>Random oracle</h1><p>An idealized model ，尚无人证明random oracle存在，但可以使用可信方的形式来实现，</p>
+<p>假设存在一个完全随机、公开可访问的哈希函数，只能通过查询oracle来取值</p>
+<p>可采用以下形式化的方法来设计密码方案：</p>
+<ul>
+<li>假设世界上存在random oracle，并且方案在random oracle模型下可证明安全</li>
+<li>需要在现实世界中实现方案时，采用一个恰当设计的密码学哈希函数$H(x)$即可，即当需要查询random oracle时，计算$H(x)$</li>
+</ul>
+<p>random oracle下的证明实际是在证明方案没有固有的设计缺陷，并没有证明任何实际的方案实现是安全的</p>
+<p>参考Page187  <a target="_blank" rel="noopener" href="http://www.cs.umd.edu/~jkatz/imc.html">Introduction to Modern Cryptography, 3rd edition</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2022/10/17/short-randomizable-signatures/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/17/short-randomizable-signatures/" class="post-title-link" itemprop="url">short randomizable signatures</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-10-17 09:32:38 / Modified: 17:20:50" itemprop="dateCreated datePublished" datetime="2022-10-17T09:32:38+08:00">2022-10-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>学习论文（<a target="_blank" rel="noopener" href="https://eprint.iacr.org/2015/525.pdf）">https://eprint.iacr.org/2015/525.pdf）</a></p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>数字签名的要点在于提高效率以及适配协议（blind signature在隐私保护协议中）</p>
+<h1 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h1><h2 id="Bilinear-Groups"><a href="#Bilinear-Groups" class="headerlink" title="Bilinear Groups"></a>Bilinear Groups</h2><p> 三个素数阶$p$的循环群$\mathbb{G_1,G_2,G}_T$之间存在如下双线性映射$e:\mathbb{G_1}\times\mathbb{G_2}\to\mathbb{G}_T$并满足三条性质：</p>
+<ul>
+<li>双线性：for all $g\in\mathbb{G_1},\tilde{g}\in\mathbb{G_2}$ and $a,b\in\mathbb{Z}_p,e(g^a,\tilde{g}^b)=e(g,\tilde{g})^{a\cdot b}$</li>
+<li>非退化性：for $g\neq 1_{\mathbb{G}_1}$ and $\tilde{g} \neq 1_{\mathbb{G}_2},e(g,\tilde{g})\neq 1_{\mathbb{G}_T}$</li>
+<li>可计算性：for all $g\in\mathbb{G_1},\tilde{g}\in\mathbb{G_2}$存在多项式时间算法可高效计算$e(g,\tilde{g})$</li>
+</ul>
+<p>[GPS08] 定义了以下三类双线性群</p>
+<ul>
+<li>Type 1：$ \mathbb{G_1=G_2}$，对称双线性群</li>
+<li>Type 2：$ \mathbb{G_1\neq G_2}$但存在efficient的同态映射$\phi:\to \mathbb{G_2} \to \mathbb{G_1}$;另一个方向不存在efficient的映射</li>
+<li>Type 3：$ \mathbb{G_1\neq G_2}$并且任何方向都不存在高效可计算的的同态映射</li>
+</ul>
+<p>Type 1正在逐渐被弃用，Type 3 具有更好的效率 并和 <a target="_blank" rel="noopener" href="https://cryptography.fandom.com/wiki/XDH_assumption#:~:text=The%20external%20Diffie%E2%80%93Hellman%20%28XDH%29%20assumption%20is%20a%20mathematic,elliptic%20curves%20which%20have%20useful%20properties%20for%20cryptography.">XDH assumption</a> 协调</p>
+<p><img src="/2022/10/17/short-randomizable-signatures/image-20221017103406919.png" alt="image-20221017103406919"></p>
+<h2 id="Digital-Signature-Scheme"><a href="#Digital-Signature-Scheme" class="headerlink" title="Digital Signature Scheme"></a>Digital Signature Scheme</h2><p>一个数字签名方案由四个算法定义：</p>
+<ul>
+<li>$Setup(k)\to pp$</li>
+<li>$Keygen(pp)\to (sk,pk)$</li>
+<li>$Sign(m,sk)\to \sigma $</li>
+<li>$Verify(m,\sigma,pk)\to True \ or\ False$</li>
+</ul>
+<h3 id="EUF-CMA"><a href="#EUF-CMA" class="headerlink" title="EUF-CMA"></a>EUF-CMA</h3><p>existential unforgeability under chosen message attacks</p>
+<p><img src="/2022/10/17/short-randomizable-signatures/image-20221017112239553.png" alt="image-20221017112239553"></p>
+<h2 id="Sequential-Aggregate-Signature"><a href="#Sequential-Aggregate-Signature" class="headerlink" title="Sequential Aggregate Signature"></a>Sequential Aggregate Signature</h2><ul>
+<li>$AS.setup(k)\to pp$</li>
+<li>$AS.keygen(pp)\to(sk,pk)$</li>
+<li><p>$AS.sign(\sigma,m,sk)\to\sigma’$，其中$\sigma\gets sign((m_1,m_2,\cdots,m_n),(sk_1,sk_2,\cdots,sk_n))$此处相当于追加了一条消息再签名，且使用的私钥不能和$\{m_i\}^n$签名时使用的私钥对应</p>
+</li>
+<li><p>$AS.verify((m_1,m_2,\cdots,m_n),\sigma,(pk_1,pk_2,\cdots,pk_n))\to True \ or\ False$</p>
+</li>
+</ul>
+<p>以下是<a target="_blank" rel="noopener" href="https://hovav.net/ucsd/papers/lmrs04.html">LMRS04</a>定义的聚合签名方案</p>
+<p><img src="/2022/10/17/short-randomizable-signatures/image-20221017152732484.png" alt="image-20221017152732484"></p>
+<h3 id="security-model——EUF-CMA"><a href="#security-model——EUF-CMA" class="headerlink" title="security model——EUF-CMA"></a>security model——EUF-CMA</h3><p>安全性类似普通签名的EUF-CMA，由如下游戏定义:</p>
+<p><img src="/2022/10/17/short-randomizable-signatures/image-20221017154222186.png" alt="image-20221017154222186"></p>
+<h1 id="Assumption"><a href="#Assumption" class="headerlink" title="Assumption"></a>Assumption</h1><p>LRSW假设</p>
+<p><img src="/2022/10/17/short-randomizable-signatures/image-20221017162918439.png" alt="image-20221017162918439"></p>
+<p><img src="/2022/10/17/short-randomizable-signatures/image-20221017164456363.png" alt="image-20221017164456363"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2022/10/13/ccs17/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -190,7 +355,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-17 09:11:33" itemprop="dateModified" datetime="2022-10-17T09:11:33+08:00">2022-10-17</time>
+                <time title="Modified: 2022-10-17 09:39:32" itemprop="dateModified" datetime="2022-10-17T09:39:32+08:00">2022-10-17</time>
               </span>
 
           
@@ -204,7 +369,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Notes-on-CCS-17-Practical-Secure-Aggregation-for-Privacy-Preserving-Machine-Learning"><a href="#Notes-on-CCS-17-Practical-Secure-Aggregation-for-Privacy-Preserving-Machine-Learning" class="headerlink" title="Notes on CCS 17 Practical Secure Aggregation for Privacy-Preserving Machine Learning"></a>Notes on CCS 17 Practical Secure Aggregation for Privacy-Preserving Machine Learning</h1><p>学习论文 <a target="_blank" rel="noopener" href="https://eprint.iacr.org/2017/281.pdf">https://eprint.iacr.org/2017/281.pdf</a></p>
+          <h1 id="Notes-on-CCS-17-Practical-Secure-Aggregation-for-Privacy-Preserving-Machine-Learning"><a href="#Notes-on-CCS-17-Practical-Secure-Aggregation-for-Privacy-Preserving-Machine-Learning" class="headerlink" title="Notes on CCS 17 Practical Secure Aggregation for Privacy-Preserving Machine Learning"></a>Notes on CCS 17 Practical Secure Aggregation for Privacy-Preserving Machine Learning</h1><p>学习论文（<a target="_blank" rel="noopener" href="https://eprint.iacr.org/2017/281.pdf）">https://eprint.iacr.org/2017/281.pdf）</a></p>
 <p><img src="/2022/10/13/ccs17/image-20221013103701919.png" alt="image-20221013103701919"></p>
           <!--noindex-->
             <div class="post-button">
@@ -775,163 +940,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2022/04/27/CSAPP/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alleysira">
-      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alleysira's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/27/CSAPP/" class="post-title-link" itemprop="url">CSAPP</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-04-27 11:56:15" itemprop="dateCreated datePublished" datetime="2022-04-27T11:56:15+08:00">2022-04-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-08 12:04:55" itemprop="dateModified" datetime="2022-07-08T12:04:55+08:00">2022-07-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Architecture/" itemprop="url" rel="index"><span itemprop="name">Architecture</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://s2.loli.net/2022/04/27/hsBuDe7AHGYF2n1.png" alt="image-20220427115625645"></p>
-<ul>
-<li>Preprocessor: replace macro start with <strong>#</strong></li>
-<li>Compiler: generates a .s file contains assembly-language program. Different compilers generate output file with assembly language.</li>
-<li>Assembler: translate into machine codes stored in relocatable object program</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2022/04/02/IELTS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alleysira">
-      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alleysira's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/02/IELTS/" class="post-title-link" itemprop="url">IELTS</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-04-02 11:10:26" itemprop="dateCreated datePublished" datetime="2022-04-02T11:10:26+08:00">2022-04-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-18 20:57:51" itemprop="dateModified" datetime="2022-08-18T20:57:51+08:00">2022-08-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><em>“Do or do not, there is no try.”</em> </p>
-<p>Overall band score: 7.5 (Listening: 7.5 Reading: 9.0 Writing: 6.5 Speaking:6.5)</p>
-<p><em>“End of story.”</em> </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/02/IELTS/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -997,7 +1009,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1010,7 +1022,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

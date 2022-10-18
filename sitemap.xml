@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://alleysira.github.io/2022/10/17/Security-proof/</loc>
+    
+    <lastmod>2022-10-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/2022/10/17/short-randomizable-signatures/</loc>
+    
+    <lastmod>2022-10-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/2022/10/13/ccs17/</loc>
     
     <lastmod>2022-10-17</lastmod>
@@ -193,7 +211,7 @@
 
   <url>
     <loc>https://alleysira.github.io/</loc>
-    <lastmod>2022-10-17</lastmod>
+    <lastmod>2022-10-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -201,70 +219,84 @@
   
   <url>
     <loc>https://alleysira.github.io/tags/Architecture/</loc>
-    <lastmod>2022-10-17</lastmod>
+    <lastmod>2022-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://alleysira.github.io/tags/Homomorphic-Encryption/</loc>
-    <lastmod>2022-10-17</lastmod>
+    <lastmod>2022-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://alleysira.github.io/tags/C/</loc>
-    <lastmod>2022-10-17</lastmod>
+    <lastmod>2022-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://alleysira.github.io/tags/Language/</loc>
-    <lastmod>2022-10-17</lastmod>
+    <lastmod>2022-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://alleysira.github.io/tags/Algorithm/</loc>
-    <lastmod>2022-10-17</lastmod>
+    <lastmod>2022-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://alleysira.github.io/tags/Federal-Learning/</loc>
-    <lastmod>2022-10-17</lastmod>
+    <lastmod>2022-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://alleysira.github.io/tags/Web/</loc>
-    <lastmod>2022-10-17</lastmod>
+    <lastmod>2022-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://alleysira.github.io/tags/Database/</loc>
-    <lastmod>2022-10-17</lastmod>
+    <lastmod>2022-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://alleysira.github.io/tags/Virus/</loc>
-    <lastmod>2022-10-17</lastmod>
+    <lastmod>2022-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://alleysira.github.io/tags/Crypto/</loc>
-    <lastmod>2022-10-17</lastmod>
+    <lastmod>2022-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/tags/crypto/</loc>
+    <lastmod>2022-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/tags/Digital-signature/</loc>
+    <lastmod>2022-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -273,21 +305,21 @@
   
   <url>
     <loc>https://alleysira.github.io/categories/Architecture/</loc>
-    <lastmod>2022-10-17</lastmod>
+    <lastmod>2022-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://alleysira.github.io/categories/CTF/</loc>
-    <lastmod>2022-10-17</lastmod>
+    <lastmod>2022-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://alleysira.github.io/categories/Crypto/</loc>
-    <lastmod>2022-10-17</lastmod>
+    <lastmod>2022-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
