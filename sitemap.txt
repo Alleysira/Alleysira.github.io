@@ -1,9 +1,10 @@
 https://alleysira.github.io/2022/10/17/Security-proof/
-https://alleysira.github.io/2022/10/17/short-randomizable-signatures/
+https://alleysira.github.io/2022/10/03/algorithm/
+https://alleysira.github.io/2022/10/19/Federated-Machine-Learning-Concept-and-Application/
 https://alleysira.github.io/2022/10/13/ccs17/
+https://alleysira.github.io/2022/10/17/short-randomizable-signatures/
 https://alleysira.github.io/2022/09/20/GRE/
 https://alleysira.github.io/2022/09/26/FHE/
-https://alleysira.github.io/2022/10/03/algorithm/
 https://alleysira.github.io/2022/10/12/git/
 https://alleysira.github.io/2021/08/01/web0/
 https://alleysira.github.io/2022/04/02/IELTS/
@@ -27,13 +28,13 @@ https://alleysira.github.io/tags/Homomorphic-Encryption/
 https://alleysira.github.io/tags/C/
 https://alleysira.github.io/tags/Language/
 https://alleysira.github.io/tags/Algorithm/
-https://alleysira.github.io/tags/Federal-Learning/
 https://alleysira.github.io/tags/Web/
 https://alleysira.github.io/tags/Database/
 https://alleysira.github.io/tags/Virus/
 https://alleysira.github.io/tags/Crypto/
 https://alleysira.github.io/tags/crypto/
 https://alleysira.github.io/tags/Digital-signature/
+https://alleysira.github.io/tags/Federated-Learning/
 https://alleysira.github.io/categories/Architecture/
 https://alleysira.github.io/categories/CTF/
 https://alleysira.github.io/categories/Crypto/
