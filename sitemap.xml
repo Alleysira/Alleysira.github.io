@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://alleysira.github.io/2022/10/22/Secret-sharing/</loc>
+    
+    <lastmod>2022-10-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/2022/10/17/short-randomizable-signatures/</loc>
     
     <lastmod>2022-10-22</lastmod>
@@ -30,15 +39,6 @@
   
   <url>
     <loc>https://alleysira.github.io/2022/10/19/Federated-Machine-Learning-Concept-and-Application/</loc>
-    
-    <lastmod>2022-10-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://alleysira.github.io/2022/10/22/Secret-sharing/</loc>
     
     <lastmod>2022-10-22</lastmod>
     
@@ -250,13 +250,6 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
-    <lastmod>2022-10-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://alleysira.github.io/tags/Homomorphic-Encryption/</loc>
     <lastmod>2022-10-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -278,6 +271,13 @@
   </url>
   
   <url>
+    <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
+    <lastmod>2022-10-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/tags/Algorithm/</loc>
     <lastmod>2022-10-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -292,14 +292,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Database/</loc>
+    <loc>https://alleysira.github.io/tags/Web/</loc>
     <lastmod>2022-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Web/</loc>
+    <loc>https://alleysira.github.io/tags/Database/</loc>
     <lastmod>2022-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
