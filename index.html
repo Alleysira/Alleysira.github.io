@@ -341,7 +341,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-22 09:53:59" itemprop="dateModified" datetime="2022-10-22T09:53:59+08:00">2022-10-22</time>
+                <time title="Modified: 2022-10-22 17:05:09" itemprop="dateModified" datetime="2022-10-22T17:05:09+08:00">2022-10-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -365,60 +365,6 @@
 
       
           <h1 id="密码学安全归约技术：壬寅年的见解"><a href="#密码学安全归约技术：壬寅年的见解" class="headerlink" title="密码学安全归约技术：壬寅年的见解"></a>密码学安全归约技术：壬寅年的见解</h1><p>学习郭福春老师面向西电的安全规约分享录屏： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1AY4y1n775?share_source=copy_web&amp;vd_source=4487439a1220fa77bb4a6f0079c98794">https://www.bilibili.com/video/BV1AY4y1n775?share_source=copy_web&amp;vd_source=4487439a1220fa77bb4a6f0079c98794</a></p>
-<p>Outputs Force Inputs.</p>
-<p><img src="/2022/10/17/Security-proof/image-20221019170832942.png" alt="image-20221019170832942"></p>
-<h2 id="小白成长路线"><a href="#小白成长路线" class="headerlink" title="小白成长路线"></a>小白成长路线</h2><p>密码学对安全的定义</p>
-<p>PPT的敌手只能以可忽略的概率解决问题</p>
-<p>计算安全：随着时间投入增加，解决问题的概率增加（公钥密码常用的概念）</p>
-<p>信息论安全：one-time pad（无法实际使用）</p>
-<p>安全规约</p>
-<ul>
-<li>假设存在PPT敌手能够在安全模型下攻破方案</li>
-<li>构造一个中间方案，面对已知的困难问题，敌手可以攻破该困难问题</li>
-<li>困难问题确实是困难的，假设错误</li>
-</ul>
-<p>规约基础问题</p>
-<p>simulated game和proposed game之间需要满足不可区分，两者的区别在于敌手同时得到了两个公钥，而不是有先后顺序</p>
-<p><img src="/2022/10/17/Security-proof/image-20221019171830985.png" alt="image-20221019171830985"></p>
-<p><img src="/2022/10/17/Security-proof/image-20221019172439903.png" alt="image-20221019172439903"></p>
-<p>abort和不可区分：敌手是一个算法，没有记忆，可以重新初始化</p>
-<h2 id="小专如何看看待研究问题和研究内容"><a href="#小专如何看看待研究问题和研究内容" class="headerlink" title="小专如何看看待研究问题和研究内容"></a>小专如何看看待研究问题和研究内容</h2><p><img src="/2022/10/17/Security-proof/image-20221019174231071.png" alt="image-20221019174231071" style="zoom:80%;"></p>
-<p><img src="/2022/10/17/Security-proof/image-20221019174507793.png" alt="image-20221019174507793" style="zoom:80%;"></p>
-<p><img src="/2022/10/17/Security-proof/image-20221019174756033.png" alt="image-20221019174756033"><img src="/2022/10/17/Security-proof/image-20221019174756092.png" alt="image-20221019174756092"></p>
-<h2 id="安全规约相关的研究内容"><a href="#安全规约相关的研究内容" class="headerlink" title="安全规约相关的研究内容"></a>安全规约相关的研究内容</h2><p>安全规约究竟好不好</p>
-<p>考虑以下4部分</p>
-<ul>
-<li>security model</li>
-<li>proof model</li>
-<li>reduction cost</li>
-<li>strong/week assumption</li>
-</ul>
-<p><img src="/2022/10/17/Security-proof/image-20221019175153652.png" alt="image-20221019175153652"></p>
-<p>（之前的签名论文就是q type）</p>
-<p>有安全证明的方案只在安全模型内安全</p>
-<h2 id="安全规约和其他证明的区别"><a href="#安全规约和其他证明的区别" class="headerlink" title="安全规约和其他证明的区别"></a>安全规约和其他证明的区别</h2><ul>
-<li>game-based proof</li>
-<li>simulation-based proof</li>
-</ul>
-<p><img src="/2022/10/17/Security-proof/image-20221019175859049.png" alt="image-20221019175859049"></p>
-<p><img src="/2022/10/17/Security-proof/image-20221019175948438.png" alt="image-20221019175948438"></p>
-<p>game hopping类似于Hybrid</p>
-<p><img src="/2022/10/17/Security-proof/image-20221019180319854.png" alt="image-20221019180319854"></p>
-<p>清楚定义了敌手会输出什么，能够知晓哪些信息</p>
-<p><img src="/2022/10/17/Security-proof/image-20221019180355680.png" alt="image-20221019180355680"></p>
-<p>敌手没有特定的输出</p>
-<p><img src="/2022/10/17/Security-proof/image-20221019180616201.png" alt="image-20221019180616201"></p>
-<p><img src="/2022/10/17/Security-proof/image-20221019180653862.png" alt="image-20221019180653862"></p>
-<p><img src="/2022/10/17/Security-proof/image-20221019180908743.png" alt="image-20221019180908743"></p>
-<h1 id="Random-oracle"><a href="#Random-oracle" class="headerlink" title="Random oracle"></a>Random oracle</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>An idealized model ，尚无人证明random oracle存在，但可以使用可信方的形式来实现</p>
-<p>假设存在一个完全随机、公开可访问的哈希函数，只能通过查询oracle来取值</p>
-<p>可采用以下形式化的方法来设计密码方案：</p>
-<ul>
-<li>假设世界上存在random oracle，并且方案在random oracle模型下可证明安全</li>
-<li>需要在现实世界中实现方案时，采用一个恰当设计的密码学哈希函数$H(x)$即可，即当需要查询random oracle时，计算$H(x)$</li>
-</ul>
-<p>以上的设计需要实际上使用的密码学哈希函数能够<em>足够好</em>地模拟random oracle，所以第一步的证明在现实世界中是安全的。问题在于没有理论证明以上的模拟是<em>足够好</em>的，具体的哈希函数代码实现也不能与随机函数的行为一致</p>
-<p>random oracle下的证明实际是在证明方案没有<em>固有的设计缺陷</em>，并没有证明任何实际的方案实现是安全的</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/10/17/Security-proof/#more" rel="contents">
@@ -476,7 +422,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-22 09:53:34" itemprop="dateModified" datetime="2022-10-22T09:53:34+08:00">2022-10-22</time>
+                <time title="Modified: 2022-10-22 17:05:32" itemprop="dateModified" datetime="2022-10-22T17:05:32+08:00">2022-10-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -500,46 +446,14 @@
 
       
           <p>学习论文（<a target="_blank" rel="noopener" href="https://eprint.iacr.org/2015/525.pdf）">https://eprint.iacr.org/2015/525.pdf）</a></p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>数字签名的要点在于提高效率以及适配协议（blind signature在隐私保护协议中）</p>
-<h1 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h1><h2 id="Bilinear-Groups"><a href="#Bilinear-Groups" class="headerlink" title="Bilinear Groups"></a>Bilinear Groups</h2><p> 三个素数阶$p$的循环群$\mathbb{G_1,G_2,G}_T$之间存在如下双线性映射$e:\mathbb{G_1}\times\mathbb{G_2}\to\mathbb{G}_T$并满足三条性质：</p>
-<ul>
-<li>双线性：for all $g\in\mathbb{G_1},\tilde{g}\in\mathbb{G_2}$ and $a,b\in\mathbb{Z}_p,e(g^a,\tilde{g}^b)=e(g,\tilde{g})^{a\cdot b}$</li>
-<li>非退化性：for $g\neq 1_{\mathbb{G}_1}$ and $\tilde{g} \neq 1_{\mathbb{G}_2},e(g,\tilde{g})\neq 1_{\mathbb{G}_T}$</li>
-<li>可计算性：for all $g\in\mathbb{G_1},\tilde{g}\in\mathbb{G_2}$存在多项式时间算法可高效计算$e(g,\tilde{g})$</li>
-</ul>
-<p>[GPS08] 定义了以下三类双线性群</p>
-<ul>
-<li>Type 1：$ \mathbb{G_1=G_2}$，对称双线性群</li>
-<li>Type 2：$ \mathbb{G_1\neq G_2}$但存在efficient的同态映射$\phi:\to \mathbb{G_2} \to \mathbb{G_1}$;另一个方向不存在efficient的映射</li>
-<li>Type 3：$ \mathbb{G_1\neq G_2}$并且任何方向都不存在高效可计算的的同态映射</li>
-</ul>
-<p>Type 1正在逐渐被弃用，Type 3 具有更好的效率 并和 <a target="_blank" rel="noopener" href="https://cryptography.fandom.com/wiki/XDH_assumption#:~:text=The%20external%20Diffie%E2%80%93Hellman%20%28XDH%29%20assumption%20is%20a%20mathematic,elliptic%20curves%20which%20have%20useful%20properties%20for%20cryptography.">XDH assumption</a> 协调</p>
-<p><img src="/2022/10/17/short-randomizable-signatures/image-20221017103406919.png" alt="image-20221017103406919"></p>
-<h2 id="Digital-Signature-Scheme"><a href="#Digital-Signature-Scheme" class="headerlink" title="Digital Signature Scheme"></a>Digital Signature Scheme</h2><p>一个数字签名方案由四个算法定义：</p>
-<ul>
-<li>$Setup(k)\to pp$</li>
-<li>$Keygen(pp)\to (sk,pk)$</li>
-<li>$Sign(m,sk)\to \sigma $</li>
-<li>$Verify(m,\sigma,pk)\to True \ or\ False$</li>
-</ul>
-<h3 id="EUF-CMA"><a href="#EUF-CMA" class="headerlink" title="EUF-CMA"></a>EUF-CMA</h3><p>existential unforgeability under chosen message attacks</p>
-<p><img src="/2022/10/17/short-randomizable-signatures/image-20221017112239553.png" alt="image-20221017112239553"></p>
-<h2 id="Sequential-Aggregate-Signature"><a href="#Sequential-Aggregate-Signature" class="headerlink" title="Sequential Aggregate Signature"></a>Sequential Aggregate Signature</h2><ul>
-<li>$AS.setup(k)\to pp$</li>
-<li>$AS.keygen(pp)\to(sk,pk)$</li>
-<li><p>$AS.sign(\sigma,m,sk)\to\sigma’$，其中$\sigma\gets sign((m_1,m_2,\cdots,m_n),(sk_1,sk_2,\cdots,sk_n))$此处相当于追加了一条消息再签名，且使用的私钥不能和$\{m_i\}^n$签名时使用的私钥对应</p>
-</li>
-<li><p>$AS.verify((m_1,m_2,\cdots,m_n),\sigma,(pk_1,pk_2,\cdots,pk_n))\to True \ or\ False$</p>
-</li>
-</ul>
-<p>以下是<a target="_blank" rel="noopener" href="https://hovav.net/ucsd/papers/lmrs04.html">LMRS04</a>定义的聚合签名方案</p>
-<p><img src="/2022/10/17/short-randomizable-signatures/image-20221017152732484.png" alt="image-20221017152732484"></p>
-<h3 id="security-model——EUF-CMA"><a href="#security-model——EUF-CMA" class="headerlink" title="security model——EUF-CMA"></a>security model——EUF-CMA</h3><p>安全性类似普通签名的EUF-CMA，由如下游戏定义:</p>
-<p><img src="/2022/10/17/short-randomizable-signatures/image-20221017154222186.png" alt="image-20221017154222186"></p>
-<h1 id="Assumption"><a href="#Assumption" class="headerlink" title="Assumption"></a>Assumption</h1><p>LRSW假设</p>
-<p><img src="/2022/10/17/short-randomizable-signatures/image-20221017162918439.png" alt="image-20221017162918439"></p>
-<p><img src="/2022/10/17/short-randomizable-signatures/image-20221017164456363.png" alt="image-20221017164456363"></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/17/short-randomizable-signatures/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
