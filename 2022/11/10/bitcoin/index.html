@@ -29,8 +29,9 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://alleysira.github.io/2022/11/10/bitcoin/image-20221111095427304.png">
 <meta property="og:image" content="https://alleysira.github.io/2022/11/10/bitcoin/image-20221111105103019.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/11/10/bitcoin/image-20221114104559314.png">
 <meta property="article:published_time" content="2022-11-10T01:01:50.000Z">
-<meta property="article:modified_time" content="2022-11-11T03:37:54.188Z">
+<meta property="article:modified_time" content="2022-11-14T03:28:57.499Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta name="twitter:card" content="summary">
@@ -195,7 +196,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-11-11 11:37:54" itemprop="dateModified" datetime="2022-11-11T11:37:54+08:00">2022-11-11</time>
+                <time title="Modified: 2022-11-14 11:28:57" itemprop="dateModified" datetime="2022-11-14T11:28:57+08:00">2022-11-14</time>
               </span>
 
           
@@ -276,11 +277,37 @@
 </ul>
 <p>公开链对全世界开放，能够吸引众多用户，活跃；联盟链可以应用在商业场景</p>
 <h1 id="CONSENSUS-ALGORITHMS"><a href="#CONSENSUS-ALGORITHMS" class="headerlink" title="CONSENSUS ALGORITHMS"></a>CONSENSUS ALGORITHMS</h1><p>在互不信任和节点中达成共识是Byzantine Generals（BG）问题的同义转换</p>
-<h2 id="Proof-of-Work"><a href="#Proof-of-Work" class="headerlink" title="Proof of Work"></a>Proof of Work</h2><p>比特币网络时使用的共识策略，在去中心化的网络中需要选择一个节点来记录交易；随机选取是一种自然的方法，但是容易受到攻击，因此需要在发布交易之前证明节点不准备作恶</p>
+<h2 id="Proof-of-Work"><a href="#Proof-of-Work" class="headerlink" title="Proof of Work"></a>Proof of Work</h2><p>比特币网络使用的共识策略，在去中心化的网络中需要选择一个节点来记录交易；随机选取是一种自然的方法，但是容易受到攻击，因此需要在发布交易之前证明节点不准备作恶</p>
 <p>每个节点计算一个区块头的的hash值，必须满足小于某个值（前面有多少个0），header包含一个nonce</p>
 <p>当一个节点计算出了hash值，将广播这个区块，其他所有节点需要验证这个节点的正确性；被验证后其他矿工会把该节点加入到自己的区块链中</p>
-<p>矿工是指计算hash值的节点，PoW的过程</p>
-
+<p>矿工是指计算hash值的节点，PoW的过程叫做挖矿</p>
+<p>在去中心化的网络中，当许多节点几乎同时发现了合适的nonce时，有效的区块可能被同时产生，导致了可能存在许多分支，协议的设计使得两个相互竞争的分支不会同时产生下一个区块。在POW中，较长的链被认为是可信的链(authentic chain)</p>
+<p>在PoW中矿工需要做许多计算机计算，然而这些运算浪费了很多资源。为了减少损失，一些PoW协议中的运算可以有额外的应用。比如Primecoin中的PoW可以被用作数学研究</p>
+<h2 id="Proof-of-Stake"><a href="#Proof-of-Stake" class="headerlink" title="Proof of Stake"></a>Proof of Stake</h2><p>PoS是PoW的节约能源的替代，矿工需要证明拥有一定数量的货币。<strong>我们相信拥有更多货币的人不太可能攻击网络。</strong>这样的选择是不公平的，最富有的人会统治网络。结果是许多方案都结合了权益大小来决定谁来产生下一个块。与PoW相比，PoS节约了能源并且更加高效。但是由于挖矿成本几乎为0，后果是可能存在攻击。许多Pow的链正在逐渐向PoS转变，ethereum已经于2022年全面弃用了PoW。</p>
+<h2 id="PBFT"><a href="#PBFT" class="headerlink" title="PBFT"></a>PBFT</h2><p>可实现拜占庭容错(Practical byzantine fault tolerance)是一种拜占庭容错算法的复现。Hyperledger Fabric使用了PBFT作为共识算法，因为PBFT可以处理多达1/3的恶意节点。</p>
+<p>每轮产生一个新区块，将按照一定规则选出每轮的候选人，候选人对交易排序负责，整个过程可以分为预准备、准备和执行三个阶段。在每个阶段如果节点获得了超过2/3的节点的投票，因此PBFT要求每个节点对网络都是已知的。</p>
+<p>与PBFT类似，Stellar Consensus Protocol（SCP）同样是拜占庭共识协议。在PBFT中1每个节点需要询问其他节点，然而SCP给了参与者权利来选择相信哪些参与者的子集。dBFT（delegated）中一些专业的节点被投票选出来记录交易。</p>
+<h2 id="DPOS"><a href="#DPOS" class="headerlink" title="DPOS"></a>DPOS</h2><p>代理权益证明（Delegated proof of stake）和Pos的区别在于代表民主和直接民主。权益持有者选举他们的代表来产生有效的区块。由于参与确认的区块显著减少，认证的过程更加快速，带来了交易的快速交易。同时，代表也可以调整网络的参数，例如区块大小和区块时间间隔。此外，用户不需要担心不诚实的代表因为他们可以被轻易地投票淘汰</p>
+<h2 id="Ripple"><a href="#Ripple" class="headerlink" title="Ripple"></a>Ripple</h2><p>Ripple共识算法利用了在大规模网络中相互信任的子网。在网络中节点被分为两类：服务端和客户端。服务端参与共识过程，客户端只传递资金，每个服务端都有一个唯一节点列表Unique Node List (UNL)，当觉得是否将交易放进账本时，服务端将询问UNL中节点如果接受到一致的节点超过了80%，交易将被打包进入账本。对于一个节点，只要在UNL中的恶意节点少于20%，账本将会保证正确</p>
+<h2 id="Tendermint"><a href="#Tendermint" class="headerlink" title="Tendermint"></a>Tendermint</h2><p>拜占庭共识协议，每轮产生一个新的区块，申请人将被选出来广播一个未经确认的区块。可以分为3个步骤：</p>
+<ul>
+<li>预投票步：验证者选择是否为提议的区块广播预投票</li>
+<li>预执行步：如果节点收到了提议的区块的超过2/3预投票，为该区块广播预执行；如果节点收到超过超过2/3的预执行，进入执行阶段</li>
+<li>执行步：节点验证区块并广播对区块的执行，如果节点收到了2/3的执行，就接受该区块。和PBFT相比，节点需要锁定他们的币来成为验证者；如果一个验证者被发现是不诚实，将会被惩罚</li>
+</ul>
+<h2 id="Consensus-algorithms-comparison"><a href="#Consensus-algorithms-comparison" class="headerlink" title="Consensus algorithms comparison"></a>Consensus algorithms comparison</h2><p><img src="/2022/11/10/bitcoin/image-20221114104559314.png" alt="image-20221114104559314"></p>
+<ul>
+<li>PBFT需要在每轮选择候选人；Tendermint需要提前了解验证者来选举每轮的申请人。两者更适用于商业场景而不是公开场景</li>
+<li><p>Pos同样需要做hash，对区块头做哈希来搜索目标值，但是工作量受限；</p>
+</li>
+<li><p>consensus speed</p>
+</li>
+<li>blocks generation rate &amp; security</li>
+</ul>
+<h1 id="CHALLENGES-amp-RECENT-ADVANCES"><a href="#CHALLENGES-amp-RECENT-ADVANCES" class="headerlink" title="CHALLENGES &amp; RECENT ADVANCES"></a>CHALLENGES &amp; RECENT ADVANCES</h1><h2 id="Scalability"><a href="#Scalability" class="headerlink" title="Scalability"></a>Scalability</h2><p>随着交易量增加，区块链变得臃肿。每个节点都需要存储许多交易来确保当前交易确实是未花费的。除此之外，由于对区块大小和出块时间的限制，比特币只能处理大概每秒7个交易，无法满足现实需求。由于区块的容量有限，许多小数值的交易可能会延迟因为矿工更倾向于有高额手续费的交易。解决此类问题的主要由两种方法：</p>
+<h3 id="Storage-optimization-of-blockchain"><a href="#Storage-optimization-of-blockchain" class="headerlink" title="Storage optimization of blockchain"></a>Storage optimization of blockchain</h3><p>节点运行账本的完整拷贝变得困难，Bruce提出了网络将旧的交易记录忘记的方案。采用一个叫做account tree的数据库来保存所有非空地址的余额。除此之外轻量的客户端也能够解决这个问题。VerSum允许轻量级客户端外包对于大的输入上昂贵的计算，通过对比多个服务器上的结果来保证结果的正确性</p>
+<h3 id="redesigning-blockchain"><a href="#redesigning-blockchain" class="headerlink" title="redesigning blockchain"></a>redesigning blockchain</h3><p>Bitcoin-NG将传统的区块分离成两部分：key block负责进行领导选举；micro block负责存储交易。协议将时间分为时期，在每个时期，矿工需要哈希生成key block。一旦生成了key block，节点称为leader负责生成micro blocks。Bitcoin-NG同时扩展了最长链的策略，其中micro blocks没有权重。这种设计解决了区块大小和网络的安全的平衡。</p>
+<h2 id="Privacy-leakage"><a href="#Privacy-leakage" class="headerlink" title="Privacy leakage"></a>Privacy leakage</h2>
     </div>
 
     
@@ -360,7 +387,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#INTRODUCTION"><span class="nav-number">1.</span> <span class="nav-text">INTRODUCTION</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BLOCKCHAIN-ARCHITECTURE"><span class="nav-number">2.</span> <span class="nav-text">BLOCKCHAIN ARCHITECTURE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Block"><span class="nav-number">2.1.</span> <span class="nav-text">Block</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Digital-signature"><span class="nav-number">2.2.</span> <span class="nav-text">Digital signature</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key-Characteristics-of-Blockchain"><span class="nav-number">2.3.</span> <span class="nav-text">key Characteristics of Blockchain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Taxonomy-of-blockchain-systems"><span class="nav-number">2.4.</span> <span class="nav-text">Taxonomy of blockchain systems</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CONSENSUS-ALGORITHMS"><span class="nav-number">3.</span> <span class="nav-text">CONSENSUS ALGORITHMS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Proof-of-Work"><span class="nav-number">3.1.</span> <span class="nav-text">Proof of Work</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#INTRODUCTION"><span class="nav-number">1.</span> <span class="nav-text">INTRODUCTION</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BLOCKCHAIN-ARCHITECTURE"><span class="nav-number">2.</span> <span class="nav-text">BLOCKCHAIN ARCHITECTURE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Block"><span class="nav-number">2.1.</span> <span class="nav-text">Block</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Digital-signature"><span class="nav-number">2.2.</span> <span class="nav-text">Digital signature</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key-Characteristics-of-Blockchain"><span class="nav-number">2.3.</span> <span class="nav-text">key Characteristics of Blockchain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Taxonomy-of-blockchain-systems"><span class="nav-number">2.4.</span> <span class="nav-text">Taxonomy of blockchain systems</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CONSENSUS-ALGORITHMS"><span class="nav-number">3.</span> <span class="nav-text">CONSENSUS ALGORITHMS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Proof-of-Work"><span class="nav-number">3.1.</span> <span class="nav-text">Proof of Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proof-of-Stake"><span class="nav-number">3.2.</span> <span class="nav-text">Proof of Stake</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PBFT"><span class="nav-number">3.3.</span> <span class="nav-text">PBFT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DPOS"><span class="nav-number">3.4.</span> <span class="nav-text">DPOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ripple"><span class="nav-number">3.5.</span> <span class="nav-text">Ripple</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tendermint"><span class="nav-number">3.6.</span> <span class="nav-text">Tendermint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consensus-algorithms-comparison"><span class="nav-number">3.7.</span> <span class="nav-text">Consensus algorithms comparison</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CHALLENGES-amp-RECENT-ADVANCES"><span class="nav-number">4.</span> <span class="nav-text">CHALLENGES &amp; RECENT ADVANCES</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Scalability"><span class="nav-number">4.1.</span> <span class="nav-text">Scalability</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Storage-optimization-of-blockchain"><span class="nav-number">4.1.1.</span> <span class="nav-text">Storage optimization of blockchain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redesigning-blockchain"><span class="nav-number">4.1.2.</span> <span class="nav-text">redesigning blockchain</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Privacy-leakage"><span class="nav-number">4.2.</span> <span class="nav-text">Privacy leakage</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -190,7 +190,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-11-11 11:37:54" itemprop="dateModified" datetime="2022-11-11T11:37:54+08:00">2022-11-11</time>
+                <time title="Modified: 2022-11-14 11:28:57" itemprop="dateModified" datetime="2022-11-14T11:28:57+08:00">2022-11-14</time>
               </span>
 
           
@@ -255,10 +255,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-11-09 11:19:41 / Modified: 17:22:54" itemprop="dateCreated datePublished" datetime="2022-11-09T11:19:41+08:00">2022-11-09</time>
+              <time title="Created: 2022-11-09 11:19:41" itemprop="dateCreated datePublished" datetime="2022-11-09T11:19:41+08:00">2022-11-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-11-14 09:03:03" itemprop="dateModified" datetime="2022-11-14T09:03:03+08:00">2022-11-14</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -280,68 +286,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <span id="more"></span>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>1980年代提出的安全多方计算理论如今成为了构建密码系统的实用工具</p>
-<p>安全多方计算允许一个群组成员联合进行一次计算，同时任何参与者都不会泄露自己隐私的输入</p>
-<p>用户协商一个需要计算的函数，用户的隐私信息作为输入，函数的结果作为输出</p>
-<p>secure computation：范围更大的概念，包括了所有在数据上执行运算同时保护数据隐私的方法</p>
-<p>verifiable computation：允许参与者确认函数的输出是否是给定输入下的函数输出</p>
-<p>主要有两种满足了安全和可验证的计算：outsourced computation 和 multi-party computation</p>
-<h2 id="Outsourced-Computation"><a href="#Outsourced-Computation" class="headerlink" title="Outsourced Computation"></a>Outsourced Computation</h2><p>一方拥有数据，想要得到对数据进行运算的结果</p>
-<p>另一方接受并存储加密的数据，在加密后的数据上执行运算，将结果返回给数据拥有者，无法得知输入、中间值和最终的结果</p>
-<p>数据拥有者解密后得到正确的输出</p>
-<p>同态加密天然具备在加密数据上进行运算的能力</p>
-<p>部分同态方案：Paillier，Naccache and Stern</p>
-<p>全同态加密能够执行加法和乘法，有常量0/1，可以计算任何有限函数</p>
-<p>Rivest提出了概念，Gentry提出第一个全同态方案，基于格；目前效率仍然不够高</p>
-<p>FHE和MPC在概念上有区别，不能直接比较；但是从功能和实现的角度联系紧密</p>
-<p>目前的MPC比FHE快几千倍</p>
-<h2 id="Multi-Party-Computation"><a href="#Multi-Party-Computation" class="headerlink" title="Multi-Party Computation"></a>Multi-Party Computation</h2><p>MPC的目标是使得一组独立的互不信任的数据拥有者能够共同计算一个依赖各自隐私输入的函数</p>
-<p>MPC和外包计算的区别是所有的协议参与者执行着一个协议</p>
-<p>Andrew Yao在1980s提出了安全多方计算的概念，$m$个参与者拥有隐私数据$x$共同计算$f(x_1,x_2,\cdots,x_m)$</p>
-<p>直到2000年算法的进步才使得安全多方计算实际可用</p>
-<p>Yao的混淆电路协议属于通用协议，可以计算任何离散函数</p>
-<p>专用协议（比如PSI）可能比通用协议更高效</p>
-<h2 id="MPC-Applications"><a href="#MPC-Applications" class="headerlink" title="MPC Applications"></a>MPC Applications</h2><p>主要实现了隐私保护</p>
-<ul>
-<li><p>Yao’s Millionaires Problem</p>
-<ul>
-<li>两个富人想要比较谁更富有但是不想泄露关于财富的信息，相当于完成$boolean \ x_1 \leq x_2$</li>
-</ul>
-</li>
-<li><p>Secure auctions</p>
-<ul>
-<li><p>需要保护出价人和出售人的隐私，以及对已投标的不可延展性</p>
-</li>
-<li><p>Bid privacy：出价人不能得知其他参与者的出价</p>
-</li>
-<li><p>Bid non-malleability：参与者的出价值不能被用来产生一个相关的出价（前者无法推出后者</p>
-</li>
-</ul>
-</li>
-<li><p>Voting</p>
-<ul>
-<li>安全的电子投票即是执行加法，同样需要满足隐私性和不可延展性</li>
-<li>额外的需要标准MPC不具备的性质：coercion resistance，投票人能向第三方证明自己如何投票</li>
-</ul>
-</li>
-<li><p>Secure machine learning</p>
-<ul>
-<li><p>Oblivious model inference允许client向已经有预训练好模型的服务器发送请求，请求和模型均为隐私输入，输出是模型对请求的预测</p>
-</li>
-<li><p>在训练阶段MPC可以使得参与者保护自己的数据</p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Deployments"><a href="#Deployments" class="headerlink" title="Deployments"></a>Deployments</h3><p>实现仍然处于早期阶段，具有若干问题，包括：</p>
-<ul>
-<li>系统是否会执行协议</li>
-<li>从输出推理敏感信息</li>
-<li>没有密码学背景的人如何理解隐患</li>
-</ul>
-<p>当前MPC是为了实现数据共享才得以部署的，而不是为了增加一层隐私保护（可能是未来的方向</p>
-
+          <p>老老实实打基础</p>
+<p><a target="_blank" rel="noopener" href="https://securecomputation.org/main/">https://securecomputation.org/main/</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/11/09/A-Pragmatic-Introduction-to-Secure-Multi-Party-Computation/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
