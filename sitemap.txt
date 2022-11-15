@@ -1,4 +1,3 @@
-https://alleysira.github.io/2022/11/10/bitcoin/
 https://alleysira.github.io/2022/11/09/A-Pragmatic-Introduction-to-Secure-Multi-Party-Computation/
 https://alleysira.github.io/images/Hau%20Chan[63]
 https://alleysira.github.io/2022/01/08/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE/
@@ -30,12 +29,11 @@ https://alleysira.github.io/
 https://alleysira.github.io/tags/Crypto/
 https://alleysira.github.io/tags/MPC/
 https://alleysira.github.io/tags/Architecture/
-https://alleysira.github.io/tags/Homomorphic-Encryption/
 https://alleysira.github.io/tags/C/
+https://alleysira.github.io/tags/Homomorphic-Encryption/
 https://alleysira.github.io/tags/Federated-Learning/
 https://alleysira.github.io/tags/Language/
 https://alleysira.github.io/tags/Algorithm/
-https://alleysira.github.io/tags/Blockchain/
 https://alleysira.github.io/tags/Web/
 https://alleysira.github.io/tags/Digital-Signature/
 https://alleysira.github.io/tags/Database/
