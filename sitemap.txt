@@ -45,6 +45,7 @@ https://alleysira.github.io/tags/Digital-Signature/
 https://alleysira.github.io/tags/Consensus/
 https://alleysira.github.io/tags/Database/
 https://alleysira.github.io/tags/Virus/
+https://alleysira.github.io/tags/Redactable-Blockchain/
 https://alleysira.github.io/categories/MPC/
 https://alleysira.github.io/categories/Architecture/
 https://alleysira.github.io/categories/Crypto/

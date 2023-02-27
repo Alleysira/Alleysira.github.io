@@ -6,7 +6,7 @@
   <link href="https://alleysira.github.io/atom.xml" rel="self"/>
   
   <link href="https://alleysira.github.io/"/>
-  <updated>2023-02-27T03:52:11.249Z</updated>
+  <updated>2023-02-27T06:45:13.150Z</updated>
   <id>https://alleysira.github.io/</id>
   
   <author>
@@ -21,19 +21,19 @@
     <link href="https://alleysira.github.io/2023/02/27/JCH22/"/>
     <id>https://alleysira.github.io/2023/02/27/JCH22/</id>
     <published>2023-02-27T03:18:09.000Z</published>
-    <updated>2023-02-27T03:52:11.249Z</updated>
+    <updated>2023-02-27T06:45:13.150Z</updated>
     
-    <content type="html"><![CDATA[<p><em>Redactable Blockchain From Decentralized Chameleon Hash Functions</em> From TIFS 22</p><h1 id="去中心化变色龙哈希函数的构造"><a href="#去中心化变色龙哈希函数的构造" class="headerlink" title="去中心化变色龙哈希函数的构造"></a>去中心化变色龙哈希函数的构造</h1><ul><li><p>$Key generation$ 密钥生成算法：需要$t$个参与者$\{P_1,\dots,P_t\}$在线合作共同生成密钥，$g$是循环群生成元，参与者$P_i$ 如下执行</p><ul><li><p>随机生成$t-1$阶多项式：$f_i(x)=\sum_{j=0}^{t-1}a_{i,j}x^j$，秘密为常数项$f_i(0)$</p></li><li><p>给参与者$P_j$发送$f_i(ID(P_j)),(g^{f_i(ID(P_1))},\dots,g^{f_i(ID(P_t))}),g^{f_i(0)}$，类似于拉格朗日插值法，把秘密放在了幂指数上</p><ul><li>$f_i(x)$是否有必要放在幂指数上？如果不放在指数上任何参与者都可以拿到输出私钥的值了</li><li>$f_i(ID(P_j))$的意义在于构建系统的私钥，由于私钥是$s_i=\sum^t_{j=1}f_j(ID(P_i))$，需要其他人的多项式在自己身份处的取值</li></ul></li><li><p>参与者$P_i$收到参与者$P_j$发送的$f_j(ID(P_i)),(g^{f_j(ID(P_1))},\dots,g^{f_j(ID(P_t))}),g^{f_j(0)}$后，计算拉格朗日插值判断是否正确，即计算是否成立</p><ul><li><script type="math/tex; mode=display">f_j(0)=\sum_{k=1}^tf_j(ID(P_k))\prod^t_{l=1,l\neq k}\frac{ID(P_l)}{ID(P_l)-ID(P_k)}</script></li></ul></li><li><p>输出公钥$g^s=\prod_{j=1}^t f_j(0),s=\sum^t_{j=1}a_{j,0}$，相当于$t$个参与者每个人私钥的和，但任何参与者都无法计算出公钥的s；输出私钥$s_i=\sum^t_{j=1}f_j(ID(P_i))$</p><ul><li>公私钥生成体现了公平性，$t$个参与者</li></ul></li><li>密钥生成阶段通信复杂度为$O(t^2)$</li></ul></li><li><p>$Hashing$ 哈希算法：输入公钥$g^s$，任意长度消息m，先计算$\mu\gets H(g^s,m)$，$H$是密码学哈希函数，满足$H:\mathbb{G}\times \{0,1\}^<em>\to \mathbb{G} $，随机选择$e\in \mathbb{Z}_p^</em>$，输出随机数$r=(g^e,g^{se})$，输出哈希$h=g^e\mu^m$</p><ul><li>此处的$H$选择会影响安全性</li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<p><em>Redactable Blockchain From Decentralized Chameleon Hash Functions</em> From TIFS 22</p><span id="more"></span><h1 id="去中心化变色龙哈希函数的构造"><a href="#去中心化变色龙哈希函数的构造" class="headerlink" title="去中心化变色龙哈希函数的构造"></a>去中心化变色龙哈希函数的构造</h1><ul><li><p>$Key\ generation$ 密钥生成算法：需要$t$个参与者$\{P_1,\dots,P_t\}$在线合作共同生成密钥，$g$是循环群生成元，参与者$P_i$ 如下执行</p><ul><li><p>随机生成$t-1$阶多项式：$f_i(x)=\sum_{j=0}^{t-1}a_{i,j}x^j$，秘密为常数项$f_i(0)$</p></li><li><p>给参与者$P_j$发送$f_i(ID(P_j)),(g^{f_i(ID(P_1))},\dots,g^{f_i(ID(P_t))}),g^{f_i(0)}$，类似于拉格朗日插值法，把秘密放在了幂指数上</p><ul><li>$f_i(x)$是否有必要放在幂指数上？如果不放在指数上任何参与者都可以拿到输出私钥的值了</li><li>$f_i(ID(P_j))$的意义在于构建系统的私钥，由于私钥是$s_i=\sum^t_{j=1}f_j(ID(P_i))$，需要其他人的多项式在自己身份处的取值</li></ul></li><li><p>参与者$P_i$收到参与者$P_j$发送的$f_j(ID(P_i)),(g^{f_j(ID(P_1))},\dots,g^{f_j(ID(P_t))}),g^{f_j(0)}$后，计算拉格朗日插值判断是否正确，即计算是否成立</p><ul><li><script type="math/tex; mode=display">f_j(0)=\sum_{k=1}^tf_j(ID(P_k))\prod^t_{l=1,l\neq k}\frac{ID(P_l)}{ID(P_l)-ID(P_k)}</script></li></ul></li><li><p>输出公钥$g^s=\prod_{j=1}^t f_j(0),s=\sum^t_{j=1}a_{j,0}$，相当于$t$个参与者每个人私钥的和，但任何参与者都无法计算出公钥的s；输出私钥$s_i=\sum^t_{j=1}f_j(ID(P_i))$</p><ul><li>公私钥生成体现了公平性，$t$个参与者</li></ul></li><li>密钥生成阶段通信复杂度为$O(t^2)$</li></ul></li><li><p>$Hashing$ 哈希算法：输入公钥$g^s$，任意长度消息m，先计算$\mu\gets H(g^s,m)$，$H$是密码学哈希函数，满足$H:\mathbb{G} \times \{0,1\}^{<em>} \to \mathbb{G} $，随机选择$e\in \mathbb{Z}_p^</em>$，输出随机数$r=(g^e,g^{se})$，输出哈希$h=g^e\mu^m$</p><ul><li>此处的$H$选择会影响安全性</li><li>哈希算法里用到了两次m，</li></ul></li></ul>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;p&gt;&lt;em&gt;Redactable Blockchain From Decentralized Chameleon Hash Functions&lt;/em&gt; From TIFS 22&lt;/p&gt;
-&lt;h1 id=&quot;去中心化变色龙哈希函数的构造&quot;&gt;&lt;a href=&quot;#去中心化变色龙哈希函数</summary>
-      
+    <summary type="html">&lt;p&gt;&lt;em&gt;Redactable Blockchain From Decentralized Chameleon Hash Functions&lt;/em&gt; From TIFS 22&lt;/p&gt;</summary>
     
     
     
+    
+    <category term="Blockchain" scheme="https://alleysira.github.io/tags/Blockchain/"/>
+    
+    <category term="Redactable Blockchain" scheme="https://alleysira.github.io/tags/Redactable-Blockchain/"/>
     
   </entry>
   
