@@ -27,12 +27,14 @@
 <meta property="og:site_name" content="Alleysira&#39;s blog">
 <meta property="og:description" content="Redactable Blockchain From Decentralized Chameleon Hash Functions From TIFS 22">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/02/27/JCH22/image-20230227165109508.png">
 <meta property="article:published_time" content="2023-02-27T03:18:09.000Z">
-<meta property="article:modified_time" content="2023-02-27T06:59:05.876Z">
+<meta property="article:modified_time" content="2023-02-28T02:44:50.884Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta property="article:tag" content="Redactable Blockchain">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/02/27/JCH22/image-20230227165109508.png">
 
 <link rel="canonical" href="https://alleysira.github.io/2023/02/27/JCH22/">
 
@@ -185,10 +187,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-02-27 11:18:09 / Modified: 14:59:05" itemprop="dateCreated datePublished" datetime="2023-02-27T11:18:09+08:00">2023-02-27</time>
+              <time title="Created: 2023-02-27 11:18:09" itemprop="dateCreated datePublished" datetime="2023-02-27T11:18:09+08:00">2023-02-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-02-28 10:44:50" itemprop="dateModified" datetime="2023-02-28T10:44:50+08:00">2023-02-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -212,7 +220,8 @@
       
         <p><em>Redactable Blockchain From Decentralized Chameleon Hash Functions</em> From TIFS 22</p>
 <span id="more"></span>
-<h1 id="去中心化变色龙哈希函数的构造"><a href="#去中心化变色龙哈希函数的构造" class="headerlink" title="去中心化变色龙哈希函数的构造"></a>去中心化变色龙哈希函数的构造</h1><ul>
+<h1 id="去中心化变色龙哈希函数的构造"><a href="#去中心化变色龙哈希函数的构造" class="headerlink" title="去中心化变色龙哈希函数的构造"></a>去中心化变色龙哈希函数的构造</h1><p>包含五个算法：</p>
+<ul>
 <li><p>$Key\ generation$ 密钥生成算法：需要$t$个参与者$\{P_1,\dots,P_t\}$在线合作共同生成密钥，$g$是循环群生成元，参与者$P_i$ 如下执行</p>
 <ul>
 <li><p>随机生成$t-1$阶多项式：$f_i(x)=\sum_{j=0}^{t-1}a_{i,j}x^j$，秘密为常数项$f_i(0)$</p>
@@ -229,7 +238,7 @@
 f_j(0)=\sum_{k=1}^tf_j(ID(P_k))\prod^t_{l=1,l\neq k}\frac{ID(P_l)}{ID(P_l)-ID(P_k)}</script></li>
 </ul>
 </li>
-<li><p>输出公钥$g^s=\prod_{j=1}^t f_j(0),s=\sum^t_{j=1}a_{j,0}$，相当于$t$个参与者每个人私钥的和，但任何参与者都无法计算出公钥的s；输出私钥$s_i=\sum^t_{j=1}f_j(ID(P_i))$</p>
+<li><p>输出公钥$g^s=\prod_{j=1}^t f_j(0),s=\sum^t_{j=1}a_{j,0}$，相当于$t$个参与者每个人私钥的和，但任何参与者都无法计算出公钥的s；输出私钥$s_i=\sum^t_{j=1}f_j(ID(P_i))$，私钥可以用来恢复公钥</p>
 <ul>
 <li>公私钥生成体现了公平性，$t$个参与者</li>
 </ul>
@@ -240,10 +249,59 @@ f_j(0)=\sum_{k=1}^tf_j(ID(P_k))\prod^t_{l=1,l\neq k}\frac{ID(P_l)}{ID(P_l)-ID(P_
 <li><p>$Hashing$ 哈希算法：输入公钥$g^s$，任意长度消息m，先计算$\mu\gets H(g^s,m)$，$H$是密码学哈希函数，满足$H:\mathbb{G} \times \{0,1\}^{\star} \to \mathbb{G} $，随机选择$e\in \mathbb{Z}_p^*$，输出随机数$r=(g^e,g^{se})$，输出哈希$h=g^e\mu^m$</p>
 <ul>
 <li>此处的$H$选择会影响安全性</li>
-<li>哈希算法里用到了两次m，密码学哈希函数的输入m相当于提供随机性，$\mu^m$保证难以寻找碰撞</li>
+<li>哈希算法里用到了两次m，密码学哈希函数的输入m相当于提供随机性，$\mu^m$保证难以寻找碰撞，m在外面方便计算</li>
+</ul>
+</li>
+<li><p>$Rehashing$算法：给定公钥$g^s$和原始的消息-随机数对$(m,r=g^e,g^{se})$，计算哈希$h\gets g^e\mu^m$并输出</p>
+</li>
+<li><p>$Adaptation$算法：输入私钥份额$s_i$，原始的消息-随机数对$(m,r=g^e,g^{se})$，新的消息$m’\in\{0,1\}^\star$，参与者$P_i,i\in[t]$如下执行：</p>
+<ul>
+<li><p>计算$g^{e’}\gets g^e\mu ^{m-m’}$</p>
+</li>
+<li><p>计算$\eta_i\gets(g^{e’})^{\lambda_i \cdot s_i },\lambda_i=\prod^t_{l=1,l\neq i}\frac{ID(P_l)}{ID(P_l)-ID(P_i)}$，把$\eta_i$发送给参与者$P_j,j\in[t],j\neq i$</p>
+</li>
+<li><p>参与者$P_i$收到$\eta_1,\dots,\eta_{i-1},\eta_{i+1},\dots,\eta_{t}$后，计算$g^{se’}\gets\prod^t_{j=1}\eta_j$，输出更新后的随机数$r’=(g^{e’},g^{se’})$</p>
+</li>
+<li><p>其实就是用$t$个私钥恢复出公钥的指数</p>
+<ul>
+<li><script type="math/tex; mode=display">
+g^{e'}\to (g^{e'})^s\to(g^{e'})^{\sum f_i(0)}\to(g^{e'})^{\sum \lambda_{i} \cdot s_i} \to \prod (g^{e'})^{\lambda_i \cdot s_i }</script></li>
+</ul>
+</li>
+<li><p>通信复杂度为$O(t^2)$</p>
+</li>
+</ul>
+</li>
+<li><p>$Verification$：输入公钥$g^s$和原始的消息-随机数对$(m,r=g^e,g^{se})$以及修改后的消息-随机数对$(m’,r’=g^{e’},g^{se’})$，如果计算的哈希值$g^e\mu^m=g^{e’}\mu^{m’}$相等且$(g,g^s,g^{e’},g^{se’})$是DH组，输出1，否则输出0</p>
+</li>
+</ul>
+<p>方案存在的问题</p>
+<ul>
+<li>$t$个生成变色龙哈希的全节点如何选择安全</li>
+</ul>
+<h1 id="RSA累加器"><a href="#RSA累加器" class="headerlink" title="RSA累加器"></a>RSA累加器</h1><p>主要参考知乎<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/158976773">这篇文章</a>理解，原文写的不够清楚</p>
+<p>原方案设计中存在的不理解的问题：</p>
+<ul>
+<li>RSA累加器的必要性在哪里</li>
+<li>初始化的RSA的$N$和$g_1$也需要分布式生成</li>
+<li>需要的映射哈希函数，将$x$映射为素数$SH(x)$</li>
+<li>每个节点本地计算累加器来降低计算复杂度</li>
+<li>last_hash字段是新产生区块如果是对之前区块的编辑，$last_hash$是该区块的头部哈希，不是编辑的区块是否该字段为空？</li>
+<li>acc字段存当前RSA累加器的值，RSA累加器把所有区块的$last_hash$编码进去，同一高度的区块acc值一样<ul>
+<li>当区块2内的编辑请求$tx_{req1}$修改$tx1$为$tx1’$后，生成区块3，区块2内的acc值更新</li>
 </ul>
 </li>
 </ul>
+<p><img src="/2023/02/27/JCH22/image-20230227165109508.png" alt="image-20230227165109508"></p>
+<ul>
+<li>提到了创世区块，所以是自己新开一条链，如何集成到现有的区块链系统</li>
+<li>最初$t$个掌握变色龙哈希函数私钥的节点怎么选，安全性</li>
+</ul>
+<h1 id="安全性分析"><a href="#安全性分析" class="headerlink" title="安全性分析"></a>安全性分析</h1><h2 id="Decentralization"><a href="#Decentralization" class="headerlink" title="Decentralization"></a>Decentralization</h2><p>如果敌手试图通过$(m,r=g^e,g^{se})$来恢复$s$实现高效寻找碰撞，考虑到在系统稳定时，密钥作为常数项</p>
+<p>$F(x,0)=s+\sum_{i=1}^{t-1}a_ix^i$被分享给$n$个节点，节点拥有份额$(IP(P_i),F(IP(P_i),0))$，超过$t$个节点同意即可恢复私钥。由于敌手只能控制$t-1$个节点，无法恢复私钥</p>
+<p>在私钥更新阶段，每个节点最多同时掌握$2t-1$阶多项式$F(i,y)$和$t-1$阶$F(x,i)$，节点能够获得$t-1$阶</p>
+<p>敌手最多获得$t-1$份$F(x,0)$和$F’(x,0)$，无法恢复私钥</p>
+<h2 id="Traceability"><a href="#Traceability" class="headerlink" title="Traceability"></a>Traceability</h2><p>考虑到同一高度所有被编辑的区块组成一条编辑链，所有编辑可以被高效的审计（RSA累加器的必要性体现在一致性检查）</p>
 
     </div>
 
@@ -325,7 +383,7 @@ f_j(0)=\sum_{k=1}^tf_j(ID(P_k))\prod^t_{l=1,l\neq k}\frac{ID(P_l)}{ID(P_l)-ID(P_
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E5%8F%98%E8%89%B2%E9%BE%99%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%84%E9%80%A0"><span class="nav-number">1.</span> <span class="nav-text">去中心化变色龙哈希函数的构造</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E5%8F%98%E8%89%B2%E9%BE%99%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%84%E9%80%A0"><span class="nav-number">1.</span> <span class="nav-text">去中心化变色龙哈希函数的构造</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RSA%E7%B4%AF%E5%8A%A0%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">RSA累加器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%80%A7%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">安全性分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Decentralization"><span class="nav-number">3.1.</span> <span class="nav-text">Decentralization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Traceability"><span class="nav-number">3.2.</span> <span class="nav-text">Traceability</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
