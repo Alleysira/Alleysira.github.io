@@ -20,20 +20,24 @@
     var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="sql0参考 廖雪峰sql教程">
+  <meta name="description" content="Li J, Ma H, Wang J, et al. Wolverine: A Scalable and Transaction-Consistent Redactable Permissionless Blockchain[J]. IEEE Transactions on Information Forensics and Security, 2023.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sql0">
-<meta property="og:url" content="https://alleysira.github.io/2021/08/02/sql0/">
+<meta property="og:title" content="LMW23">
+<meta property="og:url" content="https://alleysira.github.io/2023/03/01/LMW23/">
 <meta property="og:site_name" content="Alleysira&#39;s blog">
-<meta property="og:description" content="sql0参考 廖雪峰sql教程">
+<meta property="og:description" content="Li J, Ma H, Wang J, et al. Wolverine: A Scalable and Transaction-Consistent Redactable Permissionless Blockchain[J]. IEEE Transactions on Information Forensics and Security, 2023.">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-08-02T04:32:47.000Z">
-<meta property="article:modified_time" content="2022-07-08T04:05:09.337Z">
+<meta property="og:image" content="https://alleysira.github.io/2023/03/01/LMW23/image-20230302095926899.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/03/01/LMW23/image-20230303170611136.png">
+<meta property="article:published_time" content="2023-03-01T09:49:14.000Z">
+<meta property="article:modified_time" content="2023-03-03T09:47:02.807Z">
 <meta property="article:author" content="Alleysira">
-<meta property="article:tag" content="Database">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="Redactable Blockchain">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/03/01/LMW23/image-20230302095926899.png">
 
-<link rel="canonical" href="https://alleysira.github.io/2021/08/02/sql0/">
+<link rel="canonical" href="https://alleysira.github.io/2023/03/01/LMW23/">
 
 
 <script id="page-configurations">
@@ -46,7 +50,7 @@
   };
 </script>
 
-  <title>sql0 | Alleysira's blog</title>
+  <title>LMW23 | Alleysira's blog</title>
   
 
 
@@ -162,7 +166,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2021/08/02/sql0/">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/03/01/LMW23/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +179,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          sql0
+          LMW23
         </h1>
 
         <div class="post-meta">
@@ -185,14 +189,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-08-02 12:32:47" itemprop="dateCreated datePublished" datetime="2021-08-02T12:32:47+08:00">2021-08-02</time>
+              <time title="Created: 2023-03-01 17:49:14" itemprop="dateCreated datePublished" datetime="2023-03-01T17:49:14+08:00">2023-03-01</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-08 12:05:09" itemprop="dateModified" datetime="2022-07-08T12:05:09+08:00">2022-07-08</time>
+                <time title="Modified: 2023-03-03 17:47:02" itemprop="dateModified" datetime="2023-03-03T17:47:02+08:00">2023-03-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -200,7 +204,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a>
+                  <a href="/categories/Crypto/" itemprop="url" rel="index"><span itemprop="name">Crypto</span></a>
                 </span>
             </span>
 
@@ -215,60 +219,74 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="sql0"><a href="#sql0" class="headerlink" title="sql0"></a>sql0</h1><p>参考 廖雪峰sql教程</p>
+        <p>Li J, Ma H, Wang J, et al. Wolverine: A Scalable and Transaction-Consistent Redactable Permissionless Blockchain[J]. IEEE Transactions on Information Forensics and Security, 2023.</p>
 <span id="more"></span>
-<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p><code>Structured Query Language</code></p>
-<p>数据库提供接口供应用程序读写数据，应用程序无需关心数据本身的存储，简化应用程序I/O功能。</p>
-<h2 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h2><ul>
-<li>层次模型</li>
-<li>网状模型</li>
-<li>关系模型：主要，二维表格</li>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>区块链中有两种链接关系：hash链接和签名链接</p>
+<ul>
+<li>哈希链接存在于不同区块的区块头之间</li>
+<li>签名链接存在于不同区块的区块体的交易之间</li>
 </ul>
-<h3 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Record</th>
-<th>Column</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Logistic Data</td>
-<td>Data type</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Column包含是否允许设置该字段为<code>NULL</code></p>
-<p>注意<code>NULL</code>表示字段数据不存在。一个整型字段如果为<code>NULL</code>不表示它的值为<code>0</code>，同样的，一个字符串型字段为<code>NULL</code>也不表示它的值为空串<code>&#39;&#39;</code>。</p>
-<h4 id="主键"><a href="#主键" class="headerlink" title="主键"></a>主键</h4><ul>
-<li>对于每个记录，通过该字段能够唯一进行区分的字段为主键。</li>
-<li>主键最好不要修改，不使用任何业务相关的字段作为主键</li>
-<li>一般为<code>id</code><ul>
-<li>自增整数：<ul>
-<li>INT :2147483647溢出</li>
-<li>BIGINT：<script type="math/tex">2^{64}</script></li>
+<p><img src="/2023/03/01/LMW23/image-20230302095926899.png" alt="image-20230302095926899" style="zoom:67%;"></p>
+<p>考虑删除区块$B_2$内的交易$tx^1_2$，可能导致四条交易链接失效$tx^0_0\gets tx^1_2,tx_0^1\gets tx^1_2,tx^1_2\gets tx_3^1 ,tx^1_2\gets tx_3^2 $</p>
+<p>其中交易$tx^0_0\gets tx^1_2,tx_0^1\gets tx^1_2$可能被双花</p>
+<p>交易$tx^1_2\gets tx_3^1 ,tx^1_2\gets tx_3^2$可能会失效</p>
+<h2 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work"></a>Related work</h2><p>[DMT19]为了实现追责，扩展了区块头增加了$old_merkle_root$字段，Reparo相当于将这个字段单独存储在数据库中而不修改区块结构，存在投票周期长和$n=3f+1$；这两篇文章都考虑了交易的一致性问题，因此将编辑操作限制在非金融字段，不适用于UTXO</p>
+<h2 id="Preliminary"><a href="#Preliminary" class="headerlink" title="Preliminary"></a>Preliminary</h2><h3 id="DRB"><a href="#DRB" class="headerlink" title="DRB"></a>DRB</h3><p>对于参与者$\{P_1,\dots,P_n\}$，$(t,n)$去中心化随机信标包含如下算法：</p>
+<ul>
+<li>$Setup(1^\lambda)\to pp$</li>
+<li>$CmteGen(pp,t,n)\to(cpk,sk_1,\dots,sk_n)$:交互式协议，输出委员会的公钥和参与方对应的私钥</li>
+<li>$PartialRand(cpk,sk_i,st_{l-1})\to s_i$：输入$l-1$轮状态$st_{l-1}$，计算部分值$\sigma_{l,i}$和对应的证明$\pi_{l,i}$，并且$s_i=(i,\sigma_{l,i},\pi_{l,i})$</li>
+<li>$CombRand(cpk,st_{l-1},\varepsilon)\to (\sigma_l,\pi_l)$：输入$\varepsilon=\{s_i\}_{i\in I},|I|\geq t+1$</li>
+<li>$VerifyRand(cpk,st_{l-1},\sigma_l,\pi_l)\to d\in\{0,1\}$</li>
+<li>$UpdState(cpk,st_{l-1},\sigma_l,\pi_l)\to st_l$：输入上一轮的状态，输出更新后的当前轮的状态</li>
+</ul>
+<h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><h2 id="System-model"><a href="#System-model" class="headerlink" title="System model"></a>System model</h2><p>考虑在$N$个节点的p2p网络中，存在监管委员会$R$人数$n\ll N$</p>
+<p>假设委员会大多数诚实，委员会成员之间共享变色龙哈希函数密钥</p>
+<ul>
+<li><p>区块链节点首先通过抗女巫攻击的方式生成身份（$pk，sk$）</p>
+</li>
+<li><p>执行去中心化自举协议协商委员会的大小（开销很大但是只执行一次）</p>
+</li>
+<li>网络中任何人都可以将编辑指令放进区块中来发起编辑请求</li>
+<li>委员会成员根据编辑策略验证编辑指令</li>
+<li>如果满足策略，委员会成员投票并作为交易广播</li>
+<li>矿工检查投票并且将有效投票打包进下一个区块</li>
+<li>来自不同委员会成员的投票超过$n/2$之后，每个参与者本地组合份额恢复变色龙哈希函数私钥，执行编辑</li>
+<li>每轮epoch重新选举委员会，重新分发陷门密钥</li>
+</ul>
+<h2 id="Network-and-Threat-model"><a href="#Network-and-Threat-model" class="headerlink" title="Network and Threat model"></a>Network and Threat model</h2><p>同步网络，公有链广泛采用的假设，诚实节点之间的信道延迟至多为$\delta$</p>
+<p>存在同步广播信道（区块链本身）</p>
+<p>考虑PPT的拜占庭敌手，任意时刻腐化的敌手数量满足$\rho &lt; 1/2$，被腐化的敌手可以任意偏离协议，发送错误的消息或者保持沉默</p>
+<p>假设敌手slowly adaptive，敌手可以在每一轮开始或中间选择腐化的集合，但是直到该轮结束腐化才能生效</p>
+<h1 id="Nitch"><a href="#Nitch" class="headerlink" title="Nitch"></a>Nitch</h1><p>给出非交互式变色龙哈希函数的构造和在RO下的安全证明</p>
+<ul>
+<li>部分更新算法$Partial\ Adapt(sk_i,vk_i,m,m’)\to s_i=(i,c_i,\pi_i)$，输出更新后的份额$c_i$和对应的证明</li>
+<li>部分验证算法$Partial \ Verify(pk,vk_i,s_i,m,m’)\to 0/1$ </li>
+<li>$Combine(VK,(h,m,r),m’,\varepsilon) \to r’$，其中$\varepsilon=\{s_{i_1},\dots,s_{i_{ |I| } } \}$输出新的随机数或者空<ul>
+<li>奇怪的是恢复密钥采用的不是原始的私钥份额，而是执行部分更新算法后份额</li>
 </ul>
 </li>
-<li>全局唯一GUID</li>
+</ul>
+<p>verification keys的作用</p>
+<h2 id="Instantiation"><a href="#Instantiation" class="headerlink" title="Instantiation"></a>Instantiation</h2><ul>
+<li>DKG采用如下方案，只需要一轮通信，但无法保证均匀，用到了RO假设<ul>
+<li><img src="/2023/03/01/LMW23/image-20230303170611136.png" alt="image-20230303170611136"></li>
+<li>Non-interactive and information-theoretic secure verifiable secret sharing</li>
+<li>此处第二个生成元的作用：公开可验证常数项的正确性，每个份额的正确性只有拿到份额的人可以验证</li>
+<li>$sk_j=\sum s_{i,j},pk=g_2^{\sum a_{i,0}},vk_j=g_1^{\sum s_{i,j} }=g_1^{sk_j},i\in QUAL$</li>
+<li>此处的$l_i^I(0)$没看懂</li>
 </ul>
 </li>
 </ul>
-<h5 id="联合主键"><a href="#联合主键" class="headerlink" title="联合主键"></a>联合主键</h5><p>关系数据库实际上还允许通过多个字段唯一标识记录，即两个或更多的字段都设置为主键，这种主键被称为联合主键。</p>
-<h4 id="外键"><a href="#外键" class="headerlink" title="外键"></a>外键</h4><p>定义外键约束实现</p>
-<p>降低性能</p>
-<h4 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h4><p>数据库索引对于用户和应用程序来说都是透明的。</p>
-<h2 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h2><ul>
-<li><p><strong>DDL：Data Definition Language</strong></p>
-<p>DDL允许用户定义数据，也就是创建表、删除表、修改表结构这些操作。通常，DDL由数据库管理员执行。</p>
+<h1 id="目的-amp-收获"><a href="#目的-amp-收获" class="headerlink" title="目的&amp;收获"></a>目的&amp;收获</h1><ul>
+<li>学习如何构造非交互式的门限变色龙哈希</li>
+<li>刷新委员会和密钥份额的区别<ul>
+<li>抗女巫攻击的身份生成方案</li>
+</ul>
 </li>
-<li><p><strong>DML：Data Manipulation Language</strong></p>
-<p>DML为用户提供添加、删除、更新数据的能力，这些是应用程序对数据库的日常操作。</p>
-</li>
-<li><p><strong>DQL：Data Query Language</strong></p>
-<p>DQL允许用户查询数据，这也是通常最频繁的数据库日常操作。</p>
-</li>
+<li>shadow transaction如何实现交易一致性</li>
+<li>实现多项式插值的算法的加速</li>
+<li>学习 decentralized bootstrapping protocol</li>
 </ul>
 
     </div>
@@ -279,7 +297,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Database/" rel="tag"># Database</a>
+              <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+              <a href="/tags/Redactable-Blockchain/" rel="tag"># Redactable Blockchain</a>
           </div>
 
         
@@ -288,13 +307,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/08/01/web0/" rel="prev" title="web0">
-      <i class="fa fa-chevron-left"></i> web0
+    <a href="/2023/03/01/ZZL22/" rel="prev" title="ZZL22">
+      <i class="fa fa-chevron-left"></i> ZZL22
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/09/06/web1/" rel="next" title="web1">
-      web1 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -353,7 +369,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sql0"><span class="nav-number">1.</span> <span class="nav-text">sql0</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E7%9A%84"><span class="nav-number">1.1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">数据模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">关系模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E9%94%AE"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">主键</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%81%94%E5%90%88%E4%B8%BB%E9%94%AE"><span class="nav-number">1.2.1.1.1.</span> <span class="nav-text">联合主键</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%96%E9%94%AE"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">外键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">索引</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-number">1.3.</span> <span class="nav-text">主要功能</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-work"><span class="nav-number">1.1.</span> <span class="nav-text">Related work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Preliminary"><span class="nav-number">1.2.</span> <span class="nav-text">Preliminary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DRB"><span class="nav-number">1.2.1.</span> <span class="nav-text">DRB</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">2.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#System-model"><span class="nav-number">2.1.</span> <span class="nav-text">System model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Network-and-Threat-model"><span class="nav-number">2.2.</span> <span class="nav-text">Network and Threat model</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nitch"><span class="nav-number">3.</span> <span class="nav-text">Nitch</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Instantiation"><span class="nav-number">3.1.</span> <span class="nav-text">Instantiation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E7%9A%84-amp-%E6%94%B6%E8%8E%B7"><span class="nav-number">4.</span> <span class="nav-text">目的&amp;收获</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
