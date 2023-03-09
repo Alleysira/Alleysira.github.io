@@ -46,8 +46,8 @@ https://alleysira.github.io/tags/Federated-Learning/
 https://alleysira.github.io/tags/Language/
 https://alleysira.github.io/tags/Homomorphic-Encryption/
 https://alleysira.github.io/tags/Redactable-Blockchain/
-https://alleysira.github.io/tags/Web/
 https://alleysira.github.io/tags/Algorithm/
+https://alleysira.github.io/tags/Web/
 https://alleysira.github.io/tags/Digital-Signature/
 https://alleysira.github.io/tags/Database/
 https://alleysira.github.io/tags/Virus/
