@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="定义 n&#x3D;2f+1 同步网络，存在已知的最大时延$\delta$ 追责性：  节点$P_i$发起了恶意的编辑请求，委员会收到后投票： 投票不通过，不执行，不追责 投票通过，对投赞成票的节点追责，因此需要把投票结果记录上链 发起恶意编辑请求的$P_i$如何追责，记录发起编辑申请，扣除保证金    公平性：  任何节点$P_i$可以通过发起编辑申请，缴纳保证金请求编辑，公平参与性 编辑权由编辑者掌握">
+  <meta name="description" content="定义方案需要满足的性质  安全性 链增长 链质量 公共前缀     定义编辑操作的正确性：不被通过的编辑请求是恶意的，即投票通过的编辑是合法的；具体表现包括  不修改金融数据 保证">
 <meta property="og:type" content="article">
 <meta property="og:title" content="scheme_design">
 <meta property="og:url" content="https://alleysira.github.io/2023/03/10/scheme-design/">
 <meta property="og:site_name" content="Alleysira&#39;s blog">
-<meta property="og:description" content="定义 n&#x3D;2f+1 同步网络，存在已知的最大时延$\delta$ 追责性：  节点$P_i$发起了恶意的编辑请求，委员会收到后投票： 投票不通过，不执行，不追责 投票通过，对投赞成票的节点追责，因此需要把投票结果记录上链 发起恶意编辑请求的$P_i$如何追责，记录发起编辑申请，扣除保证金    公平性：  任何节点$P_i$可以通过发起编辑申请，缴纳保证金请求编辑，公平参与性 编辑权由编辑者掌握">
+<meta property="og:description" content="定义方案需要满足的性质  安全性 链增长 链质量 公共前缀     定义编辑操作的正确性：不被通过的编辑请求是恶意的，即投票通过的编辑是合法的；具体表现包括  不修改金融数据 保证">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-03-10T02:59:58.000Z">
-<meta property="article:modified_time" content="2023-03-12T10:15:28.925Z">
+<meta property="article:modified_time" content="2023-03-13T07:12:49.929Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta name="twitter:card" content="summary">
@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-03-12 18:15:28" itemprop="dateModified" datetime="2023-03-12T18:15:28+08:00">2023-03-12</time>
+                <time title="Modified: 2023-03-13 15:12:49" itemprop="dateModified" datetime="2023-03-13T15:12:49+08:00">2023-03-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -215,27 +215,74 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <span id="more"></span>
-<p>定义</p>
-<p>n=2f+1</p>
-<p>同步网络，存在已知的最大时延$\delta$</p>
-<p>追责性：</p>
+        <ul>
+<li><p>定义方案需要满足的性质</p>
 <ul>
-<li>节点$P_i$发起了恶意的编辑请求，委员会收到后投票：<ul>
-<li>投票不通过，不执行，不追责</li>
-<li>投票通过，对投赞成票的节点追责，因此需要把投票结果记录上链</li>
-<li>发起恶意编辑请求的$P_i$如何追责，记录发起编辑申请，扣除保证金</li>
+<li>安全性<ul>
+<li>链增长</li>
+<li>链质量</li>
+<li>公共前缀</li>
 </ul>
 </li>
+</ul>
+</li>
+<li><p>定义编辑操作的正确性：不被通过的编辑请求是恶意的，即投票通过的编辑是合法的；具体表现包括</p>
+<ul>
+<li>不修改金融数据</li>
+<li>保证</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+<p>定义</p>
+<p>敌手模型：$n=2f+1$</p>
+<p>网络模型：同步网络，存在已知的最大时延$\delta$</p>
+<p>追责性：</p>
+<ul>
+<li>节点$P_i$发起编辑请求，所有节点收到后投票发送给委员会：<ul>
+<li>投票不通过<ul>
+<li>不执行，追责发起编辑的人以及投赞成票的人</li>
+</ul>
+</li>
+<li>投票通过<ul>
+<li>执行编辑之后，其他区块验证编辑不符合格式，追责编辑节点</li>
+</ul>
+</li>
+<li>记录发起编辑申请，扣除保证金</li>
+</ul>
+</li>
+<li>惩罚投票阶段发送虚假份额的节点</li>
 </ul>
 <p>公平性：</p>
 <ul>
 <li>任何节点$P_i$可以通过发起编辑申请，缴纳保证金请求编辑，公平参与性</li>
-<li>编辑权由编辑者掌握<ul>
+<li><p>编辑权由编辑者掌握</p>
+<ul>
 <li>编辑者的选择依赖于委员会选择，委员会内随机数生成</li>
-<li>恢复密钥阶段是每个节点都有份额还是只有委员会成员有份额以及投票权掌握在委员会成员中还是每个参与者都可以投票</li>
+<li>投票就是密钥份额，超过门限直接执行</li>
+<li>恢复密钥阶段<ul>
+<li>每个节点都有份额（√）</li>
+<li>委员会成员有份额</li>
+</ul>
+</li>
 <li>委员会选择的方法：相对简单的Pow<ul>
-<li>节点为什么要加入委员会，设计激励制度</li>
+<li>节点为什么要加入委员会，设计激励制度，执行编辑操作，获得手续费</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>为什么要设计委员会</p>
+<ul>
+<li>委员会成员进行变色龙哈希函数的密钥生成（定）</li>
+<li>收集编辑请求，同意之后发出编辑的交易</li>
+<li>委员会内选举编辑节点，执行编辑</li>
+</ul>
+</li>
+<li><p>委员会内投票还是所有节点参与投票</p>
+<ul>
+<li>委员会内投票：需要考虑委员会成员的安全性</li>
+<li>所有节点投票，投票周期长，更加公平，超过门限就可以（√）<ul>
+<li>门限是否设置为50%，保证安全性但是可能没有这么多节点在线</li>
 </ul>
 </li>
 </ul>
