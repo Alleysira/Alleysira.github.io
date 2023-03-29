@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://alleysira.github.io/2023/03/10/scheme-design/image-20230316153823400.png">
 <meta property="article:published_time" content="2023-03-10T02:59:58.000Z">
-<meta property="article:modified_time" content="2023-03-16T09:11:52.649Z">
+<meta property="article:modified_time" content="2023-03-28T05:04:59.945Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta name="twitter:card" content="summary">
@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-03-16 17:11:52" itemprop="dateModified" datetime="2023-03-16T17:11:52+08:00">2023-03-16</time>
+                <time title="Modified: 2023-03-28 13:04:59" itemprop="dateModified" datetime="2023-03-28T13:04:59+08:00">2023-03-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -234,7 +234,7 @@
 <li>[LMW23]定义的编辑正确性：An honest block modified by the adversary without the approval of the committee is malicious.</li>
 </ul>
 </li>
-<li><p>腐化模型：t-温和敌手：是指敌手腐化一个节点需要一定的时间来完成. 敌手发布对目标节点的腐化指令, 经过 时间后, 目标节点被腐化, 受到敌手的控制, 成为恶意节点. 在实施腐化的t 时间内, 节点仍然属于诚实节点. 温和敌手是区块链协议分析中经常采用的腐化模型.</p>
+<li><p>腐化模型：t-温和敌手：是指敌手腐化一个节点需要一定的时间来完成. 敌手发布对目标节点的腐化指令, 经过t时间后, 目标节点被腐化, 受到敌手的控制, 成为恶意节点. 在实施腐化的t 时间内, 节点仍然属于诚实节点. 温和敌手是区块链协议分析中经常采用的腐化模型.</p>
 </li>
 <li><p>敌手模型：$n=2f+1$</p>
 <ul>
@@ -275,8 +275,8 @@
 </li>
 <li><p>编辑权由编辑者掌握</p>
 <ul>
-<li>编辑者的选择依赖于委员会选择，委员会内随机数生成</li>
-<li>投票就是密钥份额，超过门限直接执行</li>
+<li>编辑者的选择依赖于委员会选择，委员会内可验证随机函数最小值（√）</li>
+<li>投票就是密钥份额，超过门限直接执行（√）</li>
 <li>恢复密钥阶段<ul>
 <li>每个节点都有份额（√）</li>
 <li>委员会成员有份额</li>
@@ -294,9 +294,9 @@
 <ul>
 <li><p>为什么要设计委员会</p>
 <ul>
-<li>委员会成员进行变色龙哈希函数的密钥生成（定）</li>
-<li>收集编辑请求，同意之后发出编辑的交易</li>
-<li>委员会内选举编辑节点，执行编辑</li>
+<li>委员会成员进行变色龙哈希函数的密钥生成（√）</li>
+<li>收集编辑请求，同意之后发出编辑的交易（√）</li>
+<li>委员会内选举领导者，执行编辑（√）</li>
 <li>委员会的大小，先定死</li>
 </ul>
 </li>
@@ -310,25 +310,40 @@
 </ul>
 </li>
 </ul>
-<h1 id="协议流程"><a href="#协议流程" class="headerlink" title="协议流程"></a>协议流程</h1><h2 id="选择委员会"><a href="#选择委员会" class="headerlink" title="选择委员会"></a>选择委员会</h2><p>委员会大小$n=256$</p>
-<p>计算PoW $H(ini_ran|PK|nonce)\leq 2^{-D}$</p>
-<p>D是困难系数</p>
-<p>委员会内领导者选举</p>
+<h1 id="协议流程"><a href="#协议流程" class="headerlink" title="协议流程"></a>协议流程</h1><h2 id="选择委员会"><a href="#选择委员会" class="headerlink" title="选择委员会"></a>选择委员会</h2><p>委员会大小$t$</p>
+<p>计算PoW $H(ini_ran|PK|IP|nonce)\leq 2^{-D}$，D是困难系数</p>
+<p>委员会内领导者选举采用VRF</p>
 <h2 id="分布式密钥生成"><a href="#分布式密钥生成" class="headerlink" title="分布式密钥生成"></a>分布式密钥生成</h2><p>暂定使用JCH22的方案</p>
 <p><img src="/2023/03/10/scheme-design/image-20230316153823400.png" alt="image-20230316153823400"></p>
 <h2 id="收集编辑请求"><a href="#收集编辑请求" class="headerlink" title="收集编辑请求"></a>收集编辑请求</h2><p>任何节点$P_i$想要修改区块$B_j$内的第$k$个交易，正常发起交易（上链后才能编辑），支付交易费和保证金</p>
 <p>委员会节点打包交易发现有编辑交易后，在委员会内部发送编辑请求$req=(height,last_hash’,addr_{tx},tx,m_root,seq)$</p>
 <p>委员会节点向所有全节点广播编辑请求，同意编辑的全节点向委员会返回$(ID(P_i),sig(P_i,seq),seq)$</p>
 <p>委员会收集投票总数sum，$sum&gt;0.5n$且$sum&gt;t$则恢复密钥，执行编辑</p>
-<h2 id="执行编辑"><a href="#执行编辑" class="headerlink" title="执行编辑"></a>执行编辑</h2><p>领导者生成区块$B_j$编辑后的区块$B^\star_j$，头部修改为$(prev_hash,last_hash’,bf)$，bf是更新后的过滤器的值</p>
+<h2 id="执行编辑"><a href="#执行编辑" class="headerlink" title="执行编辑"></a>执行编辑</h2><p>领导者生成区块$B_j$编辑后的区块$B^\star_j$，头部修改为$(prev_hash,last_hash’,acc)$，acc是更新后RSA累加器的值</p>
 <h2 id="节点验证编辑并更新本地链"><a href="#节点验证编辑并更新本地链" class="headerlink" title="节点验证编辑并更新本地链"></a>节点验证编辑并更新本地链</h2><p>验证出块者是否在委员会内，是否为领导者</p>
 <p>检查是否为合法区块</p>
-<h2 id="委员会更新"><a href="#委员会更新" class="headerlink" title="委员会更新"></a>委员会更新</h2><p>（搁置）</p>
+<h2 id="委员会更新"><a href="#委员会更新" class="headerlink" title="委员会更新"></a>委员会更新</h2><p>更新，类似于定期执行$(t,n)\to(t’,n’)$秘密分享</p>
 <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><ul>
-<li>JCH22在收集编辑请求过程中存在重放攻击，增加序列号</li>
-<li>使用bloom filter实现对编辑区块的确认</li>
-<li>委员会内的领导者隐藏身份，直到出块时在区块头增加出块者的身份</li>
+<li>(已完成)JCH22在收集编辑请求过程中存在重放攻击，增加序列号</li>
+<li>[未实现]委员会内的领导者隐藏身份，直到出块时在区块头增加出块者的身份</li>
 <li>委员会的epoch设置为敌手腐化委员会成员需要的时间即可</li>
+<li>为什么不使用公开可验证的秘密分享：采用公钥加密和零知识证明，导致效率更低；安全性上不参与秘密重构的人理应无权投诉。</li>
+</ul>
+<h2 id="论文问题"><a href="#论文问题" class="headerlink" title="论文问题"></a>论文问题</h2><ul>
+<li>形式化撰写困难问题</li>
+</ul>
+<h2 id="后续可以研究的问题"><a href="#后续可以研究的问题" class="headerlink" title="后续可以研究的问题"></a>后续可以研究的问题</h2><ul>
+<li>安全性<ul>
+<li>保护领导者身份，委员会的环签名，如何追踪领导者作恶</li>
+<li>密钥过期问题<ul>
+<li>如果不更新<script type="math/tex">s</script>，存在曾经的密钥份额也可以恢复现在的秘密的情况(需要获得上一轮至少t个份额)</li>
+<li>定期更新s，重新进行dkg即可</li>
+<li>投票结果是否放在链上</li>
+</ul>
+</li>
+<li>领导者作恶无法生成有效的编辑区块</li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -413,7 +428,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">模型定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">协议流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%A7%94%E5%91%98%E4%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">选择委员会</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90"><span class="nav-number">2.2.</span> <span class="nav-text">分布式密钥生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B6%E9%9B%86%E7%BC%96%E8%BE%91%E8%AF%B7%E6%B1%82"><span class="nav-number">2.3.</span> <span class="nav-text">收集编辑请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E7%BC%96%E8%BE%91"><span class="nav-number">2.4.</span> <span class="nav-text">执行编辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E9%AA%8C%E8%AF%81%E7%BC%96%E8%BE%91%E5%B9%B6%E6%9B%B4%E6%96%B0%E6%9C%AC%E5%9C%B0%E9%93%BE"><span class="nav-number">2.5.</span> <span class="nav-text">节点验证编辑并更新本地链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A7%94%E5%91%98%E4%BC%9A%E6%9B%B4%E6%96%B0"><span class="nav-number">2.6.</span> <span class="nav-text">委员会更新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">模型定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">协议流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%A7%94%E5%91%98%E4%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">选择委员会</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90"><span class="nav-number">2.2.</span> <span class="nav-text">分布式密钥生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B6%E9%9B%86%E7%BC%96%E8%BE%91%E8%AF%B7%E6%B1%82"><span class="nav-number">2.3.</span> <span class="nav-text">收集编辑请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E7%BC%96%E8%BE%91"><span class="nav-number">2.4.</span> <span class="nav-text">执行编辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E9%AA%8C%E8%AF%81%E7%BC%96%E8%BE%91%E5%B9%B6%E6%9B%B4%E6%96%B0%E6%9C%AC%E5%9C%B0%E9%93%BE"><span class="nav-number">2.5.</span> <span class="nav-text">节点验证编辑并更新本地链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A7%94%E5%91%98%E4%BC%9A%E6%9B%B4%E6%96%B0"><span class="nav-number">2.6.</span> <span class="nav-text">委员会更新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E9%97%AE%E9%A2%98"><span class="nav-number">3.1.</span> <span class="nav-text">论文问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E7%BB%AD%E5%8F%AF%E4%BB%A5%E7%A0%94%E7%A9%B6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.2.</span> <span class="nav-text">后续可以研究的问题</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
