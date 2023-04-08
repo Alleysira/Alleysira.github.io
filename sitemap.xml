@@ -389,6 +389,13 @@
 
   
   <url>
+    <loc>https://alleysira.github.io/tags/Architecture/</loc>
+    <lastmod>2023-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/tags/Crypto/</loc>
     <lastmod>2023-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -410,7 +417,7 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Architecture/</loc>
+    <loc>https://alleysira.github.io/tags/C/</loc>
     <lastmod>2023-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -418,20 +425,6 @@
   
   <url>
     <loc>https://alleysira.github.io/tags/Consensus/</loc>
-    <lastmod>2023-04-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
-    <lastmod>2023-04-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://alleysira.github.io/tags/C/</loc>
     <lastmod>2023-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -452,6 +445,13 @@
   </url>
   
   <url>
+    <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
+    <lastmod>2023-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/tags/Lattices/</loc>
     <lastmod>2023-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -466,14 +466,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Algorithm/</loc>
+    <loc>https://alleysira.github.io/tags/Blockchian/</loc>
     <lastmod>2023-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Blockchian/</loc>
+    <loc>https://alleysira.github.io/tags/Algorithm/</loc>
     <lastmod>2023-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -487,14 +487,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Digital-Signature/</loc>
+    <loc>https://alleysira.github.io/tags/Database/</loc>
     <lastmod>2023-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Database/</loc>
+    <loc>https://alleysira.github.io/tags/Digital-Signature/</loc>
     <lastmod>2023-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -510,6 +510,13 @@
 
   
   <url>
+    <loc>https://alleysira.github.io/categories/Architecture/</loc>
+    <lastmod>2023-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/categories/MPC/</loc>
     <lastmod>2023-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -518,13 +525,6 @@
   
   <url>
     <loc>https://alleysira.github.io/categories/Crypto/</loc>
-    <lastmod>2023-04-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://alleysira.github.io/categories/Architecture/</loc>
     <lastmod>2023-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
