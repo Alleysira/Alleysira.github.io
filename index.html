@@ -184,7 +184,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2023-04-08 22:03:51 / Modified: 22:38:02" itemprop="dateCreated datePublished" datetime="2023-04-08T22:03:51+08:00">2023-04-08</time>
+              <time title="Created: 2023-04-08 22:03:51 / Modified: 22:43:35" itemprop="dateCreated datePublished" datetime="2023-04-08T22:03:51+08:00">2023-04-08</time>
             </span>
 
           
@@ -249,10 +249,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-04-07 18:29:49 / Modified: 22:07:28" itemprop="dateCreated datePublished" datetime="2023-04-07T18:29:49+08:00">2023-04-07</time>
+              <time title="Created: 2023-04-07 18:29:49" itemprop="dateCreated datePublished" datetime="2023-04-07T18:29:49+08:00">2023-04-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-04-08 22:44:34" itemprop="dateModified" datetime="2023-04-08T22:44:34+08:00">2023-04-08</time>
+              </span>
 
           
 
@@ -265,86 +271,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="2012-BIU-Introduction-to-Lattices"><a href="#2012-BIU-Introduction-to-Lattices" class="headerlink" title="2012 BIU Introduction to Lattices"></a>2012 BIU Introduction to Lattices</h1><p><img src="/2023/04/07/Intro-to-lattices/image-20230407183351420.png" alt="image-20230407183351420"></p>
-<p>基底不唯一</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407183444805.png" alt="image-20230407183444805"></p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407183505019.png" alt="image-20230407183505019"></p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407183846399.png" alt="image-20230407183846399"></p>
-<p>格密码的安全是worst-case的困难问题</p>
-<p>传统密码学是average-case的困难问题</p>
-<p>格可以实现FHE</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407184005734.png" alt="image-20230407184005734"></p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407184353209.png" alt="image-20230407184353209"></p>
-<p>安全证明可以给出关于如何选择安全参数的提示</p>
-<p>average-case的困难问题，比如如何选择N？</p>
-<ul>
-<li>大质数$p,q$如何选择</li>
-<li>$p-1,q-1$的素因子应该足够大</li>
-<li>$p+1,q+1$的素因子应该足够大</li>
-<li>实际上现在已经不太重要了</li>
-</ul>
-<p>格不存在这样的问题</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407185137186.png" alt="image-20230407185137186"></p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407185310415.png" alt="image-20230407185310415"></p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407185523538.png" alt="image-20230407185523538"></p>
-<p>如果1%被破解了，所有格上的困难问题都被破解了，不需要考虑参数的选取</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407190027295.png" alt="image-20230407190027295"></p>
-<p>现在格密码的效率和RSA接近</p>
-<ul>
-<li>LWE SIS</li>
-<li>RLWE RSIS 特定代数结构，效率非常高，密钥长度KB级别，接近哈希函数的效率</li>
-</ul>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407190336753.png" alt="image-20230407190336753"></p>
-<p>两个定义，实际上等价 列就是基底 </p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407190559981.png" alt="image-20230407190559981"></p>
-<p> 等价基底</p>
-<p>如何寻找等价基底，能在基底上做什么</p>
-<ul>
-<li>列变换 $v_i\leftrightarrow v_j$</li>
-<li>取负值 $v_i\gets -v_i$</li>
-<li>$v_i\gets v_i +kv_j,k\in Z$</li>
-</ul>
-<p>相当于右乘 幺模矩阵(unimodular 行列式值为1)，对乘法封闭</p>
-<p>两个格等价的条件</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407191804198.png" alt="image-20230407191804198"></p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407192045351.png" alt="image-20230407192045351"></p>
-<p>格的一些特征</p>
-<p>一维空间的周期函数$f:\R \to \R$</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407192624915.png" alt="image-20230407192624915"></p>
-<p>考虑高维空间，类似于循环群，只需要存储陪集</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407193047743.png" alt="image-20230407193047743"></p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407193204421.png" alt="image-20230407193204421"></p>
-<p>格的基本区域</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407193341145.png" alt="image-20230407193341145"></p>
-<p>给定基，可以定义基本平行多面体 就是一个基本区域，恰好包含陪集中的每一个元素</p>
-<p>基本空间的等价定义：基本空间内不存在两个等价的空间点，仅包含所有不等价陪集内的点集</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407193441619.png" alt="image-20230407193441619"></p>
-<p>寻找空间点的一个表示，实际上是在做模 基本平行多面体</p>
-<p>存储的实际是点和格的相关性，当点在格上，模P(B)后得到原点</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407194218433.png" alt="image-20230407194218433"></p>
-<p>实际上平行多面体的形状无重要，可以用任意多面体标识格，不是所有基本区域都是平行的</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407194446752.png" alt="image-20230407194446752"></p>
-<p>基本区域的面积必须相同，对平行多面体也成立，可以把平行多面体内的点映射到另一个平行多面体中 </p>
-<p>格的行列式定义为基生成的平行多面体的体积$|det(B)|$</p>
-<p>格的行列式表示了格点的稀疏程度，密度</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407202440541.png" alt="image-20230407202440541"></p>
-<p>连续极小，最短向量(集合)</p>
-<p>一般距离是欧几里得范数</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407202709347.png" alt="image-20230407202709347"></p>
-<p>一般指关心$\lambda_1 $</p>
-<p>$\lambda_n $是线性空间的基</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407202958269.png" alt="image-20230407202958269"></p>
-<p>注意$\tilde{v_2}$并不是格点</p>
-<p>正交基也是基本区域</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407204323284.png" alt="image-20230407204323284"></p>
-<p>从正交向量集到规范化正交集，是线性代数层面的基而不是格的基</p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407204527658.png" alt="image-20230407204527658"></p>
-<p>QR分解</p>
-<p>可以证明施密特正交区域是基本区域 </p>
-<p><img src="/2023/04/07/Intro-to-lattices/image-20230407204950666.png" alt="image-20230407204950666"></p>
-<p>证明引理1：三角形行列式等于主对角线上元素的乘积</p>
-<p>证明引理2：对最后一列的系数取非0，其他所有项系数取0，则 $\lambda_1\geq \tilde{v_n}$；同理当倒数第二列系数为非0，其他所有列系数为0，$\lambda_1\geq \tilde{v_{n-1}}$ ，永远存在非0系数，实际得到了$\lambda_1$的下界</p>
-
+          <h1 id="2012-BIU-Introduction-to-Lattices"><a href="#2012-BIU-Introduction-to-Lattices" class="headerlink" title="2012 BIU Introduction to Lattices"></a>2012 BIU Introduction to Lattices</h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/04/07/Intro-to-lattices/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
