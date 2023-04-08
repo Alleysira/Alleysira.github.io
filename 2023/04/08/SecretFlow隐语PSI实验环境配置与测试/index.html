@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="SecretFlow隐语PSI实验环境配置与测试配置SecretFlow 并测试两方PSI的效率 官方文档 隐语PSI Benchmark白皮书 — SecretFlow 文档">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SecretFlow隐语PSI实验环境配置与测试">
+<meta property="og:url" content="https://alleysira.github.io/2023/04/08/SecretFlow%E9%9A%90%E8%AF%ADPSI%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%B5%8B%E8%AF%95/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="SecretFlow隐语PSI实验环境配置与测试配置SecretFlow 并测试两方PSI的效率 官方文档 隐语PSI Benchmark白皮书 — SecretFlow 文档">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/04/08/SecretFlow%E9%9A%90%E8%AF%ADPSI%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%B5%8B%E8%AF%95/7629c228-bc51-4ef7-93e9-9f0c465d025d.png">
+<meta property="article:published_time" content="2023-04-08T14:03:51.000Z">
+<meta property="article:modified_time" content="2023-04-08T14:38:02.117Z">
+<meta property="article:author" content="Alleysira">
+<meta property="article:tag" content="CTF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/04/08/SecretFlow%E9%9A%90%E8%AF%ADPSI%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%B5%8B%E8%AF%95/7629c228-bc51-4ef7-93e9-9f0c465d025d.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2023/04/08/SecretFlow%E9%9A%90%E8%AF%ADPSI%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%B5%8B%E8%AF%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>SecretFlow隐语PSI实验环境配置与测试 | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/04/08/SecretFlow%E9%9A%90%E8%AF%ADPSI%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%B5%8B%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SecretFlow隐语PSI实验环境配置与测试
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-04-08 22:03:51 / Modified: 22:38:02" itemprop="dateCreated datePublished" datetime="2023-04-08T22:03:51+08:00">2023-04-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="SecretFlow隐语PSI实验环境配置与测试"><a href="#SecretFlow隐语PSI实验环境配置与测试" class="headerlink" title="SecretFlow隐语PSI实验环境配置与测试"></a>SecretFlow隐语PSI实验环境配置与测试</h1><p>配置SecretFlow 并测试两方PSI的效率</p>
+<p>官方文档 <a target="_blank" rel="noopener" href="https://www.secretflow.org.cn/docs/secretflow/zh_CN/developer/benchmark/psi_benchmark.html#">隐语PSI Benchmark白皮书 — SecretFlow 文档</a></p>
+<span id="more"></span>
+<h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><p>配置conda</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install wget</span><br><span class="line">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line">bash Miniconda3-latest-Linux-x86_64.sh</span><br><span class="line"><span class="comment"># choose miniconda3 location</span></span><br><span class="line">~/.miniconda3</span><br><span class="line">Do you wish the installer to initialize Miniconda3 by running conda init? [yes|no]</span><br><span class="line">[no] &gt;&gt;&gt; yes</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line">conda --version</span><br></pre></td></tr></table></figure>
+<p>新建conda环境</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conda create -n sf-benchmark python=3.8</span><br><span class="line">conda activate sf-benchmark</span><br><span class="line">pip install -U secretflow</span><br><span class="line">mkdir sf-benchmark</span><br><span class="line">cd sf-benchmark</span><br></pre></td></tr></table></figure>
+<p>生成.csv集合数据脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 gene_psi.py</span></span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> sample</span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">random_with_N_digits</span>(<span class="params">n</span>):</span></span><br><span class="line">    range_start = <span class="number">10</span> ** (n - <span class="number">1</span>)</span><br><span class="line">    range_end = (<span class="number">10</span>**n) - <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> randint(range_start, range_end)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">row_list = []</span><br><span class="line">len1 = <span class="number">10</span>**<span class="number">2</span></span><br><span class="line">len2 = <span class="number">10</span></span><br><span class="line">len3 = <span class="number">10</span></span><br><span class="line">len4 = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) &gt; <span class="number">1</span>:</span><br><span class="line">    len1 = <span class="built_in">int</span>(sys.argv[<span class="number">1</span>])</span><br><span class="line">    len2 = <span class="built_in">int</span>(len1 / <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) &gt; <span class="number">2</span>:</span><br><span class="line">    len3 = <span class="built_in">int</span>(sys.argv[<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">len4 = <span class="built_in">int</span>(len3 / <span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(len1, len2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len1):</span><br><span class="line">    data_list = [random_with_N_digits(<span class="number">38</span>)] <span class="comment"># should use 10^38 equals 2^128</span></span><br><span class="line">    row_list.append(data_list)</span><br><span class="line"></span><br><span class="line">row_list2 = sample(row_list, len2)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len2, len1):</span><br><span class="line">    data_list = [random_with_N_digits(<span class="number">38</span>)]</span><br><span class="line">    row_list2.append(data_list)</span><br><span class="line"></span><br><span class="line">row_list3 = sample(row_list, len4)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len4, len3):</span><br><span class="line">    data_list = [random_with_N_digits(<span class="number">38</span>)]</span><br><span class="line">    row_list3.append(data_list)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(row_list2))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(row_list3))</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;psi_1.csv&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, newline=<span class="string">&#x27;&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    writer = csv.writer(file)</span><br><span class="line">    writer.writerow([<span class="string">&quot;id&quot;</span>])</span><br><span class="line">    writer.writerows(row_list)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;psi_2.csv&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, newline=<span class="string">&#x27;&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    writer = csv.writer(file)</span><br><span class="line">    writer.writerow([<span class="string">&quot;id&quot;</span>])</span><br><span class="line">    writer.writerows(row_list2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;psi_3.csv&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, newline=<span class="string">&#x27;&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    writer = csv.writer(file)</span><br><span class="line">    writer.writerow([<span class="string">&quot;id&quot;</span>])</span><br><span class="line">    writer.writerows(row_list3)</span><br></pre></td></tr></table></figure>
+<h2 id="测试安装是否成功"><a href="#测试安装是否成功" class="headerlink" title="测试安装是否成功"></a>测试安装是否成功</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 foot.py</span></span><br><span class="line"><span class="keyword">import</span> secretflow <span class="keyword">as</span> sf</span><br><span class="line">sf.init([<span class="string">&#x27;alice&#x27;</span>, <span class="string">&#x27;bob&#x27;</span>, <span class="string">&#x27;carol&#x27;</span>], address=<span class="string">&#x27;local&#x27;</span>)</span><br><span class="line">dev = sf.PYU(<span class="string">&#x27;alice&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"></span><br><span class="line">data, target = load_iris(return_X_y=<span class="literal">True</span>, as_frame=<span class="literal">True</span>)</span><br><span class="line">data[<span class="string">&#x27;uid&#x27;</span>] = np.arange(<span class="built_in">len</span>(data)).astype(<span class="string">&#x27;str&#x27;</span>)</span><br><span class="line">data[<span class="string">&#x27;month&#x27;</span>] = [<span class="string">&#x27;Jan&#x27;</span>] * (<span class="number">2</span>^<span class="number">20</span>) + [<span class="string">&#x27;Feb&#x27;</span>] * (<span class="number">2</span>^<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># generate data, notice the content ./data</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">os.makedirs(<span class="string">&#x27;./data&#x27;</span>, exist_ok=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">da, db, dc = data.sample(frac=<span class="number">0.9</span>), data.sample(frac=<span class="number">0.8</span>), data.sample(frac=<span class="number">0.7</span>)</span><br><span class="line"></span><br><span class="line">da.to_csv(<span class="string">&#x27;data/alice.csv&#x27;</span>, index=<span class="literal">False</span>)</span><br><span class="line">db.to_csv(<span class="string">&#x27;data/bob.csv&#x27;</span>, index=<span class="literal">False</span>)</span><br><span class="line">dc.to_csv(<span class="string">&#x27;data/carol.csv&#x27;</span>, index=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">alice, bob = sf.PYU(<span class="string">&#x27;alice&#x27;</span>), sf.PYU(<span class="string">&#x27;bob&#x27;</span>)</span><br><span class="line">spu = sf.SPU(sf.utils.testing.cluster_def([<span class="string">&#x27;alice&#x27;</span>, <span class="string">&#x27;bob&#x27;</span>]))</span><br><span class="line"></span><br><span class="line">input_path = &#123;alice: <span class="string">&#x27;data/alice.csv&#x27;</span>, bob: <span class="string">&#x27;data/bob.csv&#x27;</span>&#125;</span><br><span class="line">output_path = &#123;alice: <span class="string">&#x27;data/alice_psi.csv&#x27;</span>, bob: <span class="string">&#x27;data/bob_psi.csv&#x27;</span>&#125;</span><br><span class="line">spu.psi_csv(<span class="string">&#x27;uid&#x27;</span>, input_path, output_path, <span class="string">&#x27;alice&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">df = da.join(db.set_index(<span class="string">&#x27;uid&#x27;</span>), on=<span class="string">&#x27;uid&#x27;</span>, how=<span class="string">&#x27;inner&#x27;</span>, rsuffix=<span class="string">&#x27;_bob&#x27;</span>, sort=<span class="literal">True</span>)</span><br><span class="line">expected = df[da.columns].astype(&#123;<span class="string">&#x27;uid&#x27;</span>: <span class="string">&#x27;int64&#x27;</span>&#125;).reset_index(drop=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">da_psi = pd.read_csv(<span class="string">&#x27;data/alice_psi.csv&#x27;</span>)</span><br><span class="line">db_psi = pd.read_csv(<span class="string">&#x27;data/bob_psi.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line">pd.testing.assert_frame_equal(da_psi, expected)</span><br><span class="line">pd.testing.assert_frame_equal(db_psi, expected)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(da_psi)</span><br></pre></td></tr></table></figure>
+<h2 id="实际实验测试脚本"><a href="#实际实验测试脚本" class="headerlink" title="实际实验测试脚本"></a>实际实验测试脚本</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 benchmark.py</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> absl <span class="keyword">import</span> app</span><br><span class="line"><span class="keyword">import</span> spu</span><br><span class="line"><span class="keyword">import</span> secretflow <span class="keyword">as</span> sf</span><br><span class="line"></span><br><span class="line"><span class="comment"># init log</span></span><br><span class="line">logging.basicConfig(stream=sys.stdout, level=logging.INFO)</span><br><span class="line"></span><br><span class="line"><span class="comment"># SPU settings</span></span><br><span class="line">cluster_def = &#123;</span><br><span class="line">    <span class="string">&#x27;nodes&#x27;</span>: [</span><br><span class="line">        <span class="comment"># &lt;&lt;&lt; !!! &gt;&gt;&gt; replace &lt;192.168.0.1:12945&gt; to alice node&#x27;s local ip &amp; free port</span></span><br><span class="line">        &#123;<span class="string">&#x27;party&#x27;</span>: <span class="string">&#x27;alice&#x27;</span>, <span class="string">&#x27;id&#x27;</span>: <span class="string">&#x27;local:0&#x27;</span>, <span class="string">&#x27;address&#x27;</span>: <span class="string">&#x27;local&#x27;</span>, <span class="string">&#x27;listen_address&#x27;</span>: <span class="string">&#x27;local&#x27;</span>&#125;,</span><br><span class="line">        <span class="comment"># &lt;&lt;&lt; !!! &gt;&gt;&gt; replace &lt;192.168.0.2:12946&gt; to bob node&#x27;s local ip &amp; free port</span></span><br><span class="line">        &#123;<span class="string">&#x27;party&#x27;</span>: <span class="string">&#x27;bob&#x27;</span>, <span class="string">&#x27;id&#x27;</span>: <span class="string">&#x27;local:1&#x27;</span>, <span class="string">&#x27;address&#x27;</span>: <span class="string">&#x27;local&#x27;</span>, <span class="string">&#x27;listen_address&#x27;</span>: <span class="string">&#x27;local&#x27;</span>&#125;,</span><br><span class="line">        <span class="comment"># &lt;&lt;&lt; !!! &gt;&gt;&gt; if you need 3pc test, please add node here, for example, add carol as rank 2</span></span><br><span class="line">        <span class="comment"># &#123;&#x27;party&#x27;: &#x27;carol&#x27;, &#x27;id&#x27;: &#x27;local:2&#x27;, &#x27;address&#x27;: &#x27;127.0.0.1:12347&#x27;&#125;,</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="string">&#x27;runtime_config&#x27;</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;protocol&#x27;</span>: spu.spu_pb2.SEMI2K,</span><br><span class="line">        <span class="string">&#x27;field&#x27;</span>: spu.spu_pb2.FM128,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>(<span class="params">_</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># sf init</span></span><br><span class="line">    <span class="comment"># &lt;&lt;&lt; !!! &gt;&gt;&gt; replace &lt;192.168.0.1:9394&gt; to your ray head</span></span><br><span class="line">    <span class="comment"># two parties secretflow&gt;=0.7.18b3 need to add &lt;sf.init(parties=[&#x27;alice&#x27;, &#x27;bob&#x27;]&gt;</span></span><br><span class="line">    sf.init(parties=[<span class="string">&#x27;alice&#x27;</span>, <span class="string">&#x27;bob&#x27;</span>], address=<span class="string">&#x27;local&#x27;</span>,log_to_driver=<span class="literal">True</span>)</span><br><span class="line">    alice = sf.PYU(<span class="string">&#x27;alice&#x27;</span>)</span><br><span class="line">    bob = sf.PYU(<span class="string">&#x27;bob&#x27;</span>)</span><br><span class="line">    <span class="comment"># carol = sf.PYU(&#x27;carol&#x27;)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># &lt;&lt;&lt; !!! &gt;&gt;&gt; replace path to real parties local file path.</span></span><br><span class="line">    input_path = &#123;</span><br><span class="line">        alice: <span class="string">&#x27;./psi_1.csv&#x27;</span>,</span><br><span class="line">        bob: <span class="string">&#x27;./psi_2.csv&#x27;</span>,</span><br><span class="line">        <span class="comment"># if run with `ECDH_PSI_3PC`, add carol</span></span><br><span class="line">        <span class="comment"># carol: &#x27;/data/psi_3.csv&#x27;,</span></span><br><span class="line">    &#125;</span><br><span class="line">    output_path = &#123;</span><br><span class="line">        alice: <span class="string">&#x27;./psi_output.csv&#x27;</span>,</span><br><span class="line">        bob: <span class="string">&#x27;./psi_output.csv&#x27;</span>,</span><br><span class="line">        <span class="comment"># if run with `ECDH_PSI_3PC`, add carol</span></span><br><span class="line">        <span class="comment"># carol: &#x27;/data/psi_output.csv&#x27;,</span></span><br><span class="line">    &#125;</span><br><span class="line">    select_keys = &#123;</span><br><span class="line">        alice: [<span class="string">&#x27;id&#x27;</span>],</span><br><span class="line">        bob: [<span class="string">&#x27;id&#x27;</span>],</span><br><span class="line">        <span class="comment"># if run with `ECDH_PSI_3PC`, add carol</span></span><br><span class="line">        <span class="comment"># carol: [&#x27;id&#x27;],</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># spu = sf.SPU(cluster_def)</span></span><br><span class="line">    spu = sf.SPU(sf.utils.testing.cluster_def([<span class="string">&#x27;alice&#x27;</span>, <span class="string">&#x27;bob&#x27;</span>]))</span><br><span class="line">    <span class="comment"># prepare data</span></span><br><span class="line">    start = time.time()</span><br><span class="line"></span><br><span class="line">    reports = spu.psi_csv(</span><br><span class="line">        key=select_keys,</span><br><span class="line">        input_path=input_path,</span><br><span class="line">        output_path=output_path,</span><br><span class="line">        receiver=<span class="string">&#x27;alice&#x27;</span>,  <span class="comment"># if `broadcast_result=False`, only receiver can get output file.</span></span><br><span class="line">        protocol=<span class="string">&#x27;ECDH_PSI_2PC&#x27;</span>,	<span class="comment"># psi protocol</span></span><br><span class="line">        <span class="comment"># all the possible protocols: ECDH_PSI_2PC KKRT_PSI_2PC BC22_PSI_2PC ECDH_PSI_3PC</span></span><br><span class="line">        precheck_input=<span class="literal">False</span>,  <span class="comment"># will cost ext time if set True</span></span><br><span class="line">        sort=<span class="literal">False</span>,  <span class="comment"># will cost ext time if set True</span></span><br><span class="line">        broadcast_result=<span class="literal">False</span>,  <span class="comment"># will cost ext time if set True</span></span><br><span class="line">    )</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;psi reports: <span class="subst">&#123;reports&#125;</span>&quot;</span>)</span><br><span class="line">    logging.info(<span class="string">f&quot;cost time: <span class="subst">&#123;time.time() - start&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    sf.shutdown()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(main)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="SKY-PSI"><a href="#SKY-PSI" class="headerlink" title="SKY-PSI"></a>SKY-PSI</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">alleysira@ubuntu:~/SKY-PSI$ cmake .</span><br><span class="line">alleysira@ubuntu:~/SKY-PSI$ make</span><br><span class="line">alleysira@ubuntu:~/SKY-PSI$ ./bin/PSI_test -r 0 -ss 20 -rs 20 -w 621 -h 20 -<span class="built_in">hash</span> 10 -ip 127.0.0.1  -ck 0 -gm 0 &amp; ./bin/PSI_test -r 1 -ss 20 -rs 20 -w 621 -h 20 -<span class="built_in">hash</span> 10 -ip 127.0.0.1 -ck 0 -gm 0</span><br><span class="line">alleysira@ubuntu:~/SKY-PSI$ ./bin/PSI_test -r 0 -ss 20 -rs 20 -w 621 -h 20 -<span class="built_in">hash</span> 10 -ip 127.0.0.1  -ck 0 -gm 0 &amp; ./bin/PSI_test -r 1 -ss 20 -rs 20 -w 621 -h 20 -<span class="built_in">hash</span> 10 -ip 127.0.0.1 -ck 0 -gm 0</span><br><span class="line">[1] 4988</span><br><span class="line">Receiver matrix sent and transposed <span class="built_in">hash</span> input computed</span><br><span class="line">Label                                     Time (ms)  diff (ms)</span><br><span class="line">__________________________________</span><br><span class="line">Sender base OT finished                       155.1    155.071  ******</span><br><span class="line">Sender <span class="built_in">set</span> transformed                        645.4    490.352  *******</span><br><span class="line">Sender transposed <span class="built_in">hash</span> input computed        6863.1   6217.686  **********</span><br><span class="line">Sender <span class="built_in">hash</span> outputs computed and sent        8659.7   1796.587  *********</span><br><span class="line">Receiver intersection computed,Intersection size:500000</span><br><span class="line">Label                                                       Time (ms)  diff (ms)</span><br><span class="line">__________________________________</span><br><span class="line">Receiver base OT finished                                       135.9    135.929  ******</span><br><span class="line">Receiver initialized                                            216.6     80.709  *****</span><br><span class="line">Receiver <span class="built_in">set</span> transformed                                        620.4    403.792  *******</span><br><span class="line">Receiver matrix sent and transposed <span class="built_in">hash</span> input computed        6829.3   6208.850  **********</span><br><span class="line">Receiver intersection computed                                 9250.8   2421.508  *********</span><br><span class="line">Receiver sent communication: 77.631 MB</span><br><span class="line">Receiver received communication: 4.813 MB</span><br><span class="line">Receiver total communication: 82.445 MB</span><br><span class="line">[1]+  Done                    ./bin/PSI_test -r 0 -ss 20 -rs 20 -w 621 -h 20 -<span class="built_in">hash</span> 10 -ip 127.0.0.1 -ck 0 -gm 0</span><br><span class="line"></span><br><span class="line">./bin/PSI_test -r 0 -ss 24 -rs 24 -w 627 -h 24 -<span class="built_in">hash</span> 11  &amp; ./bin/PSI_test -r 1 -ss 24 -rs 24 -w 627 -h 24 -<span class="built_in">hash</span> 11 -ip 127.0.0.1</span><br></pre></td></tr></table></figure>
+<p>cm20 支持到22 23 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">alleysira@ubuntu:~/OPRF-PSI-backup$ ./bin/PSI_test -r 0 -ss 22 -rs 22 -w 627 -h 22 -hash 11  &amp; ./bin/PSI_test -r 1 -ss 22 -rs 22 -w 627 -h 22 -hash 11 -ip 127.0.0.1</span><br><span class="line">[2] 5249</span><br><span class="line">Receiver matrix sent and transposed hash input computed</span><br><span class="line">Label                                     Time (ms)  diff (ms)</span><br><span class="line">__________________________________</span><br><span class="line">Sender base OT finished                       688.9    688.936  ******</span><br><span class="line">Sender set transformed                       2053.2   1364.259  *******</span><br><span class="line">Sender transposed hash input computed       28745.7  26692.532  **********</span><br><span class="line">Sender hash outputs computed and sent       38459.4   9713.711  *********</span><br><span class="line">Begin</span><br><span class="line">Receiver intersection computed,Intersection size:532 Proportion of intersection:0.382% correct!</span><br><span class="line">Label                                                       Time (ms)  diff (ms)</span><br><span class="line">__________________________________</span><br><span class="line">Receiver base OT finished                                       690.1    690.110  ******</span><br><span class="line">Receiver initialized                                            874.8    184.698  *****</span><br><span class="line">Receiver set transformed                                       2005.0   1130.157  *******</span><br><span class="line">Receiver matrix sent and transposed hash input computed       28747.9  26742.969  **********</span><br><span class="line">Receiver intersection computed                                41609.8  12861.827  *********</span><br><span class="line">Receiver sent communication: 313.506 MB</span><br><span class="line">Receiver received communication: 10.016 MB</span><br><span class="line">Receiver total communication: 323.522 MB</span><br><span class="line"></span><br><span class="line">alleysira@ubuntu:~/OPRF-PSI-backup$ ./bin/PSI_test -r 0 -ss 23 -rs 23 -w 627 -h 23 -hash 11  &amp; ./bin/PSI_test -r 1 -ss 23 -rs 23 -w 627 -h 23 -hash 11 -ip 127.0.0.1</span><br><span class="line">[1] 5273</span><br><span class="line">Receiver matrix sent and transposed hash input computed</span><br><span class="line">Label                                     Time (ms)  diff (ms)</span><br><span class="line">__________________________________</span><br><span class="line">Sender base OT finished                       150.6    150.579  *****</span><br><span class="line">Sender set transformed                       2884.4   2733.777  *******</span><br><span class="line">Sender transposed hash input computed       67371.3  64486.946  **********</span><br><span class="line">Sender hash outputs computed and sent       90574.5  23203.154  *********</span><br><span class="line">Begin</span><br><span class="line">Receiver intersection computed,Intersection size:536 Proportion of intersection:0.191% correct!</span><br><span class="line">Label                                                       Time (ms)  diff (ms)</span><br><span class="line">__________________________________</span><br><span class="line">Receiver base OT finished                                       148.4    148.435  *****</span><br><span class="line">Receiver initialized                                            517.2    368.812  *****</span><br><span class="line">Receiver set transformed                                       2835.7   2318.477  *******</span><br><span class="line">Receiver matrix sent and transposed hash input computed       67371.8  64536.073  **********</span><br><span class="line">Receiver intersection computed                                97432.1  30060.339  *********</span><br><span class="line">Receiver sent communication: 627.006 MB</span><br><span class="line">Receiver received communication: 20.016 MB</span><br><span class="line">Receiver total communication: 647.022 MB</span><br></pre></td></tr></table></figure>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>4Core/12GB </p>
+<p>harddrive: 30GB，实验过程中硬盘空间不足，可能影响效率</p>
+<p>cm20的元素为$2^{128}$,隐语默认为$10^{18}$（已修改为$10^{38}$）</p>
+<p>cm20设置了交集个数为100（已修正为500000），隐语交集个数设置为集合大小一半</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ifconfig </span><br><span class="line"></span><br><span class="line"><span class="comment">#100Mbps 20ms</span></span><br><span class="line">sudo tc qdisc add dev ens33 root handle 1: tbf rate 100mbit burst 256kb latency 800ms                                    </span><br><span class="line">sudo tc qdisc add dev ens33 parent 1:1 handle 10: netem delay 20msec <span class="built_in">limit</span> 8000 </span><br><span class="line"></span><br><span class="line">清除限制</span><br><span class="line">sudo tc qdisc del dev ens33 root</span><br><span class="line">查看已有配置</span><br><span class="line">sudo tc qdisc show dev ens33</span><br></pre></td></tr></table></figure>
+<h3 id="30Mbps-20ms结果"><a href="#30Mbps-20ms结果" class="headerlink" title="30Mbps 20ms结果"></a>30Mbps 20ms结果</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数量级</th>
+<th>kkrt/s</th>
+<th>ECDH/s</th>
+<th>BC22/s</th>
+<th>sky-psi/s</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>百万 1000000 2^{20}</td>
+<td>8.06+9.46+8.65+8.60+9.48=8.85</td>
+<td>132.50+138.11=135.305</td>
+<td>10.06+11.35+13.20=11.53</td>
+<td>11.558+9.564+9.064+12.329+10.6256=10.62</td>
+</tr>
+<tr>
+<td>千万 10000000</td>
+<td>58.00+57.22=57.61</td>
+<td>1348.21</td>
+<td>75.37+72.18=73.775</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="100Mbps-20ms结果"><a href="#100Mbps-20ms结果" class="headerlink" title="100Mbps 20ms结果"></a>100Mbps 20ms结果</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">######################################</span><br><span class="line">(base) jie@jie-virtual-machine:~$ sudo  tc qdisc add dev ens33 root handle 1: tbf rate 100mbit burst 256kb latency 800ms </span><br><span class="line">(base) jie@jie-virtual-machine:~$ tc qdisc add dev ens33 parent 1:1 handle 10: netem delay 20msec limit 8000 </span><br><span class="line">RTNETLINK answers: Operation not permitted</span><br><span class="line">(base) jie@jie-virtual-machine:~$ sudo tc qdisc add dev ens33 parent 1:1 handle 10: netem delay 20msec limit 8000 </span><br><span class="line">(base) jie@jie-virtual-machine:~$ sudo tc qdisc show dev ens33</span><br><span class="line">qdisc tbf 1: root refcnt 2 rate 100Mbit burst 256Kb lat 800ms </span><br><span class="line">qdisc netem 10: parent 1:1 limit 8000 delay 20ms</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数量级</th>
+<th>kkrt/s</th>
+<th>ECDH/s</th>
+<th>BC22/s</th>
+<th>sky-psi/s</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>百万 1000000 $2^{20}$</td>
+<td>10.65+11.26+9.86+8.576+11.85+8.90=10.18</td>
+<td>140.26+132.48</td>
+<td>10.82+10.67+11.54=11.01</td>
+<td>9.303+11.82+10.18+11.429=10.683</td>
+</tr>
+<tr>
+<td>千万 10000000</td>
+<td>64.24</td>
+<td>1396.7089092731476</td>
+<td>83.21+79.88+87.48=83.52</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="LAN实验结果"><a href="#LAN实验结果" class="headerlink" title="LAN实验结果"></a>LAN实验结果</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数量级</th>
+<th>kkrt/s</th>
+<th>ECDH/s</th>
+<th>BC22/s</th>
+<th>sky-psi/s</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>百万 1000000 $2^{20}$</td>
+<td>12.85+10.65+9.71+10.19+13.11 =11.302</td>
+<td>137.29+142.37+141.59+147.97+143.38=142.52</td>
+<td>9.95+9.67+10.05+9.42+10.357=9.8894</td>
+<td>9.2508+9.002+10.941+9.0912+9.036=9.4642</td>
+</tr>
+<tr>
+<td>千万 10000000</td>
+<td>76.24+72.58+74.83+70.75+70.83=73.046</td>
+<td>1374.78</td>
+<td>79.94+78.78+81.13+78.40+78.62=79.374</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>蚂蚁给出的结果</p>
+<p><img src="/2023/04/08/SecretFlow%E9%9A%90%E8%AF%ADPSI%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%B5%8B%E8%AF%95/7629c228-bc51-4ef7-93e9-9f0c465d025d.png" alt="img"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/04/07/Intro-to-lattices/" rel="prev" title="Intro_to_lattices">
+      <i class="fa fa-chevron-left"></i> Intro_to_lattices
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SecretFlow%E9%9A%90%E8%AF%ADPSI%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">SecretFlow隐语PSI实验环境配置与测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83"><span class="nav-number">1.1.</span> <span class="nav-text">配置环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E5%AE%89%E8%A3%85%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="nav-number">1.2.</span> <span class="nav-text">测试安装是否成功</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E5%AE%9E%E9%AA%8C%E6%B5%8B%E8%AF%95%E8%84%9A%E6%9C%AC"><span class="nav-number">1.3.</span> <span class="nav-text">实际实验测试脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SKY-PSI"><span class="nav-number">1.4.</span> <span class="nav-text">SKY-PSI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">1.5.</span> <span class="nav-text">实验结果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#30Mbps-20ms%E7%BB%93%E6%9E%9C"><span class="nav-number">1.5.1.</span> <span class="nav-text">30Mbps 20ms结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#100Mbps-20ms%E7%BB%93%E6%9E%9C"><span class="nav-number">1.5.2.</span> <span class="nav-text">100Mbps 20ms结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LAN%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">1.5.3.</span> <span class="nav-text">LAN实验结果</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">School of Cyber Science and Teconology, BUAA</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
