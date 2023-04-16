@@ -27,11 +27,16 @@
 <meta property="og:site_name" content="Alleysira&#39;s blog">
 <meta property="og:description" content="[SV21 ISIT]Private Data Access in Blockchain Systems Employing Coded Sharding 面向编码分片的区块链（PolyShard），数据采用RS码编码后保存，采用PIR保护余额查询">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/04/13/SV21/image-20230415101504909.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/04/13/SV21/image-20230415101709876.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/04/13/SV21/image-20230415102007666.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/04/13/SV21/image-20230415103611131.png">
 <meta property="article:published_time" content="2023-04-13T10:46:04.000Z">
-<meta property="article:modified_time" content="2023-04-13T13:54:07.885Z">
+<meta property="article:modified_time" content="2023-04-16T03:56:55.034Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/04/13/SV21/image-20230415101504909.png">
 
 <link rel="canonical" href="https://alleysira.github.io/2023/04/13/SV21/">
 
@@ -184,10 +189,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-04-13 18:46:04 / Modified: 21:54:07" itemprop="dateCreated datePublished" datetime="2023-04-13T18:46:04+08:00">2023-04-13</time>
+              <time title="Created: 2023-04-13 18:46:04" itemprop="dateCreated datePublished" datetime="2023-04-13T18:46:04+08:00">2023-04-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-04-16 11:56:55" itemprop="dateModified" datetime="2023-04-16T11:56:55+08:00">2023-04-16</time>
+              </span>
 
           
 
@@ -267,22 +278,22 @@ Y_i(2)\\
 Y_i(T)
 \end{matrix}
 \right]
-&= \left[
+= \left[
 \begin{matrix}
-X_1(1) &\dots & X_k(1) &\\
-X_1(2) &\dots  &X_k(2) & \\
-\vdots  &\ddots  &\vdots& \\
-X_1(T) & \dots & X_k(T)& 
+X_1(1) &\dots & X_k(1) \\
+X_1(2) &\dots  &X_k(2)  \\
+\vdots  &\ddots  &\vdots \\
+X_1(T) & \dots & X_k(T) 
 \end{matrix}\right]
 \left[\begin{matrix}
-g_{i1}\mathbb{1}_{2m} & \\
-g_{i2}\mathbb{1}_{2m}& \\
-\vdots & \\
-g_{ik}\mathbb{1}_{2m}&  
+g_{i1}\mathbb{1}_{2m}  \\
+g_{i2}\mathbb{1}_{2m} \\
+\vdots  \\
+g_{ik}\mathbb{1}_{2m}  
 \end{matrix}\right]=U \cdot(g_i \otimes\mathbb{1}_{2m})
 \\</script><p>$\mathbb{1}_{2m}$是$2m\times1$维的全1向量，$U:(T\times 2km)$包含了$T$个epoch内所有分片，涉及总用户$km$的交易历史</p>
 <p>考虑$j$个分片内的用户$p$，会想知道自己付的钱是否被打包，即$X_j(t),U(t,2(j-1)m)$</p>
-<p>每一行为一个epoch，出块$k$个，第$j$个块从$[2(j-1)m,2mj]$，则$p$对应的send位置为$2(j-1)m+p$;</p>
+<p>每一行为一个epoch，出块$k$个，第$j$个块的范围为$[2(j-1)m,2mj]$，则$p$对应的send位置为$2(j-1)m+p$;</p>
 <p>同理，可以查询receive位置$2(j-1)m+p+m=2j+p-m$</p>
 <p>如果服务器对send位置和receiver位置（即p）不知情（oblivious），能够防御恶意服务器讲假名和真实网络地址联系起来</p>
 <p>统计账户可以记作$\sum_{t=1}^T U(t,2(j-1)m+p)+U(t,2j-m+p)$</p>
@@ -292,6 +303,91 @@ g_{ik}\mathbb{1}_{2m}&
 <li>stragglers：拖延很久争取时间猜出$p$，之后正确响应</li>
 <li>malicious：尝试猜出$p$，可能返回错误结果</li>
 </ul>
+<p>当用户$p$想要读取$X_j(t,p)=U(t,2(j-1)m+p)$时，生成$n$个随机的$1\times 2m$向量$\{q_i(j,p)\in\mathbb{F}_q^{2m}|i=1,2,\dots,n \}$，向第$i$个节点发送$(t,q_i(j,p))$</p>
+<p>每个节点返回$\mathcal{A}(Y_i(t),q_i(j,p)):=a_i=q_i(j,p)^TY_i(t)$，扩张n倍</p>
+<p>收到所有$a_i$后，计算$\hat{X}_j(t,p)=\sum^n_{i=1} a_i$</p>
+<p>协议需要满足：</p>
+<ul>
+<li>正确性：$\hat{X}_j(t,p)=X_j(t,p)$对所有$j,p$均成立</li>
+<li>隐私性：信息论安全 对在$\{1,\dots,2m\}$均匀随机的$P$和curious-but-honest的服务器集合$\mathcal{D}$，满足 $I(P:\cup_{i\in\mathcal{D}}q_i(j,p))=0$</li>
+</ul>
+<h2 id="Overiew-of-Reed-Solomon-Codes"><a href="#Overiew-of-Reed-Solomon-Codes" class="headerlink" title="Overiew of Reed-Solomon Codes"></a>Overiew of Reed-Solomon Codes</h2><p>假设采用广义RS码(generalized Reed-Solomon code, GRS)对区块进行编码</p>
+<h3 id="复习信息论"><a href="#复习信息论" class="headerlink" title="复习信息论"></a>复习信息论</h3><p>$(n,k)$ 线性码：n是码长，k是线性空间维数</p>
+<p><img src="/2023/04/13/SV21/image-20230415101504909.png" alt="image-20230415101504909" style="zoom:50%;"></p>
+<p>生成矩阵：$G:k\times n$，每一行是生成向量</p>
+<p>校验矩阵：$H: (n-k)\times n$，每一行是一个n元线性方程组的系数，$n-k$ 行确定了一个n维线性空间</p>
+<p>若c为码字，有$Hc^T=0$</p>
+<p><img src="/2023/04/13/SV21/image-20230415101709876.png" alt="image-20230415101709876" style="zoom:50%;"></p>
+<p><img src="/2023/04/13/SV21/image-20230415102007666.png" alt="image-20230415102007666" style="zoom:50%;"></p>
+<p>$C_{GRS}$是MDS码，最小距离$n-k+1$</p>
+<p><img src="/2023/04/13/SV21/image-20230415103611131.png" alt="image-20230415103611131" style="zoom: 67%;"></p>
+<p>$H_{(n-k)\times A},A\leq n-k$ 列满秩，说明$H$内 存在$A\times A$可逆矩阵</p>
+<h2 id="Private-Data-Access-with-Curious-but-honest-Servers"><a href="#Private-Data-Access-with-Curious-but-honest-Servers" class="headerlink" title="Private Data Access with Curious-but-honest Servers"></a>Private Data Access with Curious-but-honest Servers</h2><p>如果敌手是malicious，可以通过固定查询检测出，所有回复$q^TY_1(t)\dots q^TY_n(t)$是一个码字，则$q^TY_1(t)\in \mathbb{F}_q$</p>
+<p>因此从敌手的角度来说保持curious but honest是更加明智的选择</p>
+<p>假设curious but honest服务器的数量 $d\leq n-k$</p>
+<h3 id="PIR-protocol"><a href="#PIR-protocol" class="headerlink" title="PIR protocol"></a>PIR protocol</h3><p>构造查询向量的思想：混合</p>
+<ul>
+<li>$\mathcal{C}_{GRS}$的奇偶校验向量（思想来自于[TIT18]）</li>
+<li>半随机向量(q)</li>
+<li>生成矩阵的逆矩阵的行向量</li>
+</ul>
+<p>最终用户$p$构造的查询向量为$\{q_i(j,p)\in \mathbb{F}^{2m}_q|i=1,\dots,n\}$</p>
+<p>分别向每个服务器$i$发送查询$q_i(j,p),t$</p>
+<p>收到回复$\mathcal{A}(Y_i(t),q_i(j,p))=a_i=q_i(j,p)^TY_i(t)$后，客户端计算$X_j(t,p)=\sum^n_{i=1} a_i$</p>
+<p>以下给出查询向量$q_i(j,p)$的构造方式：</p>
+<p>分别记GRS码的校验矩阵和生成矩阵为：</p>
+<script type="math/tex; mode=display">
+H_{GRS}=
+\left [
+\begin{matrix}
+h_1^T\\
+h_2^T\\
+\vdots \\
+h^T_{n-k}
+\end{matrix}
+\right ]_{(n-k) \times n} 
+G_{GRS}=
+\left [
+\begin{matrix}
+G_1 \  G_2
+\end{matrix}
+\right ]_{k \times n}</script><p>其中$G_1:k\times k,G_2:k\times(n-k)$，$G_1$是$G_{GRS}$可逆的子矩阵，$h^T_l=[h_{l1},h_{l2},\dots,h_{ln}],1\leq l\leq(n-k)$</p>
+<p>$G_1^{-1}=[\tilde\phi_1,\dots,\tilde\phi_k],\tilde\phi_i:k\times 1,\phi_j^T=[\tilde\phi_j \ 0]_{1\times n}$，即$\tilde\phi_j$后面补$n-k$个$0$</p>
+<p>假设curious but honest服务器的数量为$d$</p>
+<p>均匀随机选择$d$个向量$r_1,\dots,r_d \in \mathbb{F}^{2m}_q$，计算$r_{d+1}=(\sum^d_{i=1} r_i)+e_p$，其中$e_p=[0\ 0\ \dots\ 1_p\ \dots\ 0]_{2m \times 1}$</p>
+<script type="math/tex; mode=display">
+R_p=[r_1 \  r_2\  \dots \ r_{d+1}]_{2m \times (d+1)}\\
+\Psi_j=
+\left [
+\begin{matrix}
+h_1^T + \phi_j^T\\
+h_2^T+\phi_j^T \\
+\vdots\\
+h_d^T+\phi_j^T\\
+\phi_j^T
+\end{matrix}
+\right ]_{(1+d)\times n}\\
+Q=R_p\Psi _j:2m\times n</script><p>此时矩阵$Q$的每一列分别为$q_i(j,p)$，令$\varphi_{i}=\phi^T_{ji},i\in[n]$</p>
+<script type="math/tex; mode=display">
+q_1(j,p)=
+\left[
+\begin{matrix}
+\sum^{d}_{k=1} r_{k,1}(h_{k,1}+\varphi_1 )+r_{d+1,1}\varphi_{1}\\
+\sum^{d}_{k=1} r_{k,2}(h_{k,1}+\varphi_1 )+r_{d+1,2}\varphi_{1}\\
+\vdots \\
+\sum^{d}_{k=1} r_{k,2m}(h_{k,1}+\varphi_1 )+r_{d+1,2m}\varphi_{1}
+\end{matrix}
+\right ]\\
+
+q_i(j,p)=
+\left[
+\begin{matrix}
+\sum^{d}_{k=1} r_{k,1}(h_{k,i}+\varphi_i )+r_{d+1,1}\varphi_{i}\\
+\sum^{d}_{k=1} r_{k,2}(h_{k,i}+\varphi_i )+r_{d+1,2}\varphi_{i}\\
+\vdots \\
+\sum^{d}_{k=1} r_{k,2m}(h_{k,i}+\varphi_i )+r_{d+1,2m}\varphi_{i}
+\end{matrix}
+\right ],i\in[n]</script><p>接下来证明这种构造满足正确性和隐私性</p>
 
     </div>
 
@@ -310,7 +406,10 @@ g_{ik}\mathbb{1}_{2m}&
     <a href="/2023/04/08/SecretFlow%E9%9A%90%E8%AF%ADPSI%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%B5%8B%E8%AF%95/" rel="prev" title="SecretFlow隐语PSI实验环境配置与测试">
       <i class="fa fa-chevron-left"></i> SecretFlow隐语PSI实验环境配置与测试
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/04/14/Rabin81/" rel="next" title="Rabin81">
+      Rabin81 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -369,7 +468,7 @@ g_{ik}\mathbb{1}_{2m}&
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Privacy-in-Blockchain"><span class="nav-number">2.</span> <span class="nav-text">Privacy in Blockchain</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Private-Information-Retrieval"><span class="nav-number">2.1.</span> <span class="nav-text">Private Information Retrieval</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Contribution"><span class="nav-number">2.2.</span> <span class="nav-text">Contribution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transaction-Privacy-with-Coded-Sharding"><span class="nav-number">3.</span> <span class="nav-text">Transaction Privacy with Coded Sharding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Private-Data-Access-System-model"><span class="nav-number">3.1.</span> <span class="nav-text">Private Data Access: System model</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Privacy-in-Blockchain"><span class="nav-number">2.</span> <span class="nav-text">Privacy in Blockchain</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Private-Information-Retrieval"><span class="nav-number">2.1.</span> <span class="nav-text">Private Information Retrieval</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Contribution"><span class="nav-number">2.2.</span> <span class="nav-text">Contribution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transaction-Privacy-with-Coded-Sharding"><span class="nav-number">3.</span> <span class="nav-text">Transaction Privacy with Coded Sharding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Private-Data-Access-System-model"><span class="nav-number">3.1.</span> <span class="nav-text">Private Data Access: System model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overiew-of-Reed-Solomon-Codes"><span class="nav-number">3.2.</span> <span class="nav-text">Overiew of Reed-Solomon Codes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E4%B9%A0%E4%BF%A1%E6%81%AF%E8%AE%BA"><span class="nav-number">3.2.1.</span> <span class="nav-text">复习信息论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Private-Data-Access-with-Curious-but-honest-Servers"><span class="nav-number">3.3.</span> <span class="nav-text">Private Data Access with Curious-but-honest Servers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PIR-protocol"><span class="nav-number">3.3.1.</span> <span class="nav-text">PIR protocol</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -383,7 +482,7 @@ g_{ik}\mathbb{1}_{2m}&
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -396,7 +495,7 @@ g_{ik}\mathbb{1}_{2m}&
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
