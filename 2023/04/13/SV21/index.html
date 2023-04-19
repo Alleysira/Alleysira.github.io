@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://alleysira.github.io/2023/04/13/SV21/image-20230415102007666.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/04/13/SV21/image-20230415103611131.png">
 <meta property="article:published_time" content="2023-04-13T10:46:04.000Z">
-<meta property="article:modified_time" content="2023-04-16T03:56:55.034Z">
+<meta property="article:modified_time" content="2023-04-18T08:32:15.563Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -197,7 +197,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-04-16 11:56:55" itemprop="dateModified" datetime="2023-04-16T11:56:55+08:00">2023-04-16</time>
+                <time title="Modified: 2023-04-18 16:32:15" itemprop="dateModified" datetime="2023-04-18T16:32:15+08:00">2023-04-18</time>
               </span>
 
           
@@ -295,7 +295,7 @@ g_{ik}\mathbb{1}_{2m}
 <p>考虑$j$个分片内的用户$p$，会想知道自己付的钱是否被打包，即$X_j(t),U(t,2(j-1)m)$</p>
 <p>每一行为一个epoch，出块$k$个，第$j$个块的范围为$[2(j-1)m,2mj]$，则$p$对应的send位置为$2(j-1)m+p$;</p>
 <p>同理，可以查询receive位置$2(j-1)m+p+m=2j+p-m$</p>
-<p>如果服务器对send位置和receiver位置（即p）不知情（oblivious），能够防御恶意服务器讲假名和真实网络地址联系起来</p>
+<p>如果服务器对send位置和receiver位置（即p）不知情（oblivious），能够防御恶意服务器将假名和真实网络地址联系起来</p>
 <p>统计账户可以记作$\sum_{t=1}^T U(t,2(j-1)m+p)+U(t,2j-m+p)$</p>
 <p>服务器可以分为：</p>
 <ul>
@@ -311,7 +311,7 @@ g_{ik}\mathbb{1}_{2m}
 <li>正确性：$\hat{X}_j(t,p)=X_j(t,p)$对所有$j,p$均成立</li>
 <li>隐私性：信息论安全 对在$\{1,\dots,2m\}$均匀随机的$P$和curious-but-honest的服务器集合$\mathcal{D}$，满足 $I(P:\cup_{i\in\mathcal{D}}q_i(j,p))=0$</li>
 </ul>
-<h2 id="Overiew-of-Reed-Solomon-Codes"><a href="#Overiew-of-Reed-Solomon-Codes" class="headerlink" title="Overiew of Reed-Solomon Codes"></a>Overiew of Reed-Solomon Codes</h2><p>假设采用广义RS码(generalized Reed-Solomon code, GRS)对区块进行编码</p>
+<h2 id="Overiew-of-Reed-Solomon-Codes"><a href="#Overiew-of-Reed-Solomon-Codes" class="headerlink" title="Overiew of Reed-Solomon Codes"></a>Overiew of Reed-Solomon Codes</h2><p>假设采用广义RS码 (generalized Reed-Solomon code, GRS) 对区块进行编码</p>
 <h3 id="复习信息论"><a href="#复习信息论" class="headerlink" title="复习信息论"></a>复习信息论</h3><p>$(n,k)$ 线性码：n是码长，k是线性空间维数</p>
 <p><img src="/2023/04/13/SV21/image-20230415101504909.png" alt="image-20230415101504909" style="zoom:50%;"></p>
 <p>生成矩阵：$G:k\times n$，每一行是生成向量</p>
@@ -352,7 +352,7 @@ G_{GRS}=
 G_1 \  G_2
 \end{matrix}
 \right ]_{k \times n}</script><p>其中$G_1:k\times k,G_2:k\times(n-k)$，$G_1$是$G_{GRS}$可逆的子矩阵，$h^T_l=[h_{l1},h_{l2},\dots,h_{ln}],1\leq l\leq(n-k)$</p>
-<p>$G_1^{-1}=[\tilde\phi_1,\dots,\tilde\phi_k],\tilde\phi_i:k\times 1,\phi_j^T=[\tilde\phi_j \ 0]_{1\times n}$，即$\tilde\phi_j$后面补$n-k$个$0$</p>
+<p>$G_1^{-1}=[\tilde\phi_1,\dots,\tilde\phi_k],\tilde\phi_i:k\times 1,\phi_j^T=[\tilde\phi_j \ 0]_{1\times n}$，即$\tilde\phi_j$后面补$n-k$ 个$0$</p>
 <p>假设curious but honest服务器的数量为$d$</p>
 <p>均匀随机选择$d$个向量$r_1,\dots,r_d \in \mathbb{F}^{2m}_q$，计算$r_{d+1}=(\sum^d_{i=1} r_i)+e_p$，其中$e_p=[0\ 0\ \dots\ 1_p\ \dots\ 0]_{2m \times 1}$</p>
 <script type="math/tex; mode=display">
@@ -388,7 +388,25 @@ q_i(j,p)=
 \sum^{d}_{k=1} r_{k,2m}(h_{k,i}+\varphi_i )+r_{d+1,2m}\varphi_{i}
 \end{matrix}
 \right ],i\in[n]</script><p>接下来证明这种构造满足正确性和隐私性</p>
-
+<h3 id="Privacy"><a href="#Privacy" class="headerlink" title="Privacy"></a>Privacy</h3><p>设作恶的服务器为$d\leq n-k,\mathcal{D}={i_1,\dots,i_d}$，则发送给所有作恶节点的查询向量组成$2m\times d$的矩阵$Q_D$</p>
+<p>对$R=[r_1 \ r_2 \cdots \ r_d ]_{2m\times d},E_p=[e_p \ \cdots \  e_p]_{2m\times d},rank-one,\Phi=[h_1 \ h_2 \ \cdots \ h_d]_{d\times d}$</p>
+<script type="math/tex; mode=display">
+\Delta_D=\left[
+\begin{matrix}
+\hat\phi_{j1} \\
+& \hat\phi_{j2} \\
+& & \ddots\\
+& & & \hat\phi_{jd}
+\end{matrix}
+\right ]_{d\times d}</script><p>有$Q_D=R_p \cdot\Psi_{j,D}=R\Phi+ E_p\Delta _D$</p>
+<h3 id="Correctness"><a href="#Correctness" class="headerlink" title="Correctness"></a>Correctness</h3><p>根据$a_i=q_i(j,p)^TY_i(t),Y_i(t)=\sum^k_{j=1}g_{ij}X_j(t),i\in[n]$</p>
+<script type="math/tex; mode=display">
+\begin{align}
+X_j(t,p) 
+&=\sum^n_{i=1} a_i \\
+& = \sum_{i=1}^n q_i(j,p)^TY_i(t) \\
+& = (\sum_{l=1}^dr_l^T\sum^n_{i=1}(h_{l_i}+\phi_{ji})Y_i(t))+r_{d+1}\sum^n_{i=1}\phi_{ji}Y_i(t)
+\end{align}</script>
     </div>
 
     
@@ -468,7 +486,7 @@ q_i(j,p)=
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Privacy-in-Blockchain"><span class="nav-number">2.</span> <span class="nav-text">Privacy in Blockchain</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Private-Information-Retrieval"><span class="nav-number">2.1.</span> <span class="nav-text">Private Information Retrieval</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Contribution"><span class="nav-number">2.2.</span> <span class="nav-text">Contribution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transaction-Privacy-with-Coded-Sharding"><span class="nav-number">3.</span> <span class="nav-text">Transaction Privacy with Coded Sharding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Private-Data-Access-System-model"><span class="nav-number">3.1.</span> <span class="nav-text">Private Data Access: System model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overiew-of-Reed-Solomon-Codes"><span class="nav-number">3.2.</span> <span class="nav-text">Overiew of Reed-Solomon Codes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E4%B9%A0%E4%BF%A1%E6%81%AF%E8%AE%BA"><span class="nav-number">3.2.1.</span> <span class="nav-text">复习信息论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Private-Data-Access-with-Curious-but-honest-Servers"><span class="nav-number">3.3.</span> <span class="nav-text">Private Data Access with Curious-but-honest Servers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PIR-protocol"><span class="nav-number">3.3.1.</span> <span class="nav-text">PIR protocol</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Privacy-in-Blockchain"><span class="nav-number">2.</span> <span class="nav-text">Privacy in Blockchain</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Private-Information-Retrieval"><span class="nav-number">2.1.</span> <span class="nav-text">Private Information Retrieval</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Contribution"><span class="nav-number">2.2.</span> <span class="nav-text">Contribution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transaction-Privacy-with-Coded-Sharding"><span class="nav-number">3.</span> <span class="nav-text">Transaction Privacy with Coded Sharding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Private-Data-Access-System-model"><span class="nav-number">3.1.</span> <span class="nav-text">Private Data Access: System model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overiew-of-Reed-Solomon-Codes"><span class="nav-number">3.2.</span> <span class="nav-text">Overiew of Reed-Solomon Codes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E4%B9%A0%E4%BF%A1%E6%81%AF%E8%AE%BA"><span class="nav-number">3.2.1.</span> <span class="nav-text">复习信息论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Private-Data-Access-with-Curious-but-honest-Servers"><span class="nav-number">3.3.</span> <span class="nav-text">Private Data Access with Curious-but-honest Servers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PIR-protocol"><span class="nav-number">3.3.1.</span> <span class="nav-text">PIR protocol</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Privacy"><span class="nav-number">3.3.2.</span> <span class="nav-text">Privacy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Correctness"><span class="nav-number">3.3.3.</span> <span class="nav-text">Correctness</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

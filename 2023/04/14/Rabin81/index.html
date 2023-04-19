@@ -28,7 +28,7 @@
 <meta property="og:description" content="Michael O. Rabin. How to exchange secrets with oblivious transfer. Technical Report TR-81, Aiken Computation Lab, Harvard University, 1981.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-04-14T08:37:35.000Z">
-<meta property="article:modified_time" content="2023-04-14T11:37:59.842Z">
+<meta property="article:modified_time" content="2023-04-16T13:39:14.075Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="MPC">
 <meta property="article:tag" content="OT">
@@ -185,10 +185,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-04-14 16:37:35 / Modified: 19:37:59" itemprop="dateCreated datePublished" datetime="2023-04-14T16:37:35+08:00">2023-04-14</time>
+              <time title="Created: 2023-04-14 16:37:35" itemprop="dateCreated datePublished" datetime="2023-04-14T16:37:35+08:00">2023-04-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-04-16 21:39:14" itemprop="dateModified" datetime="2023-04-16T21:39:14+08:00">2023-04-16</time>
+              </span>
 
           
 
@@ -206,7 +212,7 @@
 <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Alice和Bob分别拥有一个对方想要解密的加密文件，密钥为1 bit秘密$SA\ SB$，因此两人想要交换$SA\ SB$</p>
 <p>但是存在问题，如果密钥错误，文件会损坏不能再解密。因此Alice和Bob都想要保证能够正确解密文件</p>
 <p>如果Bob给了Alice错误的密钥$S\neq SB$，交换得到了正确的$SA$，这是Alice不希望发生的情况</p>
-<p>如果Bob发送一条消息， <strong>My secret is S, signed Bob.</strong> Alice可以收到$S$后不发给Bob $SA$，这是Bob不希望发生的情况,Alice也可以耍赖 <strong>“I gave Bob the password SA and he has not used it; I am willing to reveal it again right now.”</strong> 尽管Bob最终能够得到$SA$，Alice已经占据了时间优势</p>
+<p>如果Bob发送一条消息， <strong>My secret is S, signed Bob.</strong> Alice可以收到$S$后不发给Bob $SA$，这是Bob不希望发生的情况，Alice也可以耍赖 <strong>“I gave Bob the password SA and he has not used it; I am willing to reveal it again right now.”</strong> 尽管Bob最终能够得到$SA$，Alice已经占据了时间优势</p>
 <p>进行归纳，协议的流程总是分为$Alcie \to^{I_i} Bob, Bob \to^{J_i} Alice $，总会存在一个$k$满足Bob可以从$\{I_1,\dots,I_k\}$中得知$SA$，而Alice不能从$\{J_1,\dots,J_{k-1}\}$中得知$SB$，因此需要设计一种协议保证：</p>
 <p>当Bob得知$SA$时，Alice一定可以得知$SB$</p>
 <p>假设：当Bob发送$SA$去读文件时，Alice能够知道这一情况；反之亦然</p>

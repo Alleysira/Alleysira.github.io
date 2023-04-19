@@ -27,11 +27,13 @@
 <meta property="og:site_name" content="Alleysira&#39;s blog">
 <meta property="og:description" content="秘密分享经典方案基本定义秘密分享的概念最早由Shamir和Blakley提出，秘密分享主要由两个算法构成：  分配算法：分发者将秘密$s$分割成若干个份额，在一组参与者$P&#x3D;\{P_1,P_2,\cdots,P_n\}$中进行分配，是得每一个参与者都得到关于该秘密的一个份额 恢复算法：保证只有$P$的一部分特定的子集才能有效地恢复秘密，甚至可能得不到关于$s$的任何有用信息">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/22/Secret-sharing/1XzTTOkbpPRwWM4hva54FyA.png">
 <meta property="article:published_time" content="2022-10-22T01:43:23.000Z">
-<meta property="article:modified_time" content="2023-03-06T09:22:56.995Z">
+<meta property="article:modified_time" content="2023-04-18T14:04:22.324Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Crypto">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2022/10/22/Secret-sharing/1XzTTOkbpPRwWM4hva54FyA.png">
 
 <link rel="canonical" href="https://alleysira.github.io/2022/10/22/Secret-sharing/">
 
@@ -192,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-03-06 17:22:56" itemprop="dateModified" datetime="2023-03-06T17:22:56+08:00">2023-03-06</time>
+                <time title="Modified: 2023-04-18 22:04:22" itemprop="dateModified" datetime="2023-04-18T22:04:22+08:00">2023-04-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -221,7 +223,30 @@
 <li>恢复算法：保证只有$P$的一部分特定的子集才能有效地恢复秘密，甚至可能得不到关于$s$的任何有用信息</li>
 </ul>
 <span id="more"></span>
-<h2 id="门限秘密分享"><a href="#门限秘密分享" class="headerlink" title="门限秘密分享"></a>门限秘密分享</h2><p>如果秘密分发为n份且分配给一个参与者后满足：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38798147/article/details/126700015">(12条消息) 秘密共享(Secret Sharing,SS)_闭眼神的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Matrix_element/article/details/119190983">(12条消息) 【隐私计算笔谈】MPC系列专题（十五）：三方复制秘密分享_PlatON技术团队的博客-CSDN博客</a></p>
+<h2 id="Addition-secret-sharing"><a href="#Addition-secret-sharing" class="headerlink" title="Addition secret sharing"></a>Addition secret sharing</h2><p>安全两方计算$a+b$，两个参与者分别持有秘密$a=a_1+a_2+a_3,b=b_1+b_2+b_3$，抗$n-1$方合谋</p>
+<p>$server_1:c_1=a_1+b_1$</p>
+<p>$server_2:c_2=a_2+b_2$</p>
+<p>$server_3:c_3=a_3+b_3$</p>
+<p>输出$c_1+c_2+c_3=a+b$</p>
+<h2 id="Replicated-secret-sharing"><a href="#Replicated-secret-sharing" class="headerlink" title="Replicated secret sharing"></a>Replicated secret sharing</h2><p>秘密$a=a_1+a_2+a_3$，任意两方不能合谋</p>
+<p>$server_1:a_1,a_2,c_1=a_1+a_2$</p>
+<p>$server_2:a_2,a_3,c_2=a_2+a_3$</p>
+<p>$server_3:a_3,a_1,c_3=a_3+a_1$</p>
+<h2 id="Multiplication-secret-sharing"><a href="#Multiplication-secret-sharing" class="headerlink" title="Multiplication secret sharing"></a>Multiplication secret sharing</h2><p>两个秘密$a=a_1+a_2+a_3，b=b_1+b_2+b_3$，分享$ab$，任意两方不能合谋（防止单点故障？）</p>
+<p>$server_1:a_1,a_2,b_1,b_2,c_1=a_1b_1+a_1b_2+a_2b_1$</p>
+<p>$server_2:a_2,a_3,b_2,b_3,c_2=a_2b_2+a_2b_3+a_3b_2$</p>
+<p>$server_3:a_3,a_1,b_3,b_1,c_3=a_3b_3+a_3b_1+a_1b_3$</p>
+<p>$c_1+c_2+c_3=ab$</p>
+<p>注意到此时$c_1,c_2,c_3$不再是重复秘密分享的形式（每个人有秘密的两个份额），无法继续做乘法，需要进行扩展，本地选择随机数$r_i$</p>
+<p>$server_1 \to server_2,server_3:r_1,c_1+r_1$</p>
+<p>$server_2 \to server_3,server_1:r_2,c_2+r_2$</p>
+<p>$server_3 \to server_1,server_2:r_3,c_3+r_3$</p>
+<p>$c_1’=c_1+r_1-r_3,c_2’=c_2+r_2-r_1,c_3’=c_3+r_3-r_2$</p>
+<p>此时$server_1$知道$c_1’,c_2’$，$server_2$知道$c_2’,c_3’$，$server_3$知道$c_3’,c_1’$</p>
+<p><img src="/2022/10/22/Secret-sharing/1XzTTOkbpPRwWM4hva54FyA.png" alt="img"></p>
+<h2 id="门限秘密分享"><a href="#门限秘密分享" class="headerlink" title="门限秘密分享"></a>门限秘密分享</h2><p>如果秘密分发为$n$份且分配给一个参与者后满足：</p>
 <ul>
 <li>$n$个参与者中任何$k$个或者多于$k$个合作可以恢复秘密</li>
 <li>任何少于$k$个参与者都无法获得该秘密</li>
@@ -277,10 +302,10 @@ f(0)=(-1)^{k-1}\sum\limits_{j=1}^{k}[f(i_j)\prod\limits_{l=1,l\neq j}^k \frac{i_
 <script type="math/tex; mode=display">
 \left \{
 \begin{align*}
-& x \equiv b_1 \bmod m_1 \\
-& x \equiv b_2 \bmod m_2 \\
-& \vdots \\
-& x \equiv b_k \bmod m_k 
+ x \equiv & b_1 \bmod m_1 \\
+ x \equiv & b_2 \bmod m_2 \\
+ \vdots &\\
+ x \equiv &b_k \bmod m_k 
 \end{align*}\right.</script><p>解为</p>
 <script type="math/tex; mode=display">
 x\equiv M_1M_1^{'}b_1+M_2M_2^{'}b_2+\cdots+M_kM_k^{'}b_k \bmod m</script><h4 id="选择参数"><a href="#选择参数" class="headerlink" title="选择参数"></a>选择参数</h4><p>取$m_1&lt;m_2&lt;\cdots&lt;m_n$满足</p>
@@ -319,7 +344,7 @@ A_1^{j^1} \cdots A_t^{j^t} & \equiv\left(g^{a_{11}} \cdots g^{a_{r 1}}\right)^j 
 & \equiv g^{\sum_{\ell=1}^r f_{\ell}(j)} \equiv g^{s k_j}(\bmod p) .
 \end{aligned}</script><p><a target="_blank" rel="noopener" href="https://link.springer.com/article/10.1007/s00145-006-0347-3">Gennaro et al. (2006)</a> 指出了这种构造不安全，敌手可以多次利用投诉机制来控制公钥的最后一个比特，因此JF DKG不能用做安全的DKG方案</p>
 <h2 id="Gennaro-et-al-’s-DKG-protocol"><a href="#Gennaro-et-al-’s-DKG-protocol" class="headerlink" title="Gennaro et al.’s DKG protocol"></a>Gennaro et al.’s DKG protocol</h2><p>信息论安全</p>
-
+<h2 id="Threshold-Secret-Sharing-Gilad-Asharov"><a href="#Threshold-Secret-Sharing-Gilad-Asharov" class="headerlink" title="Threshold Secret Sharing- Gilad Asharov"></a>Threshold Secret Sharing- Gilad Asharov</h2><h3 id="Linear-Secret-Sharing"><a href="#Linear-Secret-Sharing" class="headerlink" title="Linear Secret Sharing"></a>Linear Secret Sharing</h3>
     </div>
 
     
@@ -402,7 +427,7 @@ A_1^{j^1} \cdots A_t^{j^t} & \equiv\left(g^{a_{11}} \cdots g^{a_{r 1}}\right)^j 
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB%E7%BB%8F%E5%85%B8%E6%96%B9%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">秘密分享经典方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">基本定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%A8%E9%99%90%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB"><span class="nav-number">1.2.</span> <span class="nav-text">门限秘密分享</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%B4%E7%B4%A0%E6%9E%84%E9%80%A0%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB%E6%96%B9%E6%A1%88"><span class="nav-number">1.2.1.</span> <span class="nav-text">朴素构造秘密分享方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E6%83%B3"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E9%80%A0"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">构造</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shamir%E9%97%A8%E9%99%90%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB"><span class="nav-number">1.2.2.</span> <span class="nav-text">Shamir门限秘密分享</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Lagrange%E6%8F%92%E5%80%BC%E5%85%AC%E5%BC%8F"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">Lagrange插值公式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86%E7%9A%84%E9%97%A8%E9%99%90%E6%96%B9%E6%A1%88"><span class="nav-number">1.2.3.</span> <span class="nav-text">基于中国剩余定理的门限方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CRT"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">CRT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%8F%82%E6%95%B0"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">选择参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%98%E5%AF%86%E5%88%86%E5%89%B2"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">秘密分割</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%98%E5%AF%86%E6%81%A2%E5%A4%8D"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">秘密恢复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E9%AA%8C%E8%AF%81%E7%9A%84%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB"><span class="nav-number">1.3.</span> <span class="nav-text">可验证的秘密分享</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Feldman%E2%80%99s-VSS"><span class="nav-number">1.4.</span> <span class="nav-text">Feldman’s VSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Joint-Feldman-DKG-protocol"><span class="nav-number">1.5.</span> <span class="nav-text">The Joint-Feldman DKG protocol</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%81%A2%E5%A4%8D%E7%A7%98%E5%AF%86"><span class="nav-number">1.5.1.</span> <span class="nav-text">恢复秘密</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gennaro-et-al-%E2%80%99s-DKG-protocol"><span class="nav-number">1.6.</span> <span class="nav-text">Gennaro et al.’s DKG protocol</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB%E7%BB%8F%E5%85%B8%E6%96%B9%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">秘密分享经典方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">基本定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Addition-secret-sharing"><span class="nav-number">1.2.</span> <span class="nav-text">Addition secret sharing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Replicated-secret-sharing"><span class="nav-number">1.3.</span> <span class="nav-text">Replicated secret sharing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multiplication-secret-sharing"><span class="nav-number">1.4.</span> <span class="nav-text">Multiplication secret sharing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%A8%E9%99%90%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB"><span class="nav-number">1.5.</span> <span class="nav-text">门限秘密分享</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%B4%E7%B4%A0%E6%9E%84%E9%80%A0%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB%E6%96%B9%E6%A1%88"><span class="nav-number">1.5.1.</span> <span class="nav-text">朴素构造秘密分享方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E6%83%B3"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E9%80%A0"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">构造</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shamir%E9%97%A8%E9%99%90%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB"><span class="nav-number">1.5.2.</span> <span class="nav-text">Shamir门限秘密分享</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Lagrange%E6%8F%92%E5%80%BC%E5%85%AC%E5%BC%8F"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">Lagrange插值公式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86%E7%9A%84%E9%97%A8%E9%99%90%E6%96%B9%E6%A1%88"><span class="nav-number">1.5.3.</span> <span class="nav-text">基于中国剩余定理的门限方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CRT"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">CRT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%8F%82%E6%95%B0"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">选择参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%98%E5%AF%86%E5%88%86%E5%89%B2"><span class="nav-number">1.5.3.3.</span> <span class="nav-text">秘密分割</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%98%E5%AF%86%E6%81%A2%E5%A4%8D"><span class="nav-number">1.5.3.4.</span> <span class="nav-text">秘密恢复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E9%AA%8C%E8%AF%81%E7%9A%84%E7%A7%98%E5%AF%86%E5%88%86%E4%BA%AB"><span class="nav-number">1.6.</span> <span class="nav-text">可验证的秘密分享</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Feldman%E2%80%99s-VSS"><span class="nav-number">1.7.</span> <span class="nav-text">Feldman’s VSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Joint-Feldman-DKG-protocol"><span class="nav-number">1.8.</span> <span class="nav-text">The Joint-Feldman DKG protocol</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%81%A2%E5%A4%8D%E7%A7%98%E5%AF%86"><span class="nav-number">1.8.1.</span> <span class="nav-text">恢复秘密</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gennaro-et-al-%E2%80%99s-DKG-protocol"><span class="nav-number">1.9.</span> <span class="nav-text">Gennaro et al.’s DKG protocol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Threshold-Secret-Sharing-Gilad-Asharov"><span class="nav-number">1.10.</span> <span class="nav-text">Threshold Secret Sharing- Gilad Asharov</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linear-Secret-Sharing"><span class="nav-number">1.10.1.</span> <span class="nav-text">Linear Secret Sharing</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
