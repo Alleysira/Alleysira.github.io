@@ -430,13 +430,6 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Blockchain/</loc>
-    <lastmod>2023-05-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://alleysira.github.io/tags/Architecture/</loc>
     <lastmod>2023-05-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -444,7 +437,7 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/C/</loc>
+    <loc>https://alleysira.github.io/tags/Blockchain/</loc>
     <lastmod>2023-05-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -458,6 +451,13 @@
   </url>
   
   <url>
+    <loc>https://alleysira.github.io/tags/C/</loc>
+    <lastmod>2023-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/tags/Homomorphic-Encryption/</loc>
     <lastmod>2023-05-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -465,7 +465,7 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
+    <loc>https://alleysira.github.io/tags/Lattices/</loc>
     <lastmod>2023-05-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -486,7 +486,7 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Lattices/</loc>
+    <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
     <lastmod>2023-05-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
