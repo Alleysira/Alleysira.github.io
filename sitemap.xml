@@ -20,6 +20,15 @@
   </url>
   
   <url>
+    <loc>https://alleysira.github.io/2022/10/22/Secret-sharing/</loc>
+    
+    <lastmod>2023-05-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/2023/03/09/BIU/</loc>
     
     <lastmod>2023-05-06</lastmod>
@@ -32,15 +41,6 @@
     <loc>https://alleysira.github.io/2023/03/14/bc-eco-sys/</loc>
     
     <lastmod>2023-04-26</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://alleysira.github.io/2022/10/22/Secret-sharing/</loc>
-    
-    <lastmod>2023-04-18</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -437,6 +437,13 @@
   </url>
   
   <url>
+    <loc>https://alleysira.github.io/tags/C/</loc>
+    <lastmod>2023-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/tags/Blockchain/</loc>
     <lastmod>2023-05-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -451,21 +458,7 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/C/</loc>
-    <lastmod>2023-05-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://alleysira.github.io/tags/Homomorphic-Encryption/</loc>
-    <lastmod>2023-05-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://alleysira.github.io/tags/Lattices/</loc>
     <lastmod>2023-05-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -479,13 +472,6 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Redactable-Blockchain/</loc>
-    <lastmod>2023-05-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
     <lastmod>2023-05-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -493,7 +479,28 @@
   </url>
   
   <url>
+    <loc>https://alleysira.github.io/tags/Lattices/</loc>
+    <lastmod>2023-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/tags/Redactable-Blockchain/</loc>
+    <lastmod>2023-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/tags/OT/</loc>
+    <lastmod>2023-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/tags/PIR/</loc>
     <lastmod>2023-05-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -528,14 +535,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Digital-Signature/</loc>
+    <loc>https://alleysira.github.io/tags/Database/</loc>
     <lastmod>2023-05-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Database/</loc>
+    <loc>https://alleysira.github.io/tags/Digital-Signature/</loc>
     <lastmod>2023-05-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

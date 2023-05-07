@@ -190,7 +190,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-05-07 20:35:51" itemprop="dateModified" datetime="2023-05-07T20:35:51+08:00">2023-05-07</time>
+                <time title="Modified: 2023-05-07 21:09:20" itemprop="dateModified" datetime="2023-05-07T21:09:20+08:00">2023-05-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -213,72 +213,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Function-Secret-Sharing"><a href="#Function-Secret-Sharing" class="headerlink" title="Function Secret Sharing"></a>Function Secret Sharing</h1><p><img src="/2023/05/06/FSS/image-20230506145622804.png" alt="image-20230506145622804"></p>
-<p>简单介绍加性秘密分享</p>
-<p>考虑分享一个秘密的函数，份额通信量非常小（compact）</p>
-<p>FSS is compressing the truth table of additive secret sharing </p>
-<p>3Hours：</p>
-<ul>
-<li>定义和性质</li>
-<li>构造</li>
-<li>扩展和应用</li>
-</ul>
-<h2 id="definition"><a href="#definition" class="headerlink" title="definition"></a>definition</h2><ul>
-<li>$Gen(1^\lambda,f)\to(f_0,f_1)$ some times $k_0,k_1$</li>
-<li><p>$Eval(b,k_b,x)\to y_b$, $x$ is the public input,$y_b$ is the output share </p>
-<p>satisfying</p>
-</li>
-<li><p>secrecy (semantic security): $\forall f,f’ \in \mathcal{F}, \{k_b \in f\} \approx \{ k_b \in f’\}$</p>
-<ul>
-<li>statistically close</li>
-<li>relaxed bond: relaxed on hardness problem</li>
-<li>simulation security</li>
-</ul>
-</li>
-<li><p>reconstruction: $y_0+y_1=f(x)$</p>
-<ul>
-<li>other forms are acceptable</li>
-</ul>
-</li>
-<li><p>FSS For All functions(truth table)</p>
-<ul>
-<li>using additive secret sharing but the share size is  $O(2^n),where \ input\ len\ is\ nbits$</li>
-</ul>
-</li>
-<li><p>Linear functions over ring $R$</p>
-<ul>
-<li>using  coefficients additive secret sharing</li>
-</ul>
-</li>
-<li><p>polynomials</p>
-<ul>
-<li>also using  coefficients additive secret sharing</li>
-</ul>
-</li>
-</ul>
-<p>Notes: <em>secret</em> linear combination of <em>public</em> function of x and All the constructions above are information-secure </p>
-<p>for some classes of functions can only get computational security</p>
-<ul>
-<li>Point functions<ul>
-<li>$f_{\alpha,\beta}(x)=\alpha $ only when $x=\alpha$, else eval 0</li>
-</ul>
-</li>
-</ul>
-<h3 id="Sample-Application"><a href="#Sample-Application" class="headerlink" title="Sample Application"></a>Sample Application</h3><p>similar to PIR</p>
-<p><img src="/2023/05/06/FSS/image-20230506154438168.png" alt="image-20230506154438168"></p>
-<p> <img src="/2023/05/06/FSS/image-20230506154931929.png" alt="image-20230506154931929"></p>
-<p>2服务器 计算安全的PIR的结果和FSS结果不谋而合 （<strong>corollary</strong>）</p>
-<p>AES is unbreakable, means lightweight crypto</p>
-<p>FSS for points Functions \to 2- server PIR</p>
-<p><img src="/2023/05/06/FSS/image-20230506155829634.png" alt="image-20230506155829634"></p>
-<p>正确显然成立，黑色框是0的秘密分享，$y_A\  y_B$求和后只剩下$val[i]$</p>
-<p> FSS for Point Functions ⇒ Private Increment satisifying p</p>
-<p>Q: garble circuits as a weak case of FSS</p>
-<p>A: yes, reconstruction is not additive, former applications won’t go directly </p>
-<p>Q: how to complete private read and write an the same time</p>
-<p>A: Not possible. reading needs server to store same data, writing needs server to hold shared data, changing sever numbers may </p>
-<p>Q: point functions can’t be described as low degree <strong>polynomial</strong> having FSS for low degree polynomials and FSS for distributed point function</p>
-
+          <p>Elette Boyle’s lecture on FSS from <a href="[The 12th BIU Winter School on Cryptography | BIU Cyber Center](https://cyber.biu.ac.il/event/the-12th-biu-winter-school-on-cryptography/">12th BIU Winter School</a>)</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/05/06/FSS/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -400,7 +343,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-05-07 20:35:03" itemprop="dateModified" datetime="2023-05-07T20:35:03+08:00">2023-05-07</time>
+                <time title="Modified: 2023-05-07 20:49:54" itemprop="dateModified" datetime="2023-05-07T20:49:54+08:00">2023-05-07</time>
               </span>
 
           
@@ -1031,7 +974,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
