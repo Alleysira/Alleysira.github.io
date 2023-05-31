@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="云南创新研究院研讨会 刘懿中老师分片共识研究分享">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sharding_Blockchain_Consensus">
+<meta property="og:url" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="云南创新研究院研讨会 刘懿中老师分片共识研究分享">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531163125372.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531163950433.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531164356367.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531164845023.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531164926354.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531165205097.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531165353683.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531165444310.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531165609984.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531165938027.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531170048237.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531170221192.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531170346117.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531170603682.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531170753693.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531171408957.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531171805722.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531171935276.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531172038191.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531172228946.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531173107903.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531173338979.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531173458813.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531173630844.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531173726776.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531174150817.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531174655816.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531174810883.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175230991.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175429371.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175438271.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175529500.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175600846.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175612448.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175639194.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175713097.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175835847.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175944598.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180116957.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180154281.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180335584.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180437719.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180507265.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180613883.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180625949.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180651927.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180923215.png">
+<meta property="article:published_time" content="2023-05-31T08:23:34.000Z">
+<meta property="article:modified_time" content="2023-05-31T10:10:32.558Z">
+<meta property="article:author" content="Alleysira">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="Consensus">
+<meta property="article:tag" content="Sharding">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531163125372.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Sharding_Blockchain_Consensus | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Sharding_Blockchain_Consensus
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-05-31 16:23:34 / Modified: 18:10:32" itemprop="dateCreated datePublished" datetime="2023-05-31T16:23:34+08:00">2023-05-31</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>云南创新研究院研讨会 刘懿中老师分片共识研究分享</p>
+<span id="more"></span>
+<h1 id="分片区块链共识机制研究"><a href="#分片区块链共识机制研究" class="headerlink" title="分片区块链共识机制研究"></a>分片区块链共识机制研究</h1><h2 id="区块链共识机制"><a href="#区块链共识机制" class="headerlink" title="区块链共识机制"></a>区块链共识机制</h2><p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531163125372.png" alt="image-20230531163125372"></p>
+<p>1982年提出了拜占庭将军问题</p>
+<p>FLP提出异步环境下没有确定性一致算法</p>
+<p>2016年ELASTICO是首个分片共识，结合数据库领域的分片技术</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531163950433.png" alt="image-20230531163950433"></p>
+<p>分片的基本流程</p>
+<ul>
+<li>选出块者<ul>
+<li>随机出块</li>
+</ul>
+</li>
+<li>生成区块并广播</li>
+<li>节点验证更新区块链</li>
+</ul>
+<p>一致性consistency：指诚实节点输出的交易互为前缀</p>
+<ul>
+<li>强一致性：PBFT</li>
+<li>弱一致性：PoW PoS</li>
+</ul>
+<p>活性liveness：交易一定会被处理</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531164356367.png" alt="image-20230531164356367"></p>
+<p>性能+安全性都取决于共识机制</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531164845023.png" alt="image-20230531164845023"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531164926354.png" alt="image-20230531164926354"></p>
+<p>经典的分布式一致算法能够容忍宕机错误（crash）</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531165205097.png" alt="image-20230531165205097"></p>
+<p>现在研究工作集中于异步网络环境下，信工所路远老师 清华段斯斯老师等均有相关研究工作</p>
+<p>异步DKG，如何在动态环境下更新委员会，实现动态门限签名</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531165353683.png" alt="image-20230531165353683"></p>
+<p>PoW的能防止女巫攻击</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531165444310.png" alt="image-20230531165444310"></p>
+<p>PoW和PoS的安全性已经足够好了，但是性能比较低，设计混合共识的动机</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531165609984.png" alt="image-20230531165609984"></p>
+<p>先用PoW和PoS选委员会，委员会内跑PBFT等</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531165938027.png" alt="image-20230531165938027"></p>
+<p>多个委员会，每个委员会并行处理交易，分片登场了</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531170048237.png" alt="image-20230531170048237"></p>
+<h2 id="分片区块链技术"><a href="#分片区块链技术" class="headerlink" title="分片区块链技术"></a>分片区块链技术</h2><p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531170221192.png" alt="image-20230531170221192"></p>
+<p>如果在安全性上妥协，可以提高可扩展性</p>
+<p>分片的思想就是将节点划分到不同的子集，每个分片负责维护本分片区块链</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531170346117.png" alt="image-20230531170346117"></p>
+<p>共识节点分片，交易分片</p>
+<ul>
+<li><p>计算分片：分片内只验证分片内的交易</p>
+</li>
+<li><p>存储分片：片内节点只存片内的区块链</p>
+</li>
+<li>通信分片：大多数情况不需要和分片外节点通信</li>
+</ul>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531170603682.png" alt="image-20230531170603682"></p>
+<p>时期epoch是为了防止节点的腐化攻击设置的，进行重新配置</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531170753693.png" alt="image-20230531170753693"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531171408957.png" alt="image-20230531171408957"></p>
+<p>完整的分片区块链系统</p>
+<ul>
+<li>节点选择<ul>
+<li>permissionless：PoW/PoS</li>
+<li>permissioned：CA</li>
+</ul>
+</li>
+<li>随机数生成与节点分配：节点划分为不同分片过程中一般需要随机化分配（不随机的方案需要考虑敌手控制的节点低于某个阈值）<ul>
+<li>VRF 门限签名 VSS TEE</li>
+</ul>
+</li>
+<li>分片内共识：都可以<ul>
+<li>PBFT PoW</li>
+<li>有的交易需要跨片协同交易</li>
+</ul>
+</li>
+<li>跨片交易处理</li>
+<li>分片重配置：应对敌手corruption</li>
+<li>激励机制：有一些博弈论的结论</li>
+</ul>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531171805722.png" alt="image-20230531171805722"></p>
+<p>公平性是节点选中的概率相同，鲁棒性指一定能选出来</p>
+<p>委员会中心化问题后续可以再了解了解</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531171935276.png" alt="image-20230531171935276"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531172038191.png" alt="image-20230531172038191"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531172228946.png" alt="image-20230531172228946"></p>
+<p>BLS签名不管签名的 $t$ 个人是谁，签名是unique，需要DKG，实际上DKG</p>
+<p>随机数生成复杂度一般是$O(n^2)$，因此需要先选一部分节点来做</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531173107903.png" alt="image-20230531173107903"></p>
+<p>利用概率来考虑如何进行节点分配</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531173338979.png" alt="image-20230531173338979"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531173458813.png" alt="image-20230531173458813"></p>
+<p>一致性的定义基于backbone protocol </p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531173630844.png" alt="image-20230531173630844"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531173726776.png" alt="image-20230531173726776"></p>
+<p>2 phase commitment</p>
+<ul>
+<li>准备阶段 两个分片运行片内共识，确认交易可用性，锁定输入（防止双花，直到第二轮片内共识结束）</li>
+<li>承诺阶段 </li>
+</ul>
+<p>多输入输出拆分后不需要跨片吗，没理解</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531174150817.png" alt="image-20230531174150817"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531174655816.png" alt="image-20230531174655816"></p>
+<p>替换的方法：</p>
+<ul>
+<li>随机</li>
+<li>时间规则（rapid chain）</li>
+<li>有界布谷鸟</li>
+</ul>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531174810883.png" alt="image-20230531174810883"></p>
+<p>基于博弈论的思想，分片+博弈+reputation的研究很少，有研究价值</p>
+<p>以上研究内容发表在computer science review，中科院Q1的综述</p>
+<h2 id="Fleetchain"><a href="#Fleetchain" class="headerlink" title="Fleetchain"></a>Fleetchain</h2><p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175230991.png" alt="image-20230531175230991"></p>
+<p>分片内签名可以聚合$O(n^2)\to O(n)$，是否可以在分片内签名聚合</p>
+<p>片间复杂度同样降低$O(m^2)\to O(m)$</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175429371.png" alt="image-20230531175429371"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175438271.png" alt="image-20230531175438271"></p>
+<p>共识协议的安全性一般依赖于数字签名的安全性</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175529500.png" alt="image-20230531175529500"></p>
+<p>将hotstuff每轮换leader改成stable leader</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175600846.png" alt="image-20230531175600846"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175612448.png" alt="image-20230531175612448"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175639194.png" alt="image-20230531175639194"></p>
+<p>两部分都是线性复杂度</p>
+<h2 id="跨片交易处理"><a href="#跨片交易处理" class="headerlink" title="跨片交易处理"></a>跨片交易处理</h2><p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175713097.png" alt="image-20230531175713097"></p>
+<p>交易输入地址可能是共有的，众筹服务器！</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175835847.png" alt="image-20230531175835847"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531175944598.png" alt="image-20230531175944598"></p>
+<p>由用户将每个分片给的证明再转发</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180116957.png" alt="image-20230531180116957"></p>
+<p>分片直接互相广播，用户无感知</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180154281.png" alt="image-20230531180154281"></p>
+<p>1个交易2个BFT，如果2次BFT处理1k个交易，输入merkle树根，输出树的路径证明</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180335584.png" alt="image-20230531180335584"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180437719.png" alt="image-20230531180437719"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180507265.png" alt="image-20230531180507265"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180613883.png" alt="image-20230531180613883"></p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180625949.png" alt="image-20230531180625949"></p>
+<h2 id="跨片视图转换"><a href="#跨片视图转换" class="headerlink" title="跨片视图转换"></a>跨片视图转换</h2><p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180651927.png" alt="image-20230531180651927"></p>
+<p>不同分片的领导者片间可能作恶，片内诚实</p>
+<p>比如片间不发送证明，领导者censor</p>
+<p>思想是本分片监控其他分片领导者是否作恶，作恶则运行BFT给出作恶的证明，发送给作恶分片进行视图转换</p>
+<p><img src="/2023/05/31/Sharding-Blockchain-Consensus-lyj/image-20230531180923215.png" alt="image-20230531180923215"></p>
+<ul>
+<li>记得扒一下老师的工作</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+              <a href="/tags/Consensus/" rel="tag"># Consensus</a>
+              <a href="/tags/Sharding/" rel="tag"># Sharding</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/05/06/FSS/" rel="prev" title="FSS">
+      <i class="fa fa-chevron-left"></i> FSS
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E7%89%87%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%B1%E8%AF%86%E6%9C%BA%E5%88%B6%E7%A0%94%E7%A9%B6"><span class="nav-number">1.</span> <span class="nav-text">分片区块链共识机制研究</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%B1%E8%AF%86%E6%9C%BA%E5%88%B6"><span class="nav-number">1.1.</span> <span class="nav-text">区块链共识机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%89%87%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF"><span class="nav-number">1.2.</span> <span class="nav-text">分片区块链技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fleetchain"><span class="nav-number">1.3.</span> <span class="nav-text">Fleetchain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%A8%E7%89%87%E4%BA%A4%E6%98%93%E5%A4%84%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">跨片交易处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%A8%E7%89%87%E8%A7%86%E5%9B%BE%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.5.</span> <span class="nav-text">跨片视图转换</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">School of Cyber Science and Teconology, BUAA</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
