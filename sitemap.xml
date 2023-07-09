@@ -457,6 +457,13 @@
   </url>
   
   <url>
+    <loc>https://alleysira.github.io/tags/Architecture/</loc>
+    <lastmod>2023-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/tags/Blockchain/</loc>
     <lastmod>2023-07-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -471,28 +478,7 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Architecture/</loc>
-    <lastmod>2023-07-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://alleysira.github.io/tags/SmartContract/</loc>
-    <lastmod>2023-07-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://alleysira.github.io/tags/Homomorphic-Encryption/</loc>
-    <lastmod>2023-07-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://alleysira.github.io/tags/Language/</loc>
     <lastmod>2023-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -506,7 +492,21 @@
   </url>
   
   <url>
+    <loc>https://alleysira.github.io/tags/Homomorphic-Encryption/</loc>
+    <lastmod>2023-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
+    <lastmod>2023-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/tags/Language/</loc>
     <lastmod>2023-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -527,14 +527,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/PIR/</loc>
+    <loc>https://alleysira.github.io/tags/OT/</loc>
     <lastmod>2023-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/OT/</loc>
+    <loc>https://alleysira.github.io/tags/PIR/</loc>
     <lastmod>2023-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -555,14 +555,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Algorithm/</loc>
+    <loc>https://alleysira.github.io/tags/Blockchian/</loc>
     <lastmod>2023-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Blockchian/</loc>
+    <loc>https://alleysira.github.io/tags/Algorithm/</loc>
     <lastmod>2023-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -606,14 +606,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/categories/Crypto/</loc>
+    <loc>https://alleysira.github.io/categories/Architecture/</loc>
     <lastmod>2023-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/categories/Architecture/</loc>
+    <loc>https://alleysira.github.io/categories/Crypto/</loc>
     <lastmod>2023-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
