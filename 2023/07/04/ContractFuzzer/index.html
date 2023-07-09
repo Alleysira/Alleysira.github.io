@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="ContractFuzzer: Fuzzing Smart Contracts for Vulnerability Detection软工顶会 ASE18 基于智能合约的ABI生成fuzz的输入，针对不同漏洞类型定义了新的测试oracle，利用EVM记录智能合约的运行时行为，分析日志来报告安全漏洞。实验对6991份智能合约标记出了459个漏洞。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ContractFuzzer">
+<meta property="og:url" content="https://alleysira.github.io/2023/07/04/ContractFuzzer/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="ContractFuzzer: Fuzzing Smart Contracts for Vulnerability Detection软工顶会 ASE18 基于智能合约的ABI生成fuzz的输入，针对不同漏洞类型定义了新的测试oracle，利用EVM记录智能合约的运行时行为，分析日志来报告安全漏洞。实验对6991份智能合约标记出了459个漏洞。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/04/ContractFuzzer/image-20230705150229282.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/04/ContractFuzzer/image-20230705153449574.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/04/ContractFuzzer/image-20230705161724227.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/04/ContractFuzzer/image-20230705162927210.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/04/ContractFuzzer/image-20230705164932309.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/04/ContractFuzzer/image-20230705165527293.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/04/ContractFuzzer/image-20230705170242332.png">
+<meta property="article:published_time" content="2023-07-04T08:02:37.000Z">
+<meta property="article:modified_time" content="2023-07-09T07:22:59.018Z">
+<meta property="article:author" content="Alleysira">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="SmartContract">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/07/04/ContractFuzzer/image-20230705150229282.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2023/07/04/ContractFuzzer/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>ContractFuzzer | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/07/04/ContractFuzzer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ContractFuzzer
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-07-04 16:02:37" itemprop="dateCreated datePublished" datetime="2023-07-04T16:02:37+08:00">2023-07-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-09 15:22:59" itemprop="dateModified" datetime="2023-07-09T15:22:59+08:00">2023-07-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="ContractFuzzer-Fuzzing-Smart-Contracts-for-Vulnerability-Detection"><a href="#ContractFuzzer-Fuzzing-Smart-Contracts-for-Vulnerability-Detection" class="headerlink" title="ContractFuzzer: Fuzzing Smart Contracts for Vulnerability Detection"></a>ContractFuzzer: Fuzzing Smart Contracts for Vulnerability Detection</h1><p>软工顶会 <code>ASE18</code></p>
+<p>基于智能合约的ABI生成fuzz的输入，针对不同漏洞类型定义了新的测试oracle，利用EVM记录智能合约的运行时行为，分析日志来报告安全漏洞。实验对6991份智能合约标记出了459个漏洞。</p>
+<span id="more"></span>
+<h2 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h2><p>截止 2018.3， 以太坊智能合约和DApps的数量超过2百万，以太坊账户管理的ether超过9800万，约为5800 USD。管理如此多财富的智能合约成为了黑客的攻击目标。</p>
+<p>智能合约容易受攻击的原因：</p>
+<ul>
+<li>智能合约的执行依赖于区块链和其他智能合约，开发者可能忽视合约间的隐含关系</li>
+<li>编程语言和运行时环境比较新颖，开发者对缺陷理解不到位</li>
+<li>智能合约的不可篡改性使得难以在部署后更新，漏洞修复可能需要较长时间</li>
+</ul>
+<p>其他解决方案存在的问题：</p>
+<ul>
+<li>不准确，误报率较高</li>
+<li>符号验证所有的可能路径存在路径爆炸问题，如果只验证部分路径，也可能导致假阴性。</li>
+</ul>
+<p>贡献</p>
+<ul>
+<li>第一个以太坊智能合约fuzzing的框架</li>
+<li>提供了一系列新的测试oracle</li>
+<li>系统的测试了6991个真实的合约</li>
+</ul>
+<h2 id="A-REVIEW-OF-SMART-CONTRACTS"><a href="#A-REVIEW-OF-SMART-CONTRACTS" class="headerlink" title="A REVIEW OF SMART CONTRACTS"></a>A REVIEW OF SMART CONTRACTS</h2><p>区块链的状态 $s$ 是从地址到账户的映射，账户可以由人类和程序拥有。以太坊可以看做是基于交易的状态机，状态由每个交易更新，交易的有效性由共识协议验证。交易实际上是一个账户向另一个账户发送的消息，可以包括二进制数据（输入）和ether</p>
+<p>安全威胁：blockchain level, EVM level, and smart contract level.</p>
+<p>Moreover, even using the <em>block.blockhash()</em> function with <em>block.number</em> as parameters for random number generation is still vulnerable either due the execution mechanism of EVM or due to the transparency of the blockchain.</p>
+<h2 id="DEF1N1NG-TEST1NG-ORACLES-FOR-VULNERAB1L1T1ES-OF-SMART-CONTRACTS"><a href="#DEF1N1NG-TEST1NG-ORACLES-FOR-VULNERAB1L1T1ES-OF-SMART-CONTRACTS" class="headerlink" title="DEF1N1NG TEST1NG ORACLES FOR VULNERAB1L1T1ES OF SMART CONTRACTS"></a>DEF1N1NG TEST1NG ORACLES FOR VULNERAB1L1T1ES OF SMART CONTRACTS</h2><ul>
+<li>Gasless Send：<code>send()</code>是由<code>call()</code>实现的，检查<code>call()</code>的输入为0且gas limit是2300，检查<code>send()</code>是否返回<strong><em>ErrOutOfGas\</em></strong></li>
+<li>Exception Disorder：根调用没有返回异常但是嵌套的调用返回异常，即一场没有正确地传播到根调用</li>
+<li>Reentrancy<ul>
+<li>检查函数调用 A 是否在源自调用 A 的调用链中出现多次</li>
+<li>检查是否有<code>call()</code>调用并且值大于0；是否有足够的gas来执行复杂操作；被<code>call()</code>调用的是工具自身的代理合约</li>
+<li>ContractFuzzer 只有在能够成功对目标合约发起重入攻击时才会标记重入漏洞</li>
+</ul>
+</li>
+<li>Timestamp/Block Number Dependency<ul>
+<li>检查是否调用了TIMESTAMP操作码</li>
+<li>检查是否<code>call()</code>是<code>send()</code>，发送了ether</li>
+<li>检查<code>call()</code>的值是否大于0</li>
+</ul>
+</li>
+<li>DelegateCall<ul>
+<li>检查是否存在deletegatecall的调用</li>
+<li>调用的函数从输入中获取</li>
+</ul>
+</li>
+<li>FreezingEther<ul>
+<li>检查是否能收到ether</li>
+<li>是否使用delegatecall，不存在transfer/send/call/suicide等将ether转移到其他地址的调用</li>
+<li>标记出余额&gt;0，无法采用自身合约转出ether</li>
+</ul>
+</li>
+</ul>
+<h2 id="THE-SMART-CONTRACT-FUZZER"><a href="#THE-SMART-CONTRACT-FUZZER" class="headerlink" title="THE SMART CONTRACT FUZZER"></a>THE SMART CONTRACT FUZZER</h2><p><img src="/2023/07/04/ContractFuzzer/image-20230705150229282.png" alt="image-20230705150229282"></p>
+<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><p>0-5 共6步</p>
+<p>包括离线EVM检测工具和在线模糊测试工具，EVM进行合约的运行，模糊测试工具提取信息</p>
+<p>采用爬虫将Ehterscan网站的合约的二进制码 ABI 构造参数等爬下来，部署在测试网上</p>
+<p>合约用来作为模糊测试的对象和被其他合约调用</p>
+<p>步骤2 用于测试合约间的交互</p>
+<p>工具将生成符合ABI规范的有效模糊测试输入，以及在步骤3中跨越有效性边界的突变输入。</p>
+<h3 id="Static-Analysis-of-Smart-Contracts"><a href="#Static-Analysis-of-Smart-Contracts" class="headerlink" title="Static Analysis of Smart Contracts"></a>Static Analysis of Smart Contracts</h3><p>extract the signatures of the public functions supported by those contracts.</p>
+<p>该工具基于每个智能合约的 ]SON 格式导出的 ABI，提取 ABI 中声明的所有函数签名，计算函数签名前4字节的哈希值作为function selector并构建key-value(selector-address vector)的映射</p>
+<p>将ABI的JSON解析，提取函数描述和参数的数据类型，address类型必须采用能够提供相应函数的合约的地址</p>
+<p>For a given ABI function of a smart contract under test, how can we effectively determine subset of smart contracts that it can interact with? function selector，call的参数和函数签名的前4个字节对应</p>
+<p>是否正确</p>
+<p><img src="/2023/07/04/ContractFuzzer/image-20230705153449574.png" alt="image-20230705153449574"></p>
+<p>首先反汇编，提取出ABI，提取出函数体，定位函数代码段，如果行以PUSH4开头，当前行加入到selector当中，最后输出Map，搜索Map查询所有的支持selector作为ABI的合约地址放进一个私有的智能合约池中用来进行交互</p>
+<h3 id="Fuzzing-Input-Generation"><a href="#Fuzzing-Input-Generation" class="headerlink" title="Fuzzing Input Generation"></a>Fuzzing Input Generation</h3><p>生成固定长度和非固定长度的输入的算法不同</p>
+<ul>
+<li>固定长度 <em>INT\<M></M></em>, <em>UINT\<M></M></em>, <em>BYTES\<M> 和数组 \<type>[M]</type></M></em><ul>
+<li>首先在有效输入域上随机生成值</li>
+<li>然后我们还构建了另一组种子输入，这些种子输入在基于静态分析的智能合约中经常使用</li>
+<li>两类结合作为候选值</li>
+</ul>
+</li>
+<li>非固定长度的值 <em>bytes string \<type>[]</type></em><ul>
+<li>随机生成一个正整数作为长度，随机从输入域上选</li>
+</ul>
+</li>
+</ul>
+<p>为每个函数都生成候选输入的集合，因此循环执行生成k个实例作为候选集，编码成字节码供调用</p>
+<p>为重入漏洞生成输入需要在两个合约间交互式调用</p>
+<p><img src="/2023/07/04/ContractFuzzer/image-20230705161724227.png" alt="image-20230705161724227"></p>
+<p><em>BountyHunt</em> send ether with a call at line 5 before setting the value of the corresponding bounryAccount to 0 at line 7.</p>
+<h3 id="Instrumenting-EVM-to-Collect-Test-Oracles"><a href="#Instrumenting-EVM-to-Collect-Test-Oracles" class="headerlink" title="Instrumenting EVM to Collect Test Oracles"></a>Instrumenting EVM to Collect Test Oracles</h3><p>需要收集的三类信息：</p>
+<ul>
+<li>call和delegatecall的属性</li>
+<li>调用的操作码</li>
+<li>执行时合约的状态</li>
+</ul>
+<p><img src="/2023/07/04/ContractFuzzer/image-20230705162927210.png" alt="image-20230705162927210"></p>
+<p>为了支持重入漏洞和异常中断漏洞的检测，记录了Call的链</p>
+<p><em>EVM.Call()</em> and <em>EVM.DelegateCall()</em> function 来记录call的信息</p>
+<p><em>interpreter.Run()</em> 来记录opCode</p>
+<h3 id="Vulnerability-Analysis-and-Report"><a href="#Vulnerability-Analysis-and-Report" class="headerlink" title="Vulnerability Analysis and Report"></a>Vulnerability Analysis and Report</h3><p>当初始调用的调用堆栈变为空时，EVM中的检测模块将首先根据收集到的检测信息检查这些子oracle。然后，检测模型将这些子oracle发送到侦听本地主机端口8888的HTTP服务器。服务器将收集子oracle的结果，然后对每个测试oracle的复合条件执行最终检查。</p>
+<h2 id="EXPERIMENT-AND-RESULTS-ANALYSIS"><a href="#EXPERIMENT-AND-RESULTS-ANALYSIS" class="headerlink" title="EXPERIMENT AND RESULTS ANALYSIS"></a>EXPERIMENT AND RESULTS ANALYSIS</h2><p>PC中配置了两个dockers来帮助设置测试客户端和以太坊测试网络。在docker运行测试客户端中，在node.js运行时中使用以太坊javascript API (web3.js库)与testnet docker中的geth客户端进行交互。测试网络docker安装geth客户端1.7.0版本，然后还在该docker中创建了一个以太坊私有区块链，其中一个对等节点作为测试网络。</p>
+<p>当时Etherscan有9960个合约，全部爬下来去掉了无法部署的合约，剩下6991</p>
+<p>contract creation code (bytecode), the ABI interfaces, and the constructor argument of those contracts作为输入</p>
+<p>首先进行静态分析，得到每个ABI的私有的合约池并提取出ABI函数用于生成输入</p>
+<p>对于每个合约采用3类账户进行调用：创建者账户；外部账户；AttackAgent（重入）</p>
+<p>每个账户2种调用模式：带有ehter和无ether的</p>
+<p>对于每个 ABI 函数，如果包含参数，ContractFuzzer 将生成 k 个输入来调用它。否则，我们将简单地对其执行一次调用。结合 3 种账户类型和 call.value() 的 2 种选择，我们将为带参数的函数生成 6<em>k 次调用，为不带参数的函数生成 6 (3\</em>2) 次调用。用一个较大的值初始化 k，以便 ContractFuzzer 可以有广泛的候选调用可供选择。当模糊特定的智能合约时，我们会将为其每个 ABI 函数生成的所有调用合并到智能合约的调用池中。然后ContractFuzzer启动HTTP服务器来收集和分析测试预言机。对于每个智能合约，ContractFuzzer 从其调用池中随机选择调用来执行模糊测试，模拟智能合约函数的不同调用顺序。最后，服务器收集并分析结果以形成报告。经过大约 80 个小时的模糊测试后，我们停止了实验，直到结果逐渐收敛。</p>
+<p>和Oyente verification tool进行实验结果对比</p>
+<p><img src="/2023/07/04/ContractFuzzer/image-20230705164932309.png" alt="image-20230705164932309"></p>
+<p>除了时间戳和区块号依赖有假阳率，其他均没有，手动进行了核查</p>
+<p>误报情况的原因是，对这两种类型的漏洞的测试预言机定义不精确。事实上，在这两种情况的测试预言机定义中，检查了操作码（TIMESTAMP 和 NUMBER）的使用以及测试的 ABI 函数中ether转移调用的使用。还没有检查在读取 TIMESTAMP 和 NUMBER 和使用它们来计算以太币转移的条件之间是否存在数据流定义使用链。但是，记录此类信息可能涉及通过检测所测试的智能合约进行昂贵的数据流跟踪。考虑到实际较高的真阳性率，作者认为ContractFuzzer的解决方案是一种具有成本效益的权衡。</p>
+<p><img src="/2023/07/04/ContractFuzzer/image-20230705165527293.png" alt="image-20230705165527293"></p>
+<p>Oyentle支持4种漏洞检测，调用深度漏洞已经在EIP150 hardfork中修复了，交易顺序依赖攻击contractFuzzer不支持，只比较了时间戳依赖和重入攻击</p>
+<p>对于时间戳依赖漏洞，contractFuzzer假阴（未检测出）的原因：</p>
+<ul>
+<li>时间被硬编码，并将区块时间戳与之进行比较，但是不涉及以太币转移 Table.7</li>
+<li>在有限的测试时间内，某些条件很难触发。例如，一个合约在触发时间戳相关的以太币传输之前需要函数的特定调用模式。我们可以使用不同的函数调用串行执行更广泛的模糊测试来改善这种情况。comprehensive input generation schemes</li>
+</ul>
+<p><img src="/2023/07/04/ContractFuzzer/image-20230705170242332.png" alt="image-20230705170242332"></p>
+<p>对于重入漏洞，contractFuzzer假阴的原因是一些智能合约的漏洞在转移以太之前必须执行复杂的条件检查。然而，这些条件很难由ContracFuzzer触发。</p>
+<p>Oyente假阳的三类：</p>
+<ul>
+<li>uses <em>send()</em> and <em>transfer()</em> operation with a limited gas，被调用者没有足够的gas进行重入</li>
+<li>严格检查caller是否为合约的拥有者</li>
+<li>只能将ehter转给硬编码的地址</li>
+</ul>
+<p>未来研究方向：</p>
+<ul>
+<li>降低假阳率</li>
+<li>增加支持的漏洞类型</li>
+<li>扩展到其他区块链平台</li>
+</ul>
+<h2 id="配置实验环境"><a href="#配置实验环境" class="headerlink" title="配置实验环境"></a>配置实验环境</h2><p>更新wsl2</p>
+<p>docker load —input .\contractfuzzer.tar</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+              <a href="/tags/SmartContract/" rel="tag"># SmartContract</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/06/20/blockchain-security-survey/" rel="prev" title="blockchain security survey">
+      <i class="fa fa-chevron-left"></i> blockchain security survey
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ContractFuzzer-Fuzzing-Smart-Contracts-for-Vulnerability-Detection"><span class="nav-number">1.</span> <span class="nav-text">ContractFuzzer: Fuzzing Smart Contracts for Vulnerability Detection</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#INTRODUCTION"><span class="nav-number">1.1.</span> <span class="nav-text">INTRODUCTION</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-REVIEW-OF-SMART-CONTRACTS"><span class="nav-number">1.2.</span> <span class="nav-text">A REVIEW OF SMART CONTRACTS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DEF1N1NG-TEST1NG-ORACLES-FOR-VULNERAB1L1T1ES-OF-SMART-CONTRACTS"><span class="nav-number">1.3.</span> <span class="nav-text">DEF1N1NG TEST1NG ORACLES FOR VULNERAB1L1T1ES OF SMART CONTRACTS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#THE-SMART-CONTRACT-FUZZER"><span class="nav-number">1.4.</span> <span class="nav-text">THE SMART CONTRACT FUZZER</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Overview"><span class="nav-number">1.4.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Static-Analysis-of-Smart-Contracts"><span class="nav-number">1.4.2.</span> <span class="nav-text">Static Analysis of Smart Contracts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fuzzing-Input-Generation"><span class="nav-number">1.4.3.</span> <span class="nav-text">Fuzzing Input Generation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Instrumenting-EVM-to-Collect-Test-Oracles"><span class="nav-number">1.4.4.</span> <span class="nav-text">Instrumenting EVM to Collect Test Oracles</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vulnerability-Analysis-and-Report"><span class="nav-number">1.4.5.</span> <span class="nav-text">Vulnerability Analysis and Report</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EXPERIMENT-AND-RESULTS-ANALYSIS"><span class="nav-number">1.5.</span> <span class="nav-text">EXPERIMENT AND RESULTS ANALYSIS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">1.6.</span> <span class="nav-text">配置实验环境</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">School of Cyber Science and Teconology, BUAA</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
