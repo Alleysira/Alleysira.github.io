@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Securify: Practical Security Analysis of Smart Contracts发表于big4 CCS18 对以太坊的智能合约进行安全分析，满足可扩展性、完全自动化并且能够爱证明特定属性的安全&#x2F;不安全。 安全分析分为两步：  通过符号分析合约的依赖图，从代码中精确地提取出语义信息 检查是否符合或违反模式（pattern），条件是否满足某个性质  为了实现可扩展性，所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="securify">
+<meta property="og:url" content="https://alleysira.github.io/2023/07/10/securify/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="Securify: Practical Security Analysis of Smart Contracts发表于big4 CCS18 对以太坊的智能合约进行安全分析，满足可扩展性、完全自动化并且能够爱证明特定属性的安全&#x2F;不安全。 安全分析分为两步：  通过符号分析合约的依赖图，从代码中精确地提取出语义信息 检查是否符合或违反模式（pattern），条件是否满足某个性质  为了实现可扩展性，所">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/10/securify/image-20230710110632238.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/10/securify/image-20230712145246637.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/10/securify/image-20230712150820192.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/10/securify/image-20230712152705941.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/10/securify/image-20230712161430145.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/10/securify/image-20230712170622099.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/10/securify/image-20230711225346559.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/10/securify/image-20230711225523413.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/10/securify/image-20230711230448123.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/10/securify/image-20230711231815757.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/10/securify/image-20230711231850438.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/10/securify/image-20230711232107609.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/10/securify/image-20230711232308582.png">
+<meta property="article:published_time" content="2023-07-10T01:56:44.000Z">
+<meta property="article:modified_time" content="2023-07-16T11:08:37.746Z">
+<meta property="article:author" content="Alleysira">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="SmartContract">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/07/10/securify/image-20230710110632238.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2023/07/10/securify/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>securify | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/07/10/securify/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          securify
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-07-10 09:56:44" itemprop="dateCreated datePublished" datetime="2023-07-10T09:56:44+08:00">2023-07-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-16 19:08:37" itemprop="dateModified" datetime="2023-07-16T19:08:37+08:00">2023-07-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Securify-Practical-Security-Analysis-of-Smart-Contracts"><a href="#Securify-Practical-Security-Analysis-of-Smart-Contracts" class="headerlink" title="Securify: Practical Security Analysis of Smart Contracts"></a>Securify: Practical Security Analysis of Smart Contracts</h1><p>发表于big4 <code>CCS18</code></p>
+<p>对以太坊的智能合约进行安全分析，满足可扩展性、完全自动化并且能够爱证明特定属性的安全/不安全。</p>
+<p>安全分析分为两步：</p>
+<ul>
+<li>通过符号分析合约的依赖图，从代码中精确地提取出语义信息</li>
+<li>检查是否符合或违反模式（pattern），条件是否满足某个性质</li>
+</ul>
+<p>为了实现可扩展性，所有模式都是用指定的域特定语言规定的</p>
+<p>目前已经代码开源，分析了18k个合约，被专家用于安全审计</p>
+<span id="more"></span>
+<h2 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h2><p>合约的广泛应用需要强安全保证，然而设计没有安全漏洞合约非常具有挑战性。</p>
+<p>每几个月都有安全漏洞+每个漏洞都很贵</p>
+<p>关键的挑战：</p>
+<ul>
+<li>合约编程语言的图灵完备性，导致自动验证任意属性是不可判定的。现有解决方法依赖于相对通用的测试和符号执行的方法Oyente和Mythril，存在以下缺陷，导致用户需要检查所有报告中的误报并且担心漏报<ul>
+<li>由于欠近似，可能错过重要的违反行为</li>
+<li>由于对域上特定元素不精确的建模，假阳率</li>
+<li>对现实智能合约的代码覆盖率不高，Oyente只有20%</li>
+</ul>
+</li>
+</ul>
+<p>实际上，许多智能合约的安全属性本质上很难直接进行推理。解决这些挑战的可行途径是针对重要的领域特定属性构建一个自动验证器，目前的工作有仅针对 重入漏洞的 </p>
+<p><img src="/2023/07/10/securify/image-20230710110632238.png" alt="image-20230710110632238"></p>
+<p>本文重要的一个观察结果是 可以从数据流图来检查是否符合或违反模式，原因是现实世界中漏洞倾向于违反许多简单的性质，采用pattern而不是property是因为pattern实质上更适合自动推理</p>
+<p>本文的技术思想是定义两类模式反映给定的安全性质：</p>
+<ul>
+<li>符合模式：即表示符合性质</li>
+<li>违反模式</li>
+</ul>
+<p>现有符号执行的工具存在的问题：</p>
+<ul>
+<li>不报告确定性的违反模式（合并了警告和违反），需要用户手动进行分类，实验结果显示用户手动工作量减少了65.9%</li>
+<li>现有的分析工具无法报告不安全的行为，用户需要手动检查未覆盖的代码</li>
+</ul>
+<p>符号执行的方法对数字性质支持更好（溢出），本方案对审计更复杂合约的支持更好</p>
+<p>主要贡献：</p>
+<ul>
+<li>提出了一种在Datalog中对以太坊合约的依赖关系图进行符号编码的反编译器。</li>
+<li>提出了一组合规和违规的安全模式，捕捉足够的条件来证明和反驳实际安全属性。</li>
+<li>给出了一种端到端的实现，完全自动化合约的分析</li>
+<li>对现有以太坊智能合约进行了广泛评估，证明了Securify可以有效地证明合约的正确性并发现违规行为。</li>
+</ul>
+<h2 id="MOTIVATING-EXAMPLES"><a href="#MOTIVATING-EXAMPLES" class="headerlink" title="MOTIVATING EXAMPLES"></a>MOTIVATING EXAMPLES</h2><p> 2 examples 200 millions worth of USD IN 2017</p>
+<h3 id="Stealing-Ether"><a href="#Stealing-Ether" class="headerlink" title="Stealing Ether"></a>Stealing Ether</h3><p><img src="/2023/07/10/securify/image-20230712145246637.png" alt="image-20230712145246637"></p>
+<p>存在的安全问题：对安全非常重要的变量 <code>owner</code>是所有用户来说都是可写的，应该进行限制</p>
+<p>然而由于address的空间过大，无法轻易判断是否满足该性质</p>
+<p>Securify的检测方法是检查是否存在 <code>owner = _owner</code>的赋值不依赖于<code>caller</code> 指令(返回交易发送者的地址)</p>
+<p>具体实现思路是通过分析合约的依赖推断数据控制流图依赖，在这里，Securify推断赋值<code>owner = _owner</code>不依赖于<code>caller</code>指令，这意味着任何用户都可以访问该赋值。一些符号检查工具执行了对相似性质的不精确检查，导致假阳率和假阴率</p>
+<h3 id="Frozen-Funds"><a href="#Frozen-Funds" class="headerlink" title="Frozen Funds"></a>Frozen Funds</h3><p><img src="/2023/07/10/securify/image-20230712150820192.png" alt="image-20230712150820192"></p>
+<p>攻击：以太坊的智能合约可以用特定的<code>kill</code>指令移除区块链，如果攻击者移除 <code>walletLibrary</code>，存储的资金将被冻结</p>
+<p>安全问题：允许用户存储以太币，但不保证能够取出，因为取回函数依赖于外部库，可以从以下两方面检查是否存在这个问题：</p>
+<ul>
+<li>用户能够存储以太币</li>
+<li>合约没有非零数量以太币转移的指令</li>
+</ul>
+<p>Securify检查两个条件的连接，首先检查是否有<code>stop</code>指令，执行不依赖于转移的以太币为0。假设该<code>stop</code>指令对一些交易是可达的，表明用户可以用正数个ether到达，即存储以太币。其次检查是否对于所有的<code>call</code>指令，从合约中提取的ether数量为0</p>
+<h2 id="THE-SECURIFY-SYSTEM"><a href="#THE-SECURIFY-SYSTEM" class="headerlink" title="THE SECURIFY SYSTEM"></a>THE SECURIFY SYSTEM</h2><p>以判断<code>owner</code>为例，介绍整体流程</p>
+<p><img src="/2023/07/10/securify/image-20230712152705941.png" alt="image-20230712152705941"></p>
+<p>绿色的输入：包括合约的字节码和定义的pattern（采用Domain-Specific Language，DSL编写），输入同样可以是solidity编写的合约</p>
+<h3 id="反编译EVM字节码"><a href="#反编译EVM字节码" class="headerlink" title="反编译EVM字节码"></a>反编译EVM字节码</h3><p>首先转换成无栈的静态单指令(static-single assignment form, SSA)的形式</p>
+<p>识别函数，比如ABI_9DA8 对应的函数为<code>initOwner</code></p>
+<p>执行部分求值来解析内存和存储偏移量、跳转目的地，这些对于精确地静态分析代码都很重要</p>
+<h3 id="推断语义事实"><a href="#推断语义事实" class="headerlink" title="推断语义事实"></a>推断语义事实</h3><p>分析合约推断出数据和控制流依赖</p>
+<p>Securify推导语义事实的方式是通过层次化 Datalog（一种语言） 声明式指定的，并且完全自动化，使用现有的可扩展引擎。</p>
+<p>声明式方法的关键优势是：</p>
+<p>（i）推理规则简洁地捕捉了对不同组件（例如合约存储）的抽象推理</p>
+<p>（ii）更多的事实和推理规则可以轻松地添加</p>
+<p>（iii）推理规则以模块化的方式指定（例如，内存分析独立于合约存储分析）</p>
+<h3 id="检查安全模式"><a href="#检查安全模式" class="headerlink" title="检查安全模式"></a>检查安全模式</h3><p>获得所有语义事实后，SECURIFY检查符合模式和违反模式的集合。所有模式由DSL编写，方便安全专家进行扩展。DSL 是对 Securify 推导的语义事实的逻辑公式片段。其存储偏移量（表示为X）和执行这个指令的标签L都不依赖于任何可能执行合约的调用者指令的结果，则违规模式匹配。否定由 ¬ 表示，合取由 ∧ 表示</p>
+<p><img src="/2023/07/10/securify/image-20230712161430145.png" alt="image-20230712161430145"></p>
+<h3 id="SECURIFY的输出"><a href="#SECURIFY的输出" class="headerlink" title="SECURIFY的输出"></a>SECURIFY的输出</h3><p>对于违规模式的匹配，SECURIFY能够输出导致该模式的指令所在行，如果有源码的话可以对应到solidity的行。对于没有匹配到的性质，将会给出warning</p>
+<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><ul>
+<li><p>当前版本无法分析出数值性质，比如整数溢出</p>
+</li>
+<li><p>无法支持可达性，假设所有指令都是可达的</p>
+</li>
+<li>并不是所有的违规模式都会被攻击者利用</li>
+</ul>
+<h2 id="SEMANTIC-FACTS"><a href="#SEMANTIC-FACTS" class="headerlink" title="SEMANTIC FACTS"></a>SEMANTIC FACTS</h2><p>本节中，介绍 Securify 使用的控制流和数据流依赖关系的自动推导。在这个过程中推导出的事实被称为语义事实，并且后来用于检查安全属性。首先介绍理解此分析所必需的背景：EVM 指令集和分层 Datalog。然后介绍Securify推导的语义事实和声明式推理规则，这些规则在分层 Datalog 中指定，用于推导这些语义事实。</p>
+<h3 id="Backgroud"><a href="#Backgroud" class="headerlink" title="Backgroud"></a>Backgroud</h3><h4 id="EVM"><a href="#EVM" class="headerlink" title="EVM"></a>EVM</h4><p>EVM指令集支持若干操作码，SECURIFY处理了所有的操作码并给出精简后的相关性较高的指令，包括：</p>
+<ul>
+<li>算术运算符和比较 <code>add</code></li>
+<li>密码学哈希函数 <code>sha3</code></li>
+<li>环境信息 <code>balance</code></li>
+<li>区块信息 <code>number</code> <code>timestamp</code></li>
+<li>内存和存储操作 <code>mload</code> <code>mstore</code> load/store data from the memory/contract storage</li>
+<li>系统操作 如<code>call</code></li>
+<li>控制流指令 如 <code>goto</code></li>
+</ul>
+<h4 id="分层的Datalog"><a href="#分层的Datalog" class="headerlink" title="分层的Datalog"></a>分层的Datalog</h4><p>声明式逻辑语言，编写事实（谓词）和规则来推断事实。</p>
+<h3 id="Facts-and-Inference-Rules"><a href="#Facts-and-Inference-Rules" class="headerlink" title="Facts and Inference Rules"></a>Facts and Inference Rules</h3><p>Securify首先提取了一组基本事实，这些事实对于每个指令都是成立的。这些基本事实构成了Datalog程序的输入，用于推导合约的其他事实。我们使用术语“语义事实”来指代由Datalog程序推导出的事实。在Datalog程序中，合约中出现的所有程序元素，包括指令标签、变量、字段、字符串和整数常量，都被表示为常量。</p>
+<h2 id="SECURITY-PATTERNS"><a href="#SECURITY-PATTERNS" class="headerlink" title="SECURITY PATTERNS"></a>SECURITY PATTERNS</h2><p><img src="/2023/07/10/securify/image-20230712170622099.png" alt="image-20230712170622099"></p>
+<h1 id="Videos"><a href="#Videos" class="headerlink" title="Videos"></a>Videos</h1><ul>
+<li><p>[x] CCS 2018 <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=7v-bd9maqm8">(1) Securify: Practical Security Analysis of Smart Contracts - YouTube</a></p>
+</li>
+<li><p>[ ] SURI 2018 <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=YNbj_JElzuc&amp;list=PL95IbaKDuVrLeLaRmDof5o3_FE75tdcZP">(1) Securify: Practical Security Analysis of Smart Contracts | Petar Tsankov - YouTube</a></p>
+</li>
+</ul>
+<p><img src="/2023/07/10/securify/image-20230711225346559.png" alt="image-20230711225346559"></p>
+<p>关键性质是在调用指令后不执行状态的改变，然而智能合约是图灵完备的，无法判定，作者观察出了危险调用和安全调用满足的一些简单的性质</p>
+<p><img src="/2023/07/10/securify/image-20230711225523413.png" alt="image-20230711225523413"></p>
+<p>工具当时可以在线访问，现在已经down了 <a target="_blank" rel="noopener" href="http://www.securify.ch/">www.securify.ch</a></p>
+<p>发表会议时已经有了1k+的订阅 许多专家使用</p>
+<p><img src="/2023/07/10/securify/image-20230711230448123.png" alt="image-20230711230448123"></p>
+<p>总体思路</p>
+<ul>
+<li>从EVM字节码出发</li>
+</ul>
+<p><img src="/2023/07/10/securify/image-20230711231815757.png" alt="image-20230711231815757"></p>
+<p><img src="/2023/07/10/securify/image-20230711231850438.png" alt="image-20230711231850438"></p>
+<p><img src="/2023/07/10/securify/image-20230711232107609.png" alt="image-20230711232107609"></p>
+<p><img src="/2023/07/10/securify/image-20230711232308582.png" alt="image-20230711232308582"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+              <a href="/tags/SmartContract/" rel="tag"># SmartContract</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/07/04/ContractFuzzer/" rel="prev" title="ContractFuzzer">
+      <i class="fa fa-chevron-left"></i> ContractFuzzer
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Securify-Practical-Security-Analysis-of-Smart-Contracts"><span class="nav-number">1.</span> <span class="nav-text">Securify: Practical Security Analysis of Smart Contracts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#INTRODUCTION"><span class="nav-number">1.1.</span> <span class="nav-text">INTRODUCTION</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MOTIVATING-EXAMPLES"><span class="nav-number">1.2.</span> <span class="nav-text">MOTIVATING EXAMPLES</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Stealing-Ether"><span class="nav-number">1.2.1.</span> <span class="nav-text">Stealing Ether</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Frozen-Funds"><span class="nav-number">1.2.2.</span> <span class="nav-text">Frozen Funds</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#THE-SECURIFY-SYSTEM"><span class="nav-number">1.3.</span> <span class="nav-text">THE SECURIFY SYSTEM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E7%BC%96%E8%AF%91EVM%E5%AD%97%E8%8A%82%E7%A0%81"><span class="nav-number">1.3.1.</span> <span class="nav-text">反编译EVM字节码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E6%96%AD%E8%AF%AD%E4%B9%89%E4%BA%8B%E5%AE%9E"><span class="nav-number">1.3.2.</span> <span class="nav-text">推断语义事实</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.3.</span> <span class="nav-text">检查安全模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SECURIFY%E7%9A%84%E8%BE%93%E5%87%BA"><span class="nav-number">1.3.4.</span> <span class="nav-text">SECURIFY的输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%99%90%E6%80%A7"><span class="nav-number">1.3.5.</span> <span class="nav-text">局限性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SEMANTIC-FACTS"><span class="nav-number">1.4.</span> <span class="nav-text">SEMANTIC FACTS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Backgroud"><span class="nav-number">1.4.1.</span> <span class="nav-text">Backgroud</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#EVM"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">EVM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%B1%82%E7%9A%84Datalog"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">分层的Datalog</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Facts-and-Inference-Rules"><span class="nav-number">1.4.2.</span> <span class="nav-text">Facts and Inference Rules</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SECURITY-PATTERNS"><span class="nav-number">1.5.</span> <span class="nav-text">SECURITY PATTERNS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Videos"><span class="nav-number">2.</span> <span class="nav-text">Videos</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">School of Cyber Science and Teconology, BUAA</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

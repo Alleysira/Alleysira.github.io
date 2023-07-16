@@ -1,5 +1,6 @@
-https://alleysira.github.io/2023/07/04/ContractFuzzer/
+https://alleysira.github.io/2023/07/10/securify/
 https://alleysira.github.io/2023/06/20/blockchain-security-survey/
+https://alleysira.github.io/2023/07/04/ContractFuzzer/
 https://alleysira.github.io/2023/05/06/FSS/
 https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/
 https://alleysira.github.io/2023/04/13/SV21/
@@ -49,16 +50,16 @@ https://alleysira.github.io/2021/11/19/virus/
 https://alleysira.github.io/
 https://alleysira.github.io/tags/Crypto/
 https://alleysira.github.io/tags/MPC/
-https://alleysira.github.io/tags/Architecture/
 https://alleysira.github.io/tags/Blockchain/
+https://alleysira.github.io/tags/Architecture/
 https://alleysira.github.io/tags/C/
-https://alleysira.github.io/tags/SmartContract/
-https://alleysira.github.io/tags/Consensus/
 https://alleysira.github.io/tags/Homomorphic-Encryption/
+https://alleysira.github.io/tags/Consensus/
+https://alleysira.github.io/tags/SmartContract/
 https://alleysira.github.io/tags/Federated-Learning/
 https://alleysira.github.io/tags/Language/
-https://alleysira.github.io/tags/Lattices/
 https://alleysira.github.io/tags/Redactable-Blockchain/
+https://alleysira.github.io/tags/Lattices/
 https://alleysira.github.io/tags/OT/
 https://alleysira.github.io/tags/PIR/
 https://alleysira.github.io/tags/PSI/
@@ -70,6 +71,6 @@ https://alleysira.github.io/tags/Digital-Signature/
 https://alleysira.github.io/tags/Database/
 https://alleysira.github.io/tags/Virus/
 https://alleysira.github.io/categories/MPC/
-https://alleysira.github.io/categories/Architecture/
 https://alleysira.github.io/categories/Crypto/
+https://alleysira.github.io/categories/Architecture/
 https://alleysira.github.io/categories/CTF/
