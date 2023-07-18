@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Making Smart Contracts Smarter这篇工作发表于big4 CCS16，一作是来自NUS的Loi Luu 本文针对以太坊智能合约的安全问题展开研究，介绍了智能合约运行时的若干安全问题。作为改进，提出了增强以太坊的操作语义的方法，使智能合约更不容易受到攻击。 对于智能合约开发者，本文提出了Oyente，采用符号执行的方法进行智能合约潜在安全漏洞的查找。 实验部分针对19366">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oyente">
+<meta property="og:url" content="https://alleysira.github.io/2023/07/18/Oyente/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="Making Smart Contracts Smarter这篇工作发表于big4 CCS16，一作是来自NUS的Loi Luu 本文针对以太坊智能合约的安全问题展开研究，介绍了智能合约运行时的若干安全问题。作为改进，提出了增强以太坊的操作语义的方法，使智能合约更不容易受到攻击。 对于智能合约开发者，本文提出了Oyente，采用符号执行的方法进行智能合约潜在安全漏洞的查找。 实验部分针对19366">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/18/Oyente/image-20230718160000047.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/18/Oyente/image-20230718165841643.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/18/Oyente/image-20230718190624360.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/18/Oyente/image-20230718191420149.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/18/Oyente/image-20230718192828640.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/18/Oyente/image-20230718193217278.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/18/Oyente/image-20230718193518629.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/18/Oyente/image-20230718194517649.png">
+<meta property="article:published_time" content="2023-07-18T07:33:15.000Z">
+<meta property="article:modified_time" content="2023-07-18T11:46:54.546Z">
+<meta property="article:author" content="Alleysira">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="SmartContract">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/07/18/Oyente/image-20230718160000047.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2023/07/18/Oyente/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Oyente | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/07/18/Oyente/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Oyente
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-07-18 15:33:15 / Modified: 19:46:54" itemprop="dateCreated datePublished" datetime="2023-07-18T15:33:15+08:00">2023-07-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Blockchain/" itemprop="url" rel="index"><span itemprop="name">Blockchain</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Making-Smart-Contracts-Smarter"><a href="#Making-Smart-Contracts-Smarter" class="headerlink" title="Making Smart Contracts Smarter"></a>Making Smart Contracts Smarter</h1><p>这篇工作发表于big4 <code>CCS16</code>，一作是来自NUS的Loi Luu</p>
+<p>本文针对以太坊智能合约的安全问题展开研究，介绍了智能合约运行时的若干安全问题。作为改进，提出了增强以太坊的操作语义的方法，使智能合约更不容易受到攻击。</p>
+<p>对于智能合约开发者，本文提出了Oyente，采用符号执行的方法进行智能合约潜在安全漏洞的查找。</p>
+<p>实验部分针对19366个合约进行分析，Oyente标记了8833个合约为有风险的。</p>
+<p>同时还讨论了几个案例研究中其他攻击的严重程度，这些案例研究有源代码可用，并在主要的以太坊网络中确认了攻击。</p>
+<span id="more"></span>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>区块链用户通过向智能合约地址发布交易（交易的接受者是合约地址）来调用合约，当交易被确认后，所有参与者在当前区块链的状态下，以交易负载作为输入执行合约代码，通过共识协议对输出和合约的下一个状态达成一致</p>
+<p>过去6个月，约15000个智能合约在以太坊中部署</p>
+<p><img src="/2023/07/18/Oyente/image-20230718160000047.png" alt="image-20230718160000047"></p>
+<h3 id="智能合约的安全问题"><a href="#智能合约的安全问题" class="headerlink" title="智能合约的安全问题"></a>智能合约的安全问题</h3><p>不同于传统的分布式应用，以太坊网络是无授权的</p>
+<p>任意敌手可能能够操纵合约执行（允许矿工选择打包哪些交易，交易的顺序，区块时间戳）</p>
+<p>不像传统的分布式应用可以通过发布补丁来修复错误，智能合约是不可逆转、不可篡改的</p>
+<p>因此，设计安全的智能合约系统和合约部署前的正确性推理都是至关重要的</p>
+<p>作者认为出现安全问题的原因是合约编写者对底层执行语义的假设与智能合约系统的实际语义之间存在语义差距。</p>
+<p>对于时间戳依赖和交易顺序依赖攻击，作者认为他们是第一个提出这个问题的团队；对于其他一些前人已经提出的问题（异常处理和逻辑漏洞），本文分析了这些攻击的影响</p>
+<p>本文的工作强调了<em>智能合约语义中微妙或缺失的抽象，这些抽象导致开发人员产生了<strong>虚假的安全感</strong></em>。我们提出了对以太坊协议的改进，这些改进不需要对现有智能合约进行更改，然而这种更改需要所有客户端更新，实际不太可能部署。因此提出了Oyente进行部署前的漏洞检测。</p>
+<p>Oyente针对以太坊智能合约进行符号验证，直接采用字节码，不需要高层的表达（Solidity，Serpent），因为以太坊本身只存储合约的EVM字节码</p>
+<h3 id="贡献"><a href="#贡献" class="headerlink" title="贡献"></a>贡献</h3><ul>
+<li>列出了以太坊智能合约新类型的安全漏洞</li>
+<li>形式化了以太坊智能合约的语义，为列出的漏洞给出了修改建议</li>
+<li>提出了Oyente，一种采用符号执行检测以太坊智能合约漏洞的工具</li>
+<li>在真实的以太坊合约上运行了Oyente，并确认了攻击</li>
+</ul>
+<h2 id="BACKGROUND"><a href="#BACKGROUND" class="headerlink" title="BACKGROUND"></a>BACKGROUND</h2><h3 id="Consensus-Protocol"><a href="#Consensus-Protocol" class="headerlink" title="Consensus Protocol"></a>Consensus Protocol</h3><p>区块链的状态$\sigma$是地址到账户的映射，地址为$\gamma$的账户的状态是$\sigma [\gamma]$</p>
+<p>不同于比特币账户仅持有币，以太坊地址支持智能合约账户，包括币、EVM字节码和永久私有存储</p>
+<p>从概念上，以太坊可以理解为一种基于交易的状态机，$\sigma \mathop{\to}\limits^T  \sigma’ $</p>
+<h3 id="Smart-Contracts-in-Ethereum"><a href="#Smart-Contracts-in-Ethereum" class="headerlink" title="Smart Contracts in Ethereum"></a>Smart Contracts in Ethereum</h3><p>一个智能合约的状态包括：</p>
+<ul>
+<li>私有存储</li>
+<li>余额：ether的数量</li>
+</ul>
+<p>用户通过向合约地址发送交易（以太币+输入）来调用合约</p>
+<p><img src="/2023/07/18/Oyente/image-20230718165841643.png" alt="image-20230718165841643"></p>
+<p>以太坊字节码的每一条指令均有预先定义的gas，当用户发送交易调用合约时，需要向矿工支付gas进行补偿。交易发送这设置gasLimit和gasPrice。如果实际的gas消耗大于gasLimit，仍然会被扣除gasLimit的gas然后不执行。</p>
+<h2 id="SECURITY-BUGS-IN-CONTRACTS"><a href="#SECURITY-BUGS-IN-CONTRACTS" class="headerlink" title="SECURITY BUGS IN CONTRACTS"></a>SECURITY BUGS IN CONTRACTS</h2><h3 id="Transaction-Ordering-Dependence"><a href="#Transaction-Ordering-Dependence" class="headerlink" title="Transaction-Ordering Dependence"></a>Transaction-Ordering Dependence</h3><p>考虑到区块内包含若干交易，如果存在新的区块内包含对同一个合约的两次调用，用户无法得知自己调用时合约的状态，只有打包的矿工可以决定交易的顺序，也就是状态的更新顺序</p>
+<ul>
+<li>考虑两个交易分别由owner和任意参与者发起，交易顺序决定了参与者拿到的ether的数量<ul>
+<li>如果owner恶意，观察到有交易调用合约时，将奖励修改为0，有一定概率会获利</li>
+<li>和miner合谋就更容易获利了</li>
+</ul>
+</li>
+</ul>
+<h3 id="Timestamp-Dependence"><a href="#Timestamp-Dependence" class="headerlink" title="Timestamp Dependence"></a>Timestamp Dependence</h3><p><img src="/2023/07/18/Oyente/image-20230718190624360.png" alt="image-20230718190624360"></p>
+<p>其中的other contract variables like <strong>Last_payout</strong> which contribute to the generation of the random seed are also known.</p>
+<h3 id="Mishandled-Exceptions"><a href="#Mishandled-Exceptions" class="headerlink" title="Mishandled Exceptions"></a>Mishandled Exceptions</h3><p>根据合约调用的方式，被调用合约中的异常可能会传播到调用者，也可能不会传播到调用者。</p>
+<p>比如<code>send</code>后应检查返回值</p>
+<p>国王被替代后会获得补偿，但是如果15行的send失败，会导致当前的国王失去补偿</p>
+<p><img src="/2023/07/18/Oyente/image-20230718191420149.png" alt="image-20230718191420149"></p>
+<p>一般发生在向动态地址发送ether，不知道该支付的gas。</p>
+<h3 id="Deliberately-exceeding-the-call-stack-depth-limit"><a href="#Deliberately-exceeding-the-call-stack-depth-limit" class="headerlink" title="Deliberately exceeding the call-stack depth limit"></a>Deliberately exceeding the call-stack depth limit</h3><p>EVM限制调用栈深度为1024，如果通过<code>call</code>和<code>send</code>调用其他合约，栈深度加一</p>
+<p>恶意敌手可以故意使得15行的send失败，但是无法获利</p>
+<h3 id="Reentrancy-Vulnerability"><a href="#Reentrancy-Vulnerability" class="headerlink" title="Reentrancy Vulnerability"></a>Reentrancy Vulnerability</h3><p><img src="/2023/07/18/Oyente/image-20230718192828640.png" alt="image-20230718192828640"></p>
+<h2 id="TOWARDS-A-BETTER-DESIGN"><a href="#TOWARDS-A-BETTER-DESIGN" class="headerlink" title="TOWARDS A BETTER DESIGN"></a>TOWARDS A BETTER DESIGN</h2><p>轻量化的定义捕捉了以太坊的关键</p>
+<p><img src="/2023/07/18/Oyente/image-20230718193217278.png" alt="image-20230718193217278"></p>
+<h3 id="Operational-Semantics-of-Ethereum"><a href="#Operational-Semantics-of-Ethereum" class="headerlink" title="Operational Semantics of Ethereum"></a>Operational Semantics of Ethereum</h3><p>全局区块链的状态可以定义为$<BC,\sigma>,\sigma$是状态，$\varGamma$是新交易集合</BC,\sigma></p>
+<p><img src="/2023/07/18/Oyente/image-20230718193518629.png" alt="image-20230718193518629" style="zoom:80%;"></p>
+<p>矿工形成和验证区块的操作如图所示。一次只有一个“当选领袖”成功执行Propose规则。领导者广播块B后，其他矿工使用Accept规则</p>
+<p>安全问题：leader可能任意选择时间戳，存在TOD漏洞</p>
+<p>以太坊中交易执行会访问三类空间：</p>
+<ul>
+<li>操作数LIFO的栈</li>
+<li>辅助内存$l$，无限增长的数组</li>
+<li>合约的长期存储$str$，长期存储是持久性的，并且在交易之间保留其值。这使其适合存储需要在多次调用合约之间持久存在的数据。</li>
+</ul>
+<p>定义虚拟机的执行状态$\mu=<A,\sigma>,A$是调用栈</A,\sigma></p>
+<p><img src="/2023/07/18/Oyente/image-20230718194517649.png" alt="image-20230718194517649" style="zoom:80%;"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+              <a href="/tags/SmartContract/" rel="tag"># SmartContract</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/07/10/securify/" rel="prev" title="Securify">
+      <i class="fa fa-chevron-left"></i> Securify
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Making-Smart-Contracts-Smarter"><span class="nav-number">1.</span> <span class="nav-text">Making Smart Contracts Smarter</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E7%9A%84%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">智能合约的安全问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%A1%E7%8C%AE"><span class="nav-number">1.1.2.</span> <span class="nav-text">贡献</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BACKGROUND"><span class="nav-number">1.2.</span> <span class="nav-text">BACKGROUND</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Consensus-Protocol"><span class="nav-number">1.2.1.</span> <span class="nav-text">Consensus Protocol</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Smart-Contracts-in-Ethereum"><span class="nav-number">1.2.2.</span> <span class="nav-text">Smart Contracts in Ethereum</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SECURITY-BUGS-IN-CONTRACTS"><span class="nav-number">1.3.</span> <span class="nav-text">SECURITY BUGS IN CONTRACTS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Transaction-Ordering-Dependence"><span class="nav-number">1.3.1.</span> <span class="nav-text">Transaction-Ordering Dependence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Timestamp-Dependence"><span class="nav-number">1.3.2.</span> <span class="nav-text">Timestamp Dependence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mishandled-Exceptions"><span class="nav-number">1.3.3.</span> <span class="nav-text">Mishandled Exceptions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deliberately-exceeding-the-call-stack-depth-limit"><span class="nav-number">1.3.4.</span> <span class="nav-text">Deliberately exceeding the call-stack depth limit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reentrancy-Vulnerability"><span class="nav-number">1.3.5.</span> <span class="nav-text">Reentrancy Vulnerability</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TOWARDS-A-BETTER-DESIGN"><span class="nav-number">1.4.</span> <span class="nav-text">TOWARDS A BETTER DESIGN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Operational-Semantics-of-Ethereum"><span class="nav-number">1.4.1.</span> <span class="nav-text">Operational Semantics of Ethereum</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">School of Cyber Science and Teconology, BUAA</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
