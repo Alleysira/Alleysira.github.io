@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="ConFuzzius: A Data Dependency-Aware Hybrid Fuzzer for Smart Contracts这篇工作发表于EuroS&amp;P21  符号执行的方法存在过拟合，导致假阳率  现有的模糊测试方法分析浅层的漏洞比较有效，对于执行时的深层的漏洞分析不够有效，导致较低的代码覆盖率&#x2F;假阳  传统程序测试中已经证明结合符号执行和模糊测试的可行性  ConFuzz">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ConFuzzius">
+<meta property="og:url" content="https://alleysira.github.io/2023/07/23/ConFuzzius/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="ConFuzzius: A Data Dependency-Aware Hybrid Fuzzer for Smart Contracts这篇工作发表于EuroS&amp;P21  符号执行的方法存在过拟合，导致假阳率  现有的模糊测试方法分析浅层的漏洞比较有效，对于执行时的深层的漏洞分析不够有效，导致较低的代码覆盖率&#x2F;假阳  传统程序测试中已经证明结合符号执行和模糊测试的可行性  ConFuzz">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230723170403119.png">
+<meta property="article:published_time" content="2023-07-23T03:09:40.000Z">
+<meta property="article:modified_time" content="2023-07-23T10:40:50.028Z">
+<meta property="article:author" content="Alleysira">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="SmartContract">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230723170403119.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2023/07/23/ConFuzzius/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>ConFuzzius | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/07/23/ConFuzzius/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ConFuzzius
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-07-23 11:09:40 / Modified: 18:40:50" itemprop="dateCreated datePublished" datetime="2023-07-23T11:09:40+08:00">2023-07-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Blockchain/" itemprop="url" rel="index"><span itemprop="name">Blockchain</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="ConFuzzius-A-Data-Dependency-Aware-Hybrid-Fuzzer-for-Smart-Contracts"><a href="#ConFuzzius-A-Data-Dependency-Aware-Hybrid-Fuzzer-for-Smart-Contracts" class="headerlink" title="ConFuzzius: A Data Dependency-Aware Hybrid Fuzzer for Smart Contracts"></a>ConFuzzius: A Data Dependency-Aware Hybrid Fuzzer for Smart Contracts</h1><p>这篇工作发表于<code>EuroS&amp;P21</code></p>
+<ul>
+<li><p>符号执行的方法存在过拟合，导致假阳率</p>
+</li>
+<li><p>现有的模糊测试方法分析浅层的漏洞比较有效，对于执行时的深层的漏洞分析不够有效，导致较低的代码覆盖率/假阳</p>
+</li>
+<li>传统程序测试中已经证明结合符号执行和模糊测试的可行性</li>
+</ul>
+<p>ConFuzzius是第一个针对智能合约的混合模糊测试器，采用进化的模糊测试方法执行合约的浅层部分，约束求解来生成符合复杂条件的输入，防止进化模糊测试方法探索深层部分。</p>
+<p>ConFuzzius充分利用动态的数据依赖分析来生成更可能导致出现漏洞的交易序列</p>
+<p>实验数据采用精选的128个合约和包含21000真实世界的合约，结果显示比当前最好的工具多检测出了23%的漏洞，代码覆盖率达到了69%，动态数据依赖分析可以加速漏洞检测18%</p>
+<span id="more"></span>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>如果允许一个参与者修改智能合约，合约的信任将不复存在</p>
+<p>智能合约系统中不允许中立的第三方，不能被废止，不可篡改性的代价是智能合约在部署前必须经过大量的测试</p>
+<p>验证智能合约行为的四种方法：</p>
+<ul>
+<li>单元测试：需要人力来覆盖代码的全部部分，仅能去除测试用例中的一小部分bug</li>
+<li>符号执行：抽象分析程序的行为；对于复杂的合约检测速度慢（路径爆炸）</li>
+<li>静态分析：不执行代码，过度近似合约的行为，能够获得整个合约的执行情况；但是存在假阳率，需要手工检查</li>
+<li>模糊测试：通过自动生成测试用例来快速推理合约，比静态分析假阳率低；代码覆盖率低</li>
+</ul>
+<p>模糊测试的挑战：</p>
+<ul>
+<li>输入生成：输入空间可能很大</li>
+<li>状态探索：智能合约是基于状态的应用，执行可能依赖于特定输入序列下可达的状态</li>
+<li>环境依赖：智能合约的运行时环境暴露了和底层区块链相关的额外的输入（时间戳、其他部署的合约），导致合约的执行流程可能依赖于环境信息和交易信息</li>
+</ul>
+<p>作者解决三个挑战的思路是采用符号污点分析来生成五点输入的路径约束。观察到模糊器不处理时，启动约束求解器解决当前的约束问题，将这个解决方案收集在一个变异池中，模糊器可以从中获取来跨越具有挑战性的合约条件。</p>
+<p>现有的混合工具（如Driller）在卡住时停止fuzzer并且切换到conbolic(concrete symbolic)方法来越过复杂条件，之后重启fuzzer，本文的解决方法保持模糊器运行并且只使用约束求解来生成模糊器最终会通过变异池选择的即时数据。</p>
+<p>除了约束求解之外，本文进行路径终止分析来清除变异池中的不相关输入。</p>
+<p>挑战2：为了处理合约的状态性，采用遗传算法的选择和交叉算子。遗传算法包括三个操作：</p>
+<ul>
+<li><p>选择：从中种群选择2个个体</p>
+</li>
+<li><p>交叉：交叉算法将2个个体结合生成2个新的个体，挑战在于如何生成有意义的输入。因此，个体之间的数据依赖性指导我们的选择和交叉算子，只有当它们遵循一个写后读（RAW）数据依赖关系时才接受两个个体。</p>
+</li>
+<li><p>变异</p>
+</li>
+</ul>
+<p>挑战3：为了解决环境依赖的困难问题，对执行环境（即以太坊虚拟机）进行工具化，以模糊环境信息，并将合约的输入建模为一个元组，包含交易和环境数据。</p>
+<p>贡献</p>
+<ul>
+<li>第一个智能合约hybrid模糊器的设计</li>
+<li>利用状态变量间动态数据依赖，在运行时高效的生成输入序列</li>
+<li>ConFuzzius，第一个hybrid模糊器的实现</li>
+<li>对128个经过筛选的智能合约和21K个真实世界的智能合约进行了CONFUZZIUS的评估，并证明了方法不仅可以检测到更多的漏洞（高达23％），而且可以实现比现有符号执行工具和模糊器更高的代码覆盖率（高达69％）</li>
+</ul>
+<h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><h3 id="Ethereum-Smart-Contracts"><a href="#Ethereum-Smart-Contracts" class="headerlink" title="Ethereum Smart Contracts"></a>Ethereum Smart Contracts</h3><p>简单介绍智能合约和EVM</p>
+<h3 id="fuzzing"><a href="#fuzzing" class="headerlink" title="fuzzing"></a>fuzzing</h3><p>模糊测试（Fuzzing）或模糊测试是一种自动化的软件测试技术，通过将畸形或意外的数据作为程序的输入，执行程序并监控其效果，来查找程序中的漏洞。</p>
+<h4 id="进化模糊"><a href="#进化模糊" class="headerlink" title="进化模糊"></a>进化模糊</h4><p>指采用遗传算法收敛，测试用例的一代被定义为一个种群，而单个测试用例是一个个体。简而言之，每个一代的个体都根据适应度函数进行评估。在每一代结束时，只有最适应的个体被允许繁殖，遵循达尔文的自然选择或“适者生存”的思想。最终，个体将在收敛于最优解的过程中触发漏洞。</p>
+<p><img src="/2023/07/23/ConFuzzius/image-20230723170403119.png" alt="image-20230723170403119"></p>
+<p>初始种群可以随机选或者启发式采样</p>
+<p>终止条件可以是到达指定时间或者超过最大的代数</p>
+<h4 id="混合模糊"><a href="#混合模糊" class="headerlink" title="混合模糊"></a>混合模糊</h4><p>模糊测试在解决复杂条件时比较困难，导致代码覆盖率低</p>
+<p>流行的解决办法是采用符号执行，理论上可以探索所有路径，但实际上由于程序复杂时路径指数级增长，导致不具备可扩展性；另一个缺陷是和执行环境的交互太少。</p>
+<p>混合测试的想法是各取所长，在模糊器不能继续覆盖代码时，自动切换为符号执行，为没有覆盖的分支条件进行穷举搜索，当符号执行发现了未覆盖的分支条件后，求解并回退为模糊器</p>
+<p>模糊测试和符号执行的交错保证了对程序浅的路径快速的执行和对复杂路径的覆盖</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+              <a href="/tags/SmartContract/" rel="tag"># SmartContract</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/07/18/Oyente/" rel="prev" title="Oyente">
+      <i class="fa fa-chevron-left"></i> Oyente
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ConFuzzius-A-Data-Dependency-Aware-Hybrid-Fuzzer-for-Smart-Contracts"><span class="nav-number">1.</span> <span class="nav-text">ConFuzzius: A Data Dependency-Aware Hybrid Fuzzer for Smart Contracts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Background"><span class="nav-number">1.2.</span> <span class="nav-text">Background</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ethereum-Smart-Contracts"><span class="nav-number">1.2.1.</span> <span class="nav-text">Ethereum Smart Contracts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fuzzing"><span class="nav-number">1.2.2.</span> <span class="nav-text">fuzzing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E5%8C%96%E6%A8%A1%E7%B3%8A"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">进化模糊</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E6%A8%A1%E7%B3%8A"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">混合模糊</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">School of Cyber Science and Teconology, BUAA</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
