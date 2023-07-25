@@ -28,8 +28,22 @@
 <meta property="og:description" content="ConFuzzius: A Data Dependency-Aware Hybrid Fuzzer for Smart Contracts这篇工作发表于EuroS&amp;P21  符号执行的方法存在过拟合，导致假阳率  现有的模糊测试方法分析浅层的漏洞比较有效，对于执行时的深层的漏洞分析不够有效，导致较低的代码覆盖率&#x2F;假阳  传统程序测试中已经证明结合符号执行和模糊测试的可行性  ConFuzz">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230723170403119.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725093137613.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725094046555.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725095443342.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725102212941.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725104943384.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725111651222.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725162130918.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725165033079.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725171840387.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725172412638.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725174913977.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725175443751.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725175644457.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725180309420.png">
 <meta property="article:published_time" content="2023-07-23T03:09:40.000Z">
-<meta property="article:modified_time" content="2023-07-23T10:40:50.028Z">
+<meta property="article:modified_time" content="2023-07-25T10:41:06.990Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta property="article:tag" content="SmartContract">
@@ -187,10 +201,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-07-23 11:09:40 / Modified: 18:40:50" itemprop="dateCreated datePublished" datetime="2023-07-23T11:09:40+08:00">2023-07-23</time>
+              <time title="Created: 2023-07-23 11:09:40" itemprop="dateCreated datePublished" datetime="2023-07-23T11:09:40+08:00">2023-07-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-25 18:41:06" itemprop="dateModified" datetime="2023-07-25T18:41:06+08:00">2023-07-25</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -269,6 +289,242 @@
 <p>流行的解决办法是采用符号执行，理论上可以探索所有路径，但实际上由于程序复杂时路径指数级增长，导致不具备可扩展性；另一个缺陷是和执行环境的交互太少。</p>
 <p>混合测试的想法是各取所长，在模糊器不能继续覆盖代码时，自动切换为符号执行，为没有覆盖的分支条件进行穷举搜索，当符号执行发现了未覆盖的分支条件后，求解并回退为模糊器</p>
 <p>模糊测试和符号执行的交错保证了对程序浅的路径快速的执行和对复杂路径的覆盖</p>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>一般满足ERC-20. 用户想要以每天加1ether的价格出售代币，第一天代币的售价为42</p>
+<p><img src="/2023/07/23/ConFuzzius/image-20230725093137613.png" alt="image-20230725093137613"></p>
+<p>存在三个漏洞：</p>
+<ul>
+<li><p>访问权限：构造函数typo，compiler默认该函数为<code>public</code></p>
+</li>
+<li><p>时间戳依赖：<code>now</code></p>
+</li>
+<li>ether泄露：只有转出的代码，没有转入合约的代码</li>
+</ul>
+<p><img src="/2023/07/23/ConFuzzius/image-20230725094046555.png" alt="image-20230725094046555"></p>
+<h3 id="输入生成"><a href="#输入生成" class="headerlink" title="输入生成"></a>输入生成</h3><p>输入数据生成可以是完全随机的（黑盒）或由运行时信息驱动的（灰盒），原始的方法是从之前的输入进行变异生成新的输入，然而现实世界中有比较复杂的条件，如figure1 line21，对应的CFG如下</p>
+<p><img src="/2023/07/23/ConFuzzius/image-20230725095443342.png" alt="image-20230725095443342"></p>
+<p>传统的随机策略将不能通过该条件（因为$2^{256}$次尝试才能产生一个合理的解harvey依赖于计算为每个分支编译输入的的开销矩阵，本文采用约束求解来按需生成复杂条件的值。本文的fuzzer不直接传播该值而是存储在变异池中，fuzzer可以从池中选择（每个函数声明都对应一个变异池）</p>
+<p>开始时变异池为空，fuzzer用随机数据输入目标函数，一旦无法发现新的路径时，激活约束求解器生成新的值，采用符号五点分析来生成约束求解器需要的表达，污点采用符号值的形式</p>
+<h3 id="状态探索"><a href="#状态探索" class="headerlink" title="状态探索"></a>状态探索</h3><p>合约的状态不同时，以太坊的同一条交易可能出现不同的结果</p>
+<p>例子中先调用<code>bug</code>和<code>Tokensale</code>函数再调用<code>withdraw</code>函数，攻击者能够实现恶意提款，然而在实际的分析中自动发现函数调用特定顺序可能触发漏洞是具有挑战性的工作。</p>
+<p>a transaction influences the output of a subsequent set of transactions if and only if it modifies a storage variable that one of the subsequent transactions will use.</p>
+<p>观察：交易影响合约的storge变量并且该变量被后续的合约使用，即写后读的数据依赖</p>
+<p>ConFuzzius追踪所有交易读和写的storge，然后进行将所有交易组合成写后读的形式</p>
+<p><img src="/2023/07/23/ConFuzzius/image-20230725102212941.png" alt="image-20230725102212941"></p>
+<h3 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h3><p>EVM在执行区块内的交易时会分析其中包含的区块信息</p>
+<p>本文将区块信息建模为可fuzz的输入来解决这个问题，和交易数据一样进行模糊测试的流程</p>
+<p>修改EVM实现能够在合执行时插入模糊的区块信息</p>
+<p>还需要模拟对其他合约的调用：通过对合约调用进行实现，并将返回值建模为可模糊的输入来类似地解决这个挑战，修改的EVM在运行时注入模糊的返回值。</p>
+<h2 id="Design-and-Implementation"><a href="#Design-and-Implementation" class="headerlink" title="Design and Implementation"></a>Design and Implementation</h2><h3 id="overview"><a href="#overview" class="headerlink" title="overview"></a>overview</h3><p><img src="/2023/07/23/ConFuzzius/image-20230725104943384.png" alt="image-20230725104943384"></p>
+<ul>
+<li>进化模糊器</li>
+<li>EVM</li>
+<li>执行路径分析器</li>
+</ul>
+<p>python 6000行</p>
+<p>输入合约的源代码和区块链的状态（后者可选），将合约编译后获得ABI和EVM字节码，进化模糊器基于ABI生成输入，基于标准的遗传算法进行变异，将新生成的个体发送给EVM执行，EVM将执行路径发送给分析器，分析器执行若干分析（符号污点分析，数据依赖分析）</p>
+<p>终止条件：已经生成多少代或过去了多少时间</p>
+<h3 id="进化模糊器"><a href="#进化模糊器" class="headerlink" title="进化模糊器"></a>进化模糊器</h3><ul>
+<li>对个体编码：<ul>
+<li>不好的编码可能影响效率，本方案的编码如图所示，将个体表示为输入的序列，每个输入包含一个环境信息和一个交易的k-v对<ul>
+<li>环境信息包括区块信息和调用返回值、数据大小、节点规模等</li>
+<li>交易包含发送方的地址、交易金额、gas上线，data<ul>
+<li>data前4个字节是函数选择器，后面是参数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="/2023/07/23/ConFuzzius/image-20230725111651222.png" alt="image-20230725111651222"></li>
+</ul>
+</li>
+<li>种群初始化：最开始为N个个体，每个仅有交易，交易内的函数选择器是循环选取的，函数声明是基于ABI获取的，针对不同参数类型为每个函数生成参数，过去的k代不再影响代码覆盖率时重新选，这种软重启的方法将多样性重新引入种群并在种群变得同质化时延迟过早的收敛。<ul>
+<li>固定长度：随机选或者从触发有效输入域的情况的一组输入中获取</li>
+</ul>
+</li>
+<li>适度评估：评估个体的适度非常关键，由于需要多次计算效率，需要非常高（指数级影响），<em>虽然获得完整的代码覆盖并不一定意味着所有的漏洞都会被发现，但未被探索的代码里的漏洞不可能被发现</em>。适度函数定义基于分支覆盖和数据依赖，对个体$i$的适度函数定义如下：<ul>
+<li>$fit(i)=fit_{branch}(i)+fit_{RAW}(i)$</li>
+<li>$fit_{branch}(i)$：计算该个体仍未探索过的分支，迭代该个体的执行路径然后分析所有条件分支jump指令，通过从堆栈中提取真分支的跳转目标来获取其跳转目标，并通过将程序计数器增加一来获取假分支的跳转目标。对于目的地址不在执行分支上的情况，将$fit_{branch}(i)$加1，优先选出探索更多分支的个体；</li>
+<li>同样能够生成有用交易序列的个体也很重要。$fit_{RAW}(i)$利用执行路径分析器给出的交易依赖考虑该因素，初始时为0，当出现raw后+1</li>
+</ul>
+</li>
+<li>选择：为转变阶段选择两个个体，本文选择的是参考文献[41]中提出的Linar ranking selection，将种群考虑为一个整体，而不是子集；<ul>
+<li>Linar ranking selection：适度高的个体排在前面，被选择的概率和个体适度在种群中的排名成比例；可以给更适应的个体更多的权重，同时仍然允许一些机会选择适应度较低的个体，并潜在地为种群的多样性做出贡献。</li>
+<li>传统的线性排名选择没有考虑数据依赖，两个个体一个采用线性排名方法选择，第二个个体是基于与第一个个体具有RAW依赖性的迭代方式进行选择的</li>
+</ul>
+</li>
+<li><p>交叉：交叉算子通过对输入两个现有个体进行重新组合生成两个新的个体。</p>
+<ul>
+<li>本文不是随机组合两个个体，而是只有在第一个个体对存储位置进行写操作时，第二个个体才进行读操作（即RAW依赖性），才会将它们组合起来。</li>
+<li>两种排列方式，个体 $ab/ba$</li>
+<li>和传统的方法相比，本方案在合并两个个体而不是拆分开交换输入序列</li>
+<li>如果两个个体间不存在依赖性，返回未加修饰的1/2个个体</li>
+<li>存在RAW关系不意味着一定能交叉，存在交叉概率$p_c$</li>
+<li>防止个体变得太长，交叉前检查长度的和小于$l$<ul>
+<li>$l$越小处理时间越短，发现漏洞的时间越短——效率</li>
+<li>反之，发现的漏洞可能更多——完备性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>变异：变异算子随机编辑个体的某些部分来产生一个新的个体，为种群带来多样性</p>
+<ul>
+<li>遍历输入序列，基于概率$p_m$变异每个交易和环境信息的值</li>
+<li>变异可以有两种形式<ul>
+<li>采用随机的值取代原来的值</li>
+<li>采用变异池中的值替代：类似于短期内存，允许模糊器重用之前观察到或学习到的值<ul>
+<li>总共有9个不同的变异池：senders, amounts, gaslimits, function arguments, timestamps, block numbers, call results, call data sizes, and external code sizes</li>
+<li>每个池是循环数组，大小能存10个值</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="EVM"><a href="#EVM" class="headerlink" title="EVM"></a>EVM</h3><p>EVM负责在测试的合约的运行时字节码上执行个体生成的交易。性能对模糊器整体的性能表现影响很大，需要有很高的交易处理速度</p>
+<p>现有的智能合约客户端需要对交易进行RLP编码来序列化交易数据，作者发现实际的EVM执行时间和编解码相比可以忽略不计，因此本工具采用了开源的<a target="_blank" rel="noopener" href="https://github.com/ethereum/py-evm">EVM python</a>实现，集成到了模糊器中。该实现去除了挖矿的负担和编解码交易的时间，极大地增加了执行效率（合理吗？）</p>
+<p>修改了EVM的设计</p>
+<ul>
+<li>使得能够得到交易的执行路径，包括指令名、计数器、执行栈、调用深度、执行期间是否出现内部错误</li>
+<li>简化设计，采用简单的存储模拟器记录执行时的状态变化，均保留在内存中<ul>
+<li>方便进行EVM状态的快照和恢复</li>
+<li>允许插入定制的环境信息或修改函数调用结果</li>
+</ul>
+</li>
+</ul>
+<h2 id="执行分析器"><a href="#执行分析器" class="headerlink" title="执行分析器"></a>执行分析器</h2><p>从EVM收到执行路径后，执行</p>
+<ul>
+<li>代码覆盖率评估：计算执行路径中程序计数器的值</li>
+<li>数据依赖分析：在模糊器执行过程中记录所有状态变量以及状态变量的读写情况，和现有静态分析的方案相比，本方案动态的获得运行时的状态变量的情况<ul>
+<li>静态分析快 需要源代码；对于复杂的数组需要源代码</li>
+<li>动态运行时分析可以追踪复杂的变量，缺点是额外的运行时间和实现开销，下图是以太坊对不同类型的状态变量计算方式</li>
+<li><img src="/2023/07/23/ConFuzzius/image-20230725162130918.png" alt="image-20230725162130918"></li>
+</ul>
+</li>
+<li>符号污点分析：产生符号约束，污点的形式是符号值的形式，跟踪污点的流动<ul>
+<li>仅对能进行fuzz的指令进行动态污点分析</li>
+<li>跨存储的污点的传播使得能够实现跨交易的污点分析</li>
+<li>污点传播的逻辑遵循过度污点策略，如果指令的输入中至少有一个被污染，那么该指令的输出将被标记为污染</li>
+</ul>
+</li>
+<li>约束求解：因为无法通过复杂的条件语句是，进化模糊器可能会过早收敛，约束求解器用于生成一个有效的输入来越过复杂的条件<ul>
+<li>作者自己实现的轻量级符号执行器仅执行算数相关的指令，比较逻辑和比特级运算符</li>
+<li>否定最后一个约束条件，将逻辑公式中其余的符号变量替换为已用作触发执行跟踪的具体值，并使用Z3 SMT求解器生成输入以到达开放分支</li>
+<li>实例化减小了公式的复杂度</li>
+<li>将生成的输入加入到变异池中</li>
+</ul>
+</li>
+<li>终止分析：执行路径可能包含输入有效性的反馈，模糊器获得并得知一个输入是否有效、终止分析检查执行路径中表示执行正确和错误的操作码。检查到错误后分析最后一个路径约束，获得导致终止的输入并从池中移除</li>
+<li>漏洞检测：综合以上输出进行漏洞检测，为下述漏洞类型设计了检测器：<ul>
+<li>断言错误</li>
+<li>整数溢出</li>
+<li>重入</li>
+<li>交易顺序依赖</li>
+<li>区块依赖</li>
+<li>未处理异常</li>
+<li>不安全的delegate调用</li>
+<li>ether泄露</li>
+<li>未受保护的自毁</li>
+</ul>
+</li>
+</ul>
+<p>很难不赞同（</p>
+<p><img src="/2023/07/23/ConFuzzius/image-20230725165033079.png" alt="image-20230725165033079"></p>
+<h2 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h2><p>回答3个关键问题</p>
+<ul>
+<li>相比于当前的符号执行或者fuzzing的工具，confuzzius是否实现了更高的代码覆盖率？</li>
+<li>相比于当前的符号执行或者fuzzing的工具，confuzzius是否发现更多的漏洞？</li>
+<li>ConFuzzius的不同组件在代码覆盖率和漏洞检测方面的相关性有多强？</li>
+</ul>
+<h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><ul>
+<li>测试代码覆盖率 有源码 21147份合约，根据EVM字节码指令个数分为2类（采用标准的k-means分类算法，Elbow and the Silhouette方法确定分类器数量<ul>
+<li>小于3632，17803份合约</li>
+<li><img src="/2023/07/23/ConFuzzius/image-20230725171840387.png" alt="image-20230725171840387"></li>
+<li>3344份合约</li>
+</ul>
+</li>
+<li>测试漏洞检测：128份合约（包含148注释出的漏洞），基于smartbugs，缺失了部分漏洞类型，作者从Smart Contract Weakness Classification进行了扩展</li>
+</ul>
+<h3 id="baseline"><a href="#baseline" class="headerlink" title="baseline"></a>baseline</h3><p><img src="/2023/07/23/ConFuzzius/image-20230725172412638.png" alt="image-20230725172412638"></p>
+<p>因为本工具是模糊测试和符号执行结合的，对比方案分别是符号执行和模糊测试两类</p>
+<p>Smartbugs的结论是Mythril的效果比SmartCheck Securify和Maian更好</p>
+<p>M-PRO采用了类似的交易序列结合策略</p>
+<p>ILF是当前较好的fuzzing工具（比contractfuzzer和ECHIDNA好）</p>
+<p>sFuzz基于AFL，没有和之前工作的对比</p>
+<h3 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h3><p>每个实验进行10次，每次的种子独立</p>
+<ul>
+<li>第一个数据集 10 mins；1 hours<ul>
+<li>初步测试显示，大多数工具在这些时间之后并没有产生更多的覆盖率</li>
+</ul>
+</li>
+<li>第二个数据集每个合约10分钟</li>
+</ul>
+<p>cluster 10个节点，每个128GB，CentOS release 7.6.1810，2个Intel® Gold 6132 CPUs with 14 cores, each clocked at 2.60 GHz.</p>
+<p>代码覆盖率10代不变即种群重新初始化，个体最长长度为5</p>
+<p>Z3 version 4.8.5，时间上限100ms</p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><ul>
+<li><p>代码覆盖率：ConFuzzius在第一个数据集上大小合约结果均表现最优（91% 81%）</p>
+<ul>
+<li>大小合约差距最小（10%），Mythirl（31%）</li>
+<li><img src="/2023/07/23/ConFuzzius/image-20230725174913977.png" alt="image-20230725174913977"></li>
+<li>更短时间内实现更高的覆盖率，1 second 66% instruction coverage, whereas ILF and<br>SFUZZ achieve solely 12% and 15%, respectively</li>
+<li><img src="/2023/07/23/ConFuzzius/image-20230725175443751.png" alt="image-20230725175443751"></li>
+</ul>
+</li>
+<li><p>漏洞检测：10类漏洞，第二个数据集（真/假）</p>
+<ul>
+<li><img src="/2023/07/23/ConFuzzius/image-20230725175644457.png" alt="image-20230725175644457"></li>
+<li>测出了106/148个漏洞，约71%</li>
+</ul>
+</li>
+<li>组件评估：分别评估约束求解、写后读数据依赖分析和环境实例化三部分组件的重要性，随机选了100个合约<ul>
+<li><img src="/2023/07/23/ConFuzzius/image-20230725180309420.png" alt="image-20230725180309420"></li>
+<li>意义最大的组件可能是Constraint Solving</li>
+</ul>
+</li>
+</ul>
+<h2 id="Realted-work"><a href="#Realted-work" class="headerlink" title="Realted work"></a>Realted work</h2><ul>
+<li>软件模糊测试：AFL是当前最广泛使用的模糊测试器，基于遗传算法；KLEE和SAGE是白盒模糊器，在受限环境中执行代码。Driller同样是混合模糊器，混合了选择性concolic方法</li>
+<li>智能合约模糊测试：<ul>
+<li>ContractFuzzer基于输入种子产生输出，部署了整个定制的测试网来模糊测试交易，Confuzzius仅模拟EVM，更加高效且不依赖用户提供的输入种子</li>
+<li>Echidna是基于性质的智能合约测试工具，利用了基于语法的模糊测试，依赖于用户定义的谓词（solidity的断言），无法自动化检查漏洞</li>
+<li>Harvey基于指令细粒度成本度量指标预测新的输入</li>
+<li>ILF基于 模仿学习（imitation learning），在模糊测试前需要学习阶段，依赖一个神经网络</li>
+<li>sFuzz基于AFL，基于随机策略生成交易序列</li>
+<li>EHTPLOIT是基于模糊测试的智能合约漏洞生成器</li>
+</ul>
+</li>
+<li>智能合约符号执行：<ul>
+<li>MPRO：结合了符号执行和数据依赖分析</li>
+<li>ETHracer采用相反的混合方式，先符号执行再fuzz，完全随机</li>
+</ul>
+</li>
+<li>智能合约静态分析：<ul>
+<li>ZEUS：自动化验证的框架</li>
+<li>Securify：静态分析出语义信息，检查violation和compliance</li>
+<li>VANDAL，类似的工具</li>
+</ul>
+</li>
+</ul>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>第一个混合的fuzzer</p>
+<p>解决了三个挑战：</p>
+<ul>
+<li>输入生成：进化模糊算法+约束求解</li>
+<li>状态探索：对状态数据依赖分析，生成交易序列</li>
+<li>环境依赖：建模区块相关的信息作为fuzz的输入</li>
+</ul>
+<p>实验在128 21K的数据集上分别测试了覆盖率、测出漏洞类型和工具组件重要性的结果</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>其他人对Confuzzius的复现总结 <a target="_blank" rel="noopener" href="https://hackmd.io/@UKzRuqmuT7OSwI3Hjf0tPA/ryg6RkwLF">CONFUZZIUS Comparisons - HackMD</a></li>
+<li><p>会议简要视频介绍<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_NuOxLJNJhI&amp;ab_channel=IEEEEuropeanSymposiumonSecurityandPrivacy">IEEE EuroS&amp;P 2021 - ConFuzzius: A Data Dependency-Aware Hybrid Fuzzer for Smart Contracts - YouTube</a></p>
+</li>
+<li><p>后续可以阅读：</p>
+<ul>
+<li>现有工具对比测试：[ICSE20]Smartbugs1.0、2.0</li>
+<li>模糊测试：[CCS19]ILF &gt;[ISSTA20]Echindna</li>
+<li>符号执行：[HITB18]Mythril&gt;[ASE19]Manticore</li>
+</ul>
+</li>
+</ul>
 
     </div>
 
@@ -350,7 +606,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ConFuzzius-A-Data-Dependency-Aware-Hybrid-Fuzzer-for-Smart-Contracts"><span class="nav-number">1.</span> <span class="nav-text">ConFuzzius: A Data Dependency-Aware Hybrid Fuzzer for Smart Contracts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Background"><span class="nav-number">1.2.</span> <span class="nav-text">Background</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ethereum-Smart-Contracts"><span class="nav-number">1.2.1.</span> <span class="nav-text">Ethereum Smart Contracts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fuzzing"><span class="nav-number">1.2.2.</span> <span class="nav-text">fuzzing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E5%8C%96%E6%A8%A1%E7%B3%8A"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">进化模糊</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E6%A8%A1%E7%B3%8A"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">混合模糊</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ConFuzzius-A-Data-Dependency-Aware-Hybrid-Fuzzer-for-Smart-Contracts"><span class="nav-number">1.</span> <span class="nav-text">ConFuzzius: A Data Dependency-Aware Hybrid Fuzzer for Smart Contracts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Background"><span class="nav-number">1.2.</span> <span class="nav-text">Background</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ethereum-Smart-Contracts"><span class="nav-number">1.2.1.</span> <span class="nav-text">Ethereum Smart Contracts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fuzzing"><span class="nav-number">1.2.2.</span> <span class="nav-text">fuzzing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E5%8C%96%E6%A8%A1%E7%B3%8A"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">进化模糊</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E6%A8%A1%E7%B3%8A"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">混合模糊</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.3.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">1.3.1.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E7%94%9F%E6%88%90"><span class="nav-number">1.3.2.</span> <span class="nav-text">输入生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%8E%A2%E7%B4%A2"><span class="nav-number">1.3.3.</span> <span class="nav-text">状态探索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96"><span class="nav-number">1.3.4.</span> <span class="nav-text">环境依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Design-and-Implementation"><span class="nav-number">1.4.</span> <span class="nav-text">Design and Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#overview"><span class="nav-number">1.4.1.</span> <span class="nav-text">overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%8C%96%E6%A8%A1%E7%B3%8A%E5%99%A8"><span class="nav-number">1.4.2.</span> <span class="nav-text">进化模糊器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EVM"><span class="nav-number">1.4.3.</span> <span class="nav-text">EVM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%88%86%E6%9E%90%E5%99%A8"><span class="nav-number">1.5.</span> <span class="nav-text">执行分析器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluation"><span class="nav-number">1.6.</span> <span class="nav-text">Evaluation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">1.6.1.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#baseline"><span class="nav-number">1.6.2.</span> <span class="nav-text">baseline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup"><span class="nav-number">1.6.3.</span> <span class="nav-text">Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">1.6.4.</span> <span class="nav-text">实验结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Realted-work"><span class="nav-number">1.7.</span> <span class="nav-text">Realted work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">1.8.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.9.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
