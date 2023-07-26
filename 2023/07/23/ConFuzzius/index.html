@@ -42,8 +42,15 @@
 <meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725175443751.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725175644457.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230725180309420.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230726161506767.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230726161452774.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230726161536978.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230726161548380.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230726161601382.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230726161201164.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230726161215584.png">
 <meta property="article:published_time" content="2023-07-23T03:09:40.000Z">
-<meta property="article:modified_time" content="2023-07-25T10:41:06.990Z">
+<meta property="article:modified_time" content="2023-07-26T09:58:41.554Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta property="article:tag" content="SmartContract">
@@ -209,7 +216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-25 18:41:06" itemprop="dateModified" datetime="2023-07-25T18:41:06+08:00">2023-07-25</time>
+                <time title="Modified: 2023-07-26 17:58:41" itemprop="dateModified" datetime="2023-07-26T17:58:41+08:00">2023-07-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -327,7 +334,7 @@
 <li>对个体编码：<ul>
 <li>不好的编码可能影响效率，本方案的编码如图所示，将个体表示为输入的序列，每个输入包含一个环境信息和一个交易的k-v对<ul>
 <li>环境信息包括区块信息和调用返回值、数据大小、节点规模等</li>
-<li>交易包含发送方的地址、交易金额、gas上线，data<ul>
+<li>交易包含发送方的地址、交易金额、gas上限，data<ul>
 <li>data前4个字节是函数选择器，后面是参数</li>
 </ul>
 </li>
@@ -346,7 +353,7 @@
 <li>同样能够生成有用交易序列的个体也很重要。$fit_{RAW}(i)$利用执行路径分析器给出的交易依赖考虑该因素，初始时为0，当出现raw后+1</li>
 </ul>
 </li>
-<li>选择：为转变阶段选择两个个体，本文选择的是参考文献[41]中提出的Linar ranking selection，将种群考虑为一个整体，而不是子集；<ul>
+<li>选择：为交叉阶段选择两个个体，本文选择的是参考文献[41]中提出的Linar ranking selection，将种群考虑为一个整体，而不是子集；<ul>
 <li>Linar ranking selection：适度高的个体排在前面，被选择的概率和个体适度在种群中的排名成比例；可以给更适应的个体更多的权重，同时仍然允许一些机会选择适应度较低的个体，并潜在地为种群的多样性做出贡献。</li>
 <li>传统的线性排名选择没有考虑数据依赖，两个个体一个采用线性排名方法选择，第二个个体是基于与第一个个体具有RAW依赖性的迭代方式进行选择的</li>
 </ul>
@@ -359,7 +366,7 @@
 <li>如果两个个体间不存在依赖性，返回未加修饰的1/2个个体</li>
 <li>存在RAW关系不意味着一定能交叉，存在交叉概率$p_c$</li>
 <li>防止个体变得太长，交叉前检查长度的和小于$l$<ul>
-<li>$l$越小处理时间越短，发现漏洞的时间越短——效率</li>
+<li>$l$ 越小处理时间越短，发现漏洞的时间越短——效率</li>
 <li>反之，发现的漏洞可能更多——完备性</li>
 </ul>
 </li>
@@ -391,7 +398,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="执行分析器"><a href="#执行分析器" class="headerlink" title="执行分析器"></a>执行分析器</h2><p>从EVM收到执行路径后，执行</p>
+<h3 id="执行分析器"><a href="#执行分析器" class="headerlink" title="执行分析器"></a>执行分析器</h3><p>从EVM收到执行路径后，执行</p>
 <ul>
 <li>代码覆盖率评估：计算执行路径中程序计数器的值</li>
 <li>数据依赖分析：在模糊器执行过程中记录所有状态变量以及状态变量的读写情况，和现有静态分析的方案相比，本方案动态的获得运行时的状态变量的情况<ul>
@@ -406,7 +413,7 @@
 <li>污点传播的逻辑遵循过度污点策略，如果指令的输入中至少有一个被污染，那么该指令的输出将被标记为污染</li>
 </ul>
 </li>
-<li>约束求解：因为无法通过复杂的条件语句是，进化模糊器可能会过早收敛，约束求解器用于生成一个有效的输入来越过复杂的条件<ul>
+<li>约束求解：模糊测试无法通过复杂的条件语句时，进化模糊器可能会过早收敛，约束求解器用于生成一个有效的输入来越过复杂的条件<ul>
 <li>作者自己实现的轻量级符号执行器仅执行算数相关的指令，比较逻辑和比特级运算符</li>
 <li>否定最后一个约束条件，将逻辑公式中其余的符号变量替换为已用作触发执行跟踪的具体值，并使用Z3 SMT求解器生成输入以到达开放分支</li>
 <li>实例化减小了公式的复杂度</li>
@@ -505,7 +512,29 @@
 </ul>
 </li>
 </ul>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>第一个混合的fuzzer</p>
+<h2 id="攻击检测器设计思路"><a href="#攻击检测器设计思路" class="headerlink" title="攻击检测器设计思路"></a>攻击检测器设计思路</h2><ul>
+<li>Assertion Failure：检查执行路径是否包括ASSERTFAIL or INVALID</li>
+<li>Integer Overflow：由于不是所有的溢出都有害而且编译器可能为了优化引入整数溢出<ul>
+<li>当溢出编辑了合约的状态才认为是有害的，计算的记过写入存储或被用来发钱</li>
+<li>分析执行路径是否包含ADD, MUL or SUB指令</li>
+<li>从栈中提取计算符然后执行算术操作，和栈中的结果比较</li>
+<li>如果不同，将计算结果标记为污点，如果被标记的结果进入SSTORE CALL指令</li>
+</ul>
+</li>
+<li>重入漏洞：检查<code>call</code>的gas是否大于2300，转账金额大于0；如果<code>call</code>之前出现<code>SLOAD</code>,<code>call</code>之后<code>SSTORE</code>，<code>CALL</code>的存储地址和<code>SLOAD</code>一样</li>
+<li>交易顺序依赖：检查是否两条执行路径发送者不同，前一条路径写某一存储位置，后一个读</li>
+<li>区块依赖：检查<code>CREATE</code>, <code>CALL</code>,<code>DELEGATECALL</code>, or <code>SELFDESTRUCT</code>是否包含或依赖<code>BLOCKHASH</code>, <code>COINBASE</code>, <code>TIMESTAMP</code>, <code>NUMBER</code>, <code>DIFFICULTY</code>, or <code>GASLIMIT</code></li>
+<li>未处理异常：检查是否有<code>call</code>，并且压入1；再检查结果是否有对应的<code>JUMP I</code></li>
+<li>不安全的<code>delagatecall</code>：检查DELEGATECALL是否以<code>STOP</code>终止，并且发送的地址是攻击者（fuzzer生成攻击者和善良参与者的地址）</li>
+<li>Ether泄露：检查<code>call</code>指令，接收者是从未在之前交易内向合约发送过ether的攻击地址，并且从来没有被非攻击者地址当做参数发送过</li>
+<li>Ether锁定：检查合约是否能接受但不能发送ether<ul>
+<li>接受ether：检查是否有交易值大于0，以<code>stop</code>终止</li>
+<li>发送ether：检查不包含任何<code>CREATE</code>, <code>CALL</code>, <code>DELEGATECALL</code>, or <code>SELFDESTRUCT</code> instruction</li>
+</ul>
+</li>
+<li>Unprotected Selfdestruct：依赖于攻击者账户，检查执行路径包含<code>SELFDESTRUCT</code>，发起者是攻击者地址，并且之前没有被当参数传递过</li>
+</ul>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>第一个混合的fuzzer/</p>
 <p>解决了三个挑战：</p>
 <ul>
 <li>输入生成：进化模糊算法+约束求解</li>
@@ -513,6 +542,20 @@
 <li>环境依赖：建模区块相关的信息作为fuzz的输入</li>
 </ul>
 <p>实验在128 21K的数据集上分别测试了覆盖率、测出漏洞类型和工具组件重要性的结果</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>玩了个和孔子音似的梗<a target="_blank" rel="noopener" href="https://github.com/christoftorres/ConFuzzius">christoftorres/ConFuzzius: A data dependency-aware hybrid fuzzer for Ethereum smart contracts (EuroS&amp;P 2021). (github.com)</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull christoftorres/confuzzius</span><br><span class="line">docker run -i -t christoftorres/confuzzius</span><br><span class="line">python3 fuzzer/main.py -s examples/TokenSale/contracts/TokenSale.sol -c TokenSale --solc v0.4.26 --evm byzantium -t 10</span><br></pre></td></tr></table></figure>
+<p>被测试合约为TokenSale.sol，比较简单</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.26;</span><br><span class="line"></span><br><span class="line">interface Token &#123;</span><br><span class="line">  function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);</span><br><span class="line">  function allowance(address owner, address spender) external view returns (uint256);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract TokenSale &#123;</span><br><span class="line">  uint256 start = now;</span><br><span class="line">  uint256 end = now + 30 days;</span><br><span class="line">  address wallet = 0xCafEBAbECAFEbAbEcaFEbabECAfebAbEcAFEBaBe;</span><br><span class="line">  Token token = Token(0x1234567812345678123456781234567812345678);</span><br><span class="line"></span><br><span class="line">  address owner;</span><br><span class="line">  bool sold;</span><br><span class="line"></span><br><span class="line">  function Tokensale() public &#123;</span><br><span class="line">    owner = msg.sender;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function buy() public payable &#123;</span><br><span class="line">    require(now &lt; end);</span><br><span class="line">    require(msg.value == 42 ether + (now - start) / 60 / 60 / 24 * 1 ether);</span><br><span class="line">    require(token.transferFrom(this, msg.sender, token.allowance(wallet, this)));</span><br><span class="line">    sold = true;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function withdraw() public &#123;</span><br><span class="line">    require(msg.sender == owner);</span><br><span class="line">    require(now &gt;= end);</span><br><span class="line">    require(sold);</span><br><span class="line">    owner.transfer(address(this).balance);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实验结果显示代码覆盖率非常优秀，能够检测出区块信息依赖和以太币泄露漏洞</p>
+<p><img src="/2023/07/23/ConFuzzius/image-20230726161506767.png" alt="image-20230726161506767"></p>
+<p><img src="/2023/07/23/ConFuzzius/image-20230726161452774.png" alt="image-20230726161452774"></p>
+<p>具体产生漏洞的交易序列：</p>
+<p><img src="/2023/07/23/ConFuzzius/image-20230726161536978.png" alt="image-20230726161536978"></p>
+<p><img src="/2023/07/23/ConFuzzius/image-20230726161548380.png" alt="image-20230726161548380"></p>
+<p><img src="/2023/07/23/ConFuzzius/image-20230726161601382.png" alt="image-20230726161601382"></p>
+<h3 id="测试较为复杂的合约WalletLibrary"><a href="#测试较为复杂的合约WalletLibrary" class="headerlink" title="测试较为复杂的合约WalletLibrary"></a>测试较为复杂的合约WalletLibrary</h3><p><img src="/2023/07/23/ConFuzzius/image-20230726161201164.png" alt="image-20230726161201164"></p>
+<p><img src="/2023/07/23/ConFuzzius/image-20230726161215584.png" alt="image-20230726161215584"></p>
+<p>代码覆盖率依然比较优秀，74.99%（2881/3842），单个合约仅10.62s</p>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
 <li>其他人对Confuzzius的复现总结 <a target="_blank" rel="noopener" href="https://hackmd.io/@UKzRuqmuT7OSwI3Hjf0tPA/ryg6RkwLF">CONFUZZIUS Comparisons - HackMD</a></li>
 <li><p>会议简要视频介绍<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_NuOxLJNJhI&amp;ab_channel=IEEEEuropeanSymposiumonSecurityandPrivacy">IEEE EuroS&amp;P 2021 - ConFuzzius: A Data Dependency-Aware Hybrid Fuzzer for Smart Contracts - YouTube</a></p>
@@ -606,7 +649,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ConFuzzius-A-Data-Dependency-Aware-Hybrid-Fuzzer-for-Smart-Contracts"><span class="nav-number">1.</span> <span class="nav-text">ConFuzzius: A Data Dependency-Aware Hybrid Fuzzer for Smart Contracts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Background"><span class="nav-number">1.2.</span> <span class="nav-text">Background</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ethereum-Smart-Contracts"><span class="nav-number">1.2.1.</span> <span class="nav-text">Ethereum Smart Contracts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fuzzing"><span class="nav-number">1.2.2.</span> <span class="nav-text">fuzzing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E5%8C%96%E6%A8%A1%E7%B3%8A"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">进化模糊</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E6%A8%A1%E7%B3%8A"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">混合模糊</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.3.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">1.3.1.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E7%94%9F%E6%88%90"><span class="nav-number">1.3.2.</span> <span class="nav-text">输入生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%8E%A2%E7%B4%A2"><span class="nav-number">1.3.3.</span> <span class="nav-text">状态探索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96"><span class="nav-number">1.3.4.</span> <span class="nav-text">环境依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Design-and-Implementation"><span class="nav-number">1.4.</span> <span class="nav-text">Design and Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#overview"><span class="nav-number">1.4.1.</span> <span class="nav-text">overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%8C%96%E6%A8%A1%E7%B3%8A%E5%99%A8"><span class="nav-number">1.4.2.</span> <span class="nav-text">进化模糊器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EVM"><span class="nav-number">1.4.3.</span> <span class="nav-text">EVM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%88%86%E6%9E%90%E5%99%A8"><span class="nav-number">1.5.</span> <span class="nav-text">执行分析器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluation"><span class="nav-number">1.6.</span> <span class="nav-text">Evaluation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">1.6.1.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#baseline"><span class="nav-number">1.6.2.</span> <span class="nav-text">baseline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup"><span class="nav-number">1.6.3.</span> <span class="nav-text">Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">1.6.4.</span> <span class="nav-text">实验结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Realted-work"><span class="nav-number">1.7.</span> <span class="nav-text">Realted work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">1.8.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.9.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ConFuzzius-A-Data-Dependency-Aware-Hybrid-Fuzzer-for-Smart-Contracts"><span class="nav-number">1.</span> <span class="nav-text">ConFuzzius: A Data Dependency-Aware Hybrid Fuzzer for Smart Contracts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Background"><span class="nav-number">1.2.</span> <span class="nav-text">Background</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ethereum-Smart-Contracts"><span class="nav-number">1.2.1.</span> <span class="nav-text">Ethereum Smart Contracts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fuzzing"><span class="nav-number">1.2.2.</span> <span class="nav-text">fuzzing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E5%8C%96%E6%A8%A1%E7%B3%8A"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">进化模糊</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E6%A8%A1%E7%B3%8A"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">混合模糊</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.3.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">1.3.1.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E7%94%9F%E6%88%90"><span class="nav-number">1.3.2.</span> <span class="nav-text">输入生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%8E%A2%E7%B4%A2"><span class="nav-number">1.3.3.</span> <span class="nav-text">状态探索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96"><span class="nav-number">1.3.4.</span> <span class="nav-text">环境依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Design-and-Implementation"><span class="nav-number">1.4.</span> <span class="nav-text">Design and Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#overview"><span class="nav-number">1.4.1.</span> <span class="nav-text">overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%8C%96%E6%A8%A1%E7%B3%8A%E5%99%A8"><span class="nav-number">1.4.2.</span> <span class="nav-text">进化模糊器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EVM"><span class="nav-number">1.4.3.</span> <span class="nav-text">EVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%88%86%E6%9E%90%E5%99%A8"><span class="nav-number">1.4.4.</span> <span class="nav-text">执行分析器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluation"><span class="nav-number">1.5.</span> <span class="nav-text">Evaluation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">1.5.1.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#baseline"><span class="nav-number">1.5.2.</span> <span class="nav-text">baseline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup"><span class="nav-number">1.5.3.</span> <span class="nav-text">Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">1.5.4.</span> <span class="nav-text">实验结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Realted-work"><span class="nav-number">1.6.</span> <span class="nav-text">Realted work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E6%A3%80%E6%B5%8B%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="nav-number">1.7.</span> <span class="nav-text">攻击检测器设计思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">1.8.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.9.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E8%BE%83%E4%B8%BA%E5%A4%8D%E6%9D%82%E7%9A%84%E5%90%88%E7%BA%A6WalletLibrary"><span class="nav-number">1.9.1.</span> <span class="nav-text">测试较为复杂的合约WalletLibrary</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.10.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
