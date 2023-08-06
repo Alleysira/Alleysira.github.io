@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Building blocks of sharding blockchain systems: Concepts, approaches,and open problems继Sharding_Blockchain_Consensus 之后阅读刘老师的综述文章 分片技术是打破区块链去中心化、安全性和可扩展性不可能三角的最流行的方式，分片技术可以广义的理解为将区块链中的节点动态划分为彼此之间没有细粒度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sharding-blockchain-survey">
+<meta property="og:url" content="https://alleysira.github.io/2023/08/06/sharding-blockchain-survey/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="Building blocks of sharding blockchain systems: Concepts, approaches,and open problems继Sharding_Blockchain_Consensus 之后阅读刘老师的综述文章 分片技术是打破区块链去中心化、安全性和可扩展性不可能三角的最流行的方式，分片技术可以广义的理解为将区块链中的节点动态划分为彼此之间没有细粒度">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/06/sharding-blockchain-survey/image-20230806104704355.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/06/sharding-blockchain-survey/image-20230806112006224.png">
+<meta property="article:published_time" content="2023-08-06T01:14:25.000Z">
+<meta property="article:modified_time" content="2023-08-06T03:45:14.957Z">
+<meta property="article:author" content="Alleysira">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="Sharding">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/08/06/sharding-blockchain-survey/image-20230806104704355.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2023/08/06/sharding-blockchain-survey/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>sharding-blockchain-survey | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/08/06/sharding-blockchain-survey/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          sharding-blockchain-survey
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-08-06 09:14:25 / Modified: 11:45:14" itemprop="dateCreated datePublished" datetime="2023-08-06T09:14:25+08:00">2023-08-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Blockchain/" itemprop="url" rel="index"><span itemprop="name">Blockchain</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Building-blocks-of-sharding-blockchain-systems-Concepts-approaches-and-open-problems"><a href="#Building-blocks-of-sharding-blockchain-systems-Concepts-approaches-and-open-problems" class="headerlink" title="Building blocks of sharding blockchain systems: Concepts, approaches,and open problems"></a>Building blocks of sharding blockchain systems: Concepts, approaches,and open problems</h1><p>继<a href="https://alleysira.github.io/2023/05/31/Sharding-Blockchain-Consensus-lyj/">Sharding_Blockchain_Consensus</a> 之后阅读刘老师的综述文章</p>
+<p>分片技术是打破区块链去中心化、安全性和可扩展性不可能三角的最流行的方式，分片技术可以广义的理解为将区块链中的节点动态划分为彼此之间没有细粒度同步并且执行存储、计算和通信任务的子集，子集称为分片</p>
+<p>现有的分片区块链设计仍有很多可探索的空间，本文从此出发，对现有的分片区块链进行了系统的分析，并将它们的架构概念分解为功能组件，并推导出它们所基于的系统模型和攻击者的假设。推导出的功能组件包括：</p>
+<ul>
+<li>节点选择</li>
+<li>轮随机数</li>
+<li>节点分配</li>
+<li>片内共识</li>
+<li>跨片交易处理</li>
+<li>分片重配置</li>
+<li>激励机制</li>
+</ul>
+<p>对于每个功能组件，本文描述了接口、功能和性质，给出了组件如何组合成一个分片区块链系统并讨论了每个组件的后续研究方向；同样关注了潜在的安全攻击和性能问题，例如系统吞吐量和延迟</p>
+<span id="more"></span>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>传统的区块链系统是一个点对点的分布式自治系统，依赖原子广播协议实现复制状态机</p>
+<p>理想的区块链系统努力实现去中心化的控制、对单一状态的共识、防篡改的记录、隐私保护、高可用性</p>
+<p>现有的区块链系统在实际应用是受限于不可能三角</p>
+<ul>
+<li>对于去中心化：区块链需要支持多种假设下的节点（如何加入/离开网络）</li>
+<li>对于安全性：需要证明安全，保证区块链协议能够抵抗某一类攻击</li>
+<li>对于可扩展性：现有的方案能够分成链下方案和链上方案<ul>
+<li>链上：采用层次化的架构，核心的区块链系统仅验证少许聚合的资源转移（许多细粒度交易和净效应），概念上类似于一个银行，中央银行就是核心区块链；分片就是一种链上解决方案<ul>
+<li>micropayment </li>
+<li>payment channel networks</li>
+<li>virtual payment channels</li>
+<li>sidechains</li>
+</ul>
+</li>
+<li>链下：避免传统区块链系统的计算开销，避免了所有节点之间就交易顺序达成一致所需的计算成本。</li>
+</ul>
+</li>
+</ul>
+<p>分片希望实现和传统区块链同等的安全性和去中心化，能否实现？</p>
+<p>分片技术最初在数据库系统提出，第一个分片区块链工作发表于CCS16的ELASTICO</p>
+<p>现有的分片工作主要存在以下问题：</p>
+<ul>
+<li>分片区块链系统的结构复杂，包含多个组件</li>
+<li>不同的分片区块链采用的模型和假设不同（网络模型、敌手模型、交易模型），不容易理解设计和安全性</li>
+<li>现有的分片区块链系统是端到端的描述方式，没有给出整体架构，各组件的功能不够清晰</li>
+</ul>
+<p>贡献</p>
+<ul>
+<li>将分片区块链拆解为功能组件，给出了每个组件的输入输出、功能和性质；给出了如何讲各组件组合成为完整的分片区块链</li>
+<li>对分片区块链系统详尽的分类：从系统模型和功能组件两个方向对分片区块链进行了分类，对于每个组件归类除了解决方案</li>
+<li>对组件的深度分析。对每个组件给出基本概念（目的、功能和基本步骤），识别并分析了每个方案在安全、吞吐量、延迟等方面可能存在的问题；给出了未来的研究方向</li>
+</ul>
+<h1 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h1><h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>讲区块链、区块链共识机制再讲分片区块链</p>
+<h3 id="Consensus"><a href="#Consensus" class="headerlink" title="Consensus"></a>Consensus</h3><p>介绍区块链的不可篡改性居然加了一句（except for some special redactable blockchains）</p>
+<p>区块链的架构</p>
+<ul>
+<li>网络层：节点在P2P网络内进行消息同步，节点分布式，不存在中央节点</li>
+<li>共识层：具有特定计算和通信能力的节点作为共识节点，通过特定共识算法，承担出块的工作，图中是BFT类共识；共识层决定区块链的一致性和活性</li>
+<li>应用层</li>
+</ul>
+<p><img src="/2023/08/06/sharding-blockchain-survey/image-20230806104704355.png" alt="image-20230806104704355"></p>
+<p>现有的区块链共识协议可以分为</p>
+<ul>
+<li>经典的分布式共识协议：BFT类，采用复制状态机的思想</li>
+<li>基于工作量证明机制的共识</li>
+<li>基于权益证明的共识</li>
+<li>混合共识协议：单一委员会和多委员会共识（分片的一种）</li>
+</ul>
+<h3 id="Sharding-blockchains"><a href="#Sharding-blockchains" class="headerlink" title="Sharding blockchains"></a>Sharding blockchains</h3><p>当网络中节点增加时，增加分片数量即可提高处理能力</p>
+<p>ELASTICO作为第一篇分片的工作，结合了分片技术提高区块链的交易吞吐率</p>
+<p>可以分为三类</p>
+<ul>
+<li>通信分片：片内节点大多数时间仅进行片内通信</li>
+<li>计算分片：每个分片只负责处理相关的交易，交易的分配是多样化的（根据交易ID进行分片）</li>
+<li>存储分片：每个分片的节点仅存储所在分片的数据（交易历史、UTXO），交易历史存在区块链上，UTXO可以为了效率单独存储；实际上减少了节点的存储开销</li>
+</ul>
+<p>协调者负责跨片通信和片内共识</p>
+<p><img src="/2023/08/06/sharding-blockchain-survey/image-20230806112006224.png" alt="image-20230806112006224"></p>
+<p>分片和其他可扩展性解决方案进行对比，可以分为链上（layer1）和链下（layer2）两类方案</p>
+<ul>
+<li>链上方案：分片属于链上方案，还有DAG有向无环图和侧链方案<ul>
+<li>有向无环图的区块链<ul>
+<li>采用多条链跟随主链，每个新区块都会链接到若干个之前的区块，可以追溯到创世区块<ul>
+<li>IOTA市值80位，conflux市值69位</li>
+</ul>
+</li>
+<li>参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/52424180">有向无环图 DAG - 知乎 (zhihu.com)</a></li>
+</ul>
+</li>
+<li>侧链方案：采用额外的区块链执行交易，可能运行多个共识算法，侧链和主链之间需要一个two-way peg（一般用智能合约实现），用于在主链和侧脸之间资产交换</li>
+</ul>
+</li>
+<li>链下方案：通过channel和主链进行小的交易处理，代表性工作是闪电网络和Perun</li>
+</ul>
+<h2 id="Notations"><a href="#Notations" class="headerlink" title="Notations"></a>Notations</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+              <a href="/tags/Sharding/" rel="tag"># Sharding</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/07/26/IST23/" rel="prev" title="IST23">
+      <i class="fa fa-chevron-left"></i> IST23
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Building-blocks-of-sharding-blockchain-systems-Concepts-approaches-and-open-problems"><span class="nav-number">1.</span> <span class="nav-text">Building blocks of sharding blockchain systems: Concepts, approaches,and open problems</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Preliminaries"><span class="nav-number">3.</span> <span class="nav-text">Preliminaries</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Background"><span class="nav-number">3.1.</span> <span class="nav-text">Background</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Consensus"><span class="nav-number">3.1.1.</span> <span class="nav-text">Consensus</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sharding-blockchains"><span class="nav-number">3.1.2.</span> <span class="nav-text">Sharding blockchains</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Notations"><span class="nav-number">3.2.</span> <span class="nav-text">Notations</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">School of Cyber Science and Teconology, BUAA</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
