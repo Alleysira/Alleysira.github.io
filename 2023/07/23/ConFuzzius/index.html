@@ -50,7 +50,7 @@
 <meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230726161201164.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/07/23/ConFuzzius/image-20230726161215584.png">
 <meta property="article:published_time" content="2023-07-23T03:09:40.000Z">
-<meta property="article:modified_time" content="2023-07-27T00:55:02.222Z">
+<meta property="article:modified_time" content="2023-08-08T08:03:31.179Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta property="article:tag" content="SmartContract">
@@ -216,7 +216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-27 08:55:02" itemprop="dateModified" datetime="2023-07-27T08:55:02+08:00">2023-07-27</time>
+                <time title="Modified: 2023-08-08 16:03:31" itemprop="dateModified" datetime="2023-08-08T16:03:31+08:00">2023-08-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -542,7 +542,7 @@
 <li>环境依赖：建模区块相关的信息作为fuzz的输入</li>
 </ul>
 <p>实验在128 21K的数据集上分别测试了覆盖率、测出漏洞类型和工具组件重要性的结果</p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>玩了个和孔子音似的梗<a target="_blank" rel="noopener" href="https://github.com/christoftorres/ConFuzzius">christoftorres/ConFuzzius: A data dependency-aware hybrid fuzzer for Ethereum smart contracts (EuroS&amp;P 2021). (github.com)</a></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>玩了个孔子的谐音梗<a target="_blank" rel="noopener" href="https://github.com/christoftorres/ConFuzzius">christoftorres/ConFuzzius: A data dependency-aware hybrid fuzzer for Ethereum smart contracts (EuroS&amp;P 2021). (github.com)</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull christoftorres/confuzzius</span><br><span class="line">docker run -i -t christoftorres/confuzzius</span><br><span class="line">python3 fuzzer/main.py -s examples/TokenSale/contracts/TokenSale.sol -c TokenSale --solc v0.4.26 --evm byzantium -t 10</span><br></pre></td></tr></table></figure>
 <p>被测试合约为TokenSale.sol，比较简单</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.26;</span><br><span class="line"></span><br><span class="line">interface Token &#123;</span><br><span class="line">  function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);</span><br><span class="line">  function allowance(address owner, address spender) external view returns (uint256);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract TokenSale &#123;</span><br><span class="line">  uint256 start = now;</span><br><span class="line">  uint256 end = now + 30 days;</span><br><span class="line">  address wallet = 0xCafEBAbECAFEbAbEcaFEbabECAfebAbEcAFEBaBe;</span><br><span class="line">  Token token = Token(0x1234567812345678123456781234567812345678);</span><br><span class="line"></span><br><span class="line">  address owner;</span><br><span class="line">  bool sold;</span><br><span class="line"></span><br><span class="line">  function Tokensale() public &#123;</span><br><span class="line">    owner = msg.sender;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function buy() public payable &#123;</span><br><span class="line">    require(now &lt; end);</span><br><span class="line">    require(msg.value == 42 ether + (now - start) / 60 / 60 / 24 * 1 ether);</span><br><span class="line">    require(token.transferFrom(this, msg.sender, token.allowance(wallet, this)));</span><br><span class="line">    sold = true;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function withdraw() public &#123;</span><br><span class="line">    require(msg.sender == owner);</span><br><span class="line">    require(now &gt;= end);</span><br><span class="line">    require(sold);</span><br><span class="line">    owner.transfer(address(this).balance);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -666,7 +666,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
