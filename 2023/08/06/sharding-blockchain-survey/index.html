@@ -61,7 +61,7 @@
 <meta property="og:image" content="https://alleysira.github.io/2023/08/06/sharding-blockchain-survey/image-20230812172946353.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/08/06/sharding-blockchain-survey/image-20230812185632818.png">
 <meta property="article:published_time" content="2023-08-06T01:14:25.000Z">
-<meta property="article:modified_time" content="2023-08-12T11:42:25.116Z">
+<meta property="article:modified_time" content="2023-08-14T01:25:20.442Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta property="article:tag" content="Sharding">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-12 19:42:25" itemprop="dateModified" datetime="2023-08-12T19:42:25+08:00">2023-08-12</time>
+                <time title="Modified: 2023-08-14 09:25:20" itemprop="dateModified" datetime="2023-08-14T09:25:20+08:00">2023-08-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -418,7 +418,7 @@
 <li>节点选择：参数$k$表示每个分片内新的节点的数量，$m$是分片个数<ul>
 <li><img src="/2023/08/06/sharding-blockchain-survey/image-20230808103202920.png" alt="image-20230808103202920"></li>
 <li>在无许可环境中，可能会使用PoW或者PoS进行选择；</li>
-<li>在许可环境中，可由可信第三方来执行</li>
+<li>在许可环境中，由可信第三方来执行</li>
 <li>需要满足公平性和鲁棒性，公平性限制恶意敌手的比例，鲁棒性指在恶意敌手不超过某个比例时snodes仍然会被诚实节点接受</li>
 </ul>
 </li>
@@ -426,7 +426,7 @@
 <li><img src="/2023/08/06/sharding-blockchain-survey/image-20230808103822367.png" alt="image-20230808103822367"></li>
 <li>bias-resistance <strong>抗偏置性</strong> 指敌手的参与不会影响结果的随机性</li>
 <li>可用性保证随机数能够产生</li>
-<li>轮随机数一般用户 将节点随机分配为分片，作为PoW的puzzle</li>
+<li>轮随机数一般用于 将节点随机分配为分片，作为PoW的puzzle</li>
 </ul>
 </li>
 <li>节点分配：将选择出的节点随机分配到$m$个分片中，每个分片$k$个新节点<ul>
@@ -512,7 +512,7 @@
 </ul>
 </li>
 </ul>
-<p>存在的问题：敌手可能进行自私挖矿、固执挖矿、扣快攻击</p>
+<p>依赖底层区块链存在的问题：敌手可能进行自私挖矿、固执挖矿、扣快攻击</p>
 <ul>
 <li>自私挖矿：敌手出块后不公开，等待私链更长后再公开，浪费诚实节点算力</li>
 <li>固执挖矿：类似于自私挖矿，但是挖一个并行的私链，导致分叉</li>
@@ -657,7 +657,7 @@ Pr[X\geq (1-Q_0)\mu+1]=\sum^{\mu}_{x=(1-Q_0)\mu+1}\frac{C_{\rho n}^xC^{\mu-x}_{(
 <p><img src="/2023/08/06/sharding-blockchain-survey/image-20230811153629981.png" alt="image-20230811153629981"></p>
 <ul>
 <li>现有方案忽略了A到B的安全性，事实上B中的敌手比例比A中的更高($&gt;\rho$)，因为<ul>
-<li>敌手可能在消息发送中占有，即能够更早开始挖矿</li>
+<li>敌手可能在消息发送中占优，即能够更早开始挖矿</li>
 <li>如果参考委员会当中的leader是恶意的，可能会进行censor，增加被控制节点的比例</li>
 </ul>
 </li>
@@ -668,12 +668,12 @@ Pr[X\geq (1-Q_0)\mu+1]=\sum^{\mu}_{x=(1-Q_0)\mu+1}\frac{C_{\rho n}^xC^{\mu-x}_{(
 </li>
 </ul>
 <h1 id="Intra-shard-consensus"><a href="#Intra-shard-consensus" class="headerlink" title="Intra-shard consensus"></a>Intra-shard consensus</h1><p>片内共识是分片区块链的关键模块，本章首先给出片内共识的基本概念，再划分为立即和最终分片，给出了状态机复制算法，总结了片内共识算法存在的问题</p>
-<h2 id="Basic-concepts"><a href="#Basic-concepts" class="headerlink" title="Basic concepts"></a>Basic concepts</h2><p>片内共识算法的目的是高效地出理片内的交易以及和其他分片合作处理跨片及交易，需要片内共识算法给出对相关交易输入的可用性证明，证明是签名的形式</p>
+<h2 id="Basic-concepts"><a href="#Basic-concepts" class="headerlink" title="Basic concepts"></a>Basic concepts</h2><p>片内共识算法的目的是高效地处理片内的交易以及和其他分片合作处理跨片交易，需要片内共识算法给出对相关交易输入的可用性证明，证明是签名的形式</p>
 <p>除此之外，在某些采用参考委员会的分片区块链中，片内共识算法用于确认新委员的名单，片内共识算法影响具体的效率，需要考虑的问题包括：</p>
 <ul>
 <li>片内共识算法的可扩展性：与通信和计算复杂度相关</li>
 <li>需要处理分片区块链特有的不同提案</li>
-<li>片内的网络环境和整个区块链的网络之前的关系</li>
+<li>片内的网络环境和整个区块链的网络之间的关系</li>
 </ul>
 <p>片内共识算法可以分为两类</p>
 <ul>
@@ -700,7 +700,7 @@ Pr[X\geq (1-Q_0)\mu+1]=\sum^{\mu}_{x=(1-Q_0)\mu+1}\frac{C_{\rho n}^xC^{\mu-x}_{(
 <p>每个节点需要每轮等待$\Delta$时间，导致了交易确认时间和实际的网络时延无关，不满足响应性。在半同步网络和异步网络中无法直接使用$\Delta$</p>
 <h4 id="部分同步"><a href="#部分同步" class="headerlink" title="部分同步"></a>部分同步</h4><p>部分同步网络是大多数区块链采用的网络模型，首先给出经典方案再和分片区块链结合</p>
 <h5 id="分布式共识算法"><a href="#分布式共识算法" class="headerlink" title="分布式共识算法"></a>分布式共识算法</h5><ul>
-<li><p>Paxos：本来是为分布式数据库维护设计的算法，支持$u=2f+1$个当即节点，不支持拜占庭节点，实际上在区块链中的应用很少</p>
+<li><p>Paxos：本来是为分布式数据库维护设计的算法，支持$u=2f+1$个宕机节点，不支持拜占庭节点，实际上在区块链中的应用很少</p>
 <ul>
 <li>主节点向超过50%的备份节点发送prepare消息</li>
 <li>备份节点验证消息的合法性，向主节点返回承诺后的消息；</li>
@@ -711,7 +711,7 @@ Pr[X\geq (1-Q_0)\mu+1]=\sum^{\mu}_{x=(1-Q_0)\mu+1}\frac{C_{\rho n}^xC^{\mu-x}_{(
 <li><p>PBFT：大多数分片区块链或基于委员会的共识协议均采用PBFT类的共识，非常重要，敌手模型为$u=3f+1$，采用消息验证码进行身份认证；实现了一致性和活性</p>
 <ul>
 <li>共识部分具体流程如图所示，复杂度$O(n^3)$<img src="/2023/08/06/sharding-blockchain-survey/image-20230811175214951.png" alt="image-20230811175214951"></li>
-<li>在propose阶段，clinet给所有节点上传提案$p$</li>
+<li>在propose阶段，client给所有节点上传提案$p$</li>
 <li>pre-prepare阶段：主节点给所有节点发送构造的pre-prepare消息$(pre-prepare,H(m),s,v)$，$s$是序列号，$v$是视图，记录主节点的更替，视图转换后值+1</li>
 <li>prepare阶段：备份节点确认对于当前的$(s,v)$没有冲突的准备消息，然后广播prepare消息$(prepare,H(p),s,v)$</li>
 <li>commit阶段：收到$2f+1$个有效的prepare消息后，备份节点认为$p$是已经准备好了，广播commit消息$(commit,H(p),s,v)$</li>
@@ -816,15 +816,15 @@ Pr[X\geq (1-Q_0)\mu+1]=\sum^{\mu}_{x=(1-Q_0)\mu+1}\frac{C_{\rho n}^xC^{\mu-x}_{(
 <p>如图所示，由输出分片的委员会对交易进行拆分，如果两个输入委员会分别对$tx_1,tx_2$通过，则输出委员会会正确执行$tx_3$</p>
 <p><img src="/2023/08/06/sharding-blockchain-survey/image-20230812172946353.png" alt="image-20230812172946353"></p>
 <p>Instachain采用了交易拆分方案，如果一个交易输入有效，另一个交易输入无效，则有效输入对应的子交易会直接发送给输出分片（？</p>
-<h3 id="交易中继方案"><a href="#交易中继方案" class="headerlink" title="交易中继方案"></a>交易中继方案</h3><p>一般在最终分片区块链中使用，，每个委员会内不允许BFT，交易或可用性证明不会立即确认，无法采用2PC方法。</p>
+<h3 id="交易中继方案"><a href="#交易中继方案" class="headerlink" title="交易中继方案"></a>交易中继方案</h3><p>一般在最终分片区块链中使用，，每个委员会内不运行BFT，交易或可用性证明不会立即确认，无法采用2PC方法。</p>
 <p>核心思想：保证在每个输入分片内输入相关的交易未得到足够确认前，输出分片不会把交易作为有效交易</p>
 <p>基本步骤</p>
 <ul>
 <li>输入分片的矿工收集跨片交易$tx$，验证账户的余额是否大于交易额，如果满足则认为合法</li>
 <li>矿工发现PoW的解后，构造包含$tx$的区块，其他矿工验证区块，生成对应的中继交易$\psi$，发送给输出分片的矿工</li>
-<li>输出分片的矿工收到终极交易后验证合法性，如果中继交易$\psi$已经达到了对应安全的深度$\lambda$，确定交易成功</li>
+<li>输出分片的矿工收到中继交易后验证合法性，如果中继交易$\psi$已经达到了对应安全的深度$\lambda$，确定交易成功</li>
 </ul>
-<p>Monoxide采用了终极交易的形式</p>
+<p>Monoxide采用了中继交易的形式</p>
 <h2 id="问题和未来的研究方向-1"><a href="#问题和未来的研究方向-1" class="headerlink" title="问题和未来的研究方向"></a>问题和未来的研究方向</h2><p>给出3类方案对应的问题</p>
 <h3 id="2PC"><a href="#2PC" class="headerlink" title="2PC"></a>2PC</h3><ul>
 <li>客户端驱动的方案（使用不广泛）<ul>
@@ -902,7 +902,7 @@ Pr[X\geq (1-Q_0)\mu+1]=\sum^{\mu}_{x=(1-Q_0)\mu+1}\frac{C_{\rho n}^xC^{\mu-x}_{(
 <h1 id="Motivaition-mechanism"><a href="#Motivaition-mechanism" class="headerlink" title="Motivaition mechanism"></a>Motivaition mechanism</h1><h2 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念"></a>基本概念</h2><p>需要激励机制的原因</p>
 <ul>
 <li>节点越多，链越安全</li>
-<li>节点消耗了计算资源和带宽，</li>
+<li>节点消耗了计算资源和带宽，需要补偿或激励</li>
 </ul>
 <p>难点是奖励公平，作恶受到惩罚</p>
 <p>一般假设节点是理性的，为了获得最大化的收益</p>
@@ -917,7 +917,7 @@ Pr[X\geq (1-Q_0)\mu+1]=\sum^{\mu}_{x=(1-Q_0)\mu+1}\frac{C_{\rho n}^xC^{\mu-x}_{(
 <li>恶意行为：leader发两个冲突的提案，委员会成员投多次</li>
 </ul>
 </li>
-<li>基于声誉的奖励：来自P2P系统，基于历史的行为打分，包括响应时间、处理的交易、节点相关的恶意行为数量，声誉越高的节点获得的奖励越多</li>
+<li>基于声誉的奖励：idea来自P2P系统，基于历史的行为打分，包括响应时间、处理的交易、节点相关的恶意行为数量，声誉越高的节点获得的奖励越多</li>
 </ul>
 <h2 id="问题和未来研究方向"><a href="#问题和未来研究方向" class="headerlink" title="问题和未来研究方向"></a>问题和未来研究方向</h2><ul>
 <li>结合分片区块链：<ul>
@@ -941,7 +941,7 @@ Pr[X\geq (1-Q_0)\mu+1]=\sum^{\mu}_{x=(1-Q_0)\mu+1}\frac{C_{\rho n}^xC^{\mu-x}_{(
 </li>
 <li>可扩展性</li>
 </ul>
-<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>本文将分片区块链结构为若干组件，分析了每个组件的基本概念，现有的解决方案和存在的问题以及未来的研究方向。简化了分片区块链的设计，每个组件可以单独改善，给出的未来研究方向具有一ID你故意以</p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>本文将分片区块链解构为若干组件，分析了每个组件的基本概念，现有的解决方案和存在的问题以及未来的研究方向。简化了分片区块链的设计，每个组件可以单独改善，给出的未来研究方向具有一定意义</p>
 
     </div>
 
@@ -1040,20 +1040,20 @@ Pr[X\geq (1-Q_0)\mu+1]=\sum^{\mu}_{x=(1-Q_0)\mu+1}\frac{C_{\rho n}^xC^{\mu-x}_{(
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

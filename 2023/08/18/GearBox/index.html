@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy发表于CCS22 分片是克服区块链可扩展性难题的新兴技术，没有分片，每个节点都必须监听和处理所有账本的信息 分片的基本思想是并行化账本协议：将节点划分为子集处理，通过执行轻量化的账本协议实例来处理部分运来的工作，分片越小，因为提高了并行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GearBox">
+<meta property="og:url" content="https://alleysira.github.io/2023/08/18/GearBox/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy发表于CCS22 分片是克服区块链可扩展性难题的新兴技术，没有分片，每个节点都必须监听和处理所有账本的信息 分片的基本思想是并行化账本协议：将节点划分为子集处理，通过执行轻量化的账本协议实例来处理部分运来的工作，分片越小，因为提高了并行">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230819180300128.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230819182237876.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230819184837902.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230819185706285.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230818184146046.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230818184310857.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230818184637028.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230818185205913.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230818185503978.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230818190028903.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230818190256418.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230818190506447.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230818191344481.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230818191416876.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230818193049568.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230818193129685.png">
+<meta property="article:published_time" content="2023-08-18T08:03:48.000Z">
+<meta property="article:modified_time" content="2023-08-19T11:05:23.835Z">
+<meta property="article:author" content="Alleysira">
+<meta property="article:tag" content="BlockChain">
+<meta property="article:tag" content="Sharding">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230819180300128.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2023/08/18/GearBox/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>GearBox | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/08/18/GearBox/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GearBox
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-08-18 16:03:48" itemprop="dateCreated datePublished" datetime="2023-08-18T16:03:48+08:00">2023-08-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-08-19 19:05:23" itemprop="dateModified" datetime="2023-08-19T19:05:23+08:00">2023-08-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/BlockChain/" itemprop="url" rel="index"><span itemprop="name">BlockChain</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy"><a href="#GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy" class="headerlink" title="GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy"></a>GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy</h1><p>发表于CCS22</p>
+<p>分片是克服区块链可扩展性难题的新兴技术，没有分片，每个节点都必须监听和处理所有账本的信息</p>
+<p>分片的基本思想是并行化账本协议：将节点划分为子集处理，通过执行轻量化的账本协议实例来处理部分运来的工作，分片越小，因为提高了并行化，分片共识协议的开销小，效率越高</p>
+<p>沿着这个脉络，本文提出了一个新的方案——采用安全性-活性二分法，在分片共识种将或许和安全性拆分开，允许动态调整分片参数实现在当前腐化比例下最优的效率</p>
+<ul>
+<li>首先建立一个相对小的分片（诚实节点的比例可能很小）</li>
+<li>在共识协议中仔细地用安全性来trade-off活性，来容忍小的诚实节点的比例，但不丧失安全性<ul>
+<li>困难性在于分片想要获得活性，最坏情况下需要更高的诚实节点比例</li>
+<li>采用一条永远满足活性和安全性的control chain来检测活性失败</li>
+<li>分片被检测出不满足活性的情况下 重新设置为更大的分片大小和活性容忍度直到满足活，保证所有分片永远安全并且效率最优</li>
+</ul>
+</li>
+<li>具体数据：10000参与方，30%的腐化比例，60-bit安全，之前的设计要求每个分片超过5800参与方保证安全性，本方案最坏情况下需要1713节点，最好情况下需要35个节点</li>
+</ul>
+<p>在高并发的执行环境下，保证账本协议和子协议在组合下的安全性非常重要，为了证明协议的安全性，给出了分片账本、控制链和分片共识的理想的功能，形式化并证明了在UC框架下的安全性</p>
+<span id="more"></span>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>阻碍区块链大规模应用的障碍之一是较低的交易吞吐率，分片是克服这一困难的解</p>
+<p>60bit安全的含义：保证安全性的概率为$1-2^{-60 } $</p>
+<p>旧的安全性带来的参数要求：10000参与方，33%恶意，60bit安全，分片的大小为5886；30bit的话，分片大小为3000；为了保证分片大小为几百，可以考虑降低安全性</p>
+<p>区块链的安全性包含2个性质</p>
+<ul>
+<li>活性：交易在一定时间内会被打包，活性门限记作$L$</li>
+<li>安全性：节点对输出的交易序列达成一致，安全性对应的门限记作$S$</li>
+</ul>
+<p>现有方案考虑的是最坏情况下的界，导致了活性和安全性的界相同</p>
+<h2 id="贡献"><a href="#贡献" class="headerlink" title="贡献"></a>贡献</h2><p>采用活性和安全性分开的思想，企图实现尽可能小的分片大小，主要面对半同步网络（可以适用于同步网络），协议开始时采用激进的设置，活性门限较低（$S=0.89,L=0.05$），这样的设计会导致较小的分片大小，但是分片可能会死锁，因此引入了独立的一条链control-chain来检测分片的活性，分片需要向控制链发送心跳交易，控制链可以解散死锁的分片，然后建立一个新的带有更高活性的分片，迭代知道寻找到了能够找到保持活性的最小分片大小；另一方面，没有检测到死锁时，可以动态降低分片的大小，已达到最优的分片大小</p>
+<p>下面是两类实施本文方案的方法</p>
+<ul>
+<li>部分同步网络</li>
+</ul>
+<p>对于10000个节点，$L=0\%,S=99\%,Size=35\to L=30\%,S=39\%,Size=1713$</p>
+<ul>
+<li>混合模式</li>
+</ul>
+<p>能够运行同步的CC容忍50%的恶意敌手比例，在分片内为部分同步网络，能够切换到同步网络下（25%的恶意敌手之前）</p>
+<p>静态与适应性安全：当敌手能够立即腐化超过半数委员会成员时，基于诚实大多数委员会保证安全的分片协议都基本会失败。Free2Shard能够容忍动态敌手，假设的安全模型不同，无法直接比较。如果假设腐化有时间延迟，可以通过重新选择委员会的方法保证安全性。</p>
+<p>跨片通信：本文的分片可能丧失活性，依赖control-chain进行保证，基本思想是将相关交易的merkle树值包含在心跳信息中</p>
+<p>UC形式化：给出了分片区块链的理想功能，证明了UC-realize，本文是第一个实现了任意组合下的安全性的分片区块链</p>
+<h2 id="Technical-Overview"><a href="#Technical-Overview" class="headerlink" title="Technical Overview"></a>Technical Overview</h2><ul>
+<li>Control chain 建模为一种定时的账本功能，对消息进行排序、打上时间戳。更形式化来说是全排序的广播，带有一致性和时间戳保证<ul>
+<li>CC被所有参与方执行，但是仅存储分片的大小</li>
+</ul>
+</li>
+<li>分片：建模为账本功能，参数包括分片委员会的大小和敌手比例<ul>
+<li>协议不保证领导者恶意时的活性，因为可以利用cc进行恢复<ul>
+<li>代价是需要经常更新委员会，解决无响应leader的机制更加复杂了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>协议：协议的目标是实现一种分片的账本，开始时所有分片的委员会尽可能小，利用CC进行初始化和委员会重新选举<ul>
+<li>协议的核心在于心跳消息，是的CC能够实时评估分片的活性，通过要求分片周期性发送区块的哈希值来实现，每次发送一个区块会设置一个超时时间，如果下一个有效的区块没有按时到来，分片被认为死锁</li>
+<li>当分片死锁之后，采用更大的委员会重启来保证活性</li>
+</ul>
+</li>
+</ul>
+<h2 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work"></a>Related work</h2><p>目前对于分片区块链的研究，尤其是来自工业接的，对安全性的理解是启发式的，没有形式化的安全证明，因此这部分介绍少数几个知名的分片区块链</p>
+<p>推荐综述[AFT19]Gang Wang, Zhijie Jerry Shi, Mark Nixon, and Song Han. 2019. SoK: Sharding on Blockchain. In Proceedings of the 1st ACM Conference on Advances in Financial Technologies, AFT 2019, Zurich, Switzerland, October 21-23, 2019. ACM, 41–61.<a target="_blank" rel="noopener" href="https://doi.org/10.1145/3318041.3355457">https://doi.org/10.1145/3318041.3355457</a></p>
+<p>分片区块链协议</p>
+<ul>
+<li>Elastico是第一个分片区块链，同步 每轮节点解PoW来确定委员会成员，puzzle的随机性来自于上一轮，作者希望实现小的分片委员会大小，但是6轮后不安全的概率为97%，导致协议的不安全</li>
+<li>OmniLedger基于Elastico，PoW引入了身份，但是仅能在敌手小于25%实现高效率（能支持33%但是效率较差）</li>
+<li>RapidChain作为同步的分片协议，能够容忍1/3的恶意敌手，每轮选举委员会，委员会及负责生成随机数</li>
+<li>Monoxide提出了可横向扩展的区块链，提出了若干独立的并行的链，将网络的通信、计算和存储分散到不同区域内，当出现跨区交易时，采用最终原子性技术来保证一致性</li>
+<li>Avarikioti[1]等人的工作提出了一个分片区块链的安全框架，基于比特币骨干协议，但是该框架不满足可组合性</li>
+</ul>
+<p>共性问题</p>
+<ul>
+<li>对于具体参数，委员会的大小必须足够大来保证分片的安全性</li>
+<li>之前的文章没有考虑通用可组合性下的安全性</li>
+</ul>
+<h1 id="Preliminaries"><a href="#Preliminaries" class="headerlink" title="Preliminaries"></a>Preliminaries</h1><h2 id="安全模型"><a href="#安全模型" class="headerlink" title="安全模型"></a>安全模型</h2><p>需要对同步和部分同布网络下UC安全的记号，假设参与方能够访问可靠的网络功能，时延上限为$\Delta_{NET}$，假设存在理想的签名功能，为了简洁，不给出所有功能的模型，而是给出参考文献，安全地实现本协议是一个很难并且独立的任务</p>
+<ul>
+<li>时间功能$\mathcal{F}_{CLOCK}$本质上等同于假设完美的同步 离散时钟，利用time slot表示两个时间刻度之间的间隙，也称tick，两个诚实参与者$P_i,P_j$分别在$r_i,r_j$时刻，则满足$|r_i-r_j|\leq 1$，参与者能够执行任意多项式复杂度的计算</li>
+<li>网络$\mathcal{F}^{\Delta_{NET}}_{N-MC}$ 允许参与者进行多播消息，时延上限为$\Delta_{NET}$，当参与者对该上限不知情时是部分同步网络</li>
+<li>敌手模型 考虑被腐化的敌手是静态的，5.3有扩展到适应性腐化的内容</li>
+</ul>
+<h1 id="Ledger-Functionalitiies"><a href="#Ledger-Functionalitiies" class="headerlink" title="Ledger Functionalitiies"></a>Ledger Functionalitiies</h1><h2 id="Sharded-Timed-Ledger"><a href="#Sharded-Timed-Ledger" class="headerlink" title="Sharded Timed Ledger"></a>Sharded Timed Ledger</h2><p>时序账本的账本$\mathcal{F}^\Delta_{BD-TL}$ 允许所有参与者输入消息，消息会被全局排序，提供时间戳，能保证一致性和活性</p>
+<p><img src="/2023/08/18/GearBox/image-20230819180300128.png" alt="image-20230819180300128"></p>
+<p>一致性要求了诚实节点的输出一定存在前缀的关系；活性要求发送的消息在delta时间内会出现在诚实节点的消息列表中</p>
+<p>定义 $\mathcal{F}^\Delta_{BD-TL}:=\mathcal{F}^{\Delta,1}_{BD-STL}$，是仅有1个分片的特殊情况</p>
+<p>时序账本可以用BFT类共识Hotstuff 或者 PoW的区块链来实现</p>
+<p>分片的时序账本：简单来说是多个并行的时序账本的集合，每个独立的账本都是一个分片，假设分片的数量固定，每个分片有独立的标识符$sid$，以下给出$\mathcal{F}^{\Delta,1}_{BD-STL}$的形式化定义</p>
+<p><img src="/2023/08/18/GearBox/image-20230819182237876.png" alt="image-20230819182237876"></p>
+<p>和传统的链质量 链增长链前缀定义不同，看起来更简洁（？</p>
+<p>本文的形式化更接近于 基于性质的定义，而不是传统的UC安全地定义</p>
+<p>输出给敌手的含义是对应的行为会向敌手泄露对应的行为发生了</p>
+<h2 id="Shards"><a href="#Shards" class="headerlink" title="Shards"></a>Shards</h2><p>本质上一个分片就是一个账本，本文的定义为$\mathcal{F}^{s,\mathcal{L},\Delta}_{SHARD}$，由委员会的大小$s$，活性相关的敌手结构$\mathcal{L}$定义</p>
+<p>敌手结构$\mathcal{L}$是一个集合，指分片功能必须在$(P_{i_1},\dots,P_{i_t})$为腐化节点时保持活性，其中$(P_{i_1},\dots,P_{i_t})\subset \mathcal{L}$</p>
+<p>分片内的节点可以通过SEND命令发送交易，可以利用CLOSE命令关闭分片</p>
+<p>分片需要保证的性质分别是</p>
+<ul>
+<li>证明的完备性：只有正确的描述才能产生有效的证明</li>
+<li>抗审查性：防止敌手排除特定消息<ul>
+<li>是活性不满足的情况下的一种保证</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2023/08/18/GearBox/image-20230819184837902.png" alt="image-20230819184837902"></p>
+<p><img src="/2023/08/18/GearBox/image-20230819185706285.png" alt="image-20230819185706285"></p>
+<h1 id="Video"><a href="#Video" class="headerlink" title="Video"></a>Video</h1><p>链接：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=pmeVnbRlJyQ&amp;ab_channel=TPBC">GearBox: An Efficient UC Sharded Ledger Leveraging the Safety-Liveness Dichotomy - YouTube</a></p>
+<p><img src="/2023/08/18/GearBox/image-20230818184146046.png" alt="image-20230818184146046"></p>
+<p>带入实际参数，想要满足安全性的话需要的节点太多，只能分2个片</p>
+<p><img src="/2023/08/18/GearBox/image-20230818184310857.png" alt="image-20230818184310857"></p>
+<p>如何进行优化</p>
+<ul>
+<li>降低全局敌手比例的界，找到实际中更精确的界</li>
+<li>提高失败比例，比如40bit安全性可接受？</li>
+</ul>
+<p><img src="/2023/08/18/GearBox/image-20230818184637028.png" alt="image-20230818184637028"></p>
+<p>仍然不够，实际的BFT算法超过1000节点效率就不高了</p>
+<p>如果想要保证安全性（全局敌手比例+60bit），只能从片内敌手比例入手了</p>
+<p><img src="/2023/08/18/GearBox/image-20230818185205913.png" alt="image-20230818185205913"></p>
+<p>当支持的片内敌手比例达到44%以下后，就需要1000个以上的节点了</p>
+<p>难道不需要片内30%的比例来保证安全性吗？</p>
+<p>本方案给出 安全性和活性二分法 来解决这个问题</p>
+<p><img src="/2023/08/18/GearBox/image-20230818185503978.png" alt="image-20230818185503978"></p>
+<p>如果$L=S$，就是之前的解、</p>
+<p>对于活性，假设诚实节点不会为冲突的区块签名，则活性可以归纳为</p>
+<p><img src="/2023/08/18/GearBox/image-20230818190028903.png" alt="image-20230818190028903"></p>
+<p>对于安全性，白色部分是剩下的部分</p>
+<p><img src="/2023/08/18/GearBox/image-20230818190256418.png" alt="image-20230818190256418"></p>
+<p>假设2个区块冲突了，每个都被至少$1-L$个签名了，则同时为2个区块签名的节点数量（交叉的部分）需要大于$S$，则诚实节点为冲突的区块背书了，产生了冲突（不成立）</p>
+<p>则得出结论：敌手比例小于$S$，能够满足安全性</p>
+<p>问题：没有给出$2L+S&lt;1$的根据</p>
+<p><img src="/2023/08/18/GearBox/image-20230818190506447.png" alt="image-20230818190506447"></p>
+<p>实际中一个更好的协议需要实现</p>
+<ul>
+<li>最坏情况下，能够达到30%（半同步</li>
+<li>一般情况下敌手比例会小于30%</li>
+<li>当敌手比例小的时候，有更好的效率</li>
+</ul>
+<p><img src="/2023/08/18/GearBox/image-20230818191344481.png" alt="image-20230818191344481"></p>
+<p>本方案类似于汽车的手动挡，实现的结果</p>
+<p>安全性一定保证，活性</p>
+<p><img src="/2023/08/18/GearBox/image-20230818191416876.png" alt="image-20230818191416876"></p>
+<p>难点在于想要实现活性，但是不知道具体的敌手比例</p>
+<p>解决方案是利用一条监控的链， 采用$S=L=1/3$，能够检测出活性不满足的情况</p>
+<p>还需要解决死锁问题（不是传统意义的死锁，指丧失活性后。当分片需要调整安全性，换挡）</p>
+<p><img src="/2023/08/18/GearBox/image-20230818193049568.png" alt="image-20230818193049568"></p>
+<p><img src="/2023/08/18/GearBox/image-20230818193129685.png" alt="image-20230818193129685"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/BlockChain/" rel="tag"># BlockChain</a>
+              <a href="/tags/Sharding/" rel="tag"># Sharding</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/08/blockchain-security-practice/" rel="prev" title="blockchain_security_practice">
+      <i class="fa fa-chevron-left"></i> blockchain_security_practice
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy"><span class="nav-number">1.</span> <span class="nav-text">GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A1%E7%8C%AE"><span class="nav-number">2.1.</span> <span class="nav-text">贡献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Technical-Overview"><span class="nav-number">2.2.</span> <span class="nav-text">Technical Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-work"><span class="nav-number">2.3.</span> <span class="nav-text">Related work</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Preliminaries"><span class="nav-number">3.</span> <span class="nav-text">Preliminaries</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.1.</span> <span class="nav-text">安全模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ledger-Functionalitiies"><span class="nav-number">4.</span> <span class="nav-text">Ledger Functionalitiies</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sharded-Timed-Ledger"><span class="nav-number">4.1.</span> <span class="nav-text">Sharded Timed Ledger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shards"><span class="nav-number">4.2.</span> <span class="nav-text">Shards</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Video"><span class="nav-number">5.</span> <span class="nav-text">Video</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">School of Cyber Science and Teconology, BUAA</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

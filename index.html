@@ -159,6 +159,101 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/08/18/GearBox/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/18/GearBox/" class="post-title-link" itemprop="url">GearBox</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-08-18 16:03:48" itemprop="dateCreated datePublished" datetime="2023-08-18T16:03:48+08:00">2023-08-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-08-19 19:05:23" itemprop="dateModified" datetime="2023-08-19T19:05:23+08:00">2023-08-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/BlockChain/" itemprop="url" rel="index"><span itemprop="name">BlockChain</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy"><a href="#GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy" class="headerlink" title="GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy"></a>GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy</h1><p>发表于CCS22</p>
+<p>分片是克服区块链可扩展性难题的新兴技术，没有分片，每个节点都必须监听和处理所有账本的信息</p>
+<p>分片的基本思想是并行化账本协议：将节点划分为子集处理，通过执行轻量化的账本协议实例来处理部分运来的工作，分片越小，因为提高了并行化，分片共识协议的开销小，效率越高</p>
+<p>沿着这个脉络，本文提出了一个新的方案——采用安全性-活性二分法，在分片共识种将或许和安全性拆分开，允许动态调整分片参数实现在当前腐化比例下最优的效率</p>
+<ul>
+<li>首先建立一个相对小的分片（诚实节点的比例可能很小）</li>
+<li>在共识协议中仔细地用安全性来trade-off活性，来容忍小的诚实节点的比例，但不丧失安全性<ul>
+<li>困难性在于分片想要获得活性，最坏情况下需要更高的诚实节点比例</li>
+<li>采用一条永远满足活性和安全性的control chain来检测活性失败</li>
+<li>分片被检测出不满足活性的情况下 重新设置为更大的分片大小和活性容忍度直到满足活，保证所有分片永远安全并且效率最优</li>
+</ul>
+</li>
+<li>具体数据：10000参与方，30%的腐化比例，60-bit安全，之前的设计要求每个分片超过5800参与方保证安全性，本方案最坏情况下需要1713节点，最好情况下需要35个节点</li>
+</ul>
+<p>在高并发的执行环境下，保证账本协议和子协议在组合下的安全性非常重要，为了证明协议的安全性，给出了分片账本、控制链和分片共识的理想的功能，形式化并证明了在UC框架下的安全性</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/08/18/GearBox/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/08/08/blockchain-security-practice/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -190,7 +285,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-09 17:52:20" itemprop="dateModified" datetime="2023-08-09T17:52:20+08:00">2023-08-09</time>
+                <time title="Modified: 2023-08-17 11:51:54" itemprop="dateModified" datetime="2023-08-17T11:51:54+08:00">2023-08-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,7 +366,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-12 19:42:25" itemprop="dateModified" datetime="2023-08-12T19:42:25+08:00">2023-08-12</time>
+                <time title="Modified: 2023-08-14 09:25:20" itemprop="dateModified" datetime="2023-08-14T09:25:20+08:00">2023-08-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -698,7 +793,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-23 18:44:43" itemprop="dateModified" datetime="2023-07-23T18:44:43+08:00">2023-07-23</time>
+                <time title="Modified: 2023-08-17 11:51:56" itemprop="dateModified" datetime="2023-08-17T11:51:56+08:00">2023-08-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -969,91 +1064,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/05/06/FSS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alleysira">
-      <meta itemprop="description" content="School of Cyber Science and Teconology, BUAA">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alleysira's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/06/FSS/" class="post-title-link" itemprop="url">FSS</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-05-06 14:53:58" itemprop="dateCreated datePublished" datetime="2023-05-06T14:53:58+08:00">2023-05-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-06-06 17:50:06" itemprop="dateModified" datetime="2023-06-06T17:50:06+08:00">2023-06-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Crypto/" itemprop="url" rel="index"><span itemprop="name">Crypto</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Elette Boyle’s lecture on FSS from <a href="[The 12th BIU Winter School on Cryptography | BIU Cyber Center](https://cyber.biu.ac.il/event/the-12th-biu-winter-school-on-cryptography/">12th BIU Winter School</a>)</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/05/06/FSS/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1119,20 +1133,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
