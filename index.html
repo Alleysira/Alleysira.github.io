@@ -190,7 +190,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-19 19:05:23" itemprop="dateModified" datetime="2023-08-19T19:05:23+08:00">2023-08-19</time>
+                <time title="Modified: 2023-08-20 19:14:07" itemprop="dateModified" datetime="2023-08-20T19:14:07+08:00">2023-08-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -213,10 +213,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy"><a href="#GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy" class="headerlink" title="GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy"></a>GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy</h1><p>发表于CCS22</p>
+          <h1 id="GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy"><a href="#GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy" class="headerlink" title="GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy"></a>GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy</h1><p>David B, Magri B, Matt C, et al. GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy[C]//Proceedings of the 2022 ACM SIGSAC Conference on Computer and Communications Security. 2022: 683-696.</p>
 <p>分片是克服区块链可扩展性难题的新兴技术，没有分片，每个节点都必须监听和处理所有账本的信息</p>
 <p>分片的基本思想是并行化账本协议：将节点划分为子集处理，通过执行轻量化的账本协议实例来处理部分运来的工作，分片越小，因为提高了并行化，分片共识协议的开销小，效率越高</p>
-<p>沿着这个脉络，本文提出了一个新的方案——采用安全性-活性二分法，在分片共识种将或许和安全性拆分开，允许动态调整分片参数实现在当前腐化比例下最优的效率</p>
+<p>沿着这个脉络，本文提出了一个新的方案——采用安全性-活性二分法，在分片共识种将活性和安全性拆分开，允许动态调整分片参数实现在当前腐化比例下最优的效率</p>
 <ul>
 <li>首先建立一个相对小的分片（诚实节点的比例可能很小）</li>
 <li>在共识协议中仔细地用安全性来trade-off活性，来容忍小的诚实节点的比例，但不丧失安全性<ul>
@@ -225,9 +225,9 @@
 <li>分片被检测出不满足活性的情况下 重新设置为更大的分片大小和活性容忍度直到满足活，保证所有分片永远安全并且效率最优</li>
 </ul>
 </li>
-<li>具体数据：10000参与方，30%的腐化比例，60-bit安全，之前的设计要求每个分片超过5800参与方保证安全性，本方案最坏情况下需要1713节点，最好情况下需要35个节点</li>
+<li>具体数据：10000参与方，30%的腐化比例，60-bit安全，之前的设计要求每个分片超过5800个参与方保证安全性，本方案最坏情况下需要1713节点，最好情况下需要35个节点</li>
 </ul>
-<p>在高并发的执行环境下，保证账本协议和子协议在组合下的安全性非常重要，为了证明协议的安全性，给出了分片账本、控制链和分片共识的理想的功能，形式化并证明了在UC框架下的安全性</p>
+<p>在高并发的执行环境下，保证账本协议和子协议在通用组合下的安全性非常重要，为了证明协议的安全性，本文给出了分片账本、控制链和分片共识的理想的功能，形式化并证明了在UC框架下的安全性</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/08/18/GearBox/#more" rel="contents">
