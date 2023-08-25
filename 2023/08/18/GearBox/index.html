@@ -41,6 +41,7 @@
 <meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230820112558207.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230820114026946.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230820151942150.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230821092708085.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230820185618306.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230820185137655.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230820185118323.png">
@@ -57,7 +58,7 @@
 <meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230818193049568.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/08/18/GearBox/image-20230818193129685.png">
 <meta property="article:published_time" content="2023-08-18T08:03:48.000Z">
-<meta property="article:modified_time" content="2023-08-20T11:14:07.124Z">
+<meta property="article:modified_time" content="2023-08-25T13:06:29.583Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="BlockChain">
 <meta property="article:tag" content="Sharding">
@@ -223,7 +224,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-20 19:14:07" itemprop="dateModified" datetime="2023-08-20T19:14:07+08:00">2023-08-20</time>
+                <time title="Modified: 2023-08-25 21:06:29" itemprop="dateModified" datetime="2023-08-25T21:06:29+08:00">2023-08-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,7 +249,7 @@
       
         <h1 id="GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy"><a href="#GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy" class="headerlink" title="GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy"></a>GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy</h1><p>David B, Magri B, Matt C, et al. GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy[C]//Proceedings of the 2022 ACM SIGSAC Conference on Computer and Communications Security. 2022: 683-696.</p>
 <p>分片是克服区块链可扩展性难题的新兴技术，没有分片，每个节点都必须监听和处理所有账本的信息</p>
-<p>分片的基本思想是并行化账本协议：将节点划分为子集处理，通过执行轻量化的账本协议实例来处理部分运来的工作，分片越小，因为提高了并行化，分片共识协议的开销小，效率越高</p>
+<p>分片的基本思想是并行化账本协议：将节点划分为子集处理，通过执行轻量化的账本协议实例来处理部分原来的工作，分片越小，因为提高了并行化，分片共识协议的开销小，效率越高</p>
 <p>沿着这个脉络，本文提出了一个新的方案——采用安全性-活性二分法，在分片共识种将活性和安全性拆分开，允许动态调整分片参数实现在当前腐化比例下最优的效率</p>
 <ul>
 <li>首先建立一个相对小的分片（诚实节点的比例可能很小）</li>
@@ -366,7 +367,7 @@
 </ul>
 <h2 id="Shard-Consensus"><a href="#Shard-Consensus" class="headerlink" title="Shard Consensus"></a>Shard Consensus</h2><p>实现3.2中分片功能</p>
 <p>$t_L$是活性能容忍的腐化节点数量，对应的安全性为$t_s:=s-2t_L-1$，仅在对应委员会大小下安全</p>
-<p>调用$\mathcal{F}_{CT}^{\mathcal{P,D}}$能够获得大小为$s$的均匀随机的委员会，魏源湖爹第一个成员作为特殊的leader，称为sequencer，周期性地提出新区块，如果至少$s-t_L$个人签署则认为有效</p>
+<p>调用$\mathcal{F}_{CT}^{\mathcal{P,D}}$能够获得大小为$s$的均匀随机的委员会，委员会的第一个成员作为特殊的leader，称为sequencer，周期性地提出新区块，如果至少$s-t_L$个人签署则认为有效</p>
 <p>传统的BFT有换主的协议，本协议有外部的利用cc进行更换委员会的方式，不需要换主机制</p>
 <p>因此分片活性的条件是至多$t_L$个腐化节点与领导者诚实</p>
 <script type="math/tex; mode=display">
@@ -402,7 +403,7 @@ s
 <p>最坏情况下，$L=0.3,S=0.39$ 依然强于现有的共识方案</p>
 <h2 id="分片区块链协议-Pi-BD-STL"><a href="#分片区块链协议-Pi-BD-STL" class="headerlink" title="分片区块链协议$\Pi_{BD-STL}$"></a>分片区块链协议$\Pi_{BD-STL}$</h2><p>检测活性失败的方法可以归纳为几类</p>
 <ul>
-<li>分片管理：$\mathcal{P}$中所有参与者执行的协议，未来维持分片的活性</li>
+<li>分片管理：$\mathcal{P}$中所有参与者执行的协议，为了维持分片的活性</li>
 <li>分片操作：分片委员会成员的行为，仅执行与当前委员会相关的分片管理行为</li>
 </ul>
 <p>获得输入后，参与方执行实现了对应接口的指令</p>
@@ -468,6 +469,7 @@ s
 <h3 id="可扩展性和分片数量的界"><a href="#可扩展性和分片数量的界" class="headerlink" title="可扩展性和分片数量的界"></a>可扩展性和分片数量的界</h3><p>由于HotStuff具有线性通信复杂度，而本文的委员会大小是有限的，因此我们的协议在通信复杂度方面具有可扩展性。</p>
 <p>实际的分片数量受CC链的吞吐量限制，若CC链的吞吐量为400，分片每10s发heartbeat消息，则，能支持4000个分片，因此不支持无限的可扩展性，如果确实需要无限可扩展性，可以考虑采用多条CC链</p>
 <h1 id="实验参数的分析"><a href="#实验参数的分析" class="headerlink" title="实验参数的分析"></a>实验参数的分析</h1><p>目标：2000节点，单片共识支持500个节点，单片错误概率小于$10^{-18}$，可扩展为4个分片（但好像不是我们的任务）</p>
+<p><img src="/2023/08/18/GearBox/image-20230821092708085.png" alt="image-20230821092708085"></p>
 <p><img src="/2023/08/18/GearBox/image-20230820185618306.png" alt="image-20230820185618306"></p>
 <p><img src="/2023/08/18/GearBox/image-20230820185137655.png" alt="image-20230820185137655"></p>
 <p>以下是K=18的结果</p>
