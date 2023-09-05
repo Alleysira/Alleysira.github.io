@@ -98,8 +98,36 @@
 <meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230904194710101.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230904194725702.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230904195054862.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905100158884.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905100307750.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905100734386.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905101107238.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905101527501.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905101943246.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905102005722.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905102436174.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905102707115.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905110741805.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905111254543.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905110540907.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905111616613.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905112107491.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905113959239.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905114738987.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905114859061.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905151443765.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905154855422.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905155031011.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905160510624.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905164944314.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905165647774.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905172002679.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905172123723.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905172819265.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905173425800.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230905174535083.png">
 <meta property="article:published_time" content="2023-08-31T02:27:00.000Z">
-<meta property="article:modified_time" content="2023-09-04T11:51:31.639Z">
+<meta property="article:modified_time" content="2023-09-05T09:45:35.912Z">
 <meta property="article:author" content="Alleysira">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://alleysira.github.io/2023/08/31/program-analysis-NJU/image-20230831102930623.png">
@@ -263,7 +291,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-04 19:51:31" itemprop="dateModified" datetime="2023-09-04T19:51:31+08:00">2023-09-04</time>
+                <time title="Modified: 2023-09-05 17:45:35" itemprop="dateModified" datetime="2023-09-05T17:45:35+08:00">2023-09-05</time>
               </span>
 
           
@@ -538,9 +566,10 @@
 <p>算法到达了不动点，和单调性相关</p>
 <h2 id="Live-Variables-Analysis"><a href="#Live-Variables-Analysis" class="headerlink" title="Live Variables Analysis"></a>Live Variables Analysis</h2><p>数据流分析的应用，归结为在格上求解不动点的问题</p>
 <p>一般分析算法求出的是最大不动点和最小不动点</p>
-<p>定义：某处变量的值是否能够在某点可以使用（用之前是live，不能被重定义）</p>
+<p>定义：某处变量的值是否能够在后面可以使用（用之前是live，不能被重定义）</p>
 <p>live变量的信息可以用于寄存器分配，当寄存器满了的时候</p>
 <p><img src="/2023/08/31/program-analysis-NJU/image-20230904094328736.png" alt="image-20230904094328736"></p>
+<p>定义中指出是some path，因此是一种may analysis，定义的直观含义是某点的变量是否会被后续用到</p>
 <p>变量和定义的区别在哪里？</p>
 <p>都用bit vector表示</p>
 <p><img src="/2023/08/31/program-analysis-NJU/image-20230904100041064.png" alt="image-20230904100041064"></p>
@@ -605,7 +634,105 @@
 <li>迭代式算法到达不动点或得到解需要多长时间？（复杂度）</li>
 </ul>
 <p><img src="/2023/08/31/program-analysis-NJU/image-20230904195054862.png" alt="image-20230904195054862"></p>
-<h2 id="Partial-Order"><a href="#Partial-Order" class="headerlink" title="Partial Order"></a>Partial Order</h2><h2 id="Upper-and-Lower-Bounds"><a href="#Upper-and-Lower-Bounds" class="headerlink" title="Upper and Lower Bounds"></a>Upper and Lower Bounds</h2><h2 id="Lattice-Semilattice-Complete-and-Product-Lattice"><a href="#Lattice-Semilattice-Complete-and-Product-Lattice" class="headerlink" title="Lattice, Semilattice, Complete and Product Lattice"></a>Lattice, Semilattice, Complete and Product Lattice</h2><h2 id="Data-Flow-Analysis-Frameworkd-via-Lattice"><a href="#Data-Flow-Analysis-Frameworkd-via-Lattice" class="headerlink" title="Data Flow Analysis Frameworkd via Lattice"></a>Data Flow Analysis Frameworkd via Lattice</h2><h2 id="Monoticity-and-Fixed-point-Theorem"><a href="#Monoticity-and-Fixed-point-Theorem" class="headerlink" title="Monoticity and Fixed point Theorem"></a>Monoticity and Fixed point Theorem</h2><h2 id="Relate-to-Fixed-Point-Theorem"><a href="#Relate-to-Fixed-Point-Theorem" class="headerlink" title="Relate to Fixed Point Theorem"></a>Relate to Fixed Point Theorem</h2>
+<h2 id="Partial-Order"><a href="#Partial-Order" class="headerlink" title="Partial Order"></a>Partial Order</h2><p>参考 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/365442689">偏序与等价关系 - 知乎 (zhihu.com)</a></p>
+<p>偏序集的定义$P,\subseteq$，带有偏序关系的集合，并满足以下关系</p>
+<ul>
+<li>自反性</li>
+<li>反对称性 </li>
+<li>传递性</li>
+</ul>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905100158884.png" alt="image-20230905100158884"></p>
+<p>整数集上的小于关系不是偏序关系</p>
+<p>子串是偏序关系</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905100307750.png" alt="image-20230905100307750"></p>
+<p>偏序集的含义是不是所有的元素互相之间必须满足偏序关系，如pin和sin没有偏序关系，但是{pin,sin,sing,gin}和singing构成偏序集</p>
+<p>幂集</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905100734386.png" alt="image-20230905100734386"></p>
+<h2 id="Upper-and-Lower-Bounds"><a href="#Upper-and-Lower-Bounds" class="headerlink" title="Upper and Lower Bounds"></a>Upper and Lower Bounds</h2><p><img src="/2023/08/31/program-analysis-NJU/image-20230905101107238.png" alt="image-20230905101107238"></p>
+<p>最小上界lub和最大下界glb</p>
+<p>bound可以不在S当中，在P中即可</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905101527501.png" alt="image-20230905101527501"></p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905101943246.png" alt="image-20230905101943246"></p>
+<p>偏序集的glb和lub是唯一的</p>
+<p>证明：反证法，反对称性</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905102005722.png" alt="image-20230905102005722"></p>
+<h2 id="Lattice-Semilattice-Complete-and-Product-Lattice"><a href="#Lattice-Semilattice-Complete-and-Product-Lattice" class="headerlink" title="Lattice, Semilattice, Complete and Product Lattice"></a>Lattice, Semilattice, Complete and Product Lattice</h2><p>在程序分析中学格（</p>
+<p>每两个元素存在glb和lub的偏序集称为格</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905102436174.png" alt="image-20230905102436174"></p>
+<p>半格：任意两个元素只存在glb或者lub</p>
+<ul>
+<li>只存在glb，称为meet半格</li>
+<li>只存在lub，称为join半格</li>
+</ul>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905102707115.png" alt="image-20230905102707115"></p>
+<p>全格</p>
+<p>格的任意一个子集，均存在glb和lub</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905110741805.png" alt="image-20230905110741805"></p>
+<p>整数集的子集为什么不是全格，但是格？</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905111254543.png" alt="image-20230905111254543"></p>
+<p>回顾格的定义，任意两个元素存在glb和lub即可；全格要求所有子集都有glb和lub</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905110540907.png" alt="image-20230905110540907"></p>
+<p>有限的格一定是全格，complete的lattice一定是有限的吗，不是</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905111616613.png" alt="image-20230905111616613"></p>
+<p>一般程序内的是有限的</p>
+<p>积格的定义</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905112107491.png" alt="image-20230905112107491"></p>
+<ul>
+<li>积格的lub：实际上是每个格内两个元素的lub</li>
+<li>积格的glb：每个格内的两个元素的glb</li>
+</ul>
+<p>性质</p>
+<ul>
+<li>根据定义，积格也是格</li>
+<li>积格是全格的积时，积格也是全格</li>
+</ul>
+<h2 id="Data-Flow-Analysis-Framework-via-Lattice"><a href="#Data-Flow-Analysis-Framework-via-Lattice" class="headerlink" title="Data Flow Analysis Framework via Lattice"></a>Data Flow Analysis Framework via Lattice</h2><p>介绍格是为了用格形式化数据流分析</p>
+<p> <img src="/2023/08/31/program-analysis-NJU/image-20230905113959239.png" alt="image-20230905113959239"></p>
+<p>有点类似沿着控制流上升到上界</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905114738987.png" alt="image-20230905114738987"></p>
+<p>试图回答3个问题</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905114859061.png" alt="image-20230905114859061"></p>
+<p>需要单调性和不动点定理</p>
+<h2 id="Monoticity-and-Fixed-point-Theorem"><a href="#Monoticity-and-Fixed-point-Theorem" class="headerlink" title="Monoticity and Fixed point Theorem"></a>Monoticity and Fixed point Theorem</h2><p>前面提到complete的格不一定是有限的，所以这里额外第二个条件是finite</p>
+<p>从bottom出发，迭代f函数能够找到的第一个不动点叫做最小不动点；从top出发，求到的是最大不动点</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905151443765.png" alt="image-20230905151443765"></p>
+<p>证明不动点的存在：</p>
+<p>根据$\perp$的定义，有$\perp \subseteq f(\perp)$</p>
+<p>根据单调性的定义，$f(\perp)\subseteq f(f(\perp))$</p>
+<p>递归地有 $\perp \subseteq f(\perp) \subseteq \dots f^i(\perp)$</p>
+<p>根据$L$的有限性，存在一个$k$,$f^k(\perp)=f^{k+1}(\perp)=f^{fix}$</p>
+<p>即存在不动点，回答了问题1</p>
+<p>（可以假设不存在不动点，则根据单调性和有限性推出矛盾）</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905154855422.png" alt="image-20230905154855422"></p>
+<p>再证明得到的不动点是最小不动点</p>
+<p>设存在另一个不动点为$x=f(x)$</p>
+<p>根据$\perp$的定义，有$\perp \subseteq x$</p>
+<p>根据单调性有 $f(\perp) \subseteq f(x)$ (数学归纳法的奠基)</p>
+<p>采用数学归纳法，假设$f^i(\perp)\subseteq f^i(x)$</p>
+<p>根据单调性，有$f^{i+1}(\perp)\subseteq f^{i+1}(x)=f(x)$</p>
+<p>则有$f^{fix}=f^k(\perp)\subseteq f^k(x)=x$</p>
+<p>即证明了求出的不动点是最小不动点，回答了问题2</p>
+<p>间接证明了求出的不动点的唯一性</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905155031011.png" alt="image-20230905155031011"></p>
+<p>依然存在的问题，仅回答了lattice上函数的性质，没有和迭代式算法建立联系</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905160510624.png" alt="image-20230905160510624"></p>
+<h2 id="Relate-Iterative-Algorithm-to-Fixed-Point-Theorem"><a href="#Relate-Iterative-Algorithm-to-Fixed-Point-Theorem" class="headerlink" title="Relate Iterative Algorithm to Fixed Point Theorem"></a>Relate Iterative Algorithm to Fixed Point Theorem</h2><p><img src="/2023/08/31/program-analysis-NJU/image-20230905164944314.png" alt="image-20230905164944314"></p>
+<p>关键是F的单调性</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905165647774.png" alt="image-20230905165647774"></p>
+<p>先证明两个运算的单调性</p>
+<p>思路是利用最小上界的定义 偏序关系的传递性</p>
+<p>证明下确界运算的思路类似</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905172002679.png" alt="image-20230905172002679"></p>
+<p>最后解答复杂性的问题</p>
+<p>先介绍格的高度的定义</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905172123723.png" alt="image-20230905172123723"></p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905172819265.png" alt="image-20230905172819265"></p>
+<p>复杂度取决于CFG节点个数和格的高度 </p>
+<h2 id="May-Must-Analysis-A-Lattive-View"><a href="#May-Must-Analysis-A-Lattive-View" class="headerlink" title="May/Must Analysis, A Lattive View"></a>May/Must Analysis, A Lattive View</h2><p><img src="/2023/08/31/program-analysis-NJU/image-20230905173425800.png" alt="image-20230905173425800"></p>
+<p>先抽象成一个积格进行理解，先看may alalysis</p>
+<p>根据不动点判断是否到达truth</p>
+<p><img src="/2023/08/31/program-analysis-NJU/image-20230905174535083.png" alt="image-20230905174535083"></p>
+<h2 id="Distributivity-and-MOP"><a href="#Distributivity-and-MOP" class="headerlink" title="Distributivity and MOP"></a>Distributivity and MOP</h2><h2 id="Constant-Propagation"><a href="#Constant-Propagation" class="headerlink" title="Constant Propagation"></a>Constant Propagation</h2><h2 id="Worklist-Algorithm"><a href="#Worklist-Algorithm" class="headerlink" title="Worklist Algorithm"></a>Worklist Algorithm</h2>
     </div>
 
     
@@ -682,7 +809,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Intro"><span class="nav-number">1.</span> <span class="nav-text">Intro</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Intermediate-Representation"><span class="nav-number">2.</span> <span class="nav-text">Intermediate Representation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E5%92%8C%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">编译器和静态分析器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AST-vs-IR"><span class="nav-number">2.2.</span> <span class="nav-text">AST vs. IR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IR-3AC"><span class="nav-number">2.3.</span> <span class="nav-text">IR: 3AC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Soot"><span class="nav-number">2.4.</span> <span class="nav-text">Soot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSA"><span class="nav-number">2.5.</span> <span class="nav-text">SSA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Blocks"><span class="nav-number">2.6.</span> <span class="nav-text">Basic Blocks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CFG"><span class="nav-number">2.7.</span> <span class="nav-text">CFG</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Data-Flow-Analysis-Applications"><span class="nav-number">3.</span> <span class="nav-text">Data Flow Analysis Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview-of-Data-Flow-Analysis"><span class="nav-number">3.1.</span> <span class="nav-text">Overview of Data Flow Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Preliminaries-of-Data-Flow-Analysis"><span class="nav-number">3.2.</span> <span class="nav-text">Preliminaries of Data Flow Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reaching-Definitions-Analysis"><span class="nav-number">3.3.</span> <span class="nav-text">Reaching Definitions Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Live-Variables-Analysis"><span class="nav-number">3.4.</span> <span class="nav-text">Live Variables Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Available-Expressions-Analysis"><span class="nav-number">3.5.</span> <span class="nav-text">Available Expressions Analysis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Data-Flow-Analysis-Foundation"><span class="nav-number">4.</span> <span class="nav-text">Data Flow Analysis Foundation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterative-Algorithm-Another-View"><span class="nav-number">4.1.</span> <span class="nav-text">Iterative Algorithm, Another View</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Partial-Order"><span class="nav-number">4.2.</span> <span class="nav-text">Partial Order</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Upper-and-Lower-Bounds"><span class="nav-number">4.3.</span> <span class="nav-text">Upper and Lower Bounds</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lattice-Semilattice-Complete-and-Product-Lattice"><span class="nav-number">4.4.</span> <span class="nav-text">Lattice, Semilattice, Complete and Product Lattice</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Flow-Analysis-Frameworkd-via-Lattice"><span class="nav-number">4.5.</span> <span class="nav-text">Data Flow Analysis Frameworkd via Lattice</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Monoticity-and-Fixed-point-Theorem"><span class="nav-number">4.6.</span> <span class="nav-text">Monoticity and Fixed point Theorem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Relate-to-Fixed-Point-Theorem"><span class="nav-number">4.7.</span> <span class="nav-text">Relate to Fixed Point Theorem</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Intro"><span class="nav-number">1.</span> <span class="nav-text">Intro</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Intermediate-Representation"><span class="nav-number">2.</span> <span class="nav-text">Intermediate Representation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E5%92%8C%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">编译器和静态分析器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AST-vs-IR"><span class="nav-number">2.2.</span> <span class="nav-text">AST vs. IR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IR-3AC"><span class="nav-number">2.3.</span> <span class="nav-text">IR: 3AC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Soot"><span class="nav-number">2.4.</span> <span class="nav-text">Soot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSA"><span class="nav-number">2.5.</span> <span class="nav-text">SSA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Blocks"><span class="nav-number">2.6.</span> <span class="nav-text">Basic Blocks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CFG"><span class="nav-number">2.7.</span> <span class="nav-text">CFG</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Data-Flow-Analysis-Applications"><span class="nav-number">3.</span> <span class="nav-text">Data Flow Analysis Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview-of-Data-Flow-Analysis"><span class="nav-number">3.1.</span> <span class="nav-text">Overview of Data Flow Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Preliminaries-of-Data-Flow-Analysis"><span class="nav-number">3.2.</span> <span class="nav-text">Preliminaries of Data Flow Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reaching-Definitions-Analysis"><span class="nav-number">3.3.</span> <span class="nav-text">Reaching Definitions Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Live-Variables-Analysis"><span class="nav-number">3.4.</span> <span class="nav-text">Live Variables Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Available-Expressions-Analysis"><span class="nav-number">3.5.</span> <span class="nav-text">Available Expressions Analysis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Data-Flow-Analysis-Foundation"><span class="nav-number">4.</span> <span class="nav-text">Data Flow Analysis Foundation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterative-Algorithm-Another-View"><span class="nav-number">4.1.</span> <span class="nav-text">Iterative Algorithm, Another View</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Partial-Order"><span class="nav-number">4.2.</span> <span class="nav-text">Partial Order</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Upper-and-Lower-Bounds"><span class="nav-number">4.3.</span> <span class="nav-text">Upper and Lower Bounds</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lattice-Semilattice-Complete-and-Product-Lattice"><span class="nav-number">4.4.</span> <span class="nav-text">Lattice, Semilattice, Complete and Product Lattice</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Flow-Analysis-Framework-via-Lattice"><span class="nav-number">4.5.</span> <span class="nav-text">Data Flow Analysis Framework via Lattice</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Monoticity-and-Fixed-point-Theorem"><span class="nav-number">4.6.</span> <span class="nav-text">Monoticity and Fixed point Theorem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Relate-Iterative-Algorithm-to-Fixed-Point-Theorem"><span class="nav-number">4.7.</span> <span class="nav-text">Relate Iterative Algorithm to Fixed Point Theorem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#May-Must-Analysis-A-Lattive-View"><span class="nav-number">4.8.</span> <span class="nav-text">May&#x2F;Must Analysis, A Lattive View</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributivity-and-MOP"><span class="nav-number">4.9.</span> <span class="nav-text">Distributivity and MOP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Constant-Propagation"><span class="nav-number">4.10.</span> <span class="nav-text">Constant Propagation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Worklist-Algorithm"><span class="nav-number">4.11.</span> <span class="nav-text">Worklist Algorithm</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
