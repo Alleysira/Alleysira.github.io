@@ -94,8 +94,19 @@
 <meta property="og:image" content="https://alleysira.github.io/2023/08/08/blockchain-security-practice/image-20230823182024043.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/08/08/blockchain-security-practice/image-20230823183046224.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/08/08/blockchain-security-practice/image-20230823183530947.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/08/blockchain-security-practice/image-20230907113242784.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/08/blockchain-security-practice/image-20230907114835842.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/08/blockchain-security-practice/image-20230907114936147.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/08/blockchain-security-practice/image-20230907150342512.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/08/blockchain-security-practice/image-20230907163457554.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/08/blockchain-security-practice/image-20230907163509186.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/08/blockchain-security-practice/image-20230907163542704.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/08/blockchain-security-practice/image-20230907163632536.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/08/blockchain-security-practice/image-20230907163742011.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/08/blockchain-security-practice/image-20230907163944543.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/08/08/blockchain-security-practice/image-20230907164115840.png">
 <meta property="article:published_time" content="2023-08-08T07:24:54.000Z">
-<meta property="article:modified_time" content="2023-08-25T06:29:00.159Z">
+<meta property="article:modified_time" content="2023-09-07T08:52:49.637Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta name="twitter:card" content="summary">
@@ -260,7 +271,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-25 14:29:00" itemprop="dateModified" datetime="2023-08-25T14:29:00+08:00">2023-08-25</time>
+                <time title="Modified: 2023-09-07 16:52:49" itemprop="dateModified" datetime="2023-09-07T16:52:49+08:00">2023-09-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -466,12 +477,62 @@
 <p><img src="/2023/08/08/blockchain-security-practice/image-20230823183046224.png" alt="image-20230823183046224"></p>
 <p><img src="/2023/08/08/blockchain-security-practice/image-20230823183530947.png" alt="image-20230823183530947"></p>
 <p>安装soldity-coverage工具</p>
-<p>问题：</p>
+<h1 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h1><p>学习教程 <a target="_blank" rel="noopener" href="https://chain.link/education/blockchain-oracles">What Is an Oracle in Blockchain? » Explained | Chainlink</a></p>
+<p>定义：将区块链和外部系统连接起来的实体，使得智能合约能够基于现实世界的输入和输出执行</p>
+<p>例子：Alice 和 Bob赌球，合约如何得知比赛结果？Oracle</p>
+<p>Oracle的安全性非常重要</p>
+<p>中心化的oracle 单点故障，腐化, garbage in, garbage out</p>
+<p>去中心化的Oracle更加安全，如chainlink</p>
+<p>分类</p>
 <ul>
-<li>修饰器继承</li>
-<li>test1为什么返回0</li>
-<li>这个优先级有没有总结</li>
+<li>input oracles：最普遍的，从现实世界中获取信息传递给区块链</li>
+<li>output oracles：合约向链下的系统发送命令来执行特定的操作，比如让银行进行某笔支付，或者让云服务存储某个数据</li>
+<li>cross-chain oracles：在不同区块链间读写，支持跨链转移数据和资产</li>
+<li>compute-enabled oracles：新类型，在逐渐被广泛使用，安全地链下计算来执行链上不现实或者昂贵的计算，计算零知识证明或者可验证随机数</li>
 </ul>
+<p>作为一种基础服务，历史的信誉可以查看</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://market.link/">Market.link</a>，已经停更，现在是Dune Analytics<ul>
+<li><a target="_blank" rel="noopener" href="https://dune.com/sergiimk/Oracle-Comparison-(Chainlink-API3-Band-Ocean">Oracle Comparison (Chainlink, API3, Band, Ocean) (dune.com)</a>)</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="http://reputation.link/">http://reputation.link/</a><ul>
+<li>无法访问</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2023/08/08/blockchain-security-practice/image-20230907113242784.png" alt="image-20230907113242784"></p>
+<h2 id="在Remix中调用chainlink"><a href="#在Remix中调用chainlink" class="headerlink" title="在Remix中调用chainlink"></a>在Remix中调用chainlink</h2><p>样例合约是读取sepolia上  latest price answer from the <a target="_blank" rel="noopener" href="https://docs.chain.link/data-feeds/price-feeds/addresses">BTC / USD feed</a> on the Sepolia testnet</p>
+<p><img src="/2023/08/08/blockchain-security-practice/image-20230907114835842.png" alt="image-20230907114835842"></p>
+<p><img src="/2023/08/08/blockchain-security-practice/image-20230907114936147.png" alt="image-20230907114936147"></p>
+<p><img src="/2023/08/08/blockchain-security-practice/image-20230907150342512.png" alt="image-20230907150342512"></p>
+<h1 id="ERC和EIP"><a href="#ERC和EIP" class="headerlink" title="ERC和EIP"></a>ERC和EIP</h1><h2 id="ERC"><a href="#ERC" class="headerlink" title="ERC"></a>ERC</h2><p>Ethereum Request for Comments，定义了以太坊网络上创建智能合约和代币的规则和标准，ERC 标准为开发人员提供了一套共识规则，使他们能够在以太坊上创建兼容的智能合约和代币。</p>
+<p>最著名的 ERC 标准之一是 ERC-20，它定义了代币合约的基本功能和交互方式。ERC-20 代币是以太坊上最常见的代币类型，广泛应用于加密货币交易所和钱包。它们具有标准的转账和余额查询功能，使得不同的 ERC-20 代币可以在以太坊生态系统中互相兼容。</p>
+<p>此外，还有其他的 ERC 标准，如 ERC-721（非同质化代币）和 ERC-1155（可互换和非同质化代币的混合标准）。这些标准为不同类型的代币定义了不同的规范和功能，以满足不同的应用场景需求。总之，ERC 是以太坊上定义智能合约和代币标准的术语，它促进了以太坊生态系统的互操作性和发展。</p>
+<p>具体的标准</p>
+<p><a target="_blank" rel="noopener" href="https://ethereum.org/en/developers/docs/standards/tokens/erc-20/">ERC-20 Token Standard | ethereum.org</a></p>
+<p><a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-20">ERC-20: Token Standard (ethereum.org)</a></p>
+<h3 id="ERC20代币发行"><a href="#ERC20代币发行" class="headerlink" title="ERC20代币发行"></a>ERC20代币发行</h3><p>教程 <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=gJuWQyZJ7S0&amp;t=11s&amp;ab_channel=MoralisWeb3">https://www.youtube.com/watch?v=gJuWQyZJ7S0&amp;t=11s&amp;ab_channel=MoralisWeb3</a></p>
+<p><img src="/2023/08/08/blockchain-security-practice/image-20230907163457554.png" alt="image-20230907163457554"></p>
+<p>花钱总是要心疼/犹豫一下</p>
+<p><img src="/2023/08/08/blockchain-security-practice/image-20230907163509186.png" alt="image-20230907163509186"></p>
+<p>部署合约的交易</p>
+<p><img src="/2023/08/08/blockchain-security-practice/image-20230907163542704.png" alt="image-20230907163542704"></p>
+<p>符合ERC20的标准</p>
+<p><img src="/2023/08/08/blockchain-security-practice/image-20230907163632536.png" alt="image-20230907163632536"></p>
+<p>查看本账户的余额</p>
+<p><img src="/2023/08/08/blockchain-security-practice/image-20230907163742011.png" alt="image-20230907163742011"></p>
+<p>填写合约地址可以导入到metamask中去</p>
+<p><img src="/2023/08/08/blockchain-security-practice/image-20230907163944543.png" alt="image-20230907163944543"></p>
+<p>查看ERC20的若干参数</p>
+<p><img src="/2023/08/08/blockchain-security-practice/image-20230907164115840.png" alt="image-20230907164115840"></p>
+<h2 id="EIP"><a href="#EIP" class="headerlink" title="EIP"></a>EIP</h2><p>EIP 是以太坊改进提案（Ethereum Improvement Proposal）的缩写。EIP 是以太坊社区中用于提出和讨论关于以太坊网络改进的标准化文件。它们是以太坊社区成员之间进行协作和讨论的重要工具，用于引入新功能、修复问题、改进协议和提出新的标准。</p>
+<p>EIP 的目的是促进以太坊网络的发展和创新，并提供一种透明和开放的方式来讨论和决策关于以太坊协议的变更。EIP 的提案可以涉及各种主题，包括协议改进、新功能的引入、标准化规范、网络升级、治理流程等。</p>
+<p>每个 EIP 都有一个唯一的编号、标题和详细描述，其中包含了提案的目的、动机和技术细节。EIP 还可以包含相关的代码示例、实现建议和测试用例等。</p>
+<p>EIP 分为几个不同的类别，包括核心协议（Core），标准化（Standards），元标准（Meta），信息（Informational）和退役（Retired）等。这些类别有助于对提案进行分类和组织，并提供了不同的审核和采纳流程。</p>
+<p>以太坊社区的成员可以提出新的 EIP 提案，并通过社区的讨论、审核和投票过程来确定是否采纳。一旦 EIP 被采纳，它可能会成为以太坊网络的一部分，影响网络的协议和功能。</p>
+<p>总之，EIP 是以太坊社区中用于提出和讨论关于以太坊网络改进的标准化文件，它们起到了推动以太坊发展和创新的重要作用。</p>
+<p><a target="_blank" rel="noopener" href="https://eips.ethereum.org/">Home | Ethereum Improvement Proposals</a></p>
 
     </div>
 
@@ -555,7 +616,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Etherscan"><span class="nav-number">1.</span> <span class="nav-text">Etherscan</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Blocksec-MetaDock"><span class="nav-number">1.1.</span> <span class="nav-text">Blocksec-MetaDock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85solidity%E7%BC%96%E8%AF%91%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">安装solidity编译器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ganache%E5%92%8CMetaMask"><span class="nav-number">2.</span> <span class="nav-text">Ganache和MetaMask</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Remix"><span class="nav-number">3.</span> <span class="nav-text">Remix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Smartbugs%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">Smartbugs工具使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Confuzzius"><span class="nav-number">4.1.</span> <span class="nav-text">Confuzzius</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E8%BE%83%E4%B8%BA%E5%A4%8D%E6%9D%82%E7%9A%84%E5%90%88%E7%BA%A6WalletLibrary"><span class="nav-number">4.1.1.</span> <span class="nav-text">测试较为复杂的合约WalletLibrary</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mythril"><span class="nav-number">4.2.</span> <span class="nav-text">Mythril</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Smartbugs%E5%86%85%E7%9A%84%E6%B5%8B%E8%AF%95"><span class="nav-number">4.2.1.</span> <span class="nav-text">Smartbugs内的测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BD%9C%E8%80%85%E6%8F%90%E4%BE%9B%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-number">4.2.2.</span> <span class="nav-text">安装作者提供的工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sucurify2-0"><span class="nav-number">4.3.</span> <span class="nav-text">Sucurify2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Smartbugs%E7%9A%84%E5%AE%9E%E9%AA%8C"><span class="nav-number">4.3.1.</span> <span class="nav-text">Smartbugs的实验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sFuzz"><span class="nav-number">4.4.</span> <span class="nav-text">sFuzz</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Smartbugs%E7%9A%84%E5%AE%9E%E9%AA%8C-1"><span class="nav-number">4.4.1.</span> <span class="nav-text">Smartbugs的实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker%E5%86%85%E7%9A%84%E5%AE%9E%E9%AA%8C"><span class="nav-number">4.4.2.</span> <span class="nav-text">docker内的实验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Slither"><span class="nav-number">4.5.</span> <span class="nav-text">Slither</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Smartbugs%E7%9A%84%E6%B5%8B%E8%AF%95"><span class="nav-number">4.5.1.</span> <span class="nav-text">Smartbugs的测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker"><span class="nav-number">4.5.2.</span> <span class="nav-text">docker</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solhint"><span class="nav-number">4.6.</span> <span class="nav-text">Solhint</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">4.6.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Smartbugs%E7%9A%84%E5%AE%9E%E9%AA%8C-2"><span class="nav-number">4.6.2.</span> <span class="nav-text">Smartbugs的实验</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Echidna"><span class="nav-number">5.</span> <span class="nav-text">Echidna</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker-1"><span class="nav-number">6.</span> <span class="nav-text">docker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Geth"><span class="nav-number">7.</span> <span class="nav-text">Geth</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5remix"><span class="nav-number">7.1.</span> <span class="nav-text">连接remix</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hardhat"><span class="nav-number">8.</span> <span class="nav-text">Hardhat</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Etherscan"><span class="nav-number">1.</span> <span class="nav-text">Etherscan</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Blocksec-MetaDock"><span class="nav-number">1.1.</span> <span class="nav-text">Blocksec-MetaDock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85solidity%E7%BC%96%E8%AF%91%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">安装solidity编译器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ganache%E5%92%8CMetaMask"><span class="nav-number">2.</span> <span class="nav-text">Ganache和MetaMask</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Remix"><span class="nav-number">3.</span> <span class="nav-text">Remix</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Smartbugs%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">Smartbugs工具使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Confuzzius"><span class="nav-number">4.1.</span> <span class="nav-text">Confuzzius</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E8%BE%83%E4%B8%BA%E5%A4%8D%E6%9D%82%E7%9A%84%E5%90%88%E7%BA%A6WalletLibrary"><span class="nav-number">4.1.1.</span> <span class="nav-text">测试较为复杂的合约WalletLibrary</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mythril"><span class="nav-number">4.2.</span> <span class="nav-text">Mythril</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Smartbugs%E5%86%85%E7%9A%84%E6%B5%8B%E8%AF%95"><span class="nav-number">4.2.1.</span> <span class="nav-text">Smartbugs内的测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BD%9C%E8%80%85%E6%8F%90%E4%BE%9B%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-number">4.2.2.</span> <span class="nav-text">安装作者提供的工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sucurify2-0"><span class="nav-number">4.3.</span> <span class="nav-text">Sucurify2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Smartbugs%E7%9A%84%E5%AE%9E%E9%AA%8C"><span class="nav-number">4.3.1.</span> <span class="nav-text">Smartbugs的实验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sFuzz"><span class="nav-number">4.4.</span> <span class="nav-text">sFuzz</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Smartbugs%E7%9A%84%E5%AE%9E%E9%AA%8C-1"><span class="nav-number">4.4.1.</span> <span class="nav-text">Smartbugs的实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker%E5%86%85%E7%9A%84%E5%AE%9E%E9%AA%8C"><span class="nav-number">4.4.2.</span> <span class="nav-text">docker内的实验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Slither"><span class="nav-number">4.5.</span> <span class="nav-text">Slither</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Smartbugs%E7%9A%84%E6%B5%8B%E8%AF%95"><span class="nav-number">4.5.1.</span> <span class="nav-text">Smartbugs的测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker"><span class="nav-number">4.5.2.</span> <span class="nav-text">docker</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solhint"><span class="nav-number">4.6.</span> <span class="nav-text">Solhint</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">4.6.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Smartbugs%E7%9A%84%E5%AE%9E%E9%AA%8C-2"><span class="nav-number">4.6.2.</span> <span class="nav-text">Smartbugs的实验</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Echidna"><span class="nav-number">5.</span> <span class="nav-text">Echidna</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker-1"><span class="nav-number">6.</span> <span class="nav-text">docker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Geth"><span class="nav-number">7.</span> <span class="nav-text">Geth</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5remix"><span class="nav-number">7.1.</span> <span class="nav-text">连接remix</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hardhat"><span class="nav-number">8.</span> <span class="nav-text">Hardhat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Oracle"><span class="nav-number">9.</span> <span class="nav-text">Oracle</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8Remix%E4%B8%AD%E8%B0%83%E7%94%A8chainlink"><span class="nav-number">9.1.</span> <span class="nav-text">在Remix中调用chainlink</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ERC%E5%92%8CEIP"><span class="nav-number">10.</span> <span class="nav-text">ERC和EIP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ERC"><span class="nav-number">10.1.</span> <span class="nav-text">ERC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ERC20%E4%BB%A3%E5%B8%81%E5%8F%91%E8%A1%8C"><span class="nav-number">10.1.1.</span> <span class="nav-text">ERC20代币发行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EIP"><span class="nav-number">10.2.</span> <span class="nav-text">EIP</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -576,7 +637,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
