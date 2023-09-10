@@ -42,8 +42,26 @@
 <meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20221019180616201.png">
 <meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20221019180653862.png">
 <meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20221019180908743.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910094647770.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910095011047.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910095337791.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910095359646.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910095911654.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910100006539.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910100728399.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910101050638.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910101429624.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910102628943.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910102720461.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910103642915.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910105050387.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910105011183.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910112101925.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910114818996.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910115544604.png">
+<meta property="og:image" content="https://alleysira.github.io/2022/10/17/Security-proof/image-20230910120323000.png">
 <meta property="article:published_time" content="2022-10-17T09:21:12.000Z">
-<meta property="article:modified_time" content="2022-10-22T09:05:09.470Z">
+<meta property="article:modified_time" content="2023-09-10T04:20:56.655Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Crypto">
 <meta name="twitter:card" content="summary">
@@ -208,7 +226,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-22 17:05:09" itemprop="dateModified" datetime="2022-10-22T17:05:09+08:00">2022-10-22</time>
+                <time title="Modified: 2023-09-10 12:20:56" itemprop="dateModified" datetime="2023-09-10T12:20:56+08:00">2023-09-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -305,6 +323,73 @@
 <li>有证明总比没有好（摆烂.jpg）</li>
 </ul>
 <p>参考 Page187  <a target="_blank" rel="noopener" href="http://www.cs.umd.edu/~jkatz/imc.html">Introduction to Modern Cryptography, 3rd edition</a></p>
+<h1 id="UC安全计算"><a href="#UC安全计算" class="headerlink" title="UC安全计算"></a>UC安全计算</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p><img src="/2022/10/17/Security-proof/image-20230910094647770.png" alt="image-20230910094647770"></p>
+<p>03年之后出现了针对具体特定功能的函数</p>
+<p>functionality的概念比函数更宽泛</p>
+<p><img src="/2022/10/17/Security-proof/image-20230910095011047.png" alt="image-20230910095011047"></p>
+<p>函数和功能</p>
+<p>函数的随机性会导致结果的分布，功能就是输出为分布的函数</p>
+<p><img src="/2022/10/17/Security-proof/image-20230910095337791.png" alt="image-20230910095337791"></p>
+<p>考虑协议的安全性的三个维度</p>
+<p><img src="/2022/10/17/Security-proof/image-20230910095359646.png" alt="image-20230910095359646"></p>
+<ul>
+<li>自适应和静态</li>
+<li>恶意和半诚实</li>
+<li>PPT和计算能力无上限</li>
+</ul>
+<p>MPC一般考虑蓝色的敌手</p>
+<p><img src="/2022/10/17/Security-proof/image-20230910095911654.png" alt="image-20230910095911654"></p>
+<p>理想现实模型</p>
+<p><img src="/2022/10/17/Security-proof/image-20230910100006539.png" alt="image-20230910100006539"></p>
+<p>攻击现实模型</p>
+<p>理想模型没有信息泄露</p>
+<p><img src="/2022/10/17/Security-proof/image-20230910100728399.png" alt="image-20230910100728399"></p>
+<p>参与者的输出不包含在view中（可以根据输入推导出）</p>
+<h2 id="安全两方计算"><a href="#安全两方计算" class="headerlink" title="安全两方计算"></a>安全两方计算</h2><p><img src="/2022/10/17/Security-proof/image-20230910101050638.png" alt="image-20230910101050638"></p>
+<p>隐私性分f是确定性和一般情况</p>
+<ul>
+<li>确定性：设计两个算法$S_1,S_2$能够根据输入输出模拟出view</li>
+<li>引入随机性，多维随机变量，$S_1$需要模拟出view和output，因为随机性可能在对方输出内<ul>
+<li>因为view和output具有相关性</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2022/10/17/Security-proof/image-20230910101429624.png" alt="image-20230910101429624"></p>
+<p>安全性</p>
+<p>至少一方是诚实的</p>
+<p><img src="/2022/10/17/Security-proof/image-20230910102628943.png" alt="image-20230910102628943"></p>
+<p><img src="/2022/10/17/Security-proof/image-20230910102720461.png" alt="image-20230910102720461"></p>
+<p>任意的A存在B</p>
+<p>存在性：存在陷门置换，任何功能都能被安全计算</p>
+<p><img src="/2022/10/17/Security-proof/image-20230910103642915.png" alt="image-20230910103642915"></p>
+<p>以半诚实安全下OT的例子进行介绍</p>
+<p><img src="/2022/10/17/Security-proof/image-20230910105050387.png" alt="image-20230910105050387"></p>
+<p>单向置换，G是采样算法</p>
+<p>这里利用到了hardcore predicate，参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/588114150">https://zhuanlan.zhihu.com/p/588114150</a></p>
+<p><img src="/2022/10/17/Security-proof/image-20230910105011183.png" alt="image-20230910105011183"></p>
+<p>发送方 发送的时候要无差别的对$\sigma_1,\sigma_2$ 加密</p>
+<p><img src="/2022/10/17/Security-proof/image-20230910112101925.png" alt="image-20230910112101925"></p>
+<p>S1只需要额外随机在定义域内选择$y_1,y_2$就可以了</p>
+<p>真实世界中r2和c2具有相关性，但是S2中r2和c‘2没有相关性，因此需要enhanced陷门置换</p>
+<p><img src="/2022/10/17/Security-proof/image-20230910114818996.png" alt="image-20230910114818996"></p>
+<p>半诚实模型的组合定理</p>
+<p>证明了某个组件的安全性后，后续在复杂协议中利用Oracle代替组件即可</p>
+<p><img src="/2022/10/17/Security-proof/image-20230910115544604.png" alt="image-20230910115544604"></p>
+<p>存在性的思路</p>
+<p>将随机性显式化，放在输入里面</p>
+<p>电路规约为计算加法和乘法</p>
+<p>one way trapdoor permutation</p>
+<p>关键问题是如何能转换为计算加法和乘法的电路</p>
+<p><img src="/2022/10/17/Security-proof/image-20230910120323000.png" alt="image-20230910120323000"></p>
+<p>乘法无法直接本地计算，只能交互再保证线性关系</p>
+<h2 id="安全多方计算"><a href="#安全多方计算" class="headerlink" title="安全多方计算"></a>安全多方计算</h2><h2 id="UC安全计算-1"><a href="#UC安全计算-1" class="headerlink" title="UC安全计算"></a>UC安全计算</h2><p>引入了环境Z</p>
+<ul>
+<li>生成输入</li>
+<li>读输出</li>
+<li>能够自由和敌手交互</li>
+</ul>
+<p>STOC01</p>
+<p>后续应该学习这个课程 <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=5kF3TxEt-_A&amp;list=PLqc9MPlwib9nSuyH4oUIwPsyDiZ4bwuEE&amp;ab_channel=MACSFrontier">(1) UC Tutorial 1.1 - Background: Introduction - YouTube</a></p>
 
     </div>
 
@@ -388,7 +473,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8%E5%BD%92%E7%BA%A6%E6%8A%80%E6%9C%AF%EF%BC%9A%E5%A3%AC%E5%AF%85%E5%B9%B4%E7%9A%84%E8%A7%81%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">密码学安全归约技术：壬寅年的见解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%99%BD%E6%88%90%E9%95%BF%E8%B7%AF%E7%BA%BF"><span class="nav-number">1.1.</span> <span class="nav-text">小白成长路线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E4%B8%93%E5%A6%82%E4%BD%95%E7%9C%8B%E7%9C%8B%E5%BE%85%E7%A0%94%E7%A9%B6%E9%97%AE%E9%A2%98%E5%92%8C%E7%A0%94%E7%A9%B6%E5%86%85%E5%AE%B9"><span class="nav-number">1.2.</span> <span class="nav-text">小专如何看看待研究问题和研究内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E8%A7%84%E7%BA%A6%E7%9B%B8%E5%85%B3%E7%9A%84%E7%A0%94%E7%A9%B6%E5%86%85%E5%AE%B9"><span class="nav-number">1.3.</span> <span class="nav-text">安全规约相关的研究内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E8%A7%84%E7%BA%A6%E5%92%8C%E5%85%B6%E4%BB%96%E8%AF%81%E6%98%8E%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.4.</span> <span class="nav-text">安全规约和其他证明的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Random-oracle"><span class="nav-number">2.</span> <span class="nav-text">Random oracle</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">2.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Details"><span class="nav-number">2.2.</span> <span class="nav-text">Details</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8%E5%BD%92%E7%BA%A6%E6%8A%80%E6%9C%AF%EF%BC%9A%E5%A3%AC%E5%AF%85%E5%B9%B4%E7%9A%84%E8%A7%81%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">密码学安全归约技术：壬寅年的见解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%99%BD%E6%88%90%E9%95%BF%E8%B7%AF%E7%BA%BF"><span class="nav-number">1.1.</span> <span class="nav-text">小白成长路线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E4%B8%93%E5%A6%82%E4%BD%95%E7%9C%8B%E7%9C%8B%E5%BE%85%E7%A0%94%E7%A9%B6%E9%97%AE%E9%A2%98%E5%92%8C%E7%A0%94%E7%A9%B6%E5%86%85%E5%AE%B9"><span class="nav-number">1.2.</span> <span class="nav-text">小专如何看看待研究问题和研究内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E8%A7%84%E7%BA%A6%E7%9B%B8%E5%85%B3%E7%9A%84%E7%A0%94%E7%A9%B6%E5%86%85%E5%AE%B9"><span class="nav-number">1.3.</span> <span class="nav-text">安全规约相关的研究内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E8%A7%84%E7%BA%A6%E5%92%8C%E5%85%B6%E4%BB%96%E8%AF%81%E6%98%8E%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.4.</span> <span class="nav-text">安全规约和其他证明的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Random-oracle"><span class="nav-number">2.</span> <span class="nav-text">Random oracle</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">2.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Details"><span class="nav-number">2.2.</span> <span class="nav-text">Details</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UC%E5%AE%89%E5%85%A8%E8%AE%A1%E7%AE%97"><span class="nav-number">3.</span> <span class="nav-text">UC安全计算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">3.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E4%B8%A4%E6%96%B9%E8%AE%A1%E7%AE%97"><span class="nav-number">3.2.</span> <span class="nav-text">安全两方计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97"><span class="nav-number">3.3.</span> <span class="nav-text">安全多方计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UC%E5%AE%89%E5%85%A8%E8%AE%A1%E7%AE%97-1"><span class="nav-number">3.4.</span> <span class="nav-text">UC安全计算</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
