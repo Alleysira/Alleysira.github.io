@@ -27,19 +27,37 @@
 <meta property="og:site_name" content="Alleysira&#39;s blog">
 <meta property="og:description" content="EVMFuzzer: Detect EVM Vulnerabilities via Fuzz TestingFu Y, Ren M, Ma F, et al. Evmfuzzer: detect evm vulnerabilities via fuzz testing[C]&#x2F;&#x2F;Proceedings of the 2019 27th ACM joint meeting on european so">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920151552188.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920154124925.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230919164625085.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920164427662.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920170033059.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920171115727.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920182840510.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920194726395.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920200434697.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920202213767.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920202945965.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920203426230.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920204613634.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920204015260.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920204702036.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920204957741.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920205443157.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920205747171.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230919172850242.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230919174027003.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230919190818271.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230919191002754.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230919191848784.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920183950597.png">
 <meta property="article:published_time" content="2023-09-19T08:09:27.000Z">
-<meta property="article:modified_time" content="2023-09-19T13:17:07.315Z">
+<meta property="article:modified_time" content="2023-09-20T13:06:43.878Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta property="article:tag" content="SmartContract">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230919164625085.png">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920151552188.png">
 
 <link rel="canonical" href="https://alleysira.github.io/2023/09/19/EVMFuzzer/">
 
@@ -192,10 +210,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-09-19 16:09:27 / Modified: 21:17:07" itemprop="dateCreated datePublished" datetime="2023-09-19T16:09:27+08:00">2023-09-19</time>
+              <time title="Created: 2023-09-19 16:09:27" itemprop="dateCreated datePublished" datetime="2023-09-19T16:09:27+08:00">2023-09-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-20 21:06:43" itemprop="dateModified" datetime="2023-09-20T21:06:43+08:00">2023-09-20</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -243,6 +267,13 @@
 <li>实现了EVMFuzz，能够自动进行差分模糊测试</li>
 <li>测试了目前广泛使用的EVM，发现了5个CVE</li>
 </ul>
+<h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>例子</p>
+<p><img src="/2023/09/19/EVMFuzzer/image-20230920151552188.png" alt="image-20230920151552188"></p>
+<p>这个合约能够通过若干合约测试和验证工具，在不同EVM实现中结果不同，甚至可能会导致dos</p>
+<p>分别在js-evm,py-evm,aleth上进行测试</p>
+<p>aleth会打印执行路径然后一直占有CPU资源，指导系统kill所有进程然后宕机</p>
+<p>aleth不会给出用户有好的反馈或者及时止损或者减少恶意占用的资源，最终导致dos</p>
+<p>这个例子表示一些包含边界条件的合约可能触发EVM实现的边界条件，但是这种合约比较难以构造，因此可以采用差分模糊测试</p>
 <h2 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work"></a>Related work</h2><ul>
 <li>Fuzzing：采用边界数据作为输入来保证程序没有bug<ul>
 <li>主流工具AFL类的，采用多种策略加速fuzzing</li>
@@ -255,15 +286,127 @@
 <li>智能合约验证：Oyente从字节码构造控制流图再进行符号执行；Zeus是一个sound的分析器，将智能合约翻译到LLVM中</li>
 </ul>
 <p>EVMFuzzer面向的目标是EVM，其他工作主要关注智能合约</p>
+<h2 id="Approach-Overview"><a href="#Approach-Overview" class="headerlink" title="Approach Overview"></a>Approach Overview</h2><p>Differential fuzz testing is to continuously provide invalid, unexpected or random data as inputs to several programs with the same functions.</p>
+<p>如果发现运行结果不同，可能发现了bug</p>
+<p>种子合约生成模块基于 静态分析</p>
+<p>统一合约执行基于 循环模糊测试</p>
+<p><img src="/2023/09/19/EVMFuzzer/image-20230920154124925.png" alt="image-20230920154124925"></p>
 <h2 id="EVMFuzzer-design"><a href="#EVMFuzzer-design" class="headerlink" title="EVMFuzzer design"></a>EVMFuzzer design</h2><p>主要包含 种子合约生成模块和EVM执行模块，种子合约生成模块会不断生成高质量的种子，力图扩大不同EVM执行结果之间的区别。EVM执行模块会为目标EVM和其他测试标准EVM创建统一的执行环境</p>
 <p><img src="/2023/09/19/EVMFuzzer/image-20230919164625085.png" alt="image-20230919164625085"></p>
-<h3 id="种子合约生成"><a href="#种子合约生成" class="headerlink" title="种子合约生成"></a>种子合约生成</h3><p>测试用例生成器</p>
-<p>seed合约存储在seed pool中，EVMFuzzer根据动态优先级对候选合约进行排序，首位的合约会被选中进行变异，采用9个预定的编译器和组合策略进行变异</p>
+<h3 id="种子合约生成"><a href="#种子合约生成" class="headerlink" title="种子合约生成"></a>种子合约生成</h3><p>输入合约，输出关键性质改变后的合约</p>
+<ul>
+<li>构造种子合约的重要位置标识的CAST抽象语法树，辅助后续的变异和分析</li>
+<li>将seed合约放入池中</li>
+<li>EVMFuzz对合约进行评估，排列为带有优先队列，对优先级进行动态调整</li>
+<li>选择排在第一的合约，利用8个（arxiv）预定义的变异器和组合策略来指导变异并获得EVM的输入</li>
+</ul>
+<p>测试用例生成器</p>
+<p>seed合约存储在seed pool中，EVMFuzzer根据动态优先级对候选合约进行排序，首位的合约会被选中进行变异，采用8个预定的编译器和组合策略进行变异</p>
 <ul>
 <li>种子变异：从3个细粒度（word char statement）设计了8个编译器，维护基于度量差异的优先级队列；如果度量差异增加，对应的变异器的权重按降序排列加入到队列中，否则不会更新队列</li>
 <li>种子优先级和选择：为了保证多样性，其他优先级低的合约同样需要有一定的概率被选中，因此采用动态优先级调度算法维护一个候选队列，每个合约有初始的权限，随着等待时间增加</li>
 </ul>
-<h3 id="统一的EVM执行"><a href="#统一的EVM执行" class="headerlink" title="统一的EVM执行"></a>统一的EVM执行</h3><p>为多个EVM提供统一的运行时环境，收到种子合约后编译为字节码，参数根据被调用函数的参数类型生成。之后自动在所有EVM上执行，根据测试度量计算差异信息，比较执行输出结果。根据种子能否提高度量差异的程度，决定是否将种子放入seed pool中（保存了高质量的合约），该模块会记录潜在的异常，为了后续进行手工的问题根源分析</p>
+<h3 id="指标的公式"><a href="#指标的公式" class="headerlink" title="指标的公式"></a>指标的公式</h3><p>EVM作为基于交易的状态机，状态的改变基于操作码和输入的参数以及gas限制</p>
+<ul>
+<li>操作码序列：表示了程序的执行过程，能用于检查执行的正确性 $opSeqLen(i,C)$，i表示平台，执行合约C</li>
+<li>消耗的gas：一个交易或一条消息中消耗的gas总量，直接和交易的执行费相关联，$gsdUsed(i,C)$</li>
+</ul>
+<p>根据两个指标，定义了差异信息的评估指标dif f，值越大表示产生不一致执行结果的概率越大 $output(i,C)$表示执行输出，对于函数调用是返回值；对于交易是balance</p>
+<p>两个指标反应了实现和执行的差距，执行输出反应了EVM运行的正确性和一致性</p>
+<h3 id="CAST的构造"><a href="#CAST的构造" class="headerlink" title="CAST的构造"></a>CAST的构造</h3><p>模糊测试之前，首先执行静态分析，生成CAST</p>
+<p>智能合约的CAST是对Solidity源代码的抽象语法结构的结构化树形表示，树上的每个节点表示源码中出现的结构，CAST定义并分解了所有语句中的性质，分解成CAST方便进行变异，能够根据关键属性直接进行搜索、替代、删除或者插入操作符</p>
+<p>CAST将种子合约的关键位置表示出来（和ehter交易相关的子树），主要包含6个语句符号 new, call , delegatecall , callcode, send and transfer</p>
+<p>变异器主要作用于这些关键位置来测试EVM的核心功能，阴影部分就是重要的位置</p>
+<p><img src="/2023/09/19/EVMFuzzer/image-20230920164427662.png" alt="image-20230920164427662"></p>
+<h3 id="种子合约优先级"><a href="#种子合约优先级" class="headerlink" title="种子合约优先级"></a>种子合约优先级</h3><p>候选合约的重要性不同，使得合约之间指标差异增加的合约应当作为下一轮变异迭代的标准</p>
+<p>同时，为了保证多样性，其他合约应该有一定概率被选中。因此采用动态优先级分配算法来维护一个候选队列，每个合约有初始的优先级，随着等待时间增加，值会增加</p>
+<p><img src="/2023/09/19/EVMFuzzer/image-20230920170033059.png" alt="image-20230920170033059"></p>
+<p>看看伪代码，指标差异优先级初始值为0-10，优先级等于=差异加上时间优先级，根据优先级进行降序排序</p>
+<p>选中优先级最高的作为下一轮变异的合约，输出，对剩余合约的time_pri 加1</p>
+<h3 id="种子合约的变异"><a href="#种子合约的变异" class="headerlink" title="种子合约的变异"></a>种子合约的变异</h3><p>为了生成高质量的种子合约，能够在不同的EVM中触发更多的不一致性</p>
+<p>根据伪代码，首先生成CAST，根据上次迭代的差异信息更新每个变异器（做排序）</p>
+<p><img src="/2023/09/19/EVMFuzzer/image-20230920171115727.png" alt="image-20230920171115727"></p>
+<p>选择组合策略（输入）来变异候选种子合约，最后利用 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/soltar">soltar - npm (npmjs.com)</a> 从CAST中重建代码，输出变异后的代码</p>
+<ul>
+<li>典型的变异器：需要保证被修改合约的语义正确性保证能够正确生成代码，根据合约的逻辑设计了8个变异器<ul>
+<li><img src="/2023/09/19/EVMFuzzer/image-20230920182840510.png" alt="image-20230920182840510"><ul>
+<li>对于方法内的本地变量，修改变量的类型</li>
+<li>对于函数修改对应的属性</li>
+<li>修改算术运算符</li>
+<li>修改条件判断语句内的运算符</li>
+<li>修改循环内的边界条件</li>
+<li>对函数内的语句增加assert或者删去assert</li>
+<li>删除函数的return</li>
+<li>对于方法的控制流增加break或者continue</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>变异器选择：同样给这些变异器优先级，根据返回的dif进行调整权重，如果变异后差异变大，将变异器的id加入到队列中，降序排列<ul>
+<li>除了权重更新外，还定义了组合策略，来增加随机性和多样性<ul>
+<li>组合索引为奇数的变异器</li>
+<li>组合索引为偶数的变异器</li>
+<li>组合第一个和最后一个变异器</li>
+<li>不带权重随机选一个变异器</li>
+<li>每轮在上面的策略中随机选一个</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="统一的EVM执行"><a href="#统一的EVM执行" class="headerlink" title="统一的EVM执行"></a>统一的EVM执行</h3><p>为多个EVM提供统一的运行时环境，收到种子合约后编译为字节码，参数根据被调用函数的参数类   型生成</p>
+<ul>
+<li><p>solc −bin −runtime xx.sol</p>
+</li>
+<li><p>对于每个数据类型，预先定义了一些常见的或者极端值，生成时随机选取</p>
+</li>
+</ul>
+<p>之后调用每个EVM的执行结构自动在所有EVM上执行，将输出结果标准化后，根据测试指标计算差异信息，比较执行输出结果。</p>
+<p>根据种子提高指标差异的程度，决定是否将种子放入seed pool中（保存了高质量的合约），该模块会记录潜在的异常，为了后续进行手工的问题根源分析</p>
+<h3 id="种子合约选择"><a href="#种子合约选择" class="headerlink" title="种子合约选择"></a>种子合约选择</h3><p>dif的意义是为了评估生成的种子合约的质量，定义如下</p>
+<p><img src="/2023/09/19/EVMFuzzer/image-20230920194726395.png" alt="image-20230920194726395"></p>
+<p>看看伪代码</p>
+<p>diff最大值为10，值进行标准化，时间优先级置0，更新flag</p>
+<p><img src="/2023/09/19/EVMFuzzer/image-20230920200434697.png" alt="image-20230920200434697"></p>
+<h2 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h2><p>回答的问题</p>
+<ul>
+<li>EVM之间是否存在不一致性<ul>
+<li>gas消耗的不一致性<ul>
+<li><img src="/2023/09/19/EVMFuzzer/image-20230920202213767.png" alt="image-20230920202213767"></li>
+<li>原因：以太坊黄皮书未定义某些特定opcode的gas消耗，如MSOTRE,SLOAD等；采用的退款机制不同</li>
+<li>将gas消耗的平均值作为基准，js-evm 好</li>
+<li><img src="/2023/09/19/EVMFuzzer/image-20230920202945965.png" alt="image-20230920202945965"></li>
+</ul>
+</li>
+<li>opcode的不一致性：仅1,275合约能同时在4个EVM上运行并返回相同结果，字节码长度不同<ul>
+<li>原因可能是EVM进行了优化</li>
+<li><img src="/2023/09/19/EVMFuzzer/image-20230920203426230.png" alt="image-20230920203426230"></li>
+<li>结果可以看到aleth和geth保持一致，js-evm更小（某种程度上减轻了EVM的开销，但是这种开销减少的代价可能是丧失了鲁棒性）</li>
+<li><img src="/2023/09/19/EVMFuzzer/image-20230920204613634.png" alt="image-20230920204613634"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>EVMFuzz是否高效地能生成高质量的种子合约<ul>
+<li>狠狠跑了3天，生成了25 3153份不同的合约，66.2%的合约成功出发了不一致性（因为包含了gas不一致，水分比较大）Ind.1是除此之外都crash，Ind.2是除此之外都不crash</li>
+<li><img src="/2023/09/19/EVMFuzzer/image-20230920204015260.png" alt="image-20230920204015260"></li>
+<li>为了说明变异器的质量，找了个复杂的合约进行了测试</li>
+<li>单独使用一种变异器的速度，evencomb最快但没跳出局部最优解，总体上comball效果最好，完全随机效果最差<ul>
+<li><img src="/2023/09/19/EVMFuzzer/image-20230920204702036.png" alt="image-20230920204702036"></li>
+</ul>
+</li>
+<li>详细分析CombAll来研究不同变异器的权重和作用，0.125作为基准</li>
+<li><img src="/2023/09/19/EVMFuzzer/image-20230920204957741.png" alt="image-20230920204957741"></li>
+<li><img src="/2023/09/19/EVMFuzzer/image-20230920205443157.png" alt="image-20230920205443157"></li>
+</ul>
+</li>
+<li>是否能通过EVMFuzz发现EVM的漏洞<ul>
+<li>需要手工分析，发现了5个CVE（现有的CVE中与EVM相关的有6个，智能合约的500个，总数为112913）</li>
+<li><img src="/2023/09/19/EVMFuzzer/image-20230920205747171.png" alt="image-20230920205747171"></li>
+</ul>
+</li>
+</ul>
+<p>合约部署在以太坊上，分析了合约的行数，函数，相关的操作码和特定的操作码，其中超过6500份合约有超过500行代码，90个超过2000行，表明目标合约比较复杂</p>
 <h2 id="Using-EVMFuzzer"><a href="#Using-EVMFuzzer" class="headerlink" title="Using EVMFuzzer"></a>Using EVMFuzzer</h2><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p><img src="/2023/09/19/EVMFuzzer/image-20230919172850242.png" alt="image-20230919172850242"></p>
 <p>后端集成了4个广泛使用的EVM作为基准</p>
 <ul>
@@ -284,7 +427,7 @@
 <h2 id="Preliminary-Evaluation"><a href="#Preliminary-Evaluation" class="headerlink" title="Preliminary Evaluation"></a>Preliminary Evaluation</h2><p>初始的seed合约是36295个，实验在笔记本上跑的</p>
 <p>根据2类内部测试指标（消耗的gas和操作码序列），发现了大量的不一致</p>
 <p>33,424/36,295合约的操作码序列是正确的，用于进行gas的对比（排除了不同操作码带来的gas差异）</p>
-<p>每个平台月50%的gas消耗都和其他平台不一样，aleth甚至达到90%</p>
+<p>每个平台约50%的gas消耗都和其他平台不一样，aleth甚至达到90%</p>
 <p><img src="/2023/09/19/EVMFuzzer/image-20230919190818271.png" alt="image-20230919190818271"></p>
 <p>1275个合约成功在4个EVM上执行，返回了相同的输出但是序列的长度不同</p>
 <p><img src="/2023/09/19/EVMFuzzer/image-20230919191002754.png" alt="image-20230919191002754"></p>
@@ -292,15 +435,30 @@
 <p>可以推断出：EVM的执行和实现存在不一致，可以利用<code>gasUsed</code>和操作码序列指示器的度量差异来引导合约的生成，从而导致潜在的执行输出的不一致</p>
 <p>发现的漏洞：发现了不一致后需要手工进行分析，探索根源，查看了EVM的实现，发现了5个CVE</p>
 <p><img src="/2023/09/19/EVMFuzzer/image-20230919191848784.png" alt="image-20230919191848784"></p>
-<p>其中一个针对geth的CVE，稳定触发执行时段错误，原因在于异常处理程序没有处理所有边界情况</p>
+<p>其中一个针对geth的CVE，稳定触发 执行时段错误，原因在于异常处理程序没有处理所有边界情况</p>
 <h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>提出了第一个对EVM实现的差分模糊测试的工具，给出了两个度量标准（gas和opcode sequence），在生成的253,153个合约的执行中，超过一半的合约表现出了差异</p>
 <p>未来工作：设计更通用的mutator，对更多EVM的安全性进行评估</p>
+<ul>
+<li>设计更多的变异器：目前仅在AST层面修改关键部分，后续可以在源码层次层架函数调用，合约继承等</li>
+<li>更高效的优先级处理：目前是用堆实现的优先队列，插入删除的复杂度是$\Theta(logn)$，排序的复杂度是$\Theta(nlogn)$，可以有其他的思路，比如搞成系数</li>
+<li>支持更多EVM的实现</li>
+<li>更精确的选择标准：gas和opcode之间可以加系数，gas可能那么重要</li>
+</ul>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ul>
 <li>发现了不一致性后，如何解释一致性可能产生的影响——攻击者可以操作合约输出不一致的结果<ul>
 <li>如何寻找bug的来源——手工分析</li>
 </ul>
 </li>
 <li>能不能测试其他的安全组件？consensus</li>
+<li>采用的中间表示形式是AST，换成3AC或者SSA是否具有可行性？<ul>
+<li>设计变异器时利用了控制流，直观理解是更合适</li>
+<li><img src="/2023/09/19/EVMFuzzer/image-20230920183950597.png" alt="image-20230920183950597"></li>
+</ul>
+</li>
+<li>time_pri仅加1，合理性在于初始值为0-10</li>
+<li>dif的定义应该有问题，需要把abs拆开</li>
+<li>编译器的版本为0.4.24，如果对新的版本的合约进行差分测试，需要进行哪些更改</li>
+<li>考虑操作码一致性时，为什么不考虑结果不同的，也可以说明一定问题？</li>
 <li>给出该论文的后续工作</li>
 </ul>
 
@@ -384,7 +542,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#EVMFuzzer-Detect-EVM-Vulnerabilities-via-Fuzz-Testing"><span class="nav-number">1.</span> <span class="nav-text">EVMFuzzer: Detect EVM Vulnerabilities via Fuzz Testing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-work"><span class="nav-number">1.2.</span> <span class="nav-text">Related work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EVMFuzzer-design"><span class="nav-number">1.3.</span> <span class="nav-text">EVMFuzzer design</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%8D%E5%AD%90%E5%90%88%E7%BA%A6%E7%94%9F%E6%88%90"><span class="nav-number">1.3.1.</span> <span class="nav-text">种子合约生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E4%B8%80%E7%9A%84EVM%E6%89%A7%E8%A1%8C"><span class="nav-number">1.3.2.</span> <span class="nav-text">统一的EVM执行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-EVMFuzzer"><span class="nav-number">1.4.</span> <span class="nav-text">Using EVMFuzzer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">1.4.2.</span> <span class="nav-text">运行的例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Preliminary-Evaluation"><span class="nav-number">1.5.</span> <span class="nav-text">Preliminary Evaluation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">1.6.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.7.</span> <span class="nav-text">问题</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#EVMFuzzer-Detect-EVM-Vulnerabilities-via-Fuzz-Testing"><span class="nav-number">1.</span> <span class="nav-text">EVMFuzzer: Detect EVM Vulnerabilities via Fuzz Testing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Background"><span class="nav-number">1.2.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-work"><span class="nav-number">1.3.</span> <span class="nav-text">Related work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Approach-Overview"><span class="nav-number">1.4.</span> <span class="nav-text">Approach Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EVMFuzzer-design"><span class="nav-number">1.5.</span> <span class="nav-text">EVMFuzzer design</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%8D%E5%AD%90%E5%90%88%E7%BA%A6%E7%94%9F%E6%88%90"><span class="nav-number">1.5.1.</span> <span class="nav-text">种子合约生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E6%A0%87%E7%9A%84%E5%85%AC%E5%BC%8F"><span class="nav-number">1.5.2.</span> <span class="nav-text">指标的公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAST%E7%9A%84%E6%9E%84%E9%80%A0"><span class="nav-number">1.5.3.</span> <span class="nav-text">CAST的构造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%8D%E5%AD%90%E5%90%88%E7%BA%A6%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">1.5.4.</span> <span class="nav-text">种子合约优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%8D%E5%AD%90%E5%90%88%E7%BA%A6%E7%9A%84%E5%8F%98%E5%BC%82"><span class="nav-number">1.5.5.</span> <span class="nav-text">种子合约的变异</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E4%B8%80%E7%9A%84EVM%E6%89%A7%E8%A1%8C"><span class="nav-number">1.5.6.</span> <span class="nav-text">统一的EVM执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%8D%E5%AD%90%E5%90%88%E7%BA%A6%E9%80%89%E6%8B%A9"><span class="nav-number">1.5.7.</span> <span class="nav-text">种子合约选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluation"><span class="nav-number">1.6.</span> <span class="nav-text">Evaluation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-EVMFuzzer"><span class="nav-number">1.7.</span> <span class="nav-text">Using EVMFuzzer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.7.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">1.7.2.</span> <span class="nav-text">运行的例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Preliminary-Evaluation"><span class="nav-number">1.8.</span> <span class="nav-text">Preliminary Evaluation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">1.9.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.10.</span> <span class="nav-text">问题</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
