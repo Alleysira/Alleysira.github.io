@@ -158,6 +158,89 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/09/25/NeoDiff/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="Eng.D candidate at School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/25/NeoDiff/" class="post-title-link" itemprop="url">NeoDiff</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-09-25 15:55:11 / Modified: 20:11:07" itemprop="dateCreated datePublished" datetime="2023-09-25T15:55:11+08:00">2023-09-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Blockchain/" itemprop="url" rel="index"><span itemprop="name">Blockchain</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Uncovering-Smart-Contract-VM-Bugs-Via-Differential-Fuzzing"><a href="#Uncovering-Smart-Contract-VM-Bugs-Via-Differential-Fuzzing" class="headerlink" title="Uncovering Smart Contract VM Bugs Via Differential Fuzzing"></a>Uncovering Smart Contract VM Bugs Via Differential Fuzzing</h1><p>Maier D, Fäßler F, Seifert J P. Uncovering Smart Contract VM Bugs Via Differential Fuzzing[C]//Reversing and Offensive-oriented Trends Symposium. 2021: 11-22.</p>
+<p>基于覆盖和状态对智能合约虚拟机的行为进行模糊测试，提出了NeoDiff——第一个反馈导向的智能合约虚拟机的模糊测试框架</p>
+<ul>
+<li><p>除了对EVM进行模糊测试，NeoDiff发现了若干Neo区块链上的重要漏洞</p>
+</li>
+<li><p>通过高层的语义变异器，发现了Python编写的Neo智能合约和传统CPython编写的合约的不一致</p>
+</li>
+<li>发现了C#的Neo虚拟机中的内存损坏问题</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/09/25/NeoDiff/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/09/19/EVMFuzzer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -274,7 +357,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-18 09:45:01" itemprop="dateModified" datetime="2023-09-18T09:45:01+08:00">2023-09-18</time>
+                <time title="Modified: 2023-09-25 15:36:15" itemprop="dateModified" datetime="2023-09-25T15:36:15+08:00">2023-09-25</time>
               </span>
 
           
@@ -299,6 +382,15 @@
 <p>真的无迹可寻吗？如果反编译可执行文件，发现执行逻辑和源码不同，就会意识到程序有bug，寻找bug的源头可能会去检查编译器的版本，发现编译器没问题可能去查看依赖库（比较难找了）</p>
 <p>结论：You can’t trust code that you did not totally create yourself. 不要信任不是自己亲手写的代码（反思自己平常用的github上star不多的代码）</p>
 <p>最后呼吁媒体严肃对黑客这一群体的认识，媒体对他们的报告是“神童” 侵入计算机系统最轻是故意破坏公物，最坏是非法侵入和盗窃</p>
+<p>BLP模型中的安全等级可以更改</p>
+<ul>
+<li>谁可以更改：安全服务的使用者</li>
+<li>什么时候可以更改：$\text{收益}\leq\text{成本}$ 时不会更改</li>
+<li>如何判断是否应该改？本质是上一个问题，需要量化当前的收益，cybersecurity inssurance</li>
+</ul>
+<p>存在Covert Channel</p>
+<p>完整性指信息的真实性 可靠性</p>
+<p>可用性：信息匹配服务</p>
 
       
     </div>
@@ -902,95 +994,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/07/10/securify/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alleysira">
-      <meta itemprop="description" content="Eng.D candidate at School of Cyber Science and Teconology, BUAA">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alleysira's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/07/10/securify/" class="post-title-link" itemprop="url">Securify</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-07-10 09:56:44" itemprop="dateCreated datePublished" datetime="2023-07-10T09:56:44+08:00">2023-07-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-08 23:57:39" itemprop="dateModified" datetime="2023-08-08T23:57:39+08:00">2023-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Blockchain/" itemprop="url" rel="index"><span itemprop="name">Blockchain</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Securify-Practical-Security-Analysis-of-Smart-Contracts"><a href="#Securify-Practical-Security-Analysis-of-Smart-Contracts" class="headerlink" title="Securify: Practical Security Analysis of Smart Contracts"></a>Securify: Practical Security Analysis of Smart Contracts</h1><p>发表于big4 <code>CCS18</code> 一作是来自ETH的Petar Tsankov，通信作者是IC的Arthur Gervais</p>
-<p>本文对以太坊的智能合约进行安全分析，满足可扩展性、完全自动化并且能够证明特定属性的安全/不安全。</p>
-<p>安全分析分为两步：</p>
-<ul>
-<li>通过符号分析合约的依赖图，从代码中精确地提取出语义信息</li>
-<li>检查是否符合或违反模式（pattern），条件是否满足某个性质</li>
-</ul>
-<p>为了实现可扩展性，所有模式都是用指定的域特定语言（DSL）规定的</p>
-<p>目前已经代码开源，分析了18k个合约，被专家用于安全审计</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/07/10/securify/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1060,7 +1063,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

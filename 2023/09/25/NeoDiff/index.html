@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Uncovering Smart Contract VM Bugs Via Differential FuzzingMaier D, Fäßler F, Seifert J P. Uncovering Smart Contract VM Bugs Via Differential Fuzzing[C]&#x2F;&#x2F;Reversing and Offensive-oriented Trends Symposi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NeoDiff">
+<meta property="og:url" content="https://alleysira.github.io/2023/09/25/NeoDiff/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="Uncovering Smart Contract VM Bugs Via Differential FuzzingMaier D, Fäßler F, Seifert J P. Uncovering Smart Contract VM Bugs Via Differential Fuzzing[C]&#x2F;&#x2F;Reversing and Offensive-oriented Trends Symposi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20230925160606443.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20230925171307210.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20230925185409445.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20230925193912440.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20230925200033512.png">
+<meta property="article:published_time" content="2023-09-25T07:55:11.000Z">
+<meta property="article:modified_time" content="2023-09-25T12:11:07.458Z">
+<meta property="article:author" content="Alleysira">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="SmartContract">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20230925160606443.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2023/09/25/NeoDiff/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>NeoDiff | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/09/25/NeoDiff/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="Eng.D candidate at School of Cyber Science and Teconology, BUAA">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NeoDiff
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-09-25 15:55:11 / Modified: 20:11:07" itemprop="dateCreated datePublished" datetime="2023-09-25T15:55:11+08:00">2023-09-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Blockchain/" itemprop="url" rel="index"><span itemprop="name">Blockchain</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Uncovering-Smart-Contract-VM-Bugs-Via-Differential-Fuzzing"><a href="#Uncovering-Smart-Contract-VM-Bugs-Via-Differential-Fuzzing" class="headerlink" title="Uncovering Smart Contract VM Bugs Via Differential Fuzzing"></a>Uncovering Smart Contract VM Bugs Via Differential Fuzzing</h1><p>Maier D, Fäßler F, Seifert J P. Uncovering Smart Contract VM Bugs Via Differential Fuzzing[C]//Reversing and Offensive-oriented Trends Symposium. 2021: 11-22.</p>
+<p>基于覆盖和状态对智能合约虚拟机的行为进行模糊测试，提出了NeoDiff——第一个反馈导向的智能合约虚拟机的模糊测试框架</p>
+<ul>
+<li><p>除了对EVM进行模糊测试，NeoDiff发现了若干Neo区块链上的重要漏洞</p>
+</li>
+<li><p>通过高层的语义变异器，发现了Python编写的Neo智能合约和传统CPython编写的合约的不一致</p>
+</li>
+<li>发现了C#的Neo虚拟机中的内存损坏问题</li>
+</ul>
+<span id="more"></span>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>智能合约虚拟机类似于传统安全研究范畴内的操作系统，执行合约的虚拟机定义了如何进行交互的接口，没有文件系统、套接字和线程，而是直接访问区块链，因此出现了新的安全问题</p>
+<p>智能合约虚拟机需要保证执行结果的一致性</p>
+<p>2500行代码实现了NeoDiff</p>
+<p>反馈部分不仅考虑了覆盖率，还考虑了虚拟机传回的状态传播</p>
+<p>尽管对以太坊的两个虚拟机的测试仅返回了假阳的结果（可能是因为严格的手工测试），额外发现了很多其他生态系统中的漏洞，如Neo</p>
+<p>Neo是一个被研究较少的区块链，2021年日均交易量达1.5亿美元。项目地址：<a target="_blank" rel="noopener" href="https://neo.org/">Neo 智能经济</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.investopedia.com/tech/china-neo-cryptocurrency/">NEO (NEO) Definition (investopedia.com)</a></p>
+<p><img src="/2023/09/25/NeoDiff/image-20230925160606443.png" alt="image-20230925160606443"></p>
+<p>在Neo上NeoDiff发现了VM的不一致性、主链上的内存损坏，因为Neo提高了利用python等传统编程语言写智能合约的选项，因此可以利用python的语义进行模糊测试</p>
+<p>和传统模糊测试不同的是，差分模糊测试想要实现的是输出或状态的不一致，NeoDiff支持对不同编程语言实现的系统进行模糊测试（neo-python VM 客户端和Neo VM C# 共识节点)，</p>
+<p>发现了CPython and neo-boa Python和智能合约上的语义差别</p>
+<p>贡献如下：</p>
+<ul>
+<li>开发并开源了NeoDiff，对智能合约虚拟机定制的模糊测试工具</li>
+<li>实现了NeoDiff的后端，来模糊测试openethereum against the geth Ethereum VM和<br>Neo VM against neo-python.</li>
+<li>测试了CPython和Python实现的合约的语义，发现了语义的差距和对应的安全后果</li>
+<li>讨论了如何利用智能合约虚拟机中的不一致性进行攻击（如攻击区块链网络上的应用</li>
+<li>NeoDiff帮助发现并修复了Neo智能合约生态系统中的重要bug</li>
+</ul>
+<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>2020年FC有一篇讨论NEo的BFT方案的论文，Neo采用PoS，参与共识的节点数量较少；目前支持8种编程语言编写可约（Python, Go, JavaScript, Java and C#  /C C++ to be done)；Neo的编译器调用对应语言的官方编译器，将IR转换成AVM 码，即虚拟机的字节码。</p>
+<p>参与共识的节点运行C#编写的Neo VM构成区块链网络的核心部分，为了调用区块链，用户需要使用客户端程序，提供了SDK供开发者在NEO区块链上编写应用程序和合约交互；SDK需要能够理解所有交易并本地执行合约</p>
+<ul>
+<li><p>资产：Neo区块链原生的资产是代币Neo和部署、执行合约需要的GAS；NeoGas随时间生成并根据拥有的Neo成比例地分配给钱包；每个节点本地 都能执行字节码形式的合约，消耗的gas和opcode以及syscall相关联。共识算法是基于PBFT的DelegatedBFT</p>
+</li>
+<li><p>虚拟机：负责执行上传的合约，每个参与者都必须有VM来执行合约，和传统的VM不同，Neo VM不提供硬件和文件系统访问，直接和区块链的数据交互。本地执行合约允许客户端从合约存储中直接读取数据，而不用通过缓慢的API进行查或相信中心化的节点</p>
+</li>
+<li><p>C#虚拟机：执行引擎是核心部分，包括函数和调用栈。执行合约时创建一个对应的上下文。上下文中包括代码和两个栈每个合约在隔离的上下文中执行，合约可以使用两个栈</p>
+<ul>
+<li>altstack：临时数据存储</li>
+<li>执行栈：存储结果</li>
+<li>每次调用生成新的调用栈</li>
+<li><p>架构如图<img src="/2023/09/25/NeoDiff/image-20230925171307210.png" alt="image-20230925171307210"></p>
+</li>
+<li><p>持久存储：大多数数据（例如区块链的交易和合约的永久KV存储）均可以通过syscall操作码访问；区块链本身仅存储交易，包括了调用合约的交易；为了得到当前存储的状态，所有交易都必须被重放（重新执行），存储可能存了认证消息或代币的余额。可以给予另一个合约访问存储的对象的权利</p>
+<ul>
+<li>实现中的漏洞或不恰当的授权可能导致存储相关的问题，如delagatecall<ul>
+<li>Johannes Krupp and Christian Rossow. 2018. teether: Gnawing at Ethereum to<br>Automatically Exploit Smart Contracts. Proceedings of the 27th USENIX Security<br>Symposium (2018), 1317–1333.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work"></a>Related work</h1><p>在智能合约概念出现之前，差分模糊测试被用于测试编译器和代码库</p>
+<ul>
+<li>CSmith：自动生成C程序，寻找不同编译器和优化层级带来的程序行为的差异 2011</li>
+<li>Diffuzz：通过差分模糊测试进行侧信道分析</li>
+<li>NEZHA：对二进制代码库进行差分模糊测试，除了代码覆盖率之外，采用了多种反馈</li>
+<li>HyDiff：和NEZHA类似，关注覆盖率的同时，额外利用了静态分析和符号执行，采用了一系列的启发式推理改善对变异输出的</li>
+<li>EVMFuzzer：生成合约并提供给以太坊虚拟机发现不一致性，在solidity层面对合约进行变异</li>
+</ul>
+<p>提到了EVMFuzzer，世界线收束</p>
+<h1 id="NEODIFF"><a href="#NEODIFF" class="headerlink" title="NEODIFF"></a>NEODIFF</h1><p>对同一个虚拟机的多个可选实现进行差分模糊测试</p>
+<p><img src="/2023/09/25/NeoDiff/image-20230925185409445.png" alt="image-20230925185409445"></p>
+<h2 id="Design"><a href="#Design" class="headerlink" title="Design"></a>Design</h2><p>反馈导向，可以采用不同量级的反馈机制来对不同编程语言实现的VM进行测试</p>
+<p>和EVMFuzz相比，NeoDiff更底层，生成有效的操作码序列而不是修改AST再转化为合约，会枚举所有可能的操作码序列，然而solidity编译器可能不会生成无意义的操作码（假设VM之前很少接受这种高级语言不会生成的序列的测试）</p>
+<ul>
+<li>Diff generator：采用基于反馈的变异器生成VM执行的字节码<ul>
+<li>拼接、添加高覆盖率的片段、随机翻转字节，能够生成高级编程语言无法生成的操作码序列</li>
+</ul>
+</li>
+<li>mutator：可以针对特定目标定制不同变异器；默认NeoDiff循环采用下列的变异器，直到达到最小的合约长度；由于可能生成全新的合约，不容易陷入局部最优解；会将成功执行的字节码序列保留下来；方便定义其他特定链的变异器<ul>
+<li>随机1字节</li>
+<li>全拼接：添加<del>部分</del>第二个随机合约的代码，倾向于能够覆盖新分支的测试用例</li>
+<li>部分拼接：添加部分第二个随机合约的代码，倾向于能够覆盖新分支的测试用例<ul>
+<li><img src="/2023/09/25/NeoDiff/image-20230925193912440.png" alt="image-20230925193912440"></li>
+</ul>
+</li>
+<li>字节插入：一个字节插入到当前合约的随机位置</li>
+<li>特殊操作：特殊的字节码，比如ETH的PUSHBYTES</li>
+</ul>
+</li>
+<li>Diff Analyzer：需要修改EVM的实现来生成trace，trace的内容包括执行的操作码的列表，代用对应的类型hash $\tau$和状态hash $\sigma$，分析器通过比较$\sigma$来发现不同，通过$\tau$判断是否到达了新的状态<ul>
+<li>假设当中间的$\sigma$不同时，认为出现了分叉</li>
+<li>出现不一致时，导致问题产生的操作码和对应的$\tau$存储在结果中</li>
+<li>分叉之前正确的操作码和对应的$\tau$会前向传播到minimizer</li>
+<li>minimizer试图寻找到能导致特定$\tau$的最短字节序列并且存储到$\tau$ map中去<ul>
+<li>$\tau$ map随着模糊测试的进行不断增长，后续可以用于变异的反馈</li>
+</ul>
+</li>
+<li><img src="/2023/09/25/NeoDiff/image-20230925200033512.png" alt="image-20230925200033512"></li>
+</ul>
+</li>
+</ul>
+<h2 id="state-hash"><a href="#state-hash" class="headerlink" title="state-hash"></a>state-hash</h2><p>为了标识不同的执行，利用了状态哈希$\sigma$，取当前执行中的状态的子集，研究者定义对于diff很重要，将该信息包括在哈希中</p>
+<ul>
+<li>对于基于栈的虚拟机而言，包括对栈的概率性采样；</li>
+<li>如果有寄存器应该包括寄存器的值</li>
+<li>如果有额外的内存，需要考虑内存</li>
+</ul>
+<p>执行速度和精度之前需要进行trade-off，可能的话对每个操作码都更新$\sigma$，利用它来检测不一致性</p>
+<h1 id="问题和思考"><a href="#问题和思考" class="headerlink" title="问题和思考"></a>问题和思考</h1><ul>
+<li>变异策略生成的合约操作码能够执行的比例占多少</li>
+<li>和EVMfuzzer相比，对于不一致性的对比更加细致（不再仅思考输出的不一致性，还考虑了中间过程）</li>
+<li>状态哈希需要研究者手动定义对于diff来说哪些信息重要</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+              <a href="/tags/SmartContract/" rel="tag"># SmartContract</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/19/EVMFuzzer/" rel="prev" title="EVMFuzzer">
+      <i class="fa fa-chevron-left"></i> EVMFuzzer
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Uncovering-Smart-Contract-VM-Bugs-Via-Differential-Fuzzing"><span class="nav-number">1.</span> <span class="nav-text">Uncovering Smart Contract VM Bugs Via Differential Fuzzing</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Background"><span class="nav-number">3.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Related-work"><span class="nav-number">4.</span> <span class="nav-text">Related work</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NEODIFF"><span class="nav-number">5.</span> <span class="nav-text">NEODIFF</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Design"><span class="nav-number">5.1.</span> <span class="nav-text">Design</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#state-hash"><span class="nav-number">5.2.</span> <span class="nav-text">state-hash</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%92%8C%E6%80%9D%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">问题和思考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">Eng.D candidate at School of Cyber Science and Teconology, BUAA</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
