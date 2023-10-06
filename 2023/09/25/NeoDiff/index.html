@@ -32,8 +32,14 @@
 <meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20230925185409445.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20230925193912440.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20230925200033512.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20231006192746686.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20230928082042644.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20230928084441953.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20231006200937631.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20231006202931015.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20231006204246703.png">
 <meta property="article:published_time" content="2023-09-25T07:55:11.000Z">
-<meta property="article:modified_time" content="2023-09-26T13:28:36.357Z">
+<meta property="article:modified_time" content="2023-10-06T13:28:28.054Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta property="article:tag" content="SmartContract">
@@ -199,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-26 21:28:36" itemprop="dateModified" datetime="2023-09-26T21:28:36+08:00">2023-09-26</time>
+                <time title="Modified: 2023-10-06 21:28:28" itemprop="dateModified" datetime="2023-10-06T21:28:28+08:00">2023-10-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,8 +251,13 @@
 <p>发现了CPython and neo-boa Python和智能合约上的语义差别</p>
 <p>贡献如下：</p>
 <ul>
-<li>开发并开源了NeoDiff，对智能合约虚拟机定制的模糊测试工具</li>
-<li>实现了NeoDiff的后端，来模糊测试openethereum against the geth Ethereum VM和<br>Neo VM against neo-python.</li>
+<li><p>开发并开源了NeoDiff，对智能合约虚拟机定制的模糊测试工具</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/fgsect/NeoDiff">fgsect/NeoDiff: Differential fuzzing for Smart Contract VMs (github.com)</a></li>
+</ul>
+</li>
+<li><p>实现了NeoDiff的后端，来模糊测试openethereum against the geth Ethereum VM和<br>Neo VM against neo-python.</p>
+</li>
 <li>测试了CPython和Python实现的合约的语义，发现了语义的差距和对应的安全后果</li>
 <li>讨论了如何利用智能合约虚拟机中的不一致性进行攻击（如攻击区块链网络上的应用</li>
 <li>NeoDiff帮助发现并修复了Neo智能合约生态系统中的重要bug</li>
@@ -305,7 +316,7 @@
 <li>特殊操作：特殊的字节码，比如ETH的PUSHBYTES</li>
 </ul>
 </li>
-<li>Diff Analyzer：需要修改EVM的实现来生成trace，trace的内容包括执行的操作码的列表，代用对应的类型hash $\tau$和状态hash $\sigma$，分析器通过比较$\sigma$来发现不同，通过$\tau$判断是否到达了新的状态<ul>
+<li>Diff Analyzer：需要修改EVM的实现来生成trace，trace的内容包括执行的操作码的列表，对应的类型hash $\tau$和状态hash $\sigma$，分析器通过比较$\sigma$来发现不同，通过$\tau$判断是否到达了新的状态<ul>
 <li>假设当中间的$\sigma$不同时，认为出现了分叉</li>
 <li>出现不一致时，导致问题产生的操作码和对应的$\tau$存储在结果中</li>
 <li>分叉之前正确的操作码和对应的$\tau$会前向传播到minimizer</li>
@@ -317,7 +328,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="state-hash"><a href="#state-hash" class="headerlink" title="state-hash"></a>state-hash</h2><p>为了标识不同的执行，利用了状态哈希$\sigma$，取当前执行中的状态的子集，研究者定义对于diff很重要，将该信息包括在哈希中</p>
+<h2 id="state-hash"><a href="#state-hash" class="headerlink" title="state-hash"></a>state-hash</h2><p>为了标识不同的执行，利用了状态哈希$\sigma$，取当前执行中的状态的子集，由研究者定义对于diff重要的信息，将该信息包括在哈希中</p>
 <ul>
 <li>对于基于栈的虚拟机而言，包括对栈的概率性采样；</li>
 <li>如果有寄存器应该包括寄存器的值</li>
@@ -328,13 +339,78 @@
 <p>也包含了状态信息，但是没有和之前的状态连接起来，仅标识当前操作码的状态</p>
 <p>由于Neo VM支持多种类型（整数、字节数组等），以太坊仅支持256比特的整数作为类型，设立了虚类型方便执行</p>
 <p>NeoDiff支持在传统的代码覆盖率下进行测试，如果采用了类型哈希，可以用来对差异进行排序和分类</p>
-<p>类型哈希 $\tau $ 利用栈顶的2个类型，前缀为当前的操作码</p>
+<p>类型哈希 $\tau $ 利用栈顶的2个类型，前缀为当前的操作码，执行加法命令，栈顶元素是整型1和字节数组2，对应的类型哈希 𝜏 为ADD_12</p>
+<p>问题：类型哈希变化一定意味着覆盖率的变化吗？实验结果：86%的情况下，发现新的类型哈希 𝜏 同样标识到达了新的代码覆盖率。结果表明类型哈希能够表示所有的覆盖率变化，NeoDiff同样支持采用实际的覆盖率作为类型哈希</p>
+<p><img src="/2023/09/25/NeoDiff/image-20231006192746686.png" alt="image-20231006192746686"></p>
+<h2 id="Minimization"><a href="#Minimization" class="headerlink" title="Minimization"></a>Minimization</h2><p>利用测试用例再次执行VM，对于每个字节检查是否包含了之前的 𝜏 ，一旦发现了所有的类型哈希，认为当前长度是最短的</p>
+<p>根据操作码导致的类型哈希来进行分类</p>
+<h1 id="Eval"><a href="#Eval" class="headerlink" title="Eval"></a>Eval</h1><ul>
+<li>C# VM and neo-python VM<ul>
+<li>测试了4个变异策略<ul>
+<li>random：字节全随机</li>
+<li>mut1p：将特定值压入栈，利用覆盖率反馈的概率较低</li>
+<li>mut20p：基于反馈的变异，概率是20倍</li>
+<li>coverage：默认变异策略，初始是随机的</li>
+<li><img src="/2023/09/25/NeoDiff/image-20230928082042644.png" alt="image-20230928082042644"></li>
+<li>然而当运行深度增加，随机策略丧失了多样性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>geth vs. openethereum<ul>
+<li>发现了6个不同，均是配置信息，未能在现有的区块链上复现</li>
+<li><img src="/2023/09/25/NeoDiff/image-20230928084441953.png" alt="image-20230928084441953"></li>
+</ul>
+</li>
+<li>cpy vs. Neo py：额外设计了py的语义变异器，不基于状态，能够产生有效的python脚本能够作为Neo智能合约运行<ul>
+<li><img src="/2023/09/25/NeoDiff/image-20231006200937631.png" alt="image-20231006200937631"></li>
+</ul>
+</li>
+</ul>
+<h1 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h1><h2 id="合约虚拟机差异的安全影响"><a href="#合约虚拟机差异的安全影响" class="headerlink" title="合约虚拟机差异的安全影响"></a>合约虚拟机差异的安全影响</h2><ul>
+<li>链上差异：可能导致算力分叉，大多数算力采用的实现将成为主流，可能导致链分叉</li>
+<li>区块链应用差异：钱包和Dapp本地执行结果和主网不一致，导致出现本地分叉</li>
+<li>合约语义差异：python写的合约和solidity写的合约行为不一致，恶意的开发者可能设计后门</li>
+</ul>
+<h2 id="对Neo-VM差异的PoC"><a href="#对Neo-VM差异的PoC" class="headerlink" title="对Neo VM差异的PoC"></a>对Neo VM差异的PoC</h2><p>给了比较详细的PoC和脚本</p>
+<h2 id="Ethereum-VM-Differences"><a href="#Ethereum-VM-Differences" class="headerlink" title="Ethereum VM Differences"></a>Ethereum VM Differences</h2><p><img src="/2023/09/25/NeoDiff/image-20231006202931015.png" alt="image-20231006202931015"></p>
+<p>表明进行差分模糊测试时应该在空白的链上，采用相同的初始设置</p>
+<p>或者手动删除这些假阳性</p>
+<h2 id="语言语义的差异"><a href="#语言语义的差异" class="headerlink" title="语言语义的差异"></a>语言语义的差异</h2><ul>
+<li>语义差异：<ul>
+<li>编译时报错：neo-boa不支持range()和float</li>
+</ul>
+</li>
+<li>字符串连接：<ul>
+<li>+：neo-python编译成VMOP.ADD，整数加法<ul>
+<li>‘xxx’+’!!!’=’xxx!!!’, not ‘yyy’</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>字符串乘法<ul>
+<li>’x’<em>21 和 ’x’</em>20</li>
+</ul>
+</li>
+<li>潜在的漏洞：Neo VM会进行类型转换，之前的安全机制如给key加前缀可能不再安全<ul>
+<li><img src="/2023/09/25/NeoDiff/image-20231006204246703.png" alt="image-20231006204246703"></li>
+</ul>
+</li>
+</ul>
+<h2 id="Neo-VM的差异和漏洞"><a href="#Neo-VM的差异和漏洞" class="headerlink" title="Neo VM的差异和漏洞"></a>Neo VM的差异和漏洞</h2><ul>
+<li>类型转换</li>
+<li>执行引擎的差异</li>
+<li>数学操作的不一致</li>
+<li>VM崩溃</li>
+</ul>
 <h1 id="问题和思考"><a href="#问题和思考" class="headerlink" title="问题和思考"></a>问题和思考</h1><ul>
 <li>变异策略生成的合约操作码能够执行的比例占多少</li>
 <li>为什么说Ethereum VM没有类型</li>
 <li>和EVMfuzzer相比，对于不一致性的对比更加细致（不再仅思考输出的不一致性，还考虑了中间过程）</li>
 <li>状态哈希需要研究者手动定义对于diff来说哪些信息重要</li>
+<li>minimization认为最短的序列不一定是最短；代码可能有跳转</li>
 </ul>
+<p>本文定义的变异策略显示coverage已经足够好了</p>
 
     </div>
 
@@ -419,7 +495,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Uncovering-Smart-Contract-VM-Bugs-Via-Differential-Fuzzing"><span class="nav-number">1.</span> <span class="nav-text">Uncovering Smart Contract VM Bugs Via Differential Fuzzing</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Background"><span class="nav-number">3.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Related-work"><span class="nav-number">4.</span> <span class="nav-text">Related work</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NEODIFF"><span class="nav-number">5.</span> <span class="nav-text">NEODIFF</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Design"><span class="nav-number">5.1.</span> <span class="nav-text">Design</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#state-hash"><span class="nav-number">5.2.</span> <span class="nav-text">state-hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Type-Hash"><span class="nav-number">5.3.</span> <span class="nav-text">Type-Hash</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%92%8C%E6%80%9D%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">问题和思考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Uncovering-Smart-Contract-VM-Bugs-Via-Differential-Fuzzing"><span class="nav-number">1.</span> <span class="nav-text">Uncovering Smart Contract VM Bugs Via Differential Fuzzing</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Background"><span class="nav-number">3.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Related-work"><span class="nav-number">4.</span> <span class="nav-text">Related work</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NEODIFF"><span class="nav-number">5.</span> <span class="nav-text">NEODIFF</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Design"><span class="nav-number">5.1.</span> <span class="nav-text">Design</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#state-hash"><span class="nav-number">5.2.</span> <span class="nav-text">state-hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Type-Hash"><span class="nav-number">5.3.</span> <span class="nav-text">Type-Hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Minimization"><span class="nav-number">5.4.</span> <span class="nav-text">Minimization</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Eval"><span class="nav-number">6.</span> <span class="nav-text">Eval</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Discussion"><span class="nav-number">7.</span> <span class="nav-text">Discussion</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E7%BA%A6%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B7%AE%E5%BC%82%E7%9A%84%E5%AE%89%E5%85%A8%E5%BD%B1%E5%93%8D"><span class="nav-number">7.1.</span> <span class="nav-text">合约虚拟机差异的安全影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9Neo-VM%E5%B7%AE%E5%BC%82%E7%9A%84PoC"><span class="nav-number">7.2.</span> <span class="nav-text">对Neo VM差异的PoC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ethereum-VM-Differences"><span class="nav-number">7.3.</span> <span class="nav-text">Ethereum VM Differences</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80%E8%AF%AD%E4%B9%89%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="nav-number">7.4.</span> <span class="nav-text">语言语义的差异</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Neo-VM%E7%9A%84%E5%B7%AE%E5%BC%82%E5%92%8C%E6%BC%8F%E6%B4%9E"><span class="nav-number">7.5.</span> <span class="nav-text">Neo VM的差异和漏洞</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%92%8C%E6%80%9D%E8%80%83"><span class="nav-number">8.</span> <span class="nav-text">问题和思考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

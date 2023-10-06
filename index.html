@@ -181,10 +181,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-09-26 18:17:51 / Modified: 20:29:46" itemprop="dateCreated datePublished" datetime="2023-09-26T18:17:51+08:00">2023-09-26</time>
+              <time title="Created: 2023-09-26 18:17:51" itemprop="dateCreated datePublished" datetime="2023-09-26T18:17:51+08:00">2023-09-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-10-06 21:41:17" itemprop="dateModified" datetime="2023-10-06T21:41:17+08:00">2023-10-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -208,54 +214,15 @@
       
           <h1 id="BlockScope-Detecting-and-Investigating-Propagated-Vulnerabilities-in-Forked-Blockchain-Projects"><a href="#BlockScope-Detecting-and-Investigating-Propagated-Vulnerabilities-in-Forked-Blockchain-Projects" class="headerlink" title="BlockScope: Detecting and Investigating Propagated Vulnerabilities in Forked Blockchain Projects"></a>BlockScope: Detecting and Investigating Propagated Vulnerabilities in Forked Blockchain Projects</h1><p>Yi X, Fang Y, Wu D, et al. BlockScope: Detecting and Investigating Propagated Vulnerabilities in Forked Blockchain Projects[C].Network and Distributed System Security (NDSS) Symposium 2023<br>27 February - 3 March 2023, San Diego, CA, USA</p>
 <p>NDSS23的<a target="_blank" rel="noopener" href="https://www.ndss-symposium.org/ndss-paper/blockscope-detecting-and-investigating-propagated-vulnerabilities-in-forked-blockchain-projects/">工作</a></p>
-<p>许多区块链重用或者fork了比特币/以太坊等经典区块链的代码，不难理解当fork或频繁fetch时可能将原来链上存在的漏洞传播到当前链上。本文设计了BlockScope，能够在输入现有的BC/Etheerum安全补丁后，检测出多个cloned漏洞</p>
-<p>BlockScope采用基于相似度的代码匹配机制，设计了一种新的计算代码相似度的方法来覆盖所有syntax-wide变量的克隆</p>
-<p>BlockScope能够自动抽取补丁的上下文，找到潜在的相关代码进行对比</p>
-<p>和现有工作ReDebug相比，能在精度接近的情况下实现1.8倍的recall（确定更多可能执行的路径或者函数调用）</p>
-<p>分别在13/16个forked区块链上发现了101个漏洞</p>
-<ul>
-<li>40个被接受或修复</li>
-<li>66被知情，等待中</li>
-<li>4个被拒绝</li>
-</ul>
-<p>总结出了3类从源到分叉的链的漏洞传播规律</p>
-<h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><p>因为开源，所以可以fork或重用eth和Bitcoin的代码</p>
-<p>漏洞传播可能的途径</p>
-<ul>
-<li>最初分叉</li>
-<li>update commits</li>
-</ul>
-<p>创新点</p>
-<ul>
-<li>相似度检查而不是精确的hash对比，相似度计算方法改进，更好处理增删和重排序<ul>
-<li>更接近Soundness：大幅降低假阴率，略微提高假阳率</li>
-</ul>
-</li>
-<li>抽取并利用补丁代码的语境定位可能相关的代码段<ul>
-<li>提高执行效率和精度</li>
-</ul>
-</li>
-</ul>
-<p>数据集采用了38个补丁</p>
-<ul>
-<li>32个是比特币的代码仓库中来的（CVE只有4个</li>
-<li>6个Ethereum的CVE</li>
-</ul>
-<p>分别测试了11+6个fork链的C/Go的代码，准确率和recall率为91.8%</p>
-<p>发现漏洞后试图总结传播规律</p>
-<ul>
-<li>最初fork时传播</li>
-<li>fetch时传播</li>
-<li>被非显式的commit感染</li>
-</ul>
-<p>大多数分叉链修补的时间延迟约为200天 </p>
-<p>提供的具体漏洞CVE和PR：<a target="_blank" rel="noopener" href="https://github.com/VPRLab/BlkVulnReport">VPRLab/BlkVulnReport: A Summary of Vulnerabilities Found in the BlockScope NDSS’23 Paper (github.com)</a></p>
-<p>wu老师的主页总结了学术界和工业界安全相关会议的ddl<a target="_blank" rel="noopener" href="https://daoyuan14.github.io/">Daoyuan Wu’s HomePage (daoyuan14.github.io)</a></p>
-<h1 id="问题与思考"><a href="#问题与思考" class="headerlink" title="问题与思考"></a>问题与思考</h1><ul>
-<li>什么是similariry based code match</li>
-<li>recall：分析中确定可达分支的能力</li>
-</ul>
-
+<p>许多区块链重用或者fork了比特币/以太坊等经典区块链的代码，不难理解，当fork或频繁fetch时可能将原来链上存在的漏洞传播到当前链上。本文设计了BlockScope，能够在输入现有的BC/Ethereum安全补丁后，检测出多个cloned漏洞</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/09/26/BlockScope/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -305,7 +272,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-26 21:28:36" itemprop="dateModified" datetime="2023-09-26T21:28:36+08:00">2023-09-26</time>
+                <time title="Modified: 2023-10-06 21:28:28" itemprop="dateModified" datetime="2023-10-06T21:28:28+08:00">2023-10-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
