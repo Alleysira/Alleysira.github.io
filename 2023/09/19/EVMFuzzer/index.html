@@ -56,7 +56,7 @@
 <meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230921202131725.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920183950597.png">
 <meta property="article:published_time" content="2023-09-19T08:09:27.000Z">
-<meta property="article:modified_time" content="2023-09-21T12:31:38.768Z">
+<meta property="article:modified_time" content="2023-10-10T12:53:28.834Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta property="article:tag" content="SmartContract">
@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-21 20:31:38" itemprop="dateModified" datetime="2023-09-21T20:31:38+08:00">2023-09-21</time>
+                <time title="Modified: 2023-10-10 20:53:28" itemprop="dateModified" datetime="2023-10-10T20:53:28+08:00">2023-10-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,11 +246,11 @@
 
       
         <h1 id="EVMFuzzer-Detect-EVM-Vulnerabilities-via-Fuzz-Testing"><a href="#EVMFuzzer-Detect-EVM-Vulnerabilities-via-Fuzz-Testing" class="headerlink" title="EVMFuzzer: Detect EVM Vulnerabilities via Fuzz Testing"></a>EVMFuzzer: Detect EVM Vulnerabilities via Fuzz Testing</h1><p>Fu Y, Ren M, Ma F, et al. Evmfuzzer: detect evm vulnerabilities via fuzz testing[C]//Proceedings of the 2019 27th ACM joint meeting on european software engineering conference and symposium on the foundations of software engineering. 2019: 1110-1114.</p>
+<span id="more"></span>
 <p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9Lejgf2GSOk&amp;ab_channel=EVMFuzzer">EVMFuzzer: Detect EVM Vulnerabilities via Fuzz Testing - YouTube</a></p>
 <p>对以太坊合约进行测试的挑战在于测试输入数据的格式以及预言机的存在，EVMFuzzer是第一个采用差分模糊测试技巧检查以太坊漏洞的工具。本文的核心思想是不断生成种子合约并输入给目标EVM和其他测试标准EVM，通过发现尽可能多的执行结果的不一致性，最终发现带有输出交叉引用的漏洞</p>
 <p>给定目标EVM和对应的API，EVMFuzzer通过预定义的mutators生成新的种子合约，采用动态优先级调度算法来指导种子合约选择过程，最大化不一致性。最终EVMFuzzer将其他测试标准EVM作为交叉应用的预言机来避免手动检查</p>
 <p>实验结果：将36295个真实世界的合约作为种子，生成了253153个合约，其中66.3的合约表现出了不同的性能。在4个EVM上发现了若干先前未知的漏洞，其中5个已经作为CVE记录在NVD了</p>
-<span id="more"></span>
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Oyente和MAIAN采用符号执行来发现智能合约的漏洞，如果EVM本身存在漏洞，会导致严重的后果</p>
 <p>选择了10个通过了Oyente的合约在EVM上执行，发现了其中7个的gas消耗不一样</p>
 <p>合约层面的验证无法保证以太坊交易执行的正确性，需要保证EVM执行的正确性</p>
@@ -481,7 +481,7 @@
 <li>dif的定义应该有问题，需要把abs拆开</li>
 <li>编译器的版本为0.4.24，如果对新的版本的合约进行差分测试，需要进行哪些更改</li>
 <li>考虑操作码一致性时，为什么不考虑结果不同的，也可以说明一定问题？</li>
-<li>给出该论文的后续工作<ul>
+<li>给出该论文的后续工作，已解决<ul>
 <li><a target="_blank" rel="noopener" href="https://scholar.google.com/scholar?start=0&amp;hl=en&amp;as_sdt=2005&amp;sciodt=0,5&amp;cites=7702365947421966340&amp;scipsc=">Fu: Evmfuzzer: detect evm vulnerabilities via fuzz testing - Google Scholar</a></li>
 </ul>
 </li>

@@ -28,7 +28,7 @@
 <meta property="og:description" content="BlockScope: Detecting and Investigating Propagated Vulnerabilities in Forked Blockchain ProjectsYi X, Fang Y, Wu D, et al. BlockScope: Detecting and Investigating Propagated Vulnerabilities in Forked">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-09-26T10:17:51.000Z">
-<meta property="article:modified_time" content="2023-10-06T13:41:17.781Z">
+<meta property="article:modified_time" content="2023-10-10T12:17:17.401Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta property="article:tag" content="SmartContract">
@@ -193,7 +193,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-10-06 21:41:17" itemprop="dateModified" datetime="2023-10-06T21:41:17+08:00">2023-10-06</time>
+                <time title="Modified: 2023-10-10 20:17:17" itemprop="dateModified" datetime="2023-10-10T20:17:17+08:00">2023-10-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,10 +216,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="BlockScope-Detecting-and-Investigating-Propagated-Vulnerabilities-in-Forked-Blockchain-Projects"><a href="#BlockScope-Detecting-and-Investigating-Propagated-Vulnerabilities-in-Forked-Blockchain-Projects" class="headerlink" title="BlockScope: Detecting and Investigating Propagated Vulnerabilities in Forked Blockchain Projects"></a>BlockScope: Detecting and Investigating Propagated Vulnerabilities in Forked Blockchain Projects</h1><p>Yi X, Fang Y, Wu D, et al. BlockScope: Detecting and Investigating Propagated Vulnerabilities in Forked Blockchain Projects[C].Network and Distributed System Security (NDSS) Symposium 2023<br>27 February - 3 March 2023, San Diego, CA, USA</p>
+        <h1 id="BlockScope-Detecting-and-Investigating-Propagated-Vulnerabilities-in-Forked-Blockchain-Projects"><a href="#BlockScope-Detecting-and-Investigating-Propagated-Vulnerabilities-in-Forked-Blockchain-Projects" class="headerlink" title="BlockScope: Detecting and Investigating Propagated Vulnerabilities in Forked Blockchain Projects"></a>BlockScope: Detecting and Investigating Propagated Vulnerabilities in Forked Blockchain Projects</h1><p>Yi X, Fang Y, Wu D, et al. BlockScope: Detecting and Investigating Propagated Vulnerabilities in Forked Blockchain Projects[C].Network and Distributed System Security (NDSS) Symposium 2023<br>27 February - 3 March 2023, San Diego, CA, USA.</p>
+<span id="more"></span>
 <p>NDSS23的<a target="_blank" rel="noopener" href="https://www.ndss-symposium.org/ndss-paper/blockscope-detecting-and-investigating-propagated-vulnerabilities-in-forked-blockchain-projects/">工作</a></p>
 <p>许多区块链重用或者fork了比特币/以太坊等经典区块链的代码，不难理解，当fork或频繁fetch时可能将原来链上存在的漏洞传播到当前链上。本文设计了BlockScope，能够在输入现有的BC/Ethereum安全补丁后，检测出多个cloned漏洞</p>
-<span id="more"></span>
 <p>BlockScope采用基于相似度的代码匹配机制，设计了一种新的计算代码相似度的方法来覆盖所有syntax-wide变量的克隆</p>
 <p>BlockScope能够自动抽取补丁的上下文，找到潜在的相关代码进行对比</p>
 <p>和现有工作ReDebug相比，能在精度接近的情况下实现1.8倍的recall（确定更多可能执行的路径或者函数调用）</p>
@@ -262,7 +262,7 @@
 </ul>
 <p>大多数分叉链修补的时间延迟约为200天 </p>
 <p>提供的具体漏洞CVE和PR：<a target="_blank" rel="noopener" href="https://github.com/VPRLab/BlkVulnReport">VPRLab/BlkVulnReport: A Summary of Vulnerabilities Found in the BlockScope NDSS’23 Paper (github.com)</a></p>
-<p>wu老师的主页总结了学术界和工业界安全相关会议的ddl<a target="_blank" rel="noopener" href="https://daoyuan14.github.io/">Daoyuan Wu’s HomePage (daoyuan14.github.io)</a></p>
+<p>wu老师的主页总结了学术界和工业界安全相关会议的ddl <a target="_blank" rel="noopener" href="https://daoyuan14.github.io/">Daoyuan Wu’s HomePage (daoyuan14.github.io)</a></p>
 <h1 id="design-choices-and-system-overview"><a href="#design-choices-and-system-overview" class="headerlink" title="design choices and system overview"></a>design choices and system overview</h1><ul>
 <li>基于补丁的代码检测</li>
 <li>不针对特定编程语言，不采用类似程序分析的抽象</li>
@@ -274,7 +274,7 @@
 </ul>
 <h1 id="问题与思考"><a href="#问题与思考" class="headerlink" title="问题与思考"></a>问题与思考</h1><ul>
 <li>什么是similariry based code match</li>
-<li>recall：分析中确定可达分支的能力</li>
+<li>recall：分析结果中确定可达分支的能力</li>
 <li>extract之前需要normalizing and tokenizing</li>
 </ul>
 <p>​                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </p>
