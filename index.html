@@ -578,7 +578,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-07 11:24:42" itemprop="dateModified" datetime="2023-09-07T11:24:42+08:00">2023-09-07</time>
+                <time title="Modified: 2023-10-10 21:01:13" itemprop="dateModified" datetime="2023-10-10T21:01:13+08:00">2023-10-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -602,20 +602,6 @@
 
       
           <h1 id="GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy"><a href="#GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy" class="headerlink" title="GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy"></a>GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy</h1><p>David B, Magri B, Matt C, et al. GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy[C]//Proceedings of the 2022 ACM SIGSAC Conference on Computer and Communications Security. 2022: 683-696.</p>
-<p>分片是克服区块链可扩展性难题的新兴技术，没有分片，每个节点都必须监听和处理所有账本的信息</p>
-<p>分片的基本思想是并行化账本协议：将节点划分为子集处理，通过执行轻量化的账本协议实例来处理部分原来的工作，分片越小，因为提高了并行化，分片共识协议的开销小，效率越高</p>
-<p>沿着这个脉络，本文提出了一个新的方案——采用安全性-活性二分法，在分片共识种将活性和安全性拆分开，允许动态调整分片参数实现在当前腐化比例下最优的效率</p>
-<ul>
-<li>首先建立一个相对小的分片（诚实节点的比例可能很小）</li>
-<li>在共识协议中仔细地用安全性来trade-off活性，来容忍小的诚实节点的比例，但不丧失安全性<ul>
-<li>困难性在于分片想要获得活性，最坏情况下需要更高的诚实节点比例</li>
-<li>采用一条永远满足活性和安全性的control chain来检测活性失败</li>
-<li>分片被检测出不满足活性的情况下 重新设置为更大的分片大小和活性容忍度直到满足活，保证所有分片永远安全并且效率最优</li>
-</ul>
-</li>
-<li>具体数据：10000参与方，30%的腐化比例，60-bit安全，之前的设计要求每个分片超过5800个参与方保证安全性，本方案最坏情况下需要1713节点，最好情况下需要35个节点</li>
-</ul>
-<p>在高并发的执行环境下，保证账本协议和子协议在通用组合下的安全性非常重要，为了证明协议的安全性，本文给出了分片账本、控制链和分片共识的理想的功能，形式化并证明了在UC框架下的安全性</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/08/18/GearBox/#more" rel="contents">
@@ -917,7 +903,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-08 16:03:31" itemprop="dateModified" datetime="2023-08-08T16:03:31+08:00">2023-08-08</time>
+                <time title="Modified: 2023-10-10 21:01:59" itemprop="dateModified" datetime="2023-10-10T21:01:59+08:00">2023-10-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -941,16 +927,7 @@
 
       
           <h1 id="ConFuzzius-A-Data-Dependency-Aware-Hybrid-Fuzzer-for-Smart-Contracts"><a href="#ConFuzzius-A-Data-Dependency-Aware-Hybrid-Fuzzer-for-Smart-Contracts" class="headerlink" title="ConFuzzius: A Data Dependency-Aware Hybrid Fuzzer for Smart Contracts"></a>ConFuzzius: A Data Dependency-Aware Hybrid Fuzzer for Smart Contracts</h1><p>这篇工作发表于<code>EuroS&amp;P21</code></p>
-<ul>
-<li><p>符号执行的方法存在过拟合，导致假阳率</p>
-</li>
-<li><p>现有的模糊测试方法分析浅层的漏洞比较有效，对于执行时的深层的漏洞分析不够有效，导致较低的代码覆盖率/假阳</p>
-</li>
-<li>传统程序测试中已经证明结合符号执行和模糊测试的可行性</li>
-</ul>
-<p>ConFuzzius是第一个针对智能合约的混合模糊测试器，采用进化的模糊测试方法执行合约的浅层部分，约束求解来生成符合复杂条件的输入，防止进化模糊测试方法探索深层部分。</p>
-<p>ConFuzzius充分利用动态的数据依赖分析来生成更可能导致出现漏洞的交易序列</p>
-<p>实验数据采用精选的128个合约和包含21000真实世界的合约，结果显示比当前最好的工具多检测出了23%的漏洞，代码覆盖率达到了69%，动态数据依赖分析可以加速漏洞检测18%</p>
+<p>Torres C F, Iannillo A K, Gervais A, et al. Confuzzius: A data dependency-aware hybrid fuzzer for smart contracts[C]//2021 IEEE European Symposium on Security and Privacy (EuroS&amp;P). IEEE, 2021: 103-119.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/07/23/ConFuzzius/#more" rel="contents">
