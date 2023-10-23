@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="收集、分析智能合约审计报告">
+<meta property="og:type" content="article">
+<meta property="og:title" content="smart-contract-audit">
+<meta property="og:url" content="https://alleysira.github.io/2023/10/19/smart-contract-audit/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="收集、分析智能合约审计报告">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/10/19/smart-contract-audit/image-20231008154504134.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/10/19/smart-contract-audit/image-20231008152113943.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/10/19/smart-contract-audit/image-20231008152655355.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/10/19/smart-contract-audit/image-20231008153109744.png">
+<meta property="article:published_time" content="2023-10-19T07:14:55.000Z">
+<meta property="article:modified_time" content="2023-10-23T12:43:50.567Z">
+<meta property="article:author" content="Alleysira">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="SmartContract">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/10/19/smart-contract-audit/image-20231008154504134.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2023/10/19/smart-contract-audit/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>smart-contract-audit | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/10/19/smart-contract-audit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="Eng.D student at School of Cyber Science and Teconology, BUAA.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          smart-contract-audit
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-10-19 15:14:55" itemprop="dateCreated datePublished" datetime="2023-10-19T15:14:55+08:00">2023-10-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-10-23 20:43:50" itemprop="dateModified" datetime="2023-10-23T20:43:50+08:00">2023-10-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Blockchain/" itemprop="url" rel="index"><span itemprop="name">Blockchain</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>收集、分析智能合约审计报告</p>
+<span id="more"></span>
+<h1 id="审计报告"><a href="#审计报告" class="headerlink" title="审计报告"></a>审计报告</h1><h2 id="调研结果"><a href="#调研结果" class="headerlink" title="调研结果"></a>调研结果</h2><p>收集了来自42家公司的2382份pdf格式的审计报告，主要针对的是智能合约</p>
+<p>总结了审计报告的主要内容并以MetaTransaction的审计报告为例介绍了各个模块</p>
+<h2 id="审计报告主要内容"><a href="#审计报告主要内容" class="headerlink" title="审计报告主要内容"></a>审计报告主要内容</h2><p>以审计公司 <a target="_blank" rel="noopener" href="https://abdk.consulting/">ABDK.consulting</a> 对 <a href="[0x | Powerful APIs to build financial apps on crypto rails](https://0x.org/">0x</a>) 项目的 MetaTransaction审计报告为例，介绍审计报告一般包含的主要内容</p>
+<h3 id="审计方法"><a href="#审计方法" class="headerlink" title="审计方法"></a>审计方法</h3><p>介绍审计过程中采用的方法或审计的流程</p>
+<p>该审计报告主要进行了四个方面的分析</p>
+<ul>
+<li>常规代码检查：检查代码风格是否清楚、一致，具体检查缩进、变量命名、缺失注释等问题</li>
+<li>实体使用分析：分析代码中的实体（例如变量、函数、类等）的使用情况和模式。了解代码中的实体是如何被引用、使用和修改的，以及它们在不同上下文中的行为和依赖关系</li>
+<li>访问控制分析：对于能够被外部访问的实体，检查访问控制是否恰当</li>
+<li>代码逻辑分析：分析特定函数的正确性和效率，检查代码的行为是否符合预期、算法是否正确</li>
+</ul>
+<p><img src="/2023/10/19/smart-contract-audit/image-20231008154504134.png" alt="image-20231008154504134" style="zoom:67%;"></p>
+<h3 id="审计对象"><a href="#审计对象" class="headerlink" title="审计对象"></a>审计对象</h3><p>一般会给出被审计项目的基本介绍、代码、项目结构等信息</p>
+<p>源代码：<a target="_blank" rel="noopener" href="https://github.com/0xProject/protocol/compare/development...feat/MetaTransactionV2">Comparing development…feat/MetaTransactionV2 · 0xProject/protocol (github.com)</a> 以及 <a target="_blank" rel="noopener" href="https://github.com/0xProject/protocol/pull/665/commits/6e926af41cd93ebd8686163f5ac34759b4ff1446">feat: Multiplex + MetaTransaction integration and MetaTransaction Multi-Fee Support [RFQ-795] [LIT-870] by patrick-dowell · Pull Request #665 · 0xProject/protocol (github.com)</a></p>
+<p>审计对象的项目结构</p>
+<p><img src="/2023/10/19/smart-contract-audit/image-20231008152113943.png" alt="image-20231008152113943"></p>
+<h3 id="审计结果"><a href="#审计结果" class="headerlink" title="审计结果"></a>审计结果</h3><p>主要包括发现的漏洞类型、数量以及漏洞的修复情况</p>
+<p>根据危害等级，一般将漏洞等级分为：</p>
+<ul>
+<li>Critical：严重</li>
+<li>Major：高危</li>
+<li>Moderate：中危</li>
+<li>Minor：低危</li>
+</ul>
+<p>本报告发现了1个严重漏洞、1个高危漏洞、1个中危漏洞、17个低危漏洞，其中5个已经修复，仍有15个低危漏洞尚未被修复</p>
+<p><img src="/2023/10/19/smart-contract-audit/image-20231008152655355.png" alt="image-20231008152655355" style="zoom:67%;"></p>
+<h3 id="漏洞详细信息"><a href="#漏洞详细信息" class="headerlink" title="漏洞详细信息"></a>漏洞详细信息</h3><p>审计报告一般会对发现的漏洞进行描述，包括漏洞的分类、漏洞的危害、漏洞在合约中的位置、如何触发漏洞、以及如何修复漏洞</p>
+<p>以发现的严重漏洞CVF-1为例，审计报告中介绍了该漏洞的具体信息</p>
+<ul>
+<li>漏洞分类为 缺陷</li>
+<li>两个modifier <code>refundsAttachedEth</code> 和<code>doesNotReduceEthBalance</code>可能产生冲突</li>
+<li>漏洞位置：该漏洞出现在<code>MetaTransactionsFeatureV2.sol</code>合约中</li>
+<li>建议的修复措施：将<code>refundsAttachedEth</code>和<code>doesNotReduceEthBalance</code>合并作为交易退款的标识符</li>
+<li>0x项目的解决方法：删除<code>refundsAttachedEth()</code>，将<code>executeMetatransaction</code>设置为<code>notpayable</code></li>
+</ul>
+<p><img src="/2023/10/19/smart-contract-audit/image-20231008153109744.png" alt="image-20231008153109744"></p>
+<h2 id="审计报告来源"><a href="#审计报告来源" class="headerlink" title="审计报告来源"></a>审计报告来源</h2><p>共计42家审计公司公开发布的审计报告，具体名单如下</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">审计公司</th>
+<th style="text-align:center">链接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.abdk.consulting/">ABDK Consulting</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/abdk-consulting/audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.arbitraryexecution.com/blog/">Arbitrary Execution</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/arbitraryexecution/publications">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://arcadiamgroup.com/">Arcadia Group</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.arcadia.agency/auditReports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.blockchainlabs.nz/home">BlockchainLabs</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/BlockchainLabsNZ/audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://blocksecteam.com">BlockSec</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/blocksecteam/audit-reports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://chainsafe.io/">Chain Safe</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/ChainSafe/audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://chainsulting.de/">Chainsulting</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/chainsulting/Smart-Contract-Security-Audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://cystack.net/">Cystack</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/cystack/security-audit-reports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://credshields.com/index.html">CredShields</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/Credshields/Audit-Reports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.coinspect.com/">Coinspect</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/coinspect/publications">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.cyfrin.io/">Cyfrin</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/ChainAccelOrg/cyfrin-audit-reports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://decurity.io/">Decurity</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/Decurity/audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.dedaub.com/">Dedaub</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/Dedaub/audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://distributedlab.com/">Distributed Lab</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/dl-solidity-library/audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/g0-group">G0 Group</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/g0-group/Audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://guardianaudits.com/">GuardianAudits</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/GuardianAudits/Audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://lab.guardianaudits.com/">Guardian Solidity Lab</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/GuardianAudits/SolidityLabAudits/tree/main">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://hexens.io/">Hexens</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/Hexens/Smart-Contract-Review-Public-Reports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.immunebytes.com/">Immunebytes</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/ImmuneBytes/Smart-Contract-Audit-Reports/">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://informal.systems/">InformalSystems</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/informalsystems/audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.kalos.xyz/">Kalos</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/kalos-xyz/Publications">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://mixbytes.io/">MixBytes</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/mixbytes/audits_public">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.numencyber.com/">Numen</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/numencyber/Public_Report">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.oaksecurity.io/">Oak Security</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/oak-security/audit-reports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://oxor.io">Oxorio</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/oxor-io/public_audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/peppersec">PepperSec</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/peppersec/public-audit-reports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://pessimistic.io/">Pessemistic</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/pessimistic-io/audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://redteam.pl/">REDTEAM.PL</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/redteampl/public_reports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://runtimeverification.com/">Runtime Verification</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/runtimeverification/publications#smart-contracts-security-audit-and-formal-verification">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.sec3.dev/">Sec3</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/sec3-service/reports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://audit.shellboxes.com/">ShellBoxes</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/shellboxes/public-audit-reports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.sherlock.xyz/">Sherlock</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/sherlock-protocol/sherlock-reports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://sigmaprime.io/">Sigma Prime</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/sigp/public-audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://smcauditors.com/index.html">SMC Auditors</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/smcauditors/smart-contract-audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://solidified.io/">Solidified</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/solidified-platform/audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://spearbit.com/">Spearbit</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/spearbit/portfolio">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://statemind.io/">Statemind</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/statemindio/public-audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.truscova.com/index.php">Truscova</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/Truscova/Reports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.verichains.io/">Verichains</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/verichains/public-audit-reports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://yacademy.dev/">yAcademy</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/yacademy/audits">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://yaudit.dev/">yAudit</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/yAudit/reports">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.zellic.io/">Zellic</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/Zellic/publications">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.zokyo.io/">Zokyo</a></td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://github.com/zokyo-sec/audit-reports">Link</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="其他资料"><a href="#其他资料" class="headerlink" title="其他资料"></a>其他资料</h1><ul>
+<li><p>Etherscan目前认证了60家智能合约审计公司</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://etherscan.io/directory/Smart_Contracts/Smart_Contracts_Audit_And_Security">https://etherscan.io/directory/Smart_Contracts/Smart_Contracts_Audit_And_Security</a></li>
+</ul>
+</li>
+<li><p>中山大学郑子彬老师的团队花费了44个人月，分析了1322份开源的审计报告</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.08456">https://arxiv.org/abs/2305.08456</a></li>
+<li>开源工具DappScan <ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/InPlusLab/DAppSCAN">https://github.com/InPlusLab/DAppSCAN</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+              <a href="/tags/SmartContract/" rel="tag"># SmartContract</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/10/12/EVM-security/" rel="prev" title="EVM_security">
+      <i class="fa fa-chevron-left"></i> EVM_security
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/10/23/VM-matters/" rel="next" title="VM-matters">
+      VM-matters <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%A1%E8%AE%A1%E6%8A%A5%E5%91%8A"><span class="nav-number">1.</span> <span class="nav-text">审计报告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%A0%94%E7%BB%93%E6%9E%9C"><span class="nav-number">1.1.</span> <span class="nav-text">调研结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A1%E8%AE%A1%E6%8A%A5%E5%91%8A%E4%B8%BB%E8%A6%81%E5%86%85%E5%AE%B9"><span class="nav-number">1.2.</span> <span class="nav-text">审计报告主要内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A1%E8%AE%A1%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">审计方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A1%E8%AE%A1%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.2.2.</span> <span class="nav-text">审计对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A1%E8%AE%A1%E7%BB%93%E6%9E%9C"><span class="nav-number">1.2.3.</span> <span class="nav-text">审计结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.4.</span> <span class="nav-text">漏洞详细信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A1%E8%AE%A1%E6%8A%A5%E5%91%8A%E6%9D%A5%E6%BA%90"><span class="nav-number">1.3.</span> <span class="nav-text">审计报告来源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%B5%84%E6%96%99"><span class="nav-number">2.</span> <span class="nav-text">其他资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">Eng.D student at School of Cyber Science and Teconology, BUAA.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
