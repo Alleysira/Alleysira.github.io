@@ -610,13 +610,6 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Architecture/</loc>
-    <lastmod>2023-10-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://alleysira.github.io/tags/Blockchain/</loc>
     <lastmod>2023-10-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -625,6 +618,13 @@
   
   <url>
     <loc>https://alleysira.github.io/tags/SmartContract/</loc>
+    <lastmod>2023-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/tags/Architecture/</loc>
     <lastmod>2023-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -652,14 +652,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Language/</loc>
+    <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
     <lastmod>2023-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
+    <loc>https://alleysira.github.io/tags/Language/</loc>
     <lastmod>2023-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -694,6 +694,13 @@
   </url>
   
   <url>
+    <loc>https://alleysira.github.io/tags/PIR/</loc>
+    <lastmod>2023-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/tags/OT/</loc>
     <lastmod>2023-10-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -702,13 +709,6 @@
   
   <url>
     <loc>https://alleysira.github.io/tags/PSI/</loc>
-    <lastmod>2023-10-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://alleysira.github.io/tags/PIR/</loc>
     <lastmod>2023-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -787,13 +787,6 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/categories/Architecture/</loc>
-    <lastmod>2023-10-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://alleysira.github.io/categories/Blockchain/</loc>
     <lastmod>2023-10-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -802,6 +795,13 @@
   
   <url>
     <loc>https://alleysira.github.io/categories/Crypto/</loc>
+    <lastmod>2023-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/categories/Architecture/</loc>
     <lastmod>2023-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
