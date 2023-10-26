@@ -235,7 +235,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Making-Smart-Contracts-Smarter"><a href="#Making-Smart-Contracts-Smarter" class="headerlink" title="Making Smart Contracts Smarter"></a>Making Smart Contracts Smarter</h1><p>这篇工作发表于big4 <code>CCS16</code>，一作是来自NUS的Loi Luu</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Making-Smart-Contracts-Smarter"><a href="#Making-Smart-Contracts-Smarter" class="headerlink" title="Making Smart Contracts Smarter"></a>Making Smart Contracts Smarter</h1><p>这篇工作发表于big4 <code>CCS16</code>，一作是来自NUS的Loi Luu</p>
 <p>本文针对以太坊智能合约的安全问题展开研究，介绍了智能合约运行时的若干安全问题。作为改进，提出了增强以太坊的操作语义的方法，使智能合约更不容易受到攻击。</p>
 <p>对于智能合约开发者，本文提出了Oyente，采用符号执行的方法进行智能合约潜在安全漏洞的查找。实验部分针对19366个合约进行分析，Oyente标记了8833个合约为有风险的。</p>
 <p>同时还讨论了几个案例研究中其他攻击的严重程度，这些案例研究有源代码可用，并在主要的以太坊网络中确认了攻击。</p>
@@ -508,7 +508,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -521,7 +521,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -594,6 +594,31 @@
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
 
 
 

@@ -215,7 +215,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="BP-basic"><a href="#BP-basic" class="headerlink" title="BP-basic"></a>BP-basic</h2><span id="more"></span>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="BP-basic"><a href="#BP-basic" class="headerlink" title="BP-basic"></a>BP-basic</h2><span id="more"></span>
 <h3 id="Bugku-好像需要密码"><a href="#Bugku-好像需要密码" class="headerlink" title="Bugku-好像需要密码"></a>Bugku-好像需要密码</h3><p>python脚本+bp爆破即可</p>
 <h2 id="php代码审计"><a href="#php代码审计" class="headerlink" title="php代码审计"></a>php代码审计</h2><h3 id="Bugku-文件包含"><a href="#Bugku-文件包含" class="headerlink" title="Bugku-文件包含"></a>Bugku-文件包含</h3><p>点击之后发现url中有引入文件的操作，可能有文件包含漏洞</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://114.67.246.176:11573/index.php?file=php://filter/read=convert.base64-encode/resource=index.php</span><br><span class="line">// flag在注释中，需要加密后再解密读出</span><br></pre></td></tr></table></figure>
@@ -333,7 +333,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -346,7 +346,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -419,6 +419,31 @@
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
 
 
 

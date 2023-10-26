@@ -215,7 +215,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Web2"><a href="#Web2" class="headerlink" title="Web2"></a>Web2</h1><h2 id="Bugku-各种绕过哟"><a href="#Bugku-各种绕过哟" class="headerlink" title="Bugku-各种绕过哟"></a>Bugku-各种绕过哟</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">highlight_file(<span class="string">&#x27;flag.php&#x27;</span>);</span><br><span class="line"><span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>] = urldecode(<span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>]);</span><br><span class="line"><span class="variable">$flag</span> = <span class="string">&#x27;flag&#123;xxxxxxxxxxxxxxxxxx&#125;&#x27;</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;uname&#x27;</span>]) <span class="keyword">and</span> <span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;passwd&#x27;</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$_GET</span>[<span class="string">&#x27;uname&#x27;</span>] == <span class="variable">$_POST</span>[<span class="string">&#x27;passwd&#x27;</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">print</span> <span class="string">&#x27;passwd can not be uname.&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (sha1(<span class="variable">$_GET</span>[<span class="string">&#x27;uname&#x27;</span>]) === sha1(<span class="variable">$_POST</span>[<span class="string">&#x27;passwd&#x27;</span>])&amp;(<span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>]==<span class="string">&#x27;margin&#x27;</span>))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&#x27;Flag: &#x27;</span>.<span class="variable">$flag</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">print</span> <span class="string">&#x27;sorry!&#x27;</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Web2"><a href="#Web2" class="headerlink" title="Web2"></a>Web2</h1><h2 id="Bugku-各种绕过哟"><a href="#Bugku-各种绕过哟" class="headerlink" title="Bugku-各种绕过哟"></a>Bugku-各种绕过哟</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">highlight_file(<span class="string">&#x27;flag.php&#x27;</span>);</span><br><span class="line"><span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>] = urldecode(<span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>]);</span><br><span class="line"><span class="variable">$flag</span> = <span class="string">&#x27;flag&#123;xxxxxxxxxxxxxxxxxx&#125;&#x27;</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;uname&#x27;</span>]) <span class="keyword">and</span> <span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;passwd&#x27;</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$_GET</span>[<span class="string">&#x27;uname&#x27;</span>] == <span class="variable">$_POST</span>[<span class="string">&#x27;passwd&#x27;</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">print</span> <span class="string">&#x27;passwd can not be uname.&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (sha1(<span class="variable">$_GET</span>[<span class="string">&#x27;uname&#x27;</span>]) === sha1(<span class="variable">$_POST</span>[<span class="string">&#x27;passwd&#x27;</span>])&amp;(<span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>]==<span class="string">&#x27;margin&#x27;</span>))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&#x27;Flag: &#x27;</span>.<span class="variable">$flag</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">print</span> <span class="string">&#x27;sorry!&#x27;</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p><code>sha1()</code>函数同<code>md5()</code>，可以用数组绕过</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//114.67.246.176:13558/?id=margin&amp;uname[]=1</span></span><br><span class="line">postdata:passwd[]=<span class="number">2</span></span><br></pre></td></tr></table></figure>
 <span id="more"></span>
@@ -339,7 +339,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -352,7 +352,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -425,6 +425,31 @@
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
 
 
 

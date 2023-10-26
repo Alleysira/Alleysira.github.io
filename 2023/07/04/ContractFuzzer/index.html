@@ -231,7 +231,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="ContractFuzzer-Fuzzing-Smart-Contracts-for-Vulnerability-Detection"><a href="#ContractFuzzer-Fuzzing-Smart-Contracts-for-Vulnerability-Detection" class="headerlink" title="ContractFuzzer: Fuzzing Smart Contracts for Vulnerability Detection"></a>ContractFuzzer: Fuzzing Smart Contracts for Vulnerability Detection</h1><p>软工顶会 <code>ASE18</code></p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="ContractFuzzer-Fuzzing-Smart-Contracts-for-Vulnerability-Detection"><a href="#ContractFuzzer-Fuzzing-Smart-Contracts-for-Vulnerability-Detection" class="headerlink" title="ContractFuzzer: Fuzzing Smart Contracts for Vulnerability Detection"></a>ContractFuzzer: Fuzzing Smart Contracts for Vulnerability Detection</h1><p>软工顶会 <code>ASE18</code></p>
 <p>基于智能合约的ABI生成fuzz的输入，针对不同漏洞类型定义了新的测试oracle，利用EVM记录智能合约的运行时行为，分析日志来报告安全漏洞。实验对6991份智能合约标记出了459个漏洞。</p>
 <span id="more"></span>
 <h2 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h2><p>截止 2018.3， 以太坊智能合约和DApps的数量超过2百万，以太坊账户管理的ether超过9800万，约为5800 USD。管理如此多财富的智能合约成为了黑客的攻击目标。</p>
@@ -492,7 +492,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -505,7 +505,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -578,6 +578,31 @@
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
 
 
 

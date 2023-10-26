@@ -215,7 +215,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Bugku-秋名山车神"><a href="#Bugku-秋名山车神" class="headerlink" title="Bugku-秋名山车神"></a>Bugku-秋名山车神</h1><p>快速反弹 POST 请求，因为精度问题需要多次尝试</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Bugku-秋名山车神"><a href="#Bugku-秋名山车神" class="headerlink" title="Bugku-秋名山车神"></a>Bugku-秋名山车神</h1><p>快速反弹 POST 请求，因为精度问题需要多次尝试</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">url = <span class="string">&#x27;http://114.67.246.176:17516/&#x27;</span></span><br><span class="line">s = requests.Session()</span><br><span class="line">source = s.get(url)</span><br><span class="line">expression = re.search(<span class="string">r&#x27;(\d+[+\-*])+(\d+)&#x27;</span>, source.text).group()</span><br><span class="line">result = <span class="built_in">eval</span>(expression)</span><br><span class="line">post = &#123;<span class="string">&#x27;value&#x27;</span>: result&#125;</span><br><span class="line"><span class="built_in">print</span>(s.post(url, data = post).text)</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
 <h1 id="Bugku-速度要快"><a href="#Bugku-速度要快" class="headerlink" title="Bugku-速度要快"></a>Bugku-速度要快</h1><p>查看源代码，需要post对应margin，bp抓包发现回应报文头有flag，采用base64解码2次</p>
@@ -344,7 +344,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -357,7 +357,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -430,6 +430,31 @@
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
 
 
 

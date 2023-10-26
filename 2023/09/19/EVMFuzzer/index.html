@@ -255,7 +255,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="EVMFuzzer-Detect-EVM-Vulnerabilities-via-Fuzz-Testing"><a href="#EVMFuzzer-Detect-EVM-Vulnerabilities-via-Fuzz-Testing" class="headerlink" title="EVMFuzzer: Detect EVM Vulnerabilities via Fuzz Testing"></a>EVMFuzzer: Detect EVM Vulnerabilities via Fuzz Testing</h1><p>Fu Y, Ren M, Ma F, et al. Evmfuzzer: detect evm vulnerabilities via fuzz testing[C]//Proceedings of the 2019 27th ACM joint meeting on european software engineering conference and symposium on the foundations of software engineering. 2019: 1110-1114.</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="EVMFuzzer-Detect-EVM-Vulnerabilities-via-Fuzz-Testing"><a href="#EVMFuzzer-Detect-EVM-Vulnerabilities-via-Fuzz-Testing" class="headerlink" title="EVMFuzzer: Detect EVM Vulnerabilities via Fuzz Testing"></a>EVMFuzzer: Detect EVM Vulnerabilities via Fuzz Testing</h1><p>Fu Y, Ren M, Ma F, et al. Evmfuzzer: detect evm vulnerabilities via fuzz testing[C]//Proceedings of the 2019 27th ACM joint meeting on european software engineering conference and symposium on the foundations of software engineering. 2019: 1110-1114.</p>
 <span id="more"></span>
 <p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9Lejgf2GSOk&amp;ab_channel=EVMFuzzer">EVMFuzzer: Detect EVM Vulnerabilities via Fuzz Testing - YouTube</a></p>
 <p>对以太坊合约进行测试的挑战在于测试输入数据的格式以及预言机的存在，EVMFuzzer是第一个采用差分模糊测试技巧检查以太坊漏洞的工具。本文的核心思想是不断生成种子合约并输入给目标EVM和其他测试标准EVM，通过发现尽可能多的执行结果的不一致性，最终发现带有输出交叉引用的漏洞</p>
@@ -638,7 +638,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -651,7 +651,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -724,6 +724,31 @@
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
 
 
 

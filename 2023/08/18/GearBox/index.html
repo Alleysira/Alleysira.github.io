@@ -247,7 +247,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy"><a href="#GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy" class="headerlink" title="GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy"></a>GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy</h1><p>David B, Magri B, Matt C, et al. GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy[C]//Proceedings of the 2022 ACM SIGSAC Conference on Computer and Communications Security. 2022: 683-696.</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy"><a href="#GearBox-Optimal-size-Shard-Committees-by-Leveraging-the-Safety-Liveness-Dichotomy" class="headerlink" title="GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy"></a>GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy</h1><p>David B, Magri B, Matt C, et al. GearBox: Optimal-size Shard Committees by Leveraging the Safety-Liveness Dichotomy[C]//Proceedings of the 2022 ACM SIGSAC Conference on Computer and Communications Security. 2022: 683-696.</p>
 <span id="more"></span>
 <p>分片是克服区块链可扩展性难题的新兴技术，没有分片，每个节点都必须监听和处理所有账本的信息</p>
 <p>分片的基本思想是并行化账本协议：将节点划分为子集处理，通过执行轻量化的账本协议实例来处理部分原来的工作，分片越小，因为提高了并行化，分片共识协议的开销小，效率越高</p>
@@ -633,7 +633,7 @@ s
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -646,7 +646,7 @@ s
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -719,6 +719,31 @@ s
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
 
 
 

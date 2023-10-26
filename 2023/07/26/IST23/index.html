@@ -212,7 +212,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Chu H, Zhang P, Dong H, et al. A survey on smart contract vulnerabilities: Data sources, detection and repair[J]. Information and Software Technology, 2023: 107221.</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Chu H, Zhang P, Dong H, et al. A survey on smart contract vulnerabilities: Data sources, detection and repair[J]. Information and Software Technology, 2023: 107221.</p>
 <p>发表于IST23 CCFB，介绍智能合约发展的综述文章</p>
 <span id="more"></span>
 <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>智能合约满足不可篡改性和无第三方的性质，现有研究聚焦于特定领域，如开发周期、攻击方法、安全监测工具等，本文从vulnerability data sources, vulnerability detection, and vulnerability defense三个方面进行研究。首先分析智能合约现有的安全问题和挑战，调查现有的漏洞分类框架和常见的安全漏洞，分析现有安全工具的性能，总结了智能合约安全相关研究</p>
@@ -331,7 +331,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -344,7 +344,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -417,6 +417,31 @@
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
 
 
 
