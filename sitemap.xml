@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://alleysira.github.io/2023/09/19/EVMFuzzer/</loc>
+    
+    <lastmod>2023-10-26</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/2023/10/12/EVM-security/</loc>
+    
+    <lastmod>2023-10-26</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/2023/10/23/VM-matters/</loc>
     
     <lastmod>2023-10-26</lastmod>
@@ -20,15 +38,6 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/2023/10/12/EVM-security/</loc>
-    
-    <lastmod>2023-10-24</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://alleysira.github.io/2023/10/19/smart-contract-audit/</loc>
     
     <lastmod>2023-10-23</lastmod>
@@ -41,15 +50,6 @@
     <loc>https://alleysira.github.io/2023/09/17/trusted-computing/</loc>
     
     <lastmod>2023-10-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://alleysira.github.io/2023/09/19/EVMFuzzer/</loc>
-    
-    <lastmod>2023-10-22</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -619,14 +619,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Blockchain/</loc>
+    <loc>https://alleysira.github.io/tags/Architecture/</loc>
     <lastmod>2023-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Architecture/</loc>
+    <loc>https://alleysira.github.io/tags/Blockchain/</loc>
     <lastmod>2023-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -661,13 +661,6 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://alleysira.github.io/tags/Language/</loc>
     <lastmod>2023-10-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -683,6 +676,13 @@
   
   <url>
     <loc>https://alleysira.github.io/tags/Sharding/</loc>
+    <lastmod>2023-10-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
     <lastmod>2023-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -710,13 +710,6 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/PIR/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://alleysira.github.io/tags/PSI/</loc>
     <lastmod>2023-10-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -725,6 +718,13 @@
   
   <url>
     <loc>https://alleysira.github.io/tags/VM/</loc>
+    <lastmod>2023-10-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/tags/PIR/</loc>
     <lastmod>2023-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -803,14 +803,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/categories/Blockchain/</loc>
+    <loc>https://alleysira.github.io/categories/Architecture/</loc>
     <lastmod>2023-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/categories/Architecture/</loc>
+    <loc>https://alleysira.github.io/categories/Blockchain/</loc>
     <lastmod>2023-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
