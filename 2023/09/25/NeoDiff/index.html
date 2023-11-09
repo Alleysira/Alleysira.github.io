@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20231018195339302.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/25/NeoDiff/image-20231019162646551.png">
 <meta property="article:published_time" content="2023-09-25T07:55:11.000Z">
-<meta property="article:modified_time" content="2023-10-19T11:33:26.201Z">
+<meta property="article:modified_time" content="2023-11-09T10:42:01.733Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta property="article:tag" content="SmartContract">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-10-19 19:33:26" itemprop="dateModified" datetime="2023-10-19T19:33:26+08:00">2023-10-19</time>
+                <time title="Modified: 2023-11-09 18:42:01" itemprop="dateModified" datetime="2023-11-09T18:42:01+08:00">2023-11-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -251,7 +251,7 @@
 <p>Neo是一个被研究较少的区块链，2021年日均交易量达1.5亿美元。项目地址：<a target="_blank" rel="noopener" href="https://neo.org/">Neo 智能经济</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.investopedia.com/tech/china-neo-cryptocurrency/">NEO (NEO) Definition (investopedia.com)</a></p>
 <p><img src="/2023/09/25/NeoDiff/image-20230925160606443.png" alt="image-20230925160606443"></p>
-<p>在Neo上NeoDiff发现了VM的不一致性、主链上的内存损坏，因为Neo提高了利用python等传统编程语言写智能合约的选项，因此可以利用python的语义进行模糊测试</p>
+<p>在Neo上NeoDiff发现了VM的不一致性、主链上的内存损坏，因为Neo提供了利用python等传统编程语言写智能合约的选项，因此可以利用python的语义进行模糊测试</p>
 <p>和传统模糊测试不同的是，差分模糊测试想要实现的是输出或状态的不一致，NeoDiff支持对不同编程语言实现的系统进行模糊测试（neo-python VM 客户端和Neo VM C# 共识节点)，</p>
 <p>发现了CPython and neo-boa Python和智能合约上的语义差别</p>
 <p>贡献如下：</p>
@@ -281,7 +281,7 @@
 <li>每次调用生成新的调用栈</li>
 <li><p>架构如图<img src="/2023/09/25/NeoDiff/image-20230925171307210.png" alt="image-20230925171307210"></p>
 </li>
-<li><p>持久存储：大多数数据（例如区块链的交易和合约的永久KV存储）均可以通过syscall操作码访问；区块链本身仅存储交易，包括了调用合约的交易；为了得到当前存储的状态，所有交易都必须被重放（重新执行），存储可能存了认证消息或代币的余额。可以给予另一个合约访问存储的对象的权利</p>
+<li><p>持久存储：大多数数据（例如区块链的交易和合约的永久K-V存储）均可以通过syscall操作码访问；区块链本身仅存储交易，包括了调用合约的交易；为了得到当前存储的状态，所有交易都必须被重放（重新执行），存储可能存了认证消息或代币的余额。可以给予另一个合约访问存储的对象的权利</p>
 <ul>
 <li>实现中的漏洞或不恰当的授权可能导致存储相关的问题，如delagatecall<ul>
 <li>Johannes Krupp and Christian Rossow. 2018. teether: Gnawing at Ethereum to<br>Automatically Exploit Smart Contracts. Proceedings of the 27th USENIX Security<br>Symposium (2018), 1317–1333.</li>
