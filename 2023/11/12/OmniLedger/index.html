@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Video视频链接：https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v&#x3D;vHVZ2gD8Ie4&amp;ab_channel&#x3D;AllHackingCons github：https:&#x2F;&#x2F;github.com&#x2F;dedis&#x2F;student_18_byzcoin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OmniLedger">
+<meta property="og:url" content="https://alleysira.github.io/2023/11/12/OmniLedger/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="Video视频链接：https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v&#x3D;vHVZ2gD8Ie4&amp;ab_channel&#x3D;AllHackingCons github：https:&#x2F;&#x2F;github.com&#x2F;dedis&#x2F;student_18_byzcoin">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112132024157.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112132216448.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112132409442.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112132715120.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112133139221.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112133339611.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112133730137.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112134014422.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112134516084.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112135746820.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112140022164.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112141351986.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112141855252.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112142156625.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112142320778.png">
+<meta property="article:published_time" content="2023-11-12T05:09:50.000Z">
+<meta property="article:modified_time" content="2023-11-12T14:43:21.478Z">
+<meta property="article:author" content="Alleysira">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="Sharding">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/11/12/OmniLedger/image-20231112132024157.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2023/11/12/OmniLedger/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>OmniLedger | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/11/12/OmniLedger/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="Eng.D student at School of Cyber Science and Teconology, BUAA.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OmniLedger
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-11-12 13:09:50 / Modified: 22:43:21" itemprop="dateCreated datePublished" datetime="2023-11-12T13:09:50+08:00">2023-11-12</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Video"><a href="#Video" class="headerlink" title="Video"></a>Video</h1><p>视频链接：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=vHVZ2gD8Ie4&amp;ab_channel=AllHackingCons">https://www.youtube.com/watch?v=vHVZ2gD8Ie4&amp;ab_channel=AllHackingCons</a></p>
+<p>github：<a target="_blank" rel="noopener" href="https://github.com/dedis/student_18_byzcoin">https://github.com/dedis/student_18_byzcoin</a></p>
+<span id="more"></span>
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p><img src="/2023/11/12/OmniLedger/image-20231112132024157.png" alt="image-20231112132024157"></p>
+<p>进行分片时需要考虑的问题：</p>
+<ul>
+<li>验证者如何被分配到不同分片中去</li>
+<li>如何实现跨分片的交易</li>
+</ul>
+<p><img src="/2023/11/12/OmniLedger/image-20231112132216448.png" alt="image-20231112132216448"></p>
+<p>对于第一个问题，显然不能让验证者自己选择进去哪个分片，如果随机选择，需要保证分片大小足够大（失败概率为$10^{-6}$，分片大小在$10^3\to10^4$），符合leopard</p>
+<p><img src="/2023/11/12/OmniLedger/image-20231112132409442.png" alt="image-20231112132409442"></p>
+<p>在SimpleLedger的例子中，每轮有一个可信的random beacon，将验证者分到不同的分片中，且验证者能够验证哪些验证者跟自己在同一个分片</p>
+<p><img src="/2023/11/12/OmniLedger/image-20231112132715120.png" alt="image-20231112132715120" style="zoom:150%;"></p>
+<p>简单的设计，带来了很多问题</p>
+<p><img src="/2023/11/12/OmniLedger/image-20231112133139221.png" alt="image-20231112133139221" style="zoom:150%;"></p>
+<p>安全性方面：</p>
+<ul>
+<li>依赖第三方可信的random beacon</li>
+<li>重配置阶段不支持处理交易</li>
+<li>不支持跨片交易</li>
+</ul>
+<h2 id="OmniLedger"><a href="#OmniLedger" class="headerlink" title="OmniLedger"></a>OmniLedger</h2><p><img src="/2023/11/12/OmniLedger/image-20231112133339611.png" alt="image-20231112133339611" style="zoom:150%;"></p>
+<p>主要有6部分工作，包括DRB 平稳的轮切换等，主要介绍三个</p>
+<h3 id="DRB"><a href="#DRB" class="headerlink" title="DRB"></a>DRB</h3><p><img src="/2023/11/12/OmniLedger/image-20231112133730137.png" alt="image-20231112133730137" style="zoom:150%;"></p>
+<h3 id="原子跨片交易"><a href="#原子跨片交易" class="headerlink" title="原子跨片交易"></a>原子跨片交易</h3><p>参考了数据库领域的工作，2阶段承诺</p>
+<p><img src="/2023/11/12/OmniLedger/image-20231112134014422.png" alt="image-20231112134014422"></p>
+<p>存在问题：2阶段承诺不是时间容忍的，敌手可以abort</p>
+<p><img src="/2023/11/12/OmniLedger/image-20231112134516084.png" alt="image-20231112134516084"></p>
+<p>将分片作为server，client将没有commit的交易输入锁定，等待对应输入分片的证明后解锁</p>
+<h3 id="延迟和吞吐量的trade-off"><a href="#延迟和吞吐量的trade-off" class="headerlink" title="延迟和吞吐量的trade-off"></a>延迟和吞吐量的trade-off</h3><p>增大区块大小可以增加吞吐量，但是发送区块和验证区块的延迟会增加</p>
+<p>Omniledger的思路是牺牲部分安全性来降低延迟</p>
+<p>存在两层验证，一层处理数额较小的输入，安全性为90%，一层处理重要的交易</p>
+<p><img src="/2023/11/12/OmniLedger/image-20231112135746820.png" alt="image-20231112135746820" style="zoom:67%;"></p>
+<h2 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h2><p>Go语言编写，<a target="_blank" rel="noopener" href="https://github.com/dedis/student_18_byzcoin">https://github.com/dedis/student_18_byzcoin</a></p>
+<p>采用了dedis实验室的代码 <a target="_blank" rel="noopener" href="https://github.com/dedis">https://github.com/dedis</a></p>
+<p><img src="/2023/11/12/OmniLedger/image-20231112140022164.png" alt="image-20231112140022164" style="zoom:150%;"></p>
+<p>首先测试scale-out，增加节点数量</p>
+<p><img src="/2023/11/12/OmniLedger/image-20231112141351986.png" alt="image-20231112141351986" style="zoom:150%;"></p>
+<p>1120是分片大小为70，16个分片，考虑敌手比例最多为25%，低于BFT的容错</p>
+<p><img src="/2023/11/12/OmniLedger/image-20231112141855252.png" alt="image-20231112141855252" style="zoom:67%;"></p>
+<p>对于延迟，分别测试了2层验证的耗时</p>
+<p><img src="/2023/11/12/OmniLedger/image-20231112142156625.png" alt="image-20231112142156625" style="zoom:67%;"></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p><img src="/2023/11/12/OmniLedger/image-20231112142320778.png" alt="image-20231112142320778" style="zoom:67%;"></p>
+<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><p>Q: 网络分区的影响</p>
+<p>A: 如果发生网络分区，协议停止，不违反比特币的安全性</p>
+<p>Q: 和Algorand的区别</p>
+<p>A: Algorand没有sharding，可以选择将Algorand作为片内共识算法，Omniledger在Algorand之上，可以得到更好的敌手容忍比例</p>
+<p>Q: 交易如何分配到分片内</p>
+<p>A: Omniledger片内共识是参考比特币的，因此节点本地有UTXO数据库。如果存在跨片交易，依赖于原子承诺的设计，输入分片会commit或者abort</p>
+<p>Q: 表格中安全性仅考虑到了25-30%，失败概率$10^{-6}$，如何实现容忍$10^{-10}$的错误概率</p>
+<p>A: 更大的分片大小，trade-off</p>
+<p>Q: 因为目前矿池集中的算力超过了25%，可能达到30% 40% 45%，作者认为可能会如何</p>
+<p>A: 片内如果用比特币的共识能容忍50%的敌手</p>
+<p>Q: 最坏情况下的性能，如所有交易都是跨片交易</p>
+<p>A: 当所有交易都是跨片交易，不再是线性增长的。采用单个共识算法的效率会比sharding更好</p>
+<p>Q: 敌手能否让所有交易都成为跨片交易？</p>
+<p>A: 交易是由client发起的，不是由敌手选择的，因为交易有手续费，跨片交易的手续费比普通交易更高，如果跨3个片交易费可能是片内交易的三倍</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+              <a href="/tags/Sharding/" rel="tag"># Sharding</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/10/31/leopard-bft/" rel="prev" title="leopard-bft">
+      <i class="fa fa-chevron-left"></i> leopard-bft
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Video"><span class="nav-number">1.</span> <span class="nav-text">Video</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Motivation"><span class="nav-number">1.1.</span> <span class="nav-text">Motivation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OmniLedger"><span class="nav-number">1.2.</span> <span class="nav-text">OmniLedger</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DRB"><span class="nav-number">1.2.1.</span> <span class="nav-text">DRB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E8%B7%A8%E7%89%87%E4%BA%A4%E6%98%93"><span class="nav-number">1.2.2.</span> <span class="nav-text">原子跨片交易</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%B6%E8%BF%9F%E5%92%8C%E5%90%9E%E5%90%90%E9%87%8F%E7%9A%84trade-off"><span class="nav-number">1.2.3.</span> <span class="nav-text">延迟和吞吐量的trade-off</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluation"><span class="nav-number">1.3.</span> <span class="nav-text">Evaluation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">1.4.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">1.5.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">Eng.D student at School of Cyber Science and Teconology, BUAA.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

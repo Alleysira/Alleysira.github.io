@@ -81,11 +81,13 @@
 <meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20231108171659739.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20231108171941124.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20231109223105417.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20231109224034073.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20231109223921434.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20231020143445389.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20230920183950597.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/09/19/EVMFuzzer/image-20231026192215165.png">
 <meta property="article:published_time" content="2023-09-19T08:09:27.000Z">
-<meta property="article:modified_time" content="2023-11-09T14:38:32.974Z">
+<meta property="article:modified_time" content="2023-11-12T15:00:58.953Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta property="article:tag" content="SmartContract">
@@ -251,7 +253,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-09 22:38:32" itemprop="dateModified" datetime="2023-11-09T22:38:32+08:00">2023-11-09</time>
+                <time title="Modified: 2023-11-12 23:00:58" itemprop="dateModified" datetime="2023-11-12T23:00:58+08:00">2023-11-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -701,7 +703,10 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Select contract:  PreProcess_0x663e4229142a27f00bafb5d087e1e730648314c3.sol</span><br><span class="line">Select function:  tokensOfOwner</span><br><span class="line">Input data:  0x8462151c0000000000000000000000006aebd02eb2bc4aea449f7555fb46a404e164e575</span><br><span class="line"></span><br><span class="line">/home/alleysira/EVMFuzzer/TestOut/contract88/seed/PreProcess_0x663e4229142a27f00bafb5d087e1e730648314c3_3.sol:78:5: Error: Function, variable, struct or modifier declaration expected.</span><br><span class="line">    ++ function tokensOfOwner(address _owner) external view</span><br><span class="line">    ^^</span><br><span class="line">1 PreProcess_0x663e4229142a27f00bafb5d087e1e730648314c3_3.sol</span><br><span class="line"></span><br><span class="line">Select contract:  PreProcess_0x663e4229142a27f00bafb5d087e1e730648314c3.sol</span><br><span class="line">Select function:  tokensOfOwner</span><br><span class="line">Input data:  0x8462151c0000000000000000000000006aebd02eb2bc4aea449f7555fb46a404e164e575</span><br><span class="line"></span><br><span class="line">PandaMinting.bin-runtime</span><br><span class="line"></span><br><span class="line">bincode </span><br><span class="line"></span><br><span class="line">608060405260043610610301576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806301ffc9a7146103065780630519ce791461036a57806306fd...</span><br></pre></td></tr></table></figure>
 <p>导致wsl产生了Bus error</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">^CBus error</span><br><span class="line">alleysira@LAPTOP-M4HO8L6S:~/EVMFuzzer$ top -c</span><br><span class="line">Segmentation fault</span><br></pre></td></tr></table></figure>
-<p>将wsl备份后，尝试进行复现，未能成功复现。可能是硬件内存故障</p>
+<p><img src="/2023/09/19/EVMFuzzer/image-20231109224034073.png" alt="image-20231109224034073"></p>
+<p>将wsl备份后，尝试进行复现，未能成功复现。结合windows的报错来看，可能是硬件内存故障</p>
+<p><img src="/2023/09/19/EVMFuzzer/image-20231109223921434.png" alt="image-20231109223921434"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">                                            Detection Report</span><br><span class="line"></span><br><span class="line">After 14328.35s running, EVMFuzzer successfully generated 1135 seeds.</span><br><span class="line"><span class="meta">   &gt;</span><span class="bash"> In 0.0% (0/1135) of the tests, the output results are different from the standard execution.</span></span><br><span class="line"><span class="meta">   &gt;</span><span class="bash"> In 0.0% (0/1135) of the tests, the gas consuming are more than the average value.</span></span><br><span class="line"><span class="meta">   &gt;</span><span class="bash"> In 77.89% (884/1135) of the tests, the gas consuming are less than the average value.</span></span><br><span class="line"><span class="meta">   &gt;</span><span class="bash"> In 22.11% (251/1135) of the tests, the gas consuming are equal to the average value.</span></span><br><span class="line"><span class="meta">   &gt;</span><span class="bash"> In 33.83% (384/1135) of the tests, the execution sequence are more than the average value.</span></span><br><span class="line"><span class="meta">   &gt;</span><span class="bash"> In 53.83% (611/1135) of the tests, the execution sequence are less than the average value.</span></span><br><span class="line"><span class="meta">   &gt;</span><span class="bash"> In 12.33% (140/1135) of the tests, the execution sequence are equal to the average value.</span></span><br><span class="line"></span><br><span class="line">Final Conslusion:</span><br><span class="line">1. The code implementation of test EVM is relatively complete, can be used for Ethereum.</span><br><span class="line">2. The deviation of gas calculation is large, there exists dynamic optimization during the calculation process, and the optimization effect is good.</span><br><span class="line">3. The deviation of executing sequence is large, there exists dynamic optimization during the executing procedure, and the optimization effect is good.</span><br></pre></td></tr></table></figure>
 <h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><h3 id="geth"><a href="#geth" class="headerlink" title="geth"></a>geth</h3><h3 id="jsevm"><a href="#jsevm" class="headerlink" title="jsevm"></a>jsevm</h3><h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><h2 id="论文阅读"><a href="#论文阅读" class="headerlink" title="论文阅读"></a>论文阅读</h2><ul>
 <li>发现了不一致性后，如何解释一致性可能产生的影响——攻击者可以操作合约输出不一致的结果<ul>
 <li>如何寻找bug的来源——手工分析</li>
@@ -864,7 +869,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
