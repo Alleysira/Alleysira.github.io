@@ -158,6 +158,90 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/11/28/TOSEM23/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="Eng.D student at School of Cyber Science and Teconology, BUAA.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/28/TOSEM23/" class="post-title-link" itemprop="url">TOSEM23</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-11-28 19:38:58 / Modified: 20:38:27" itemprop="dateCreated datePublished" datetime="2023-11-28T19:38:58+08:00">2023-11-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><span id="more"></span>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>首先收集了903个github上wasm bug相关的post，确认了311个真实的bug。基于数据，总结了31类wasm运行时的漏洞并且总结了共同的修复策略。设计了基于pattern的漏洞检测框架来自动检测Wasm中的bug。采用该漏洞检测框架检测了7个WASM运行时，发现了60个漏洞。</p>
+<p>研究对象</p>
+<ul>
+<li>wasmtime</li>
+<li>wasmer</li>
+<li>WAMR</li>
+</ul>
+<p>贡献</p>
+<ul>
+<li>第一篇对Wasm运行时漏洞的系统研究，总结了漏洞的种类和对应的修复措施</li>
+<li>开发了基于模式的漏洞检测框架，对真实世界的wasm运行时进行了检测，能够发现错误</li>
+<li>脚本 数据集和漏洞检测工具已经开源（？where</li>
+</ul>
+<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><h2 id="wasm-binary"><a href="#wasm-binary" class="headerlink" title="wasm binary"></a>wasm binary</h2><p>wasm是一种底层的类似汇编的语言，设计目标是高效处理和紧凑表示。二进制文件是.wasm。Wasm标准定义了概念性的堆栈虚拟机，用于执行pop和push，并将结果留在堆栈上。</p>
+<h2 id="wat-format"><a href="#wat-format" class="headerlink" title="wat format"></a>wat format</h2><p>.wat 是为开发者提供的漂亮的印刷文本格式，能够用于理解语义和wasm模块、进行测试、调试和优化等等。开发者可以使用wabt工具将wasm binary转换成文本格式</p>
+<p>模块module是wasm代码的基本单元，表现为扁平树的形式；本地变量强类型</p>
+<p><img src="/2023/11/28/TOSEM23/image-20231128201211895.png" alt="image-20231128201211895"></p>
+<h2 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h2><p>Frontend compiler（AssemblyScript, Emscripten, Rustc/WASM-Bindgen）能够把高级语言编译为wasm bin，WASM被设计为高级编程语言的可移植编译目标，能够以接近本地执行的速度在多个平台上执行。wasm runtime是硬件和wasm bin之间的中间层</p>
+<p><img src="/2023/11/28/TOSEM23/image-20231128201749638.png" alt="image-20231128201749638"></p>
+<h2 id="wasm-runtime-architecture"><a href="#wasm-runtime-architecture" class="headerlink" title="wasm runtime architecture"></a>wasm runtime architecture</h2><p><img src="/2023/11/28/TOSEM23/image-20231128201825541.png" alt="image-20231128201825541"></p>
+<p>后端编译器：支持提前编译Ahead-of-time compilation (AOT)和传统的即时编译Just-in-Time compilation</p>
+<p>解释器：交互式执行</p>
+<p>运行时环境：负责内存分配，栈的操作，报错</p>
+<p>API：运行wasm运行时被嵌入到高级语言中作为库来使用</p>
+<p>系统接口：支持类似操作系统的功能</p>
+<h1 id="STUDY-DESIGN"><a href="#STUDY-DESIGN" class="headerlink" title="STUDY DESIGN"></a>STUDY DESIGN</h1>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/11/12/OmniLedger/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -328,7 +412,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-10-26 12:01:58" itemprop="dateModified" datetime="2023-10-26T12:01:58+08:00">2023-10-26</time>
+                <time title="Modified: 2023-11-28 20:37:30" itemprop="dateModified" datetime="2023-11-28T20:37:30+08:00">2023-11-28</time>
               </span>
 
           
@@ -562,7 +646,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-12 22:13:36" itemprop="dateModified" datetime="2023-11-12T22:13:36+08:00">2023-11-12</time>
+                <time title="Modified: 2023-11-16 23:05:30" itemprop="dateModified" datetime="2023-11-16T23:05:30+08:00">2023-11-16</time>
               </span>
 
           
@@ -715,7 +799,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-09 18:42:01" itemprop="dateModified" datetime="2023-11-09T18:42:01+08:00">2023-11-09</time>
+                <time title="Modified: 2023-11-28 19:40:35" itemprop="dateModified" datetime="2023-11-28T19:40:35+08:00">2023-11-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -796,7 +880,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-12 23:00:58" itemprop="dateModified" datetime="2023-11-12T23:00:58+08:00">2023-11-12</time>
+                <time title="Modified: 2023-11-28 19:39:20" itemprop="dateModified" datetime="2023-11-28T19:39:20+08:00">2023-11-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -823,78 +907,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/09/19/EVMFuzzer/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2023/09/17/trusted-computing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Alleysira">
-      <meta itemprop="description" content="Eng.D student at School of Cyber Science and Teconology, BUAA.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Alleysira's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/17/trusted-computing/" class="post-title-link" itemprop="url">trusted_computing</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-09-17 19:04:12" itemprop="dateCreated datePublished" datetime="2023-09-17T19:04:12+08:00">2023-09-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-10-30 17:13:05" itemprop="dateModified" datetime="2023-10-30T17:13:05+08:00">2023-10-30</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>写写作业，记记笔记（maybe</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/09/17/trusted-computing/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -983,7 +995,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-count">63</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

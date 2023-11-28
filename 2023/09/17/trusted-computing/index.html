@@ -28,7 +28,7 @@
 <meta property="og:description" content="写写作业，记记笔记（maybe">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-09-17T11:04:12.000Z">
-<meta property="article:modified_time" content="2023-10-30T09:13:05.958Z">
+<meta property="article:modified_time" content="2023-11-13T07:27:05.489Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Coursework">
 <meta property="article:tag" content="Trsted Computing">
@@ -193,7 +193,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-10-30 17:13:05" itemprop="dateModified" datetime="2023-10-30T17:13:05+08:00">2023-10-30</time>
+                <time title="Modified: 2023-11-13 15:27:05" itemprop="dateModified" datetime="2023-11-13T15:27:05+08:00">2023-11-13</time>
               </span>
 
           
@@ -263,7 +263,14 @@
 <p>当S违反任意策略时终止，否则继续运行</p>
 <p>需要保证实施方案符合隔离、complete mediations</p>
 <p>重写器：输入机器语言程序，输出嵌入了安全策略的程序</p>
-<h2 id="Proof-carrying-code"><a href="#Proof-carrying-code" class="headerlink" title="Proof-carrying-code"></a>Proof-carrying-code</h2>
+<h2 id="trusted-machine-learning"><a href="#trusted-machine-learning" class="headerlink" title="trusted machine learning"></a>trusted machine learning</h2><p>目前的LLM可分为预训练模型（基模型）+特定任务模型</p>
+<p>大模型的参数增长速度远远大于摩尔定律算力的增长，无法采用静态分析类似的思想进行大模型的安全性分析，后续的工作都是抽查的思想</p>
+<p>训练数据本身存在误差</p>
+<p>如果训练数据没有误差是否会正确</p>
+<p>消除幻觉</p>
+<p>一致性</p>
+<p>对齐：和人类社会的规则、价值观保持一致</p>
+
     </div>
 
     
@@ -347,7 +354,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Week1-Reflections-on-Trusting-Trust%E2%80%94%E2%80%94KEN-THOMPSON"><span class="nav-number">1.</span> <span class="nav-text">Week1: Reflections on Trusting Trust——KEN THOMPSON</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Notes"><span class="nav-number">2.</span> <span class="nav-text">Notes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E7%AD%96%E7%95%A5%E7%9A%84%E6%89%A7%E8%A1%8C%E5%92%8C%E9%AA%8C%E8%AF%81"><span class="nav-number">2.1.</span> <span class="nav-text">安全策略的执行和验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E7%9B%91%E8%A7%86%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">引用监视器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proof-carrying-code"><span class="nav-number">2.3.</span> <span class="nav-text">Proof-carrying-code</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Week1-Reflections-on-Trusting-Trust%E2%80%94%E2%80%94KEN-THOMPSON"><span class="nav-number">1.</span> <span class="nav-text">Week1: Reflections on Trusting Trust——KEN THOMPSON</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Notes"><span class="nav-number">2.</span> <span class="nav-text">Notes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E7%AD%96%E7%95%A5%E7%9A%84%E6%89%A7%E8%A1%8C%E5%92%8C%E9%AA%8C%E8%AF%81"><span class="nav-number">2.1.</span> <span class="nav-text">安全策略的执行和验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E7%9B%91%E8%A7%86%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">引用监视器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trusted-machine-learning"><span class="nav-number">2.3.</span> <span class="nav-text">trusted machine learning</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -361,7 +368,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-count">63</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
