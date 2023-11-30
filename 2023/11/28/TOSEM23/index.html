@@ -20,19 +20,25 @@
     var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Introduction首先收集了903个github上wasm bug相关的post，确认了311个真实的bug。基于数据，总结了31类wasm运行时的漏洞并且总结了共同的修复策略。设计了基于pattern的漏洞检测框架来自动检测Wasm中的bug。采用该漏洞检测框架检测了7个WASM运行时，发现了60个漏洞。 研究对象  wasmtime wasmer WAMR  贡献  第一篇对Wasm运">
+  <meta name="description" content="Yixuan Zhang, Shangtong Cao, Haoyu Wang, Zhenpeng Chen, Xiapu Luo, Dongliang Mu, Yun Ma, Gang Huang, and Xuanzhe Liu. 2023. Characterizing and Detecting WebAssembly Runtime Bugs. ACM Trans. Softw. Eng">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TOSEM23">
 <meta property="og:url" content="https://alleysira.github.io/2023/11/28/TOSEM23/">
 <meta property="og:site_name" content="Alleysira&#39;s blog">
-<meta property="og:description" content="Introduction首先收集了903个github上wasm bug相关的post，确认了311个真实的bug。基于数据，总结了31类wasm运行时的漏洞并且总结了共同的修复策略。设计了基于pattern的漏洞检测框架来自动检测Wasm中的bug。采用该漏洞检测框架检测了7个WASM运行时，发现了60个漏洞。 研究对象  wasmtime wasmer WAMR  贡献  第一篇对Wasm运">
+<meta property="og:description" content="Yixuan Zhang, Shangtong Cao, Haoyu Wang, Zhenpeng Chen, Xiapu Luo, Dongliang Mu, Yun Ma, Gang Huang, and Xuanzhe Liu. 2023. Characterizing and Detecting WebAssembly Runtime Bugs. ACM Trans. Softw. Eng">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://alleysira.github.io/2023/11/28/TOSEM23/image-20231128201211895.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/11/28/TOSEM23/image-20231128201749638.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/11/28/TOSEM23/image-20231128201825541.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/28/TOSEM23/image-20231129102622855.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/28/TOSEM23/image-20231129103818825.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/28/TOSEM23/image-20231129104347208.png">
+<meta property="og:image" content="https://alleysira.github.io/2023/11/28/TOSEM23/image-20231129110601087.png">
 <meta property="article:published_time" content="2023-11-28T11:38:58.000Z">
-<meta property="article:modified_time" content="2023-11-28T12:38:27.055Z">
+<meta property="article:modified_time" content="2023-11-30T14:36:20.397Z">
 <meta property="article:author" content="Alleysira">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="Wasm">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://alleysira.github.io/2023/11/28/TOSEM23/image-20231128201211895.png">
 
@@ -187,10 +193,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-11-28 19:38:58 / Modified: 20:38:27" itemprop="dateCreated datePublished" datetime="2023-11-28T19:38:58+08:00">2023-11-28</time>
+              <time title="Created: 2023-11-28 19:38:58" itemprop="dateCreated datePublished" datetime="2023-11-28T19:38:58+08:00">2023-11-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-11-30 22:36:20" itemprop="dateModified" datetime="2023-11-30T22:36:20+08:00">2023-11-30</time>
+              </span>
 
           
 
@@ -203,7 +215,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><span id="more"></span>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><em>Yixuan Zhang, Shangtong Cao, Haoyu Wang, Zhenpeng Chen, Xiapu Luo, Dongliang Mu, Yun Ma, Gang Huang, and Xuanzhe Liu. 2023. Characterizing and Detecting WebAssembly Runtime Bugs. ACM Trans. Softw. Eng. Methodol. Just Accepted (September 2023). <a target="_blank" rel="noopener" href="https://doi.org/10.1145/3624743">https://doi.org/10.1145/3624743</a></em></p>
+<span id="more"></span>
 <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>首先收集了903个github上wasm bug相关的post，确认了311个真实的bug。基于数据，总结了31类wasm运行时的漏洞并且总结了共同的修复策略。设计了基于pattern的漏洞检测框架来自动检测Wasm中的bug。采用该漏洞检测框架检测了7个WASM运行时，发现了60个漏洞。</p>
 <p>研究对象</p>
 <ul>
@@ -215,9 +228,10 @@
 <ul>
 <li>第一篇对Wasm运行时漏洞的系统研究，总结了漏洞的种类和对应的修复措施</li>
 <li>开发了基于模式的漏洞检测框架，对真实世界的wasm运行时进行了检测，能够发现错误</li>
-<li>脚本 数据集和漏洞检测工具已经开源（？where</li>
+<li>脚本 数据集和漏洞检测工具已经开源（<a target="_blank" rel="noopener" href="https://github.com/bnmcxlzd/TOSEM2023_Complementary_materials）">https://github.com/bnmcxlzd/TOSEM2023_Complementary_materials）</a></li>
 </ul>
-<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><h2 id="wasm-binary"><a href="#wasm-binary" class="headerlink" title="wasm binary"></a>wasm binary</h2><p>wasm是一种底层的类似汇编的语言，设计目标是高效处理和紧凑表示。二进制文件是.wasm。Wasm标准定义了概念性的堆栈虚拟机，用于执行pop和push，并将结果留在堆栈上。</p>
+<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><h2 id="wasm-binary"><a href="#wasm-binary" class="headerlink" title="wasm binary"></a>wasm binary</h2><p>wasm是一种底层的类似汇编的语言，设计目标是高效处理和紧凑表示。对应的二进制文件是.wasm。</p>
+<p>Wasm标准定义了概念性的堆栈虚拟机，用于执行pop和push，并将结果留在堆栈上。</p>
 <h2 id="wat-format"><a href="#wat-format" class="headerlink" title="wat format"></a>wat format</h2><p>.wat 是为开发者提供的漂亮的印刷文本格式，能够用于理解语义和wasm模块、进行测试、调试和优化等等。开发者可以使用wabt工具将wasm binary转换成文本格式</p>
 <p>模块module是wasm代码的基本单元，表现为扁平树的形式；本地变量强类型</p>
 <p><img src="/2023/11/28/TOSEM23/image-20231128201211895.png" alt="image-20231128201211895"></p>
@@ -229,7 +243,63 @@
 <p>运行时环境：负责内存分配，栈的操作，报错</p>
 <p>API：运行wasm运行时被嵌入到高级语言中作为库来使用</p>
 <p>系统接口：支持类似操作系统的功能</p>
-<h1 id="STUDY-DESIGN"><a href="#STUDY-DESIGN" class="headerlink" title="STUDY DESIGN"></a>STUDY DESIGN</h1>
+<h1 id="STUDY-DESIGN"><a href="#STUDY-DESIGN" class="headerlink" title="STUDY DESIGN"></a>STUDY DESIGN</h1><h2 id="研究问题"><a href="#研究问题" class="headerlink" title="研究问题"></a>研究问题</h2><p><img src="/2023/11/28/TOSEM23/image-20231129102622855.png" alt="image-20231129102622855"></p>
+<p>漏洞分类的根本原因；是否存在普遍的修复策略；提出的分类方法对漏洞检测的有效性</p>
+<h2 id="数据收集"><a href="#数据收集" class="headerlink" title="数据收集"></a>数据收集</h2><p>如何说明实验对象的代表性：</p>
+<ul>
+<li>LOC</li>
+<li>star</li>
+<li>支持的编译模式多</li>
+<li>不同的编程语言实现</li>
+</ul>
+<p>数据来源</p>
+<ul>
+<li>github issue<ul>
+<li>从github issue中提取有bug label的issue，最终304个wasmer的issues，167个wasmtime的issues和333个WAMR的issues（未label，全选）</li>
+</ul>
+</li>
+<li>Stack Overlow<ul>
+<li>Stack Overlow问题有标签，可根据标签爬取对应的post</li>
+<li><img src="/2023/11/28/TOSEM23/image-20231129103818825.png" alt="image-20231129103818825"></li>
+</ul>
+</li>
+</ul>
+<h3 id="数据集的refine"><a href="#数据集的refine" class="headerlink" title="数据集的refine"></a>数据集的refine</h3><ul>
+<li><p>筛去了没有确定性回答的issue和post</p>
+</li>
+<li><p>手工去除了install和build相关的错误，文档错误，用户误用等和wasm运行时无关的bug</p>
+</li>
+</ul>
+<p>结果就是只剩下311个issue，SO全部没了（解释是可能github上wasm专家比较少）</p>
+<p><img src="/2023/11/28/TOSEM23/image-20231129104347208.png" alt="image-20231129104347208"></p>
+<h2 id="标记漏洞和修复策略"><a href="#标记漏洞和修复策略" class="headerlink" title="标记漏洞和修复策略"></a>标记漏洞和修复策略</h2><ul>
+<li>pilot labelling 首先随机选了50%的post，论文前两位作者共同分析，进行分类</li>
+<li>可靠性分析：根据之前的分类，两位作者独立标记剩下的40%的post验证之前对漏洞分类的正确性，采用Cohen’s kappa系数；对于出现的分歧与intercessor进行了讨论，新增了2类漏洞和3类修复措施；</li>
+<li>对于剩下的10%，两位作者独立进行了分类，没有发现新的漏洞种类和修复措施，证明了分类的饱和 saturation</li>
+</ul>
+<h1 id="RQ1-TAXONOMY-OF-WASM-RUNTIME-BUGS"><a href="#RQ1-TAXONOMY-OF-WASM-RUNTIME-BUGS" class="headerlink" title="RQ1: TAXONOMY OF WASM RUNTIME BUGS"></a>RQ1: TAXONOMY OF WASM RUNTIME BUGS</h1><p>根据wasm的架构分析了漏洞种类</p>
+<p><img src="/2023/11/28/TOSEM23/image-20231129110601087.png" alt="image-20231129110601087"></p>
+<p>后端编译部分负责将bin编译为本地机器码，需要OS和CPU的支持，占总共bug的38.3%</p>
+<h1 id="RQ3-PATTERN-BASED-BUG-DETECTOR-FOR-WASM-RUNTIMES"><a href="#RQ3-PATTERN-BASED-BUG-DETECTOR-FOR-WASM-RUNTIMES" class="headerlink" title="RQ3:PATTERN-BASED BUG DETECTOR FOR WASM RUNTIMES"></a>RQ3:PATTERN-BASED BUG DETECTOR FOR WASM RUNTIMES</h1><h2 id="Bug-detectors-for-Backend-Compilation"><a href="#Bug-detectors-for-Backend-Compilation" class="headerlink" title="Bug detectors for Backend Compilation"></a>Bug detectors for Backend Compilation</h2><p>no interest</p>
+<h2 id="Bug-detectors-for-WASI-Robustness"><a href="#Bug-detectors-for-WASI-Robustness" class="headerlink" title="Bug detectors for WASI Robustness"></a>Bug detectors for WASI Robustness</h2><ul>
+<li>文件操作错误：测试是否能重命名文件、是否能判断文件不存在、是否能移动文件、计数目录下的文件</li>
+<li>import错误：不支持多个wasi的版本</li>
+<li>输入输出流错误：用c++写程序编译为wasm bin再检查值和类型是否正确</li>
+<li>OS错误：时间的API不一样，利用QuickJS进行测试</li>
+</ul>
+<h2 id="Bug-detectors-for-Runtime-environment"><a href="#Bug-detectors-for-Runtime-environment" class="headerlink" title="Bug detectors for Runtime environment"></a>Bug detectors for Runtime environment</h2><ul>
+<li>module实例化错误：检查是否支持实例化 空 的wasm模块，短时间内大量实例化是否会内存泄漏</li>
+<li><p>module导入错误：部分runtime省略了检查导入对象序号的步骤</p>
+</li>
+<li><p>Calling host functions：调用函数对象是否正确</p>
+</li>
+<li><p>memory issue：检查内存的增长是否是线性的</p>
+</li>
+<li>trap error：设计了带有不可达指令的module来测试运行时是否能正常跳出执行并且报告不可达代码的位置</li>
+<li>入口错误：wasm运行时可能会不允许入口函数或拒绝没有入口函数的module</li>
+<li>未处理异常</li>
+</ul>
+
     </div>
 
     
@@ -237,6 +307,10 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+              <a href="/tags/Wasm/" rel="tag"># Wasm</a>
+          </div>
 
         
 
@@ -306,7 +380,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Background"><span class="nav-number">2.</span> <span class="nav-text">Background</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#wasm-binary"><span class="nav-number">2.1.</span> <span class="nav-text">wasm binary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wat-format"><span class="nav-number">2.2.</span> <span class="nav-text">wat format</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exec"><span class="nav-number">2.3.</span> <span class="nav-text">exec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wasm-runtime-architecture"><span class="nav-number">2.4.</span> <span class="nav-text">wasm runtime architecture</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#STUDY-DESIGN"><span class="nav-number">3.</span> <span class="nav-text">STUDY DESIGN</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Background"><span class="nav-number">2.</span> <span class="nav-text">Background</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#wasm-binary"><span class="nav-number">2.1.</span> <span class="nav-text">wasm binary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wat-format"><span class="nav-number">2.2.</span> <span class="nav-text">wat format</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exec"><span class="nav-number">2.3.</span> <span class="nav-text">exec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wasm-runtime-architecture"><span class="nav-number">2.4.</span> <span class="nav-text">wasm runtime architecture</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#STUDY-DESIGN"><span class="nav-number">3.</span> <span class="nav-text">STUDY DESIGN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A0%94%E7%A9%B6%E9%97%AE%E9%A2%98"><span class="nav-number">3.1.</span> <span class="nav-text">研究问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%94%B6%E9%9B%86"><span class="nav-number">3.2.</span> <span class="nav-text">数据收集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84refine"><span class="nav-number">3.2.1.</span> <span class="nav-text">数据集的refine</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E6%BC%8F%E6%B4%9E%E5%92%8C%E4%BF%AE%E5%A4%8D%E7%AD%96%E7%95%A5"><span class="nav-number">3.3.</span> <span class="nav-text">标记漏洞和修复策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RQ1-TAXONOMY-OF-WASM-RUNTIME-BUGS"><span class="nav-number">4.</span> <span class="nav-text">RQ1: TAXONOMY OF WASM RUNTIME BUGS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RQ3-PATTERN-BASED-BUG-DETECTOR-FOR-WASM-RUNTIMES"><span class="nav-number">5.</span> <span class="nav-text">RQ3:PATTERN-BASED BUG DETECTOR FOR WASM RUNTIMES</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bug-detectors-for-Backend-Compilation"><span class="nav-number">5.1.</span> <span class="nav-text">Bug detectors for Backend Compilation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bug-detectors-for-WASI-Robustness"><span class="nav-number">5.2.</span> <span class="nav-text">Bug detectors for WASI Robustness</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bug-detectors-for-Runtime-environment"><span class="nav-number">5.3.</span> <span class="nav-text">Bug detectors for Runtime environment</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -333,7 +407,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
