@@ -27,12 +27,14 @@
 <meta property="og:site_name" content="Alleysira&#39;s blog">
 <meta property="og:description" content="写写作业，记记笔记（maybe">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/09/17/trusted-computing/image-20231228155506277.png">
 <meta property="article:published_time" content="2023-09-17T11:04:12.000Z">
-<meta property="article:modified_time" content="2023-11-13T07:27:05.489Z">
+<meta property="article:modified_time" content="2023-12-28T11:49:20.433Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Coursework">
 <meta property="article:tag" content="Trsted Computing">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/09/17/trusted-computing/image-20231228155506277.png">
 
 <link rel="canonical" href="https://alleysira.github.io/2023/09/17/trusted-computing/">
 
@@ -193,7 +195,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-13 15:27:05" itemprop="dateModified" datetime="2023-11-13T15:27:05+08:00">2023-11-13</time>
+                <time title="Modified: 2023-12-28 19:49:20" itemprop="dateModified" datetime="2023-12-28T19:49:20+08:00">2023-12-28</time>
               </span>
 
           
@@ -209,17 +211,53 @@
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>写写作业，记记笔记（maybe</p>
 <span id="more"></span>
-<h1 id="Week1-Reflections-on-Trusting-Trust——KEN-THOMPSON"><a href="#Week1-Reflections-on-Trusting-Trust——KEN-THOMPSON" class="headerlink" title="Week1: Reflections on Trusting Trust——KEN THOMPSON"></a>Week1: Reflections on Trusting Trust——KEN THOMPSON</h1><p>吹水部分提到了Dennis Ritchie（C语言之父），他俩有一次写了个20行 <em>逐字符</em> 相同的汇编程序（磕到了）</p>
+<h1 id="Reflections-on-Trusting-Trust——KEN-THOMPSON"><a href="#Reflections-on-Trusting-Trust——KEN-THOMPSON" class="headerlink" title="Reflections on Trusting Trust——KEN THOMPSON"></a>Reflections on Trusting Trust——KEN THOMPSON</h1><h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><p>吹水部分提到了Dennis Ritchie（C语言之父），他俩有一次写了个20行 <em>逐字符</em> 相同的汇编程序（磕到了）</p>
 <p>程序员这个职业是Ken写在个人收入申报表上的职业，因此他介绍了他写过的最好玩的一个程序</p>
 <ul>
 <li>Stage1：写出最短的编译运行后能够生成自己源码的程序</li>
 <li>Stage2：learning program的思路是教会编译器如何处理给定的字符</li>
 <li>Stage3：当编译器匹配到某个pattern时，编译出bug</li>
 </ul>
-<p>组合起来，修改编译器编译出bin、安装为库后，再恢复为正常的编译器，由于程序是可复制的，后续所有采用该库编译的代码都会有bug而无迹可寻</p>
-<p>真的无迹可寻吗？如果反编译可执行文件，发现执行逻辑和源码不同，就会意识到程序有bug，寻找bug的源头可能会去检查编译器的版本，发现编译器没问题可能去查看依赖库（比较难找了）</p>
-<p>结论：You can’t trust code that you did not totally create yourself. 不要信任不是自己亲手写的代码（反思自己平常用的github上star不多的代码）</p>
-<p>最后呼吁媒体严肃对黑客这一群体的认识，媒体对他们的报告是“神童” 侵入计算机系统最轻是故意破坏公物，最坏是非法侵入和盗窃</p>
+<p>以上步骤组合起来，修改编译器编译出bin、安装为库后，再恢复为正常的编译器，由于程序是可复制的，后续所有采用该库编译的代码都会有bug而无迹可寻</p>
+<p>作者给出了很有哲理的结论：You can’t trust code that you did not totally create yourself. 不要信任非自己亲手写的代码（反思自己平常用的github上star不多的代码和gpt生成的代码）</p>
+<p>最后呼吁了媒体严肃对黑客这一群体的认识，媒体对他们的报告是“神童”，一种偏褒义的评价。然而实际上侵入计算机系统的后果最轻是故意破坏公物，最坏是非法侵入和盗窃等罪名，还是很严肃的。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>真的无迹可寻吗？如果反编译可执行文件，发现执行逻辑和源码不同，就会意识到程序有bug，寻找bug的源头可能会去检查编译器的版本，发现编译器没问题可能就会去查看依赖库（当然比较难找了）</p>
+<h1 id="Recognizing-Safety-and-Liveness——Bowen-Alpern"><a href="#Recognizing-Safety-and-Liveness——Bowen-Alpern" class="headerlink" title="Recognizing Safety and Liveness——Bowen Alpern"></a>Recognizing Safety and Liveness——Bowen Alpern</h1><h2 id="主要内容-1"><a href="#主要内容-1" class="headerlink" title="主要内容"></a>主要内容</h2><p>安全性和活性的通俗理解：</p>
+<ul>
+<li>安全性：坏事儿不会发生，证明满足性质是不变性论证</li>
+<li>活性：好事儿最终会发生（类比区块链的活性，诚实用户的交易在一定时间后一定会出现在诚实节点的账本中），证明满足性质是良基论证</li>
+</ul>
+<p>本篇论文的主要工作包括：</p>
+<ul>
+<li>通过测试来判断一个Büchi有限状态自动机描述的性质是否满足活性和安全性<ul>
+<li>证明了对于确定性Büchi有限状态自动机的性质，可以用不变性论证来证明；</li>
+<li>活性可以通过良基论证来证明</li>
+</ul>
+</li>
+<li>给出了活性和安全性的形式化定义</li>
+<li>给出了将性质分解为活性和安全性的方法，其中活性和安全性的合取就是原始属性</li>
+</ul>
+<p>Büchi有限状态自动机接受两类输入</p>
+<ul>
+<li><p>所有第一个状态满足谓词 $\neg Pre$的无限序列</p>
+</li>
+<li><p>满足$Pre\  \neg Done \ Done\wedge Post$的无限序列</p>
+<p><img src="/2023/09/17/trusted-computing/image-20231228155506277.png" alt="image-20231228155506277"></p>
+</li>
+</ul>
+<p>如果对每个状态存在能到接收状态的路径，称Büchi有限状态自动机是可缩减的</p>
+<p>对于安全性的定义的理解是对于性质$P$，如果在无限序列$\sigma$中坏事发生了，一定在有限前缀后，能够符合$P$；如果$\sigma$不符合$P$，说明存在$\sigma$的某个前缀包括坏事，对于该前缀的任何扩展，都不会满足$P$。</p>
+<script type="math/tex; mode=display">
+\text { Safety: }\left(\forall \sigma: \sigma \in S^\omega: \sigma \models P \Leftrightarrow\left(\forall i: 0 \leq i:\left(\exists \beta: \beta \in S^\omega: \sigma[. . i] \beta=P\right)\right)\right)</script><p>对于活性的定义，需要观察到的是，没有任何部分执行是不可挽回的，因为如果某个部分执行是不可挽回的，那么它就是一个坏事。作者认为这是活性的定义特征。如果属性$P$满足以下条件，则$P$是一个活性属性</p>
+<script type="math/tex; mode=display">
+\text { Liveness: }\left(\forall \alpha: \alpha \in S^*:\left(\exists \beta: \beta \in S^\omega: \alpha \beta \vDash P\right)\right)</script><h2 id="思考-1"><a href="#思考-1" class="headerlink" title="思考"></a>思考</h2><p>这篇论文采用有限状态自动机来形式化地描述和验证性质，我很好奇是否存在其他的模型能够被用来形式化这些性质，以及在具体的应用场景中，比如区块链上，是否可以通过设计一个静态分析或形式化验证的工具，定义一些性质来检测区块链共识的漏洞。</p>
+<h1 id="Fairness-Through-Awareness——Cynthia-Dwork"><a href="#Fairness-Through-Awareness——Cynthia-Dwork" class="headerlink" title="Fairness Through Awareness——Cynthia Dwork"></a>Fairness Through Awareness——Cynthia Dwork</h1><h2 id="主要内容-2"><a href="#主要内容-2" class="headerlink" title="主要内容"></a>主要内容</h2><p>本文研究的是分类中的公平性，主要贡献在于是提出了一个公平分类的框架</p>
+<ul>
+<li>用于确定个体在当前分类任务中相似程度的（假设性的）任务特定度量</li>
+<li>在公平约束条件下最大化效用的算法，即对待相似的个体应类似对待</li>
+</ul>
+<p>本文还讨论了公平性与隐私的关系，公平性何时暗示隐私，以及在差分隐私背景下开发的工具如何应用于公平性问题。提供了一个公平分类的规范方法和一个实现公平性的框架。</p>
+<h2 id="思考-2"><a href="#思考-2" class="headerlink" title="思考"></a>思考</h2><p>本文主要的idea是实现相似的人在分类中被类似地对待，讨论部分提出的在广告领域中的公平性是否会隐藏广告商的信息的问题非常有趣，从相反的视角来考虑提升公平性可能带来对隐私的破坏。（隐隐看来本文的工作非常契合西方对”政治正确”的偏好）</p>
 <h1 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h1><p>BLP模型中的安全等级可以更改</p>
 <ul>
 <li>谁可以更改：安全服务的使用者</li>
@@ -354,7 +392,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Week1-Reflections-on-Trusting-Trust%E2%80%94%E2%80%94KEN-THOMPSON"><span class="nav-number">1.</span> <span class="nav-text">Week1: Reflections on Trusting Trust——KEN THOMPSON</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Notes"><span class="nav-number">2.</span> <span class="nav-text">Notes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E7%AD%96%E7%95%A5%E7%9A%84%E6%89%A7%E8%A1%8C%E5%92%8C%E9%AA%8C%E8%AF%81"><span class="nav-number">2.1.</span> <span class="nav-text">安全策略的执行和验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E7%9B%91%E8%A7%86%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">引用监视器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trusted-machine-learning"><span class="nav-number">2.3.</span> <span class="nav-text">trusted machine learning</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Reflections-on-Trusting-Trust%E2%80%94%E2%80%94KEN-THOMPSON"><span class="nav-number">1.</span> <span class="nav-text">Reflections on Trusting Trust——KEN THOMPSON</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%86%85%E5%AE%B9"><span class="nav-number">1.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%80%83"><span class="nav-number">1.2.</span> <span class="nav-text">思考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Recognizing-Safety-and-Liveness%E2%80%94%E2%80%94Bowen-Alpern"><span class="nav-number">2.</span> <span class="nav-text">Recognizing Safety and Liveness——Bowen Alpern</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%86%85%E5%AE%B9-1"><span class="nav-number">2.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%80%83-1"><span class="nav-number">2.2.</span> <span class="nav-text">思考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Fairness-Through-Awareness%E2%80%94%E2%80%94Cynthia-Dwork"><span class="nav-number">3.</span> <span class="nav-text">Fairness Through Awareness——Cynthia Dwork</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%86%85%E5%AE%B9-2"><span class="nav-number">3.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%80%83-2"><span class="nav-number">3.2.</span> <span class="nav-text">思考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Notes"><span class="nav-number">4.</span> <span class="nav-text">Notes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E7%AD%96%E7%95%A5%E7%9A%84%E6%89%A7%E8%A1%8C%E5%92%8C%E9%AA%8C%E8%AF%81"><span class="nav-number">4.1.</span> <span class="nav-text">安全策略的执行和验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E7%9B%91%E8%A7%86%E5%99%A8"><span class="nav-number">4.2.</span> <span class="nav-text">引用监视器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trusted-machine-learning"><span class="nav-number">4.3.</span> <span class="nav-text">trusted machine learning</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -368,7 +406,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -381,7 +419,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -413,7 +451,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
