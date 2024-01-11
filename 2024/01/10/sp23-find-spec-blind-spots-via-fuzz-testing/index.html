@@ -28,7 +28,7 @@
 <meta property="og:description" content="Ji R, Xu M. Finding Specification Blind Spots via Fuzz Testing[C]&#x2F;&#x2F;2023 IEEE Symposium on Security and Privacy (SP). IEEE Computer Society, 2023: 2708-2725.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-01-10T09:22:21.000Z">
-<meta property="article:modified_time" content="2024-01-11T08:19:34.743Z">
+<meta property="article:modified_time" content="2024-01-11T08:30:13.938Z">
 <meta property="article:author" content="Alleysira">
 <meta name="twitter:card" content="summary">
 
@@ -191,7 +191,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-11 16:19:34" itemprop="dateModified" datetime="2024-01-11T16:19:34+08:00">2024-01-11</time>
+                <time title="Modified: 2024-01-11 16:30:13" itemprop="dateModified" datetime="2024-01-11T16:30:13+08:00">2024-01-11</time>
               </span>
 
           
@@ -229,11 +229,16 @@
 <p>挑战在于</p>
 <ul>
 <li>当mutant通过了验证，如何证明SPEC之间的gap是故意而为还是错误<ul>
-<li>解决思路：利用</li>
+<li>解决思路：利用形式化验证程序中的冗余性和多样性，即代码 SPEC和测试套件都是从一组需求来的，但是以不同的思维方式进行编程：例如，使用不同的编程语言（甚至是编程范式）实现的，具有不同的演进路径，一般不同且独立的团队进行编写。因此，这三个不太可能出现相同的错误。</li>
+<li>可以通过相互比较来发现错误</li>
 </ul>
 </li>
-<li>如何构造一个更容易通过验证的mutant</li>
+<li>如何构造一个更容易通过验证的mutant<ul>
+<li>解决思路：fuzzer的遗传算法，计算每个mutant的fitness，只有高质量的mutant才可能被多次变异，fitness的标准就是验证后触发的错误（这也太trivial了）</li>
 </ul>
+</li>
+</ul>
+<p>FAST无法保证一定没有完备性问题，但可以用于</p>
 
     </div>
 
