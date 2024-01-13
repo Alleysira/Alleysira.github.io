@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://alleysira.github.io/2024/01/13/minGasPoc/</loc>
-    
-    <lastmod>2024-01-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://alleysira.github.io/2024/01/13/WRTester/</loc>
     
     <lastmod>2024-01-13</lastmod>
@@ -21,6 +12,15 @@
   
   <url>
     <loc>https://alleysira.github.io/2024/01/10/sp23-find-spec-blind-spots-via-fuzz-testing/</loc>
+    
+    <lastmod>2024-01-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/2024/01/13/minGasPoc/</loc>
     
     <lastmod>2024-01-13</lastmod>
     
@@ -715,14 +715,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Language/</loc>
+    <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
     <lastmod>2024-01-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
+    <loc>https://alleysira.github.io/tags/Language/</loc>
     <lastmod>2024-01-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -736,14 +736,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Redactable-Blockchain/</loc>
+    <loc>https://alleysira.github.io/tags/Lattices/</loc>
     <lastmod>2024-01-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Lattices/</loc>
+    <loc>https://alleysira.github.io/tags/Redactable-Blockchain/</loc>
     <lastmod>2024-01-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -813,14 +813,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/static-analysis/</loc>
+    <loc>https://alleysira.github.io/tags/Digital-Signature/</loc>
     <lastmod>2024-01-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Digital-Signature/</loc>
+    <loc>https://alleysira.github.io/tags/Mutation-Testing/</loc>
     <lastmod>2024-01-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -834,7 +834,7 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Mutation-Testing/</loc>
+    <loc>https://alleysira.github.io/tags/static-analysis/</loc>
     <lastmod>2024-01-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
