@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="长安链部署和配置安装安装kubectl https:&#x2F;&#x2F;kubernetes.io&#x2F;zh-cn&#x2F;docs&#x2F;reference&#x2F;kubectl&#x2F; 在根目录 mkdir .kube，将config文件cp到该目录下  本地安装长安链2.3.1 官方文档：https:&#x2F;&#x2F;docs.chainmaker.org.cn&#x2F;v2.3.1&#x2F;html&#x2F;  安装go 1234567891011121314wget">
+  <meta name="description" content="配置长安链">
 <meta property="og:type" content="article">
 <meta property="og:title" content="chainmaker">
 <meta property="og:url" content="https://alleysira.github.io/2024/01/11/chainmaker/">
 <meta property="og:site_name" content="Alleysira&#39;s blog">
-<meta property="og:description" content="长安链部署和配置安装安装kubectl https:&#x2F;&#x2F;kubernetes.io&#x2F;zh-cn&#x2F;docs&#x2F;reference&#x2F;kubectl&#x2F; 在根目录 mkdir .kube，将config文件cp到该目录下  本地安装长安链2.3.1 官方文档：https:&#x2F;&#x2F;docs.chainmaker.org.cn&#x2F;v2.3.1&#x2F;html&#x2F;  安装go 1234567891011121314wget">
+<meta property="og:description" content="配置长安链">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-01-11T06:03:35.000Z">
-<meta property="article:modified_time" content="2024-01-11T06:04:44.668Z">
+<meta property="article:modified_time" content="2024-01-13T13:20:46.277Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta name="twitter:card" content="summary">
@@ -184,10 +184,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-01-11 14:03:35 / Modified: 14:04:44" itemprop="dateCreated datePublished" datetime="2024-01-11T14:03:35+08:00">2024-01-11</time>
+              <time title="Created: 2024-01-11 14:03:35" itemprop="dateCreated datePublished" datetime="2024-01-11T14:03:35+08:00">2024-01-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-13 21:20:46" itemprop="dateModified" datetime="2024-01-13T21:20:46+08:00">2024-01-13</time>
+              </span>
 
           
 
@@ -200,7 +206,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><span id="more"></span>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>配置长安链</p>
+<span id="more"></span>
 <h1 id="长安链部署和配置"><a href="#长安链部署和配置" class="headerlink" title="长安链部署和配置"></a>长安链部署和配置</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="安装kubectl"><a href="#安装kubectl" class="headerlink" title="安装kubectl"></a>安装kubectl</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/reference/kubectl/">https://kubernetes.io/zh-cn/docs/reference/kubectl/</a></li>
 <li>在根目录 <code>mkdir .kube</code>，将config文件cp到该目录下</li>
@@ -276,7 +283,10 @@
     <a href="/2024/01/10/sp23-find-spec-blind-spots-via-fuzz-testing/" rel="prev" title="sp23_find_spec_blind_spots_via_fuzz_testing">
       <i class="fa fa-chevron-left"></i> sp23_find_spec_blind_spots_via_fuzz_testing
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2024/01/13/minGasPoc/" rel="next" title="minGasPoc">
+      minGasPoc <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -349,7 +359,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -362,7 +372,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
