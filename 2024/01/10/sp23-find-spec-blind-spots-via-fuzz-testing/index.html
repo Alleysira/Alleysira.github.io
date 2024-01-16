@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://alleysira.github.io/2024/01/10/sp23-find-spec-blind-spots-via-fuzz-testing/image-20240113204315985.png">
 <meta property="og:image" content="https://alleysira.github.io/2024/01/10/sp23-find-spec-blind-spots-via-fuzz-testing/image-20240113210923890.png">
 <meta property="article:published_time" content="2024-01-10T09:22:21.000Z">
-<meta property="article:modified_time" content="2024-01-13T15:14:26.634Z">
+<meta property="article:modified_time" content="2024-01-14T12:56:39.986Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Mutation Testing">
 <meta name="twitter:card" content="summary">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-13 23:14:26" itemprop="dateModified" datetime="2024-01-13T23:14:26+08:00">2024-01-13</time>
+                <time title="Modified: 2024-01-14 20:56:39" itemprop="dateModified" datetime="2024-01-14T20:56:39+08:00">2024-01-14</time>
               </span>
 
           
@@ -218,7 +218,7 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Ji R, Xu M. Finding Specification Blind Spots via Fuzz Testing[C]//2023 IEEE Symposium on Security and Privacy (SP). IEEE Computer Society, 2023: 2708-2725.</p>
 <span id="more"></span>
 <p>形式化验证能够证明保持验证过的程序和声明的spocifications(SPEC)保持一致，但是如何保证SPEC是完备的 没有逻辑漏洞？本文使用Fuzzing-Assisted Specification Testing来解决这个问题。</p>
-<p>核心思路是利用形式化验证过程序的冗余性和多想想进行交叉检查。 </p>
+<p>核心思路是利用形式化验证过的程序的冗余性和多想想进行交叉检查。 </p>
 <p>具体来讲，在同一个代码库中，SPEC（规范）、实现（CODE）和测试套件都是从同一组业务需求中派生出来的。因此，如果某个意图在CODE和测试用例中被捕捉到，但在SPEC中没有，则这表明SPEC存在盲点。</p>
 <p>FAST以自动化的方式检查SPEC中的不完整性问题：它首先通过变异测试来定位SPEC的缺口gap，即通过检查CODE变体是否符合原始的SPEC来确定是否存在缺口。如果是这样，FAST进一步利用测试套件来推断缺口是由意图引起还是由错误引起的。根据代码库的大小，FAST可以选择以枚举方式还是进化方式生成CODE变体。FAST被应用于两个具有形式验证特性的开源代码库，并且分别帮助确认了它们SPEC中的13个和21个盲点。这凸显了SPEC不完整性在真实应用中的普遍存在。</p>
 <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>形式验证通过数学方法检查程序的正确性，为计算系统提供高度保证，即程序的行为完全受限于描述为一组期望属性（规范）的形式建模语言。形式验证在硬件和软件系统中已经被广泛采用。典型的应用场景包括可能导致重大损失和不可逆后果的情况（例如航空领域），或者传统的滚动式程序升级模型不可行的情况，如区块链上的智能合约。</p>

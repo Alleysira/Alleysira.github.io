@@ -28,7 +28,7 @@
 <meta property="og:description" content="配置长安链">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-01-11T06:03:35.000Z">
-<meta property="article:modified_time" content="2024-01-13T13:20:46.277Z">
+<meta property="article:modified_time" content="2024-01-16T11:44:21.211Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta name="twitter:card" content="summary">
@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-13 21:20:46" itemprop="dateModified" datetime="2024-01-13T21:20:46+08:00">2024-01-13</time>
+                <time title="Modified: 2024-01-16 19:44:21" itemprop="dateModified" datetime="2024-01-16T19:44:21+08:00">2024-01-16</time>
               </span>
 
           
@@ -222,46 +222,13 @@
 </li>
 <li><p>安装7zip </p>
 <ul>
-<li><pre><code class="lang-bash">sudo apt-get install p7zip-full p7zip-rar
-</code></pre>
+<li>```bash<br>sudo apt-get install p7zip-full p7zip-rar<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 安装docker，参考https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository</span><br><span class="line">- 下载gitlab的pre仓库</span><br><span class="line">  - https://gitlab.distribute-compute.cn/chenzhu/pre</span><br><span class="line">- 安装完毕后测试智能合约是否能部署</span><br><span class="line"></span><br><span class="line">## 部署到云</span><br><span class="line"></span><br><span class="line">- 修改改k8sconfg/4.yml和Makefile里面的版本/命名空间</span><br><span class="line">- build docker </span><br><span class="line">  - `make docker-solo`</span><br><span class="line"></span><br><span class="line">- 提交docker，这部分需要</span><br><span class="line">  - `docker login -u xxx -p xxx xxx.myhuaweicloud.com`</span><br><span class="line"></span><br><span class="line">  - `make push`</span><br><span class="line"></span><br><span class="line">- 进入docker执行命令</span><br><span class="line">  - `kubectl exec docker-name -it /bin/bash -n mj`</span><br><span class="line"></span><br><span class="line">- 停止运行</span><br><span class="line">  - `make configFdown`</span><br><span class="line">- 在dockerfile中设置需要打包为docker的文件</span><br><span class="line"></span><br><span class="line"># SealEVM</span><br><span class="line"></span><br><span class="line">长安链EVM有两个开源仓库，不尽相同</span><br><span class="line"></span><br><span class="line">- github：https://github.com/SealSC/SealEVM</span><br><span class="line">- gitlab：https://git.chainmaker.org.cn/chainmaker/vm-evm</span><br><span class="line"></span><br><span class="line">gitlab的报错且没有文档</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line"># chainmaker.org/chainmaker/vm-evm/v2/evm-go/storage</span><br><span class="line">evm-go/storage/contractStorage.go:92:36: too many arguments in call to c.Ctx.CallContract</span><br><span class="line">        have (*common.Contract, *common.Contract, string, nil, map[string][]byte, number, common.TxType)</span><br><span class="line">        want (*common.Contract, string, []byte, map[string][]byte, uint64, common.TxType)</span><br><span class="line">evm-go/storage/contractStorage.go:206:13: undefined: &quot;chainmaker.org/chainmaker/utils/v2&quot;.NameToAddrInt</span><br><span class="line">evm-go/storage/contractStorage.go:351:36: too many arguments in call to c.Ctx.CallContract</span><br><span class="line">        have (*common.Contract, *common.Contract, string, []byte, map[string][]byte, uint64, common.TxType)</span><br><span class="line">        want (*common.Contract, string, []byte, map[string][]byte, uint64, common.TxType)</span><br><span class="line">evm-go/storage/contractStorage.go:359:36: too many arguments in call to c.Ctx.CallContract</span><br><span class="line">        have (*common.Contract, *common.Contract, string, []byte, map[string][]byte, uint64, common.TxType)</span><br><span class="line">        want (*common.Contract, string, []byte, map[string][]byte, uint64, common.TxType)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
-<li><p>安装docker，参考<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository">https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository</a></p>
-</li>
-<li>下载gitlab的pre仓库<ul>
-<li><a target="_blank" rel="noopener" href="https://gitlab.distribute-compute.cn/chenzhu/pre">https://gitlab.distribute-compute.cn/chenzhu/pre</a></li>
 </ul>
-</li>
-<li>安装完毕后测试智能合约是否能部署</li>
-</ul>
-<h2 id="部署到云"><a href="#部署到云" class="headerlink" title="部署到云"></a>部署到云</h2><ul>
-<li>修改改k8sconfg/4.yml和Makefile里面的版本/命名空间</li>
-<li><p>build docker </p>
-<ul>
-<li><code>make docker-solo</code></li>
-</ul>
-</li>
-<li><p>提交docker，这部分需要</p>
-<ul>
-<li><p><code>docker login -u xxx -p xxx xxx.myhuaweicloud.com</code></p>
-</li>
-<li><p><code>make push</code></p>
-</li>
-</ul>
-</li>
-<li><p>进入docker执行命令</p>
-<ul>
-<li><code>kubectl exec docker-name -it /bin/bash -n mj</code></li>
-</ul>
-</li>
-<li><p>停止运行</p>
-<ul>
-<li><code>make configFdown</code></li>
-</ul>
-</li>
-<li>在dockerfile中设置需要打包为docker的文件</li>
-</ul>
+<p>SealEVM能运行了，泪目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">go mod download </span><br><span class="line"><span class="built_in">cd</span> example</span><br><span class="line">./example</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -345,7 +312,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%95%BF%E5%AE%89%E9%93%BE%E9%83%A8%E7%BD%B2%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">长安链部署和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85kubectl"><span class="nav-number">1.1.1.</span> <span class="nav-text">安装kubectl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%AE%89%E8%A3%85%E9%95%BF%E5%AE%89%E9%93%BE2-3-1"><span class="nav-number">1.1.2.</span> <span class="nav-text">本地安装长安链2.3.1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0%E4%BA%91"><span class="nav-number">1.2.</span> <span class="nav-text">部署到云</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%95%BF%E5%AE%89%E9%93%BE%E9%83%A8%E7%BD%B2%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">长安链部署和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85kubectl"><span class="nav-number">1.1.1.</span> <span class="nav-text">安装kubectl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%AE%89%E8%A3%85%E9%95%BF%E5%AE%89%E9%93%BE2-3-1"><span class="nav-number">1.1.2.</span> <span class="nav-text">本地安装长安链2.3.1</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
