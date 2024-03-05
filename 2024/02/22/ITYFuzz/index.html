@@ -36,8 +36,13 @@
 <meta property="og:image" content="https://alleysira.github.io/2024/02/22/ITYFuzz/image-20240225164449714.png">
 <meta property="og:image" content="https://alleysira.github.io/2024/02/22/ITYFuzz/image-20240225174337363.png">
 <meta property="og:image" content="https://alleysira.github.io/2024/02/22/ITYFuzz/image-20240225192248662.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/02/22/ITYFuzz/image-20240305205240351.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/02/22/ITYFuzz/image-20240305203726288.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/02/22/ITYFuzz/image-20240305203735599.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/02/22/ITYFuzz/image-20240305204523492.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/02/22/ITYFuzz/image-20240305204653257.png">
 <meta property="article:published_time" content="2024-02-22T02:48:06.000Z">
-<meta property="article:modified_time" content="2024-02-25T12:12:13.775Z">
+<meta property="article:modified_time" content="2024-03-05T13:52:02.224Z">
 <meta property="article:author" content="Alleysira">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://alleysira.github.io/2024/02/22/ITYFuzz/image-20240222163752301.png">
@@ -201,7 +206,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-02-25 20:12:13" itemprop="dateModified" datetime="2024-02-25T20:12:13+08:00">2024-02-25</time>
+                <time title="Modified: 2024-03-05 21:52:02" itemprop="dateModified" datetime="2024-03-05T21:52:02+08:00">2024-03-05</time>
               </span>
 
           
@@ -217,7 +222,8 @@
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Shou C, Tan S, Sen K. Ityfuzz: Snapshot-based fuzzer for smart contract[C]//Proceedings of the 32nd ACM SIGSOFT International Symposium on Software Testing and Analysis. 2023: 322-333.</p>
 <span id="more"></span>
-<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>因为智能合约依赖于复杂的区块链状态，难以fuzz。对交易序列进行变异很复杂，并且通常会导致对输入和程序空间的次优探索空间。</p>
+<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>作者个人主页：<a target="_blank" rel="noopener" href="https://scf.so/">https://scf.so/</a></p>
+<p>因为智能合约依赖于复杂的区块链状态，难以fuzz。对交易序列进行变异很复杂，并且通常会导致对输入和程序空间的次优探索空间。</p>
 <p>创新点：</p>
 <ul>
 <li><p>ItyFuzz是基于快照的模糊测试器，对状态和单个交易进行快照。</p>
@@ -313,11 +319,72 @@
 <p>ItyFuzz使用最大可能值初始化一个局部映射$C_{local}$，该映射仅针对当前执行。在执行过程中，对于每个比较指令，ItyFuzz根据程序计数器%MAP_SIZE（即比较指令的位置）更新键值对应的距离（第4行less than和第6行）。距离反映了两个值在比较中实现平衡的接近程度，由它们之间差值的绝对值确定。例如，如果ItyFuzz处理EQ(1, 3)操作，距离将为2。当执行中的任何比较指令更有可能为真时，执行被认为是有趣的。换句话说，在算法4中描述的方式，如果当前执行在local映射中显示的距离比记录在先前执行中最小距离的映射（）中的距离更小，则认为该执行是有趣的。</p>
 <p>比较点能够用于判断是否该将状态从$C_s$中移除，算法4是具体的投票算法，票数反应了状态的有趣程度。</p>
 <p><img src="/2024/02/22/ITYFuzz/image-20240225192248662.png" alt="image-20240225192248662"></p>
+<h1 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h1><p>基于LibAFL，revm作为EVM的执行引擎；支持从支持Geth的链的某个状态开始fuzz</p>
+<p>开源地址：<a target="_blank" rel="noopener" href="https://github.com/fuzzland/ityfuzz">https://github.com/fuzzland/ityfuzz</a></p>
+<h1 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h1><p>考虑</p>
+<ul>
+<li>覆盖率：在3个数据集上，对比1个工具</li>
+<li>能否发现现实世界中的漏洞<ul>
+<li>36/42个项目中已知的漏洞</li>
+<li>45000个合约项目（BSC和以太坊，均有&gt;100个交易），1384项目发现了漏洞</li>
+</ul>
+</li>
+<li>存储快照带来的内存开销，以及能否被waypoint解决</li>
+<li>链上审计对发现合约漏洞的帮助<ul>
+<li>研究了两个被黑的defi项目，给出的实例证明了，仅仅在开发环境中测试室不够的，还需要链上审计</li>
+<li><img src="/2024/02/22/ITYFuzz/image-20240305205240351.png" alt="image-20240305205240351"></li>
+</ul>
+</li>
+<li>效率是否支持链上审计</li>
+</ul>
+<p>数据集</p>
+<ul>
+<li>论文里的数据集 57个合约<ul>
+<li>Sunbeom So, Myungho Lee, Jisu Park, Heejo Lee, and Hakjoo Oh. 2020. VERISMART: A Highly Precise Safety Verier for Ethereum Smart Contracts. In 2020 IEEE Symposium on Security and Privacy, SP 2020, San Francisco, CA, USA, May 18-21, 2020. IEEE, 1678–1694. <a target="_blank" rel="noopener" href="https://doi.org/10.1109/SP40000.2020.00032">https://doi.org/10.1109/SP40000.2020.00032</a></li>
+</ul>
+</li>
+<li>以太坊收集的572个合约</li>
+</ul>
+<p>对比工作</p>
+<ul>
+<li>SMARTIAN：比较了覆盖率</li>
+</ul>
+<p>时间优势来源于快照缩减了re-execution时间；comparison waypoints能够快速提高覆盖率</p>
+<p><img src="/2024/02/22/ITYFuzz/image-20240305203726288.png" alt="image-20240305203726288"></p>
+<p><img src="/2024/02/22/ITYFuzz/image-20240305203735599.png" alt="image-20240305203735599" style="zoom:67%;"></p>
+<p>对比实验不够，做消融实验ablation study</p>
+<p><img src="/2024/02/22/ITYFuzz/image-20240305204523492.png" alt="image-20240305204523492"></p>
+<p>为了研究对内存开销的依赖</p>
+<p><img src="/2024/02/22/ITYFuzz/image-20240305204653257.png" alt="image-20240305204653257"></p>
+<h1 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work"></a>Related work</h1><h2 id="反馈驱动的模糊测试"><a href="#反馈驱动的模糊测试" class="headerlink" title="反馈驱动的模糊测试"></a>反馈驱动的模糊测试</h2><ul>
+<li>基于覆盖率的模糊测试：AFL HonggFuzz FairFuzz</li>
+<li>自定义的waypoint：<ul>
+<li>Validity fuzzing利用输入的有效性作为反馈</li>
+<li>采用程序执行的深度；</li>
+<li>FuzzFatory形式化了waypoint机制</li>
+</ul>
+</li>
+</ul>
+<h2 id="带状态的模糊测试"><a href="#带状态的模糊测试" class="headerlink" title="带状态的模糊测试"></a>带状态的模糊测试</h2><ul>
+<li>SMARTIAN 从0状态开始，发送一系列交易到达目的状态</li>
+<li>Nyx采用了操作系统层面的快照策略 Nyx-Net</li>
+<li>CorbFuzz对web应用程序进行fuzz，对状态进行了建模</li>
+</ul>
+<h2 id="智能合约安全工具"><a href="#智能合约安全工具" class="headerlink" title="智能合约安全工具"></a>智能合约安全工具</h2><ul>
+<li><p>ContractFuzzer</p>
+</li>
+<li><p>Echidna Harvey 工业界的fuzzer</p>
+</li>
+<li>SMARTIAN hybrid，混合了静态分析和动态 数据流分析</li>
+</ul>
 <h1 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h1><ul>
 <li>什么是链上审计？如果链上进行模糊测试，支持的每秒测试次数是多少</li>
 <li>快照带来的额外存储代价评估</li>
 <li>从语料库中选择种子的算法</li>
-<li>每个桶的大小和范围如何设置和调节</li>
+<li>每个桶的大小和范围如何设置和调节<ul>
+<li>参考了AFL的设计，AFL的桶是1-2,2-4,4-8</li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -399,7 +466,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Background"><span class="nav-number">3.</span> <span class="nav-text">Background</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#fuzzing"><span class="nav-number">3.1.</span> <span class="nav-text">fuzzing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#waypoint"><span class="nav-number">3.2.</span> <span class="nav-text">waypoint</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Motivating-Example"><span class="nav-number">4.</span> <span class="nav-text">Motivating Example</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Methodology"><span class="nav-number">5.</span> <span class="nav-text">Methodology</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Architecture"><span class="nav-number">5.1.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#snapshot-based-fuzzing"><span class="nav-number">5.2.</span> <span class="nav-text">snapshot-based fuzzing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dataflow-Waypoint"><span class="nav-number">5.3.</span> <span class="nav-text">Dataflow Waypoint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Comparison-Waypoint"><span class="nav-number">5.4.</span> <span class="nav-text">Comparison Waypoint</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q"><span class="nav-number">6.</span> <span class="nav-text">Q</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Background"><span class="nav-number">3.</span> <span class="nav-text">Background</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#fuzzing"><span class="nav-number">3.1.</span> <span class="nav-text">fuzzing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#waypoint"><span class="nav-number">3.2.</span> <span class="nav-text">waypoint</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Motivating-Example"><span class="nav-number">4.</span> <span class="nav-text">Motivating Example</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Methodology"><span class="nav-number">5.</span> <span class="nav-text">Methodology</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Architecture"><span class="nav-number">5.1.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#snapshot-based-fuzzing"><span class="nav-number">5.2.</span> <span class="nav-text">snapshot-based fuzzing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dataflow-Waypoint"><span class="nav-number">5.3.</span> <span class="nav-text">Dataflow Waypoint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Comparison-Waypoint"><span class="nav-number">5.4.</span> <span class="nav-text">Comparison Waypoint</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Implementation"><span class="nav-number">6.</span> <span class="nav-text">Implementation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Evaluation"><span class="nav-number">7.</span> <span class="nav-text">Evaluation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Related-work"><span class="nav-number">8.</span> <span class="nav-text">Related work</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E9%A6%88%E9%A9%B1%E5%8A%A8%E7%9A%84%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95"><span class="nav-number">8.1.</span> <span class="nav-text">反馈驱动的模糊测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%A6%E7%8A%B6%E6%80%81%E7%9A%84%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95"><span class="nav-number">8.2.</span> <span class="nav-text">带状态的模糊测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7"><span class="nav-number">8.3.</span> <span class="nav-text">智能合约安全工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q"><span class="nav-number">9.</span> <span class="nav-text">Q</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -413,7 +480,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">72</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
