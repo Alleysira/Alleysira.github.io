@@ -28,7 +28,7 @@
 <meta property="og:description" content="配置区块链共识漏洞检测工具">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-02-26T01:48:02.000Z">
-<meta property="article:modified_time" content="2024-02-29T11:43:11.876Z">
+<meta property="article:modified_time" content="2024-03-29T03:33:22.004Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="consensus">
 <meta name="twitter:card" content="summary">
@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-02-29 19:43:11" itemprop="dateModified" datetime="2024-02-29T19:43:11+08:00">2024-02-29</time>
+                <time title="Modified: 2024-03-29 11:33:22" itemprop="dateModified" datetime="2024-03-29T11:33:22+08:00">2024-03-29</time>
               </span>
 
           
@@ -218,7 +218,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[patch.crates-io]</span><br><span class="line">syn = &#123; git = &quot;https://github.com/johnyangk/syn&quot;, branch = &quot;fix&quot;, optional = true &#125;</span><br><span class="line">aes = &#123; git = &quot;https://github.com/RustCrypto/block-ciphers&quot;,rev=&quot;aes-v0.3.2&quot;&#125;</span><br><span class="line">aes-soft = &#123; git = &quot;https://github.com/RustCrypto/block-ciphers&quot;,rev = &quot;aes-soft-v0.3.0&quot;&#125;</span><br><span class="line">aesni = &#123; git = &quot;https://github.com/RustCrypto/block-ciphers&quot;,rev = &quot;aesni-v0.6.0&quot;&#125;</span><br><span class="line">block-cipher-trait = &#123; git = &quot;https://github.com/RustCrypto/traits&quot;, rev = &quot;block-cipher-trait-v0.6.0&quot; &#125;</span><br><span class="line">stream-cipher = &#123; git = &quot;https://github.com/RustCrypto/traits&quot;, rev = &quot;stream-cipher-v0.3.0&quot;&#125;</span><br></pre></td></tr></table></figure>
 <p>问题诸多，相关问题已经在<a target="_blank" rel="noopener" href="https://github.com/snuspl/fluffy/issues/2">issue</a>中提出</p>
 <h1 id="LOKI"><a href="#LOKI" class="headerlink" title="LOKI"></a>LOKI</h1><p><a target="_blank" rel="noopener" href="https://github.com/ConsensusFuzz/LOKI/tree/main">https://github.com/ConsensusFuzz/LOKI/tree/main</a></p>
-<p>缺少对Geth的实现</p>
+<p>缺少对Geth的实现以及与本地冲突</p>
 
     </div>
 
@@ -316,7 +316,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -329,7 +329,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -27,13 +27,14 @@
 <meta property="og:site_name" content="Alleysira&#39;s blog">
 <meta property="og:description" content="调研区块链虚拟机安全">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2023/10/12/EVM-security/image-20240314194557903.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/10/12/EVM-security/image-20231012160435832.png">
 <meta property="article:published_time" content="2023-10-12T13:46:08.000Z">
-<meta property="article:modified_time" content="2023-11-29T13:16:50.051Z">
+<meta property="article:modified_time" content="2024-04-07T04:09:42.221Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://alleysira.github.io/2023/10/12/EVM-security/image-20231012160435832.png">
+<meta name="twitter:image" content="https://alleysira.github.io/2023/10/12/EVM-security/image-20240314194557903.png">
 
 <link rel="canonical" href="https://alleysira.github.io/2023/10/12/EVM-security/">
 
@@ -194,7 +195,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-29 21:16:50" itemprop="dateModified" datetime="2023-11-29T21:16:50+08:00">2023-11-29</time>
+                <time title="Modified: 2024-04-07 12:09:42" itemprop="dateModified" datetime="2024-04-07T12:09:42+08:00">2024-04-07</time>
               </span>
 
           
@@ -216,11 +217,15 @@
 <li><a target="_blank" rel="noopener" href="https://github.com/ethereum/evmone">evmone</a> - <em>C++</em></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/ethereumjs/ethereumjs-vm">ethereumjs-vm</a> - <em>JavaScript</em></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/microsoft/eevm">eEVM</a> - <em>C++</em>，微软开发</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/bluealloy/revm\-">https://github.com/bluealloy/revm\-</a> <em>Rust</em></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/bluealloy/revm">revm</a> - <em>Rust</em></li>
 </ul>
 </li>
 <li><a target="_blank" rel="noopener" href="https://github.com/rust-blockchain/evm">SputnikVM</a>：- <em>rust</em></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/ethereum/pyethereum">pyethereum</a>：- <em>py</em>，2023.3已被弃用</li>
+<li>其他以太坊execution client的EVM, accessed at 2024/0314<ul>
+<li><img src="/2023/10/12/EVM-security/image-20240314194557903.png" alt="image-20240314194557903"></li>
+</ul>
+</li>
 </ul>
 <h1 id="其他VM"><a href="#其他VM" class="headerlink" title="其他VM"></a>其他VM</h1><ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/neo-project/neo-vm">NEO VM</a>：采用C#实现，Neo链目前的市值排行66，NEO支持多种常用的编程语言，如C#、Java和Python等编写智能合约</li>
@@ -265,7 +270,12 @@
 <li><a target="_blank" rel="noopener" href="https://github.com/diem/diem">MoveVM</a>：Facebook旗下的区块链项目Diem（ Libra ）采用的虚拟机，rust实现</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/MystenLabs/sui">Sui</a>：Mysten Labs于2022年3月发起的layer1 PoS公链，目前市值排行91，同样采用Move作为运行时</li>
 </ul>
-<h1 id="以太坊客户端"><a href="#以太坊客户端" class="headerlink" title="以太坊客户端"></a>以太坊客户端</h1><p>根据以太坊主网的<a target="_blank" rel="noopener" href="https://www.ethernodes.org/">统计数据</a>显示，geth是使用最广泛的客户端</p>
+<h1 id="以太坊客户端"><a href="#以太坊客户端" class="headerlink" title="以太坊客户端"></a>以太坊客户端</h1><p>客户端多样性：<a target="_blank" rel="noopener" href="https://clientdiversity.org/">https://clientdiversity.org/</a></p>
+<ul>
+<li>执行客户端</li>
+<li>共识客户端</li>
+</ul>
+<p>根据以太坊主网的<a target="_blank" rel="noopener" href="https://www.ethernodes.org/">统计数据</a>显示，geth是使用最广泛的客户端</p>
 <p><img src="/2023/10/12/EVM-security/image-20231012160435832.png" alt="image-20231012160435832"></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/ethereum/go-ethereum">Geth</a>：占比50.0%，采用go语言实现，最常用的客户端<ul>
@@ -310,12 +320,25 @@
 </li>
 <li><a target="_blank" rel="noopener" href="https://www.avax.network/">Avalanche</a>：token AVAX，市值排行22</li>
 </ul>
+<h1 id="EIP"><a href="#EIP" class="headerlink" title="EIP"></a>EIP</h1><ul>
+<li>CCS22：Empirical Analysis of EIP-1559: Transaction Fees, Waiting Time, and Consensus Security ，介绍了EIP1559的基本情况核对市场的影响<a target="_blank" rel="noopener" href="https://cfcs.pku.edu.cn/news/240640.htm">https://cfcs.pku.edu.cn/news/240640.htm</a></li>
+</ul>
 <h1 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h1><ul>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/ethereum/tests">EVMtest</a> 以太坊项目官方对客户端会进行单元测试，</p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/ooibc88/blockbench">Blockbench</a> 区块链测试用例 </p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/ziyadedher/evm-bench">EVM性能对比和压力测试</a> </p>
+</li>
+</ul>
+<h1 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h1><ul>
+<li>11个fuzzer的综述论文 2000个合约 <a target="_blank" rel="noopener" href="https://github.com/SE2023Test/SCFuzzers">https://github.com/SE2023Test/SCFuzzers</a> </li>
+<li><p>web3bug：Code4rena审计过的项目，被论文广泛引用 <a target="_blank" rel="noopener" href="https://github.com/ZhangZhuoSJTU/Web3Bugs/">https://github.com/ZhangZhuoSJTU/Web3Bugs/</a></p>
+<ul>
+<li>Defihacks <a target="_blank" rel="noopener" href="https://wooded-meter-1d8.notion.site/0e85e02c5ed34df3855ea9f3ca40f53b?v=22e5e2c506ef4caeb40b4f78e23517ee">https://wooded-meter-1d8.notion.site/0e85e02c5ed34df3855ea9f3ca40f53b?v=22e5e2c506ef4caeb40b4f78e23517ee</a></li>
+</ul>
+</li>
+<li><p>IC综述论文数据集：<a target="_blank" rel="noopener" href="https://github.com/StefanosChaliasos/sc-defi-security/">https://github.com/StefanosChaliasos/sc-defi-security/</a></p>
 </li>
 </ul>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
@@ -331,10 +354,6 @@
 <li><a target="_blank" rel="noopener" href="https://github.com/kareniel/awesome-evm-security">https://github.com/kareniel/awesome-evm-security</a></li>
 <li>WASM对应的VM：<a target="_blank" rel="noopener" href="https://github.com/appcypher/awesome-wasm-runtimes">appcypher/awesome-wasm-runtimes: A list of webassemby runtimes (github.com)</a></li>
 <li>Move语言相关资料：<a target="_blank" rel="noopener" href="https://github.com/MystenLabs/awesome-move#move-powered-blockchains">MystenLabs/awesome-move: Code and content from the Move community. (github.com)</a></li>
-<li>CCS23放出的Accepted Poster <a target="_blank" rel="noopener" href="https://www.sigsac.org/ccs/CCS2023/program.html">https://www.sigsac.org/ccs/CCS2023/program.html</a><ul>
-<li>Poster:A Privacy-Preserving Smart Contract Vulnerability Detection Framework for Permissioned Blockchain<br>Wensheng Tian (Nanhu Laboratory - CN)<br>Lei Zhang (Nanhu Laboratory - CN)<br>Shuangxi Chen (Jiaxing Vocational and Technical College - CN)<br>Hu Wang (Zhejiang Big Data Development Administration - CN)<br>Xiao Luo (Zhejiang University - CN)</li>
-</ul>
-</li>
 </ul>
 
     </div>
@@ -419,7 +438,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#EVM%E7%9A%84%E4%B8%8D%E5%90%8C%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">EVM的不同实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96VM"><span class="nav-number">2.</span> <span class="nav-text">其他VM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WASM"><span class="nav-number">2.1.</span> <span class="nav-text">WASM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MOVE-VM"><span class="nav-number">2.2.</span> <span class="nav-text">MOVE VM</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">3.</span> <span class="nav-text">以太坊客户端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EVM%E5%85%BC%E5%AE%B9%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE"><span class="nav-number">4.</span> <span class="nav-text">EVM兼容的区块链</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="nav-number">5.</span> <span class="nav-text">测试用例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%B5%84%E6%96%99"><span class="nav-number">7.</span> <span class="nav-text">其他资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#EVM%E7%9A%84%E4%B8%8D%E5%90%8C%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">EVM的不同实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96VM"><span class="nav-number">2.</span> <span class="nav-text">其他VM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WASM"><span class="nav-number">2.1.</span> <span class="nav-text">WASM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MOVE-VM"><span class="nav-number">2.2.</span> <span class="nav-text">MOVE VM</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">3.</span> <span class="nav-text">以太坊客户端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EVM%E5%85%BC%E5%AE%B9%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE"><span class="nav-number">4.</span> <span class="nav-text">EVM兼容的区块链</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EIP"><span class="nav-number">5.</span> <span class="nav-text">EIP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="nav-number">6.</span> <span class="nav-text">测试用例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">7.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%B5%84%E6%96%99"><span class="nav-number">9.</span> <span class="nav-text">其他资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -433,7 +452,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -446,7 +465,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

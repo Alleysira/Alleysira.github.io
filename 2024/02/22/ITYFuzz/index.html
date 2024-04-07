@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://alleysira.github.io/2024/02/22/ITYFuzz/image-20240305204523492.png">
 <meta property="og:image" content="https://alleysira.github.io/2024/02/22/ITYFuzz/image-20240305204653257.png">
 <meta property="article:published_time" content="2024-02-22T02:48:06.000Z">
-<meta property="article:modified_time" content="2024-03-07T13:09:06.961Z">
+<meta property="article:modified_time" content="2024-03-11T16:56:56.426Z">
 <meta property="article:author" content="Alleysira">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://alleysira.github.io/2024/02/22/ITYFuzz/image-20240222163752301.png">
@@ -206,7 +206,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-03-07 21:09:06" itemprop="dateModified" datetime="2024-03-07T21:09:06+08:00">2024-03-07</time>
+                <time title="Modified: 2024-03-12 00:56:56" itemprop="dateModified" datetime="2024-03-12T00:56:56+08:00">2024-03-12</time>
               </span>
 
           
@@ -279,7 +279,7 @@
 </ul>
 <p><img src="/2024/02/22/ITYFuzz/image-20240222163752301.png" alt="image-20240222163752301"></p>
 <p>合约的fuzzer必须输入为一系列的交易</p>
-<h2 id="waypoint"><a href="#waypoint" class="headerlink" title="waypoint"></a>waypoint</h2><p>FuzzFactory[OOPSLA19]引入了一般化的反馈机制waypoint。路径点是在执行目标程序后提供有趣反馈的中间输入。例如，在覆盖引导的模糊测试算法中，如果运行目标程序产生新的覆盖，就会记录新的输入（路径点）。然而，路径点不仅限于覆盖点，其他常见的路径点还包括执行时间、内存使用和两个比较值之间的距离等。为了实现定制的路径点，我们需要在程序执行过程中收集其他目标动态信息，并提供一个新的谓词函数 <code>is_interesting</code>替换图1中的 第9行</p>
+<h2 id="waypoint"><a href="#waypoint" class="headerlink" title="waypoint"></a>waypoint</h2><p>FuzzFactory[OOPSLA19]引入了一般化的反馈机制waypoint。路径点是在执行目标程序后提供有趣反馈的中间输入。例如，在覆盖引导的模糊测试算法中，如果运行目标程序产生新的覆盖，就会记录新的输入（路径点）。然而，路径点不仅限于覆盖点，其他常见的路径点还包括执行时间、内存使用和两个比较值之间的距离等。为了实现定制的路径点，需要在程序执行过程中收集其他目标动态信息，并提供一个新的谓词函数 <code>is_interesting</code>替换图1中的 第9行</p>
 <h1 id="Motivating-Example"><a href="#Motivating-Example" class="headerlink" title="Motivating Example"></a>Motivating Example</h1><p><img src="/2024/02/22/ITYFuzz/image-20240223110801874.png" alt="image-20240223110801874"></p>
 <p>对于上面的合约，调用inc 0, inc 1, buggy() 即可出发漏洞</p>
 <p>现实世界中的交易序列可能会相当复杂和长，当T增大时，现有的漏洞检测工具 如SMARTIAN不能即时检测出漏洞</p>
@@ -387,6 +387,7 @@
 <li>参考了AFL的设计，AFL的桶是1-2,2-4,4-8</li>
 </ul>
 </li>
+<li>本文的覆盖率和其他工作的覆盖率对比</li>
 </ul>
 
     </div>
@@ -482,7 +483,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -495,7 +496,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
