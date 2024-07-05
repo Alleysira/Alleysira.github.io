@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://alleysira.github.io/2023/10/31/leopard-bft/image-20231031233312013.png">
 <meta property="og:image" content="https://alleysira.github.io/2023/10/31/leopard-bft/image-20231102141032382.png">
 <meta property="article:published_time" content="2023-10-31T06:47:05.000Z">
-<meta property="article:modified_time" content="2023-11-11T14:22:18.328Z">
+<meta property="article:modified_time" content="2024-05-31T13:35:36.230Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta property="article:tag" content="Consensus">
@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-11 22:22:18" itemprop="dateModified" datetime="2023-11-11T22:22:18+08:00">2023-11-11</time>
+                <time title="Modified: 2024-05-31 21:35:36" itemprop="dateModified" datetime="2024-05-31T21:35:36+08:00">2024-05-31</time>
               </span>
 
           
@@ -256,6 +256,14 @@
 <p>以下是最终能通过build的bls.go</p>
 <p><img src="/2023/10/31/leopard-bft/image-20231031231943209.png" alt="image-20231031231943209"></p>
 <p>把<code>simulateUnderNode\network</code>文件夹cp到<code>GOROOT</code>下即可运行</p>
+<h2 id="第二次环境配置"><a href="#第二次环境配置" class="headerlink" title="第二次环境配置"></a>第二次环境配置</h2><h3 id="安装bn库"><a href="#安装bn库" class="headerlink" title="安装bn库"></a>安装bn库</h3><p>先安装llvm3.9</p>
+<p>编译教程：<a target="_blank" rel="noopener" href="https://releases.llvm.org/3.9.0/docs/CMake.html">https://releases.llvm.org/3.9.0/docs/CMake.html</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake -DCMAKE_INSTALL_PREFIX=/path -P cmake_install.cmake</span><br></pre></td></tr></table></figure>
+<p>在./.bashrc中修改环境变量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=/home/majie/llvm-3.9/lib/bin:$PATH</span><br><span class="line">llvm-as --version</span><br></pre></td></tr></table></figure>
+<p>安装好llvm后，修改bn make install时的指定位置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">make install PREFIX=/home/majie/lib</span><br><span class="line">修改 ~/.bashrc</span><br><span class="line">export GOPATH=/home/majie</span><br><span class="line">export PATH=/home/majie/llvm-3.9/lib/bin:$PATH</span><br><span class="line">export LD_LIBRARY_PATH=/home/majie/lib/lib:/lib:/usr/lib:/usr/local/lib</span><br><span class="line">export LIBRARY_PATH=$LIBRARY_PATH:/home/majie/lib/lib</span><br><span class="line">export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/home/majie/lib/include</span><br><span class="line">export C_INCLUDE_PATH=$C_INCLUDE_PATH:/home/majie/lib/include</span><br></pre></td></tr></table></figure>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~/src/awesomeProject$: bash a.sh</span><br><span class="line">~/src/simulateUnderNode$: go run main.go 1</span><br><span class="line">~/src/client$: bash client.sh</span><br></pre></td></tr></table></figure>
 <h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p>4个terminal对应4个节点</p>
 <p><img src="/2023/10/31/leopard-bft/image-20231031233119579.png" alt="image-20231031233119579"></p>
 <p><img src="/2023/10/31/leopard-bft/image-20231031233148849.png" alt="image-20231031233148849"></p>
@@ -435,7 +443,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bn"><span class="nav-number">1.1.1.</span> <span class="nav-text">bn</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">1.2.</span> <span class="nav-text">运行结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%A5%E5%91%8A%E7%AC%94%E8%AE%B0"><span class="nav-number">2.</span> <span class="nav-text">报告笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">2.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.2.</span> <span class="nav-text">协议设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.3.</span> <span class="nav-text">协议实现</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bn"><span class="nav-number">1.1.1.</span> <span class="nav-text">bn</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">第二次环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85bn%E5%BA%93"><span class="nav-number">1.2.1.</span> <span class="nav-text">安装bn库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C"><span class="nav-number">1.2.2.</span> <span class="nav-text">运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">1.3.</span> <span class="nav-text">运行结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%A5%E5%91%8A%E7%AC%94%E8%AE%B0"><span class="nav-number">2.</span> <span class="nav-text">报告笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">2.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.2.</span> <span class="nav-text">协议设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.3.</span> <span class="nav-text">协议实现</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -449,20 +457,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">79</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

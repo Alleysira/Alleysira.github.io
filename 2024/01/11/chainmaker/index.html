@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://alleysira.github.io/2024/01/11/chainmaker/image-20240204144319468.png">
 <meta property="og:image" content="https://alleysira.github.io/2024/01/11/chainmaker/image-20240204143844766.png">
 <meta property="article:published_time" content="2024-01-11T06:03:35.000Z">
-<meta property="article:modified_time" content="2024-03-11T13:35:42.730Z">
+<meta property="article:modified_time" content="2024-06-05T08:49:08.911Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta name="twitter:card" content="summary">
@@ -195,7 +195,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-03-11 21:35:42" itemprop="dateModified" datetime="2024-03-11T21:35:42+08:00">2024-03-11</time>
+                <time title="Modified: 2024-06-05 16:49:08" itemprop="dateModified" datetime="2024-06-05T16:49:08+08:00">2024-06-05</time>
               </span>
 
           
@@ -234,6 +234,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">go mod download </span><br><span class="line"><span class="built_in">cd</span> example</span><br><span class="line">./example</span><br><span class="line">go get: added chainmaker.org/chainmaker/common/v2</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>不支持PUSH0，因此虚拟机不支持shanghai分叉，支持使用solc 0.8.23 设定evm version为paris</p>
+<ul>
+<li>目前的sealevm已经支持</li>
+</ul>
 </li>
 <li><p>gas计价混乱，只出现了0x3和SSTORE的两个值</p>
 <ul>
@@ -241,6 +244,7 @@
 <li><img src="/2024/01/11/chainmaker/image-20240204144319468.png" alt="image-20240204144319468"></li>
 </ul>
 </li>
+<li>存在stack underflow at <a target="_blank" rel="noopener" href="https://github.com/SealSC/SealEVM/issues/21">issue</a></li>
 </ul>
 <h2 id="vm-evm"><a href="#vm-evm" class="headerlink" title="vm-evm"></a>vm-evm</h2><p>单测可以通过</p>
 <p><img src="/2024/01/11/chainmaker/image-20240204143844766.png" alt="image-20240204143844766"></p>
@@ -341,20 +345,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">79</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Li W, Yang H, Luo X, et al. PyRTFuzz: Detecting Bugs in Python Runtimes via Two-Level Collaborative Fuzzing[C]&#x2F;&#x2F;Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications Security. 2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyRTFuzz">
+<meta property="og:url" content="https://alleysira.github.io/2024/05/13/PyRTFuzz/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="Li W, Yang H, Luo X, et al. PyRTFuzz: Detecting Bugs in Python Runtimes via Two-Level Collaborative Fuzzing[C]&#x2F;&#x2F;Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications Security. 2">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2024/05/13/PyRTFuzz/image-20240513172117218.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/05/13/PyRTFuzz/image-20240513172550927.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/05/13/PyRTFuzz/image-20240513191947804.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/05/13/PyRTFuzz/image-20240513192621523.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/05/13/PyRTFuzz/image-20240513195029215.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/05/13/PyRTFuzz/image-20240513195926563.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/05/13/PyRTFuzz/image-20240513201138530.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/05/13/PyRTFuzz/image-20240513201204652.png">
+<meta property="article:published_time" content="2024-05-13T06:44:39.000Z">
+<meta property="article:modified_time" content="2024-06-26T05:30:47.232Z">
+<meta property="article:author" content="Alleysira">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2024/05/13/PyRTFuzz/image-20240513172117218.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2024/05/13/PyRTFuzz/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>PyRTFuzz | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2024/05/13/PyRTFuzz/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="Eng.D student at School of Cyber Science and Teconology, BUAA.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PyRTFuzz
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-05-13 14:44:39" itemprop="dateCreated datePublished" datetime="2024-05-13T14:44:39+08:00">2024-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-06-26 13:30:47" itemprop="dateModified" datetime="2024-06-26T13:30:47+08:00">2024-06-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Li W, Yang H, Luo X, et al. PyRTFuzz: Detecting Bugs in Python Runtimes via Two-Level Collaborative Fuzzing[C]//Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications Security. 2023: 1645-1659.</p>
+<span id="more"></span>
+<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>Python的runtime包括语言解释器和runtime的库</p>
+<p>PyRTFuzz在编译器层和应用层分别采用了基于生成的fuzzing和基于变异的fuzzing，利用静态分析提取运行时的API，以格式/结构感知应用程序输入生成为导向的自定义类型引导的变异策略</p>
+<p>针对Cpython实现，应用到了3个版本的runtime中，发现了61个可利用的bug</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>现有的机器学习系统基本采用python实现，安全性和可靠性依赖于Python runtime，包括interpreter和runtime library</p>
+<ul>
+<li>compiler：代码执行之前，负责将一种语言写的源码转换成另一种计算机代码（通常是机器码）</li>
+<li>interpreter：分析并执行代码；把源代码翻译为更高效率的中间码执行；执行解释器内部的编译器预编译后保存的代码</li>
+</ul>
+<p>现有的使用最广泛的CPython过去5年有2000个bug，但是缺乏自动化分析工具</p>
+<h2 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work"></a>Related work</h2><p>现有对compiler和runtime的测试工具确实存在</p>
+<ul>
+<li>fuzzing JVM<ul>
+<li>基于生成的fuzzer：JSfunfuzz，TreeFuzz，Skyfire，学习现有样例的语法特征生成有效的测试用例</li>
+<li>基于变异的fuzzer：Superion、Fuzzil，通过编辑AST或其他IR</li>
+</ul>
+</li>
+</ul>
+<p>Python runtime fuzz的挑战</p>
+<ul>
+<li>对Python运行时进行测试需要同时测试解释器核心和语言的运行时库，只考虑生成有效的测试用例不够，还需要测试用例的输入。全面模糊测试Python运行时将需要两个不同层次（生成程序与具体程序输入）的模糊测试密切协作（即广泛地执行解释器和运行时库之间的交互）。然而，目前对于如何设计这样一个两级协作模糊测试技术的先前知识很少</li>
+<li>测试解释器需要多样性但是语义有效的程序</li>
+<li>为fuzz生成高质量的输入：普遍的挑战，尤其python是动态类型语言，数据类型不可用</li>
+</ul>
+<p>为了解决以上挑战，提出了PYRTFuzz，2层协同式模糊测试解决挑战2</p>
+<p>第一级模糊测试通过基于规范的Python代码生成方法，根据使用静态和动态分析提取的Python运行时中每个API的描述，生成具有不同控制流复杂性的有效且多样化的Python应用程序，以解决挑战2</p>
+<p>第二层，基于变异的fuzzing对给定的runtime进行插桩，收集覆盖率进行反馈，生成具体的python程序的输入。生成输入的过程中利用API的描述进行类型引导，解决挑战3</p>
+<p>基于已有的python fuzzer Atheris和libFuzzer，测试了CPython的3个不同版本：3.7.15/3.8.15/3.9.15</p>
+<p>调整被测试app的大小测试了可扩展性</p>
+<p>测试了5*24小时，发现了61个bugs，分布在3个python版本中</p>
+<p>程序生成部分：4.77 KLoC of code in 40 minutes with a memory usage of 291.71 MB</p>
+<h1 id="Background-and-Motivation"><a href="#Background-and-Motivation" class="headerlink" title="Background and Motivation"></a>Background and Motivation</h1><h2 id="Greybox-fuzzing"><a href="#Greybox-fuzzing" class="headerlink" title="Greybox fuzzing"></a>Greybox fuzzing</h2><p>基于覆盖率的灰盒测试是常采用的技术，针对测试样例的生成方法，可以分为两类：Mutation和generation</p>
+<p>Generation是基于语法和定义的规则生成输入，需要保证语法和语义的有效</p>
+<p>基于变异的容易实施，基于生成的方法发现深层bug更有效</p>
+<h2 id="compiler-testing"><a href="#compiler-testing" class="headerlink" title="compiler testing"></a>compiler testing</h2><p>关键挑战是生成有效且多样的程序，现有方法包括基于语法的和基于程序变异的</p>
+<h2 id="Python-Runtime-Fuzzing"><a href="#Python-Runtime-Fuzzing" class="headerlink" title="Python Runtime Fuzzing"></a>Python Runtime Fuzzing</h2><p>工作动机包括Python的流行和实证研究结果</p>
+<p>CPython是最流行的Python运行时，作者收集了98.3k个历史issue，发现了23.4k个bug相关的，分析了每年上报多少，上报的趋势</p>
+<p>为了理解漏洞是如何检测出的，手工分析了500个issue，超过98%都是开发者发现的，说明确实需要漏洞检测工具；漏洞大多80%分布在library中</p>
+<p>现有代码生成工作的缺陷：</p>
+<ul>
+<li>忽略了多样性</li>
+<li>虽然通过各种Python应用程序覆盖不同领域很重要，但这对于有效地测试Python运行时来说还不够</li>
+<li>缺乏整体性测试：Python应用程序在Python运行时的环境中运行，该环境包括解释器核心和运行时库。分别测试这两个部分对于全面测试来说是不够的。对于测试Python运行时来说，应该同时关注解释器核心、运行时库以及两者之间的交互作用。</li>
+</ul>
+<p>例子，不同输入下报错类型不一样，”%2u” 表示将一个无符号整数（unsigned integer）按照至少两位的宽度进行格式化输出，并在需要时在前面填充空格</p>
+<p><img src="/2024/05/13/PyRTFuzz/image-20240513172117218.png" alt="image-20240513172117218"></p>
+<p>这个例子说明如果我们不为特定的运行时模块（比如locale）生成应用程序，那么该模块内部的Bug可能无法被触发（限制L1）。此外，即使生成了各种不同领域的应用程序，如果不考虑应用程序的各种输入，可能还不足以检测出所有的Bug（限制L2）。最后，不同的结果显示了解释器核心和运行时库之间的相互作用和协作，凸显了对它们进行整体测试的重要性（限制L3）。</p>
+<h1 id="Technique-Design"><a href="#Technique-Design" class="headerlink" title="Technique Design"></a>Technique Design</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>level1: generation-based fuzzing</p>
+<p>level2: mutation-based fuzzing</p>
+<p><img src="/2024/05/13/PyRTFuzz/image-20240513172550927.png" alt="image-20240513172550927"></p>
+<p>输入包括3个，单元测试、和2部分源码</p>
+<ul>
+<li><p>获得Runtime的库的ABI，先是没有类型的，通过执行测试用例得到类型</p>
+</li>
+<li><p>通过声明式规范语言SLang来生成python程序，为每一个API生成一个APP，将所有APP整理为一个序列</p>
+</li>
+<li>为了在每个API的模糊测试深度和在所有API上的模糊测试广度之间取得平衡，L1核心会为每个APP的第2级模糊测试安排一个预算时间。一旦预算用完，L1核心会根据上一次第2级模糊测试的覆盖范围决定是否为相同的API生成另一个（更复杂的）APP，如果是，则触发APP生成，并根据上一次第2级模糊测试迭代中的覆盖情况选择下一个APP进行第2级模糊测试</li>
+<li>L2核心最初会维护一个每个应用程序的种子队列，其中种子是随机生成的。随后，通过基于收集到的覆盖反馈的自定义变异方案，对种子进行变异以获取新的输入值。自定义变异器可以生成适应每个特定应用程序输入格式的值，这得益于在第2阶段应用程序生成过程中插入的探针。这些探针旨在根据应用程序中调用的API的（带类型的）描述，将字节序列解码为单独的参数值。任何触发的Bug以及触发的种子将作为PyRTFuzz的输出产生</li>
+</ul>
+<h2 id="Runtime-API-Description-Extraction"><a href="#Runtime-API-Description-Extraction" class="headerlink" title="Runtime API Description Extraction"></a>Runtime API Description Extraction</h2><p>python的官方文档给出了abi，但是是非结构化的文本形式，手工提取折磨，需要自动化方式</p>
+<p>采用Python的AST parser进行提取，鉴于静态类型推断的不准确性，暂时将类型设置为None，并将在下一步进行细化。因此，静态提取以无类型的API描述结束。</p>
+<p><img src="/2024/05/13/PyRTFuzz/image-20240513191947804.png" alt="image-20240513191947804"></p>
+<p>对于异常字段，会尽可能全面地收集API可能抛出的明确异常以及从导入的模块中隐式抛出的异常。这些信息在应用程序生成期间指导API调用的异常处理，这对于避免在第2级模糊测试期间将异常错误地标识为Bug非常重要</p>
+<p>动态改进：运行测试用例，提取返回值和参数的类型</p>
+<p><img src="/2024/05/13/PyRTFuzz/image-20240513192621523.png" alt="image-20240513192621523"></p>
+<p>算法每次处理一个单元测试，<code>inspect</code> 是 Python 标准库中的一个模块，能够获得对象的信息</p>
+<p>问题：</p>
+<ul>
+<li>动态执行不一定可以覆盖全部的abi</li>
+<li>python的动态特性，每个参数返回类型可能在不同执行中不同<ul>
+<li>argue：只要有一个就足够生成有效的输入</li>
+</ul>
+</li>
+</ul>
+<h2 id="Level-1-fuzzing"><a href="#Level-1-fuzzing" class="headerlink" title="Level-1 fuzzing"></a>Level-1 fuzzing</h2><p>目的：生成多样化的有效的python程序</p>
+<ul>
+<li>API 覆盖率</li>
+<li>APP多样性：测试到API的场景，控制流要复杂</li>
+<li>APP有效性：语义和语法上有效，数据流可达性要从程序入口到call site</li>
+</ul>
+<p>使用SLang简单的声明性规范语言，SLang通过一组生成原语作为最低级语言构造来定义规范的语法和语义。使用SLang，开发人员可以表达规范要求，并通过SLang生成Python应用程序。SLang提供了一种简洁的方式来描述应用程序的要求和行为，以及如何生成满足这些要求的代码。</p>
+<p>一个SLang程序（即APP规范）𝑃是一个语句序列𝑆∗。一个语句𝑆只有一种类型：赋值语句。在每个赋值语句中，右值𝐶(𝑒)∗表示一个取表达式𝑒的原语𝐶；左值𝑐表示𝐶(𝑒)∗的结果。这里的表达式𝑒可以是两种类型之一：一个变量𝑐或者对运行时API 𝐴的调用。</p>
+<p><img src="/2024/05/13/PyRTFuzz/image-20240513195029215.png" alt="image-20240513195029215"></p>
+<h3 id="Primitive-Derivation"><a href="#Primitive-Derivation" class="headerlink" title="Primitive Derivation"></a>Primitive Derivation</h3><p>SLang的原语是根据Python语言参考文档并参考解释器实现而推导出来的，总结了python程序的关键控制流结果，可分为基本原语和扩展原语</p>
+<p>基本原语只接受运行时API的调用作为输入。它用于构建Python程序的基本（控制流）结构，该程序可以是面向对象或面向过程的，并定义程序的入口点。因此一个SLang程序应该以一个且仅有一个基本原语开始。</p>
+<p><img src="/2024/05/13/PyRTFuzz/image-20240513195926563.png" alt="image-20240513195926563"></p>
+<p>算法2的伪代码介绍了基本原语的一般操作，生成的P包含三部分T,D,M  包装ABI调用的D，主函数</p>
+<p>扩展原语：扩展原语将其他原语的结果作为输入。它用于增加APP的复杂性，同时使其多样化。这些原语的推导还受到我们在现实世界中观察到的Python软件中的编程模式的影响。</p>
+<p><img src="/2024/05/13/PyRTFuzz/image-20240513201138530.png" alt="image-20240513201138530"></p>
+<p>通过自上而下的方式将输入程序𝑃包装起来生成新的应用程序。根据表2所示，推导出了七个原语，它们基于相关的Python抽象语法树（AST）操作进行实现。每个原语可以操作任何Python运行时API，而不依赖于特定API的语法或语义，这允许生成覆盖所有API的APP，从而满足需求R1。</p>
+<p><img src="/2024/05/13/PyRTFuzz/image-20240513201204652.png" alt="image-20240513201204652"></p>
+<h1 id="Implementation-and-limitation"><a href="#Implementation-and-limitation" class="headerlink" title="Implementation and limitation"></a>Implementation and limitation</h1><p><a target="_blank" rel="noopener" href="https://github.com/awen-li/PyRTFuzz">https://github.com/awen-li/PyRTFuzz</a></p>
+<p><a target="_blank" rel="noopener" href="https://figshare.com/s/d5b8d5a7111abe4eafb1">https://figshare.com/s/d5b8d5a7111abe4eafb1</a></p>
+<p>Brief Introduction and setup demonstration: <a target="_blank" rel="noopener" href="https://youtu.be/cOhi9eG-IK0?si=p3ef3BDaMGGIwd4r">https://youtu.be/cOhi9eG-IK0?si=p3ef3BDaMGGIwd4r</a></p>
+<h1 id="Ideas"><a href="#Ideas" class="headerlink" title="Ideas"></a>Ideas</h1><ul>
+<li>实证研究，EVM的调研，不同EVM的issue整理</li>
+<li>能否利用github的测试用例</li>
+<li>大模型做abi提取</li>
+<li>solidity的<a target="_blank" rel="noopener" href="https://github.com/NomicFoundation/slang">slang</a></li>
+<li>SLang的撰写依赖专家知识</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/04/25/Ethereum-in-30mins-from-DEVCON6/" rel="prev" title="Ethereum_in_30mins_from_DEVCON6">
+      <i class="fa fa-chevron-left"></i> Ethereum_in_30mins_from_DEVCON6
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/05/23/WADIFF/" rel="next" title="WADIFF">
+      WADIFF <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-work"><span class="nav-number">2.1.</span> <span class="nav-text">Related work</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Background-and-Motivation"><span class="nav-number">3.</span> <span class="nav-text">Background and Motivation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Greybox-fuzzing"><span class="nav-number">3.1.</span> <span class="nav-text">Greybox fuzzing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#compiler-testing"><span class="nav-number">3.2.</span> <span class="nav-text">compiler testing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-Runtime-Fuzzing"><span class="nav-number">3.3.</span> <span class="nav-text">Python Runtime Fuzzing</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Technique-Design"><span class="nav-number">4.</span> <span class="nav-text">Technique Design</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">4.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Runtime-API-Description-Extraction"><span class="nav-number">4.2.</span> <span class="nav-text">Runtime API Description Extraction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Level-1-fuzzing"><span class="nav-number">4.3.</span> <span class="nav-text">Level-1 fuzzing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Primitive-Derivation"><span class="nav-number">4.3.1.</span> <span class="nav-text">Primitive Derivation</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Implementation-and-limitation"><span class="nav-number">5.</span> <span class="nav-text">Implementation and limitation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ideas"><span class="nav-number">6.</span> <span class="nav-text">Ideas</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">Eng.D student at School of Cyber Science and Teconology, BUAA.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
