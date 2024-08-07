@@ -27,13 +27,16 @@
 <meta property="og:site_name" content="Alleysira&#39;s blog">
 <meta property="og:description" content="Kim S, Hwang S. EtherDiffer: Differential Testing on RPC Services of Ethereum Nodes[C]&#x2F;&#x2F;Proceedings of the 31st ACM Joint European Software Engineering Conference and Symposium on the Foundations of S">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2024/03/01/EtherDiffer/image-20240722102708245.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/03/01/EtherDiffer/image-20240722155522178.png">
 <meta property="og:image" content="https://alleysira.github.io/2024/03/01/EtherDiffer/image-20240312155349225.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/03/01/EtherDiffer/image-20240722195330674.png">
 <meta property="article:published_time" content="2024-03-01T07:53:45.000Z">
-<meta property="article:modified_time" content="2024-03-12T13:51:41.824Z">
+<meta property="article:modified_time" content="2024-07-23T11:03:12.721Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://alleysira.github.io/2024/03/01/EtherDiffer/image-20240312155349225.png">
+<meta name="twitter:image" content="https://alleysira.github.io/2024/03/01/EtherDiffer/image-20240722102708245.png">
 
 <link rel="canonical" href="https://alleysira.github.io/2024/03/01/EtherDiffer/">
 
@@ -194,7 +197,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-03-12 21:51:41" itemprop="dateModified" datetime="2024-03-12T21:51:41+08:00">2024-03-12</time>
+                <time title="Modified: 2024-07-23 19:03:12" itemprop="dateModified" datetime="2024-07-23T19:03:12+08:00">2024-07-23</time>
               </span>
 
           
@@ -210,28 +213,48 @@
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Kim S, Hwang S. EtherDiffer: Differential Testing on RPC Services of Ethereum Nodes[C]//Proceedings of the 31st ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering. 2023: 1333-1344.</p>
 <span id="more"></span>
-<p>挑战</p>
+<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>区块链上的DApp一般由链下的前端和链上的后端组成，以太坊节点对前端实现了RPC并提供了一系列接口</p>
+<p>然而RPC的spec存在不足</p>
 <ul>
-<li>测试用例生成<ul>
+<li>缺少对非确定性event的处理</li>
+<li>缺少对无效参数的规定</li>
+</ul>
+<p>本工作对4种节点实现的RPC服务进行差分测试，首先通过多并发交易和传播延迟生成非确定性交易，采用基于属性的生成和类型保持的变异生成语义有效和无效的测试用例。</p>
+<p>不一致性包括：异常处理和返回值</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>挑战</p>
+<ul>
+<li>测试用例生成（基于属性的生成和类型保留的变异），定义DSL<ul>
 <li>语义有效的测试用例</li>
 <li>语义无效但是可执行的测试用例：变异生成</li>
 </ul>
 </li>
-<li>执行交易前的初始状态一致</li>
+<li>执行交易前的初始状态一致：也作为了challenge，可以是手动构造操作码的原因<img src="/2024/03/01/EtherDiffer/image-20240722102708245.png" alt="image-20240722102708245"></li>
 </ul>
 <p>测试对象是4个客户端的RPC服务，意图是根据已有的SPEC规范来生成测试用例，实际贡献非常solid</p>
 <p>项目开源：<a target="_blank" rel="noopener" href="https://github.com/JosephK95/EtherDiffer-public">https://github.com/JosephK95/EtherDiffer-public</a></p>
 <p>数据集：<a target="_blank" rel="noopener" href="https://solidity-by-example.org/hello-world/">https://solidity-by-example.org/hello-world/</a></p>
-<p>依赖：<a target="_blank" rel="noopener" href="https://figshare.com/articles/software/EtherDiffer_Differential_Testing_on_RPC_Services_of_Ethereum_Nodes_Code_/23913096/1">https://figshare.com/articles/software/EtherDiffer_Differential_Testing_on_RPC_Services_of_Ethereum_Nodes_Code_/23913096/1</a></p>
+<p>依赖：<a target="_blank" rel="noopener" href="https://figshare.com/articles/software/EtherDiffer_Differential_Testing_on_RPC_Services_of_Ethereum_Nodes_Code_/23913096/1">https://figshare.com/articles/software/EtherDiffer_Differential_Testing_on_RPC_Services_of_Ethereum_Nodes_Code_/23913096/1</a> </p>
+<p><a target="_blank" rel="noopener" href="https://dl.acm.org/do/10.6084/m9.figshare.23913096.v1/full/">https://dl.acm.org/do/10.6084/m9.figshare.23913096.v1/full/</a></p>
 <p>实验数据：<a target="_blank" rel="noopener" href="https://figshare.com/articles/dataset/EtherDiffer_Differential_Testing_on_RPC_Services_of_Ethereum_Nodes_Data_/21936555/1">https://figshare.com/articles/dataset/EtherDiffer_Differential_Testing_on_RPC_Services_of_Ethereum_Nodes_Data_/21936555/1</a></p>
-<h1 id="Methodolody"><a href="#Methodolody" class="headerlink" title="Methodolody"></a>Methodolody</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>针对4个客户端geth Nethermind Erigon Besu，每4个节点组成一个私链</p>
+<p>PPT和视频资料：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://2023.esec-fse.org/details/fse-2023-research-papers/10/EtherDiffer-Differential-Testing-on-RPC-Services-of-Ethereum-Nodes">https://2023.esec-fse.org/details/fse-2023-research-papers/10/EtherDiffer-Differential-Testing-on-RPC-Services-of-Ethereum-Nodes</a></li>
+<li><a target="_blank" rel="noopener" href="https://slideslive.com/39014005">https://slideslive.com/39014005</a></li>
+</ul>
+<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>以太坊主网节点个数：<a target="_blank" rel="noopener" href="https://ethernodes.org/">https://ethernodes.org/</a></p>
+<h1 id="Methodolody"><a href="#Methodolody" class="headerlink" title="Methodolody"></a>Methodolody</h1><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>针对4个客户端geth Nethermind Erigon Besu，本地部署一个网络，每4个节点组成一个私链，共识用的是PoW</p>
 <p>测试用例生成依赖web3.js</p>
 <p>定义了DSL，用于捕捉函数参数的语法和语义要求，并将库规范转换为$spec_{DSL}$。EtherDiffer首先从specDSL中选择一个方法，然后Generator生成符合语义要求的模板代码，其中所有参数都满足其要求。此外，Mutator以随机方式将其中一个参数更改为语义无效的值，同时保持其类型。最后，Test Case Converter通过将模板代码与每个目标节点绑定来实例化一组四个测试用例。一旦执行完成，Error Checker报告只有一部分节点引发错误，而其他节点返回值，并且Value Checker报告返回值是否彼此不一致。</p>
 <p>测试用例使用try-catch语句包装，以正确识别错误，同时保持EtherDiffer的执行</p>
+<p><img src="/2024/03/01/EtherDiffer/image-20240722155522178.png" alt="image-20240722155522178"></p>
+<h2 id="非确定性链的生成"><a href="#非确定性链的生成" class="headerlink" title="非确定性链的生成"></a>非确定性链的生成</h2><p>考虑到多交易的并发和交易的传播时延</p>
+<p>使用了Solidity by Example的简单程序生成了109个交易</p>
+<h2 id="DSL"><a href="#DSL" class="headerlink" title="DSL"></a>DSL</h2><p>目的：理解函数参数的类型和</p>
 <h2 id="测试用例生成"><a href="#测试用例生成" class="headerlink" title="测试用例生成"></a>测试用例生成</h2><p>基于web3.js</p>
-<p>为了自动化处理库规范，定义了一个领域特定语言，用于捕捉函数参数的类型和语义要求。规范s包括类型定义、子类型关系、属性定义和方法声明。类型t可以是基本类型t_p，对象类型，数组类型或两个类型的并集。对象类型是一组键-类型对的集合，其中一些可以是可选的。</p>
+<p>为了自动化处理库规范，定义了一个领域特定语言，用于捕捉函数参数的类型和语义要求。规范s包括 类型定义、子类型关系、属性定义和方法声明。</p>
+<p>类型t可以是基本类型t_p，对象类型，数组类型或两个类型的并集。对象类型是一组键-类型对的集合，其中一些可以是可选的。</p>
 <p><img src="/2024/03/01/EtherDiffer/image-20240312155349225.png" alt="image-20240312155349225"></p>
-<p>这部分能用solidity的声明吗？</p>
+<h1 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h1><p><img src="/2024/03/01/EtherDiffer/image-20240722195330674.png" alt="image-20240722195330674"></p>
 
     </div>
 
@@ -315,7 +338,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Methodolody"><span class="nav-number">1.</span> <span class="nav-text">Methodolody</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E7%94%9F%E6%88%90"><span class="nav-number">1.2.</span> <span class="nav-text">测试用例生成</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Background"><span class="nav-number">3.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Methodolody"><span class="nav-number">4.</span> <span class="nav-text">Methodolody</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">4.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E7%A1%AE%E5%AE%9A%E6%80%A7%E9%93%BE%E7%9A%84%E7%94%9F%E6%88%90"><span class="nav-number">4.2.</span> <span class="nav-text">非确定性链的生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DSL"><span class="nav-number">4.3.</span> <span class="nav-text">DSL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E7%94%9F%E6%88%90"><span class="nav-number">4.4.</span> <span class="nav-text">测试用例生成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Evaluation"><span class="nav-number">5.</span> <span class="nav-text">Evaluation</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -329,7 +352,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

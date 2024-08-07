@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Ethereum virtual machine opcodes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EVM_opcodes">
+<meta property="og:url" content="https://alleysira.github.io/2024/07/17/EVM-opcodes/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="Ethereum virtual machine opcodes">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2024/07/17/EVM-opcodes/image-20240720094239162.png">
+<meta property="article:published_time" content="2024-07-17T01:25:51.000Z">
+<meta property="article:modified_time" content="2024-08-07T10:54:23.215Z">
+<meta property="article:author" content="Alleysira">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="EVM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2024/07/17/EVM-opcodes/image-20240720094239162.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2024/07/17/EVM-opcodes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>EVM_opcodes | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2024/07/17/EVM-opcodes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="Eng.D student at School of Cyber Science and Teconology, BUAA.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          EVM_opcodes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-07-17 09:25:51" itemprop="dateCreated datePublished" datetime="2024-07-17T09:25:51+08:00">2024-07-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-08-07 18:54:23" itemprop="dateModified" datetime="2024-08-07T18:54:23+08:00">2024-08-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Ethereum virtual machine opcodes</p>
+<span id="more"></span>
+<p>根据以太坊主网最新分叉Cancun的定义，目前操作码共150个，可分为11类</p>
+<p>进度记录: 10/11, 97/150</p>
+<ul>
+<li>arith 12</li>
+<li>dup 16</li>
+<li>push 33</li>
+<li>exchange 16</li>
+<li>compare and bitwise 14</li>
+<li>sha3 1</li>
+<li>logging 5</li>
+<li>control flow 15</li>
+<li>system 10</li>
+<li>env 17</li>
+</ul>
+<h1 id="Stop-and-Arithmetic-Operations"><a href="#Stop-and-Arithmetic-Operations" class="headerlink" title="Stop and Arithmetic Operations"></a>Stop and Arithmetic Operations</h1><p>共12个，已完成</p>
+<p>python spec：<a target="_blank" rel="noopener" href="https://github.com/ethereum/execution-specs/blob/master/src/ethereum/cancun/vm/instructions/arithmetic.py">https://github.com/ethereum/execution-specs/blob/master/src/ethereum/cancun/vm/instructions/arithmetic.py</a></p>
+<h1 id="Environmental-Information"><a href="#Environmental-Information" class="headerlink" title="Environmental Information"></a>Environmental Information</h1><p>共16个</p>
+<ul>
+<li>address: return the receiver address in evm cmd</li>
+<li>balance:<ul>
+<li>evm —debug —gas 0xffffff —nomemory=false —json —code 731c7cd2d37ffd63856a5bd56a9af1643f2bcf545f3160005260406000f3 —prestate ./genesis.json run</li>
+<li>weird, when sender == balance(address), outputs = 0</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>origin</li>
+<li>caller</li>
+<li>callvalue</li>
+<li>calldataload</li>
+<li>calldatasize: fixed wrong setting in sealevm</li>
+<li>calldatacopy</li>
+<li>codesize</li>
+<li>codecopy</li>
+<li>gasprice: fixed pyevm gas price error</li>
+<li><p>extcodesize:</p>
+<ul>
+<li>sealevm issue: for non-existent address should return 0</li>
+</ul>
+</li>
+<li><p>extcodecopy</p>
+<ul>
+<li>jsevm 2500 gas difference</li>
+<li>fixed pyevm wrong init</li>
+</ul>
+</li>
+<li><p>returndatasize: left with call</p>
+</li>
+<li>returndatacopy: left with call</li>
+</ul>
+<h1 id="Block-Information"><a href="#Block-Information" class="headerlink" title="Block Information"></a>Block Information</h1><ul>
+<li>number: only pyevm return value</li>
+<li>timestamp: geth and js return nothing</li>
+<li>gaslimit: besu does not recognize the setting in genesis.json</li>
+<li>prevnrandao: only besu outputs</li>
+<li>chainid: of besu </li>
+<li>coinbase: can’t set in ethereumjs/evm</li>
+<li>blockhash</li>
+<li>blobhash</li>
+<li>blobbaseefee</li>
+<li>basefee</li>
+</ul>
+<h1 id="Logging-Operations"><a href="#Logging-Operations" class="headerlink" title="Logging Operations"></a>Logging Operations</h1><p>finished 5 opcodes</p>
+<h1 id="Duplication-Operations"><a href="#Duplication-Operations" class="headerlink" title="Duplication Operations"></a>Duplication Operations</h1><p>finished 16 opcodes</p>
+<h1 id="Exchange-Operations"><a href="#Exchange-Operations" class="headerlink" title="Exchange Operations"></a>Exchange Operations</h1><p>python definition in <a target="_blank" rel="noopener" href="https://github.com/ethereum/execution-specs/blob/master/src/ethereum/cancun/vm/instructions/stack.py">https://github.com/ethereum/execution-specs/blob/master/src/ethereum/cancun/vm/instructions/stack.py</a></p>
+<p>finished 16 opcodes</p>
+<h1 id="SHA3"><a href="#SHA3" class="headerlink" title="SHA3"></a>SHA3</h1><p>finished 1 opcode</p>
+<h1 id="Push-Operations"><a href="#Push-Operations" class="headerlink" title="Push Operations"></a>Push Operations</h1><p>finished 33 opcodes</p>
+<h1 id="System-operations"><a href="#System-operations" class="headerlink" title="System operations"></a>System operations</h1><ul>
+<li><p>create：seal的地址输出与以太坊标准偏离，见<a target="_blank" rel="noopener" href="https://github.com/SealSC/SealEVM/blob/a3860afcd00913af730eb98274e70c5b9a797464/example/memStorage.go#L48，create2相同">https://github.com/SealSC/SealEVM/blob/a3860afcd00913af730eb98274e70c5b9a797464/example/memStorage.go#L48，create2相同</a></p>
+<p><img src="/2024/07/17/EVM-opcodes/image-20240720094239162.png" alt="image-20240720094239162"></p>
+</li>
+<li><p>create2</p>
+</li>
+<li><p>return</p>
+</li>
+<li><p>call</p>
+</li>
+<li><p>callcode</p>
+</li>
+<li><p>delegatecall</p>
+</li>
+<li><p>staticcall</p>
+</li>
+<li><p>revert</p>
+</li>
+<li><p>invalid</p>
+</li>
+<li><p>selfdstruct</p>
+<ul>
+<li>balance!=0, besu charges 5000</li>
+<li>balance=0, besu charges 30000</li>
+</ul>
+</li>
+</ul>
+<h1 id="Comparison-amp-Bitwise-Logic-Operations"><a href="#Comparison-amp-Bitwise-Logic-Operations" class="headerlink" title="Comparison &amp; Bitwise Logic Operations"></a>Comparison &amp; Bitwise Logic Operations</h1><p>14个，已完成</p>
+<p>定义分别在</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ethereum/execution-specs/blob/master/src/ethereum/cancun/vm/instructions/bitwise.py">https://github.com/ethereum/execution-specs/blob/master/src/ethereum/cancun/vm/instructions/bitwise.py</a> </li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ethereum/execution-specs/blob/master/src/ethereum/cancun/vm/instructions/bitwise.py">https://github.com/ethereum/execution-specs/blob/master/src/ethereum/cancun/vm/instructions/bitwise.py</a></li>
+</ul>
+<h1 id="Stack-Memory-Storage-and-Flow-Operations"><a href="#Stack-Memory-Storage-and-Flow-Operations" class="headerlink" title="Stack Memory Storage and Flow Operations"></a>Stack Memory Storage and Flow Operations</h1><p>定义：<a target="_blank" rel="noopener" href="https://github.com/ethereum/execution-specs/blob/master/src/ethereum/cancun/vm/instructions/memory.py">https://github.com/ethereum/execution-specs/blob/master/src/ethereum/cancun/vm/instructions/memory.py</a></p>
+<p>15个，已完成</p>
+<p>pop</p>
+<p>mload</p>
+<p>mstore</p>
+<p>mstore8 </p>
+<p>sload</p>
+<p>sstore</p>
+<p>tload</p>
+<p>tstore</p>
+<p>pc</p>
+<p>msize : sealevm has wrong memory expansion with ethereum spec, also opened an issue in execution-spec reppo.</p>
+<p>gas</p>
+<p>mcopy</p>
+<p>jump</p>
+<p>jumpi</p>
+<p>jumpdest</p>
+<h1 id="TO-DO"><a href="#TO-DO" class="headerlink" title="TO DO"></a>TO DO</h1><ul>
+<li>exec-spec issue: check all expand the memory opcodes.</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+              <a href="/tags/EVM/" rel="tag"># EVM</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/07/02/EVM-From-Solidity-to-byte-code-memory-and-storage/" rel="prev" title="EVM: From Solidity to byte code, memory and storage">
+      <i class="fa fa-chevron-left"></i> EVM: From Solidity to byte code, memory and storage
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Stop-and-Arithmetic-Operations"><span class="nav-number">1.</span> <span class="nav-text">Stop and Arithmetic Operations</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Environmental-Information"><span class="nav-number">2.</span> <span class="nav-text">Environmental Information</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Block-Information"><span class="nav-number">3.</span> <span class="nav-text">Block Information</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Logging-Operations"><span class="nav-number">4.</span> <span class="nav-text">Logging Operations</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Duplication-Operations"><span class="nav-number">5.</span> <span class="nav-text">Duplication Operations</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exchange-Operations"><span class="nav-number">6.</span> <span class="nav-text">Exchange Operations</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SHA3"><span class="nav-number">7.</span> <span class="nav-text">SHA3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Push-Operations"><span class="nav-number">8.</span> <span class="nav-text">Push Operations</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#System-operations"><span class="nav-number">9.</span> <span class="nav-text">System operations</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Comparison-amp-Bitwise-Logic-Operations"><span class="nav-number">10.</span> <span class="nav-text">Comparison &amp; Bitwise Logic Operations</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Stack-Memory-Storage-and-Flow-Operations"><span class="nav-number">11.</span> <span class="nav-text">Stack Memory Storage and Flow Operations</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TO-DO"><span class="nav-number">12.</span> <span class="nav-text">TO DO</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">Eng.D student at School of Cyber Science and Teconology, BUAA.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
