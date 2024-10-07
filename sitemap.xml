@@ -781,14 +781,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Blockchain/</loc>
+    <loc>https://alleysira.github.io/tags/Architecture/</loc>
     <lastmod>2024-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Architecture/</loc>
+    <loc>https://alleysira.github.io/tags/Blockchain/</loc>
     <lastmod>2024-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -830,14 +830,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
+    <loc>https://alleysira.github.io/tags/LLM/</loc>
     <lastmod>2024-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/LLM/</loc>
+    <loc>https://alleysira.github.io/tags/Federated-Learning/</loc>
     <lastmod>2024-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -858,14 +858,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Redactable-Blockchain/</loc>
+    <loc>https://alleysira.github.io/tags/Lattices/</loc>
     <lastmod>2024-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Lattices/</loc>
+    <loc>https://alleysira.github.io/tags/Redactable-Blockchain/</loc>
     <lastmod>2024-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -893,7 +893,7 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Wasm/</loc>
+    <loc>https://alleysira.github.io/tags/VM/</loc>
     <lastmod>2024-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -907,14 +907,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Differential-Testing/</loc>
+    <loc>https://alleysira.github.io/tags/Wasm/</loc>
     <lastmod>2024-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/VM/</loc>
+    <loc>https://alleysira.github.io/tags/Differential-Testing/</loc>
     <lastmod>2024-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1000,13 +1000,6 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/categories/Blockchain/</loc>
-    <lastmod>2024-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://alleysira.github.io/categories/Architecture/</loc>
     <lastmod>2024-10-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -1021,6 +1014,13 @@
   </url>
   
   <url>
+    <loc>https://alleysira.github.io/categories/Blockchain/</loc>
+    <lastmod>2024-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://alleysira.github.io/categories/FederatedLearning/</loc>
     <lastmod>2024-10-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -1028,14 +1028,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/categories/WebAssembly/</loc>
+    <loc>https://alleysira.github.io/categories/Blockchain/WebAssembly/</loc>
     <lastmod>2024-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/categories/Blockchain/WebAssembly/</loc>
+    <loc>https://alleysira.github.io/categories/WebAssembly/</loc>
     <lastmod>2024-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
