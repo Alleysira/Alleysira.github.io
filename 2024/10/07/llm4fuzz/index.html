@@ -27,16 +27,16 @@
 <meta property="og:site_name" content="Alleysira&#39;s blog">
 <meta property="og:description" content="LLM4Fuzz的综述 本文总结了5个使用LLM辅助模糊测试的挑战，回顾了顶会论文并确认了挑战的广泛存在，提出了解决方案并在DBMS进行了评估，说明了推荐方法的有效性 1234567@inproceedings&amp;#123;jiang2024fuzzing,  title&#x3D;&amp;#123;When fuzzing meets llms: Challenges and opportunities&amp;#125">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://alleysira.github.io/2024/10/07/llm4fuzz/llm4fuzz/image-20241006165734039.png">
-<meta property="og:image" content="https://alleysira.github.io/2024/10/07/llm4fuzz/llm4fuzz/image-20241006200013351.png">
-<meta property="og:image" content="https://alleysira.github.io/2024/10/07/llm4fuzz/llm4fuzz/image-20241006200444284.png">
-<meta property="og:image" content="https://alleysira.github.io/2024/10/07/llm4fuzz/llm4fuzz/image-20241006200836511.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/10/07/llm4fuzz/image-20241006165734039.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/10/07/llm4fuzz/image-20241006200013351.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/10/07/llm4fuzz/image-20241006200444284.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/10/07/llm4fuzz/image-20241006200836511.png">
 <meta property="article:published_time" content="2024-10-07T02:42:08.000Z">
-<meta property="article:modified_time" content="2024-10-07T02:49:16.912Z">
+<meta property="article:modified_time" content="2024-12-11T08:35:46.825Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="LLM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://alleysira.github.io/2024/10/07/llm4fuzz/llm4fuzz/image-20241006165734039.png">
+<meta name="twitter:image" content="https://alleysira.github.io/2024/10/07/llm4fuzz/image-20241006165734039.png">
 
 <link rel="canonical" href="https://alleysira.github.io/2024/10/07/llm4fuzz/">
 
@@ -189,10 +189,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-10-07 10:42:08 / Modified: 10:49:16" itemprop="dateCreated datePublished" datetime="2024-10-07T10:42:08+08:00">2024-10-07</time>
+              <time title="Created: 2024-10-07 10:42:08" itemprop="dateCreated datePublished" datetime="2024-10-07T10:42:08+08:00">2024-10-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-12-11 16:35:46" itemprop="dateModified" datetime="2024-12-11T16:35:46+08:00">2024-12-11</time>
+              </span>
 
           
 
@@ -219,7 +225,7 @@
 <li>无法保证保持生成输入的有效性</li>
 <li>对漏洞检测机制的错误理解阻碍了它们有效识别和解决复杂软件漏洞的能力</li>
 </ul>
-<h1 id="CHALLENGES-AND-OPPORTUNITIES"><a href="#CHALLENGES-AND-OPPORTUNITIES" class="headerlink" title="CHALLENGES AND OPPORTUNITIES"></a>CHALLENGES AND OPPORTUNITIES</h1><p><img src="/2024/10/07/llm4fuzz/llm4fuzz\image-20241006165734039.png" alt="image-20241006165734039"></p>
+<h1 id="CHALLENGES-AND-OPPORTUNITIES"><a href="#CHALLENGES-AND-OPPORTUNITIES" class="headerlink" title="CHALLENGES AND OPPORTUNITIES"></a>CHALLENGES AND OPPORTUNITIES</h1><p><img src="/2024/10/07/llm4fuzz/image-20241006165734039.png" alt="image-20241006165734039"></p>
 <h2 id="Driver-Synthesis"><a href="#Driver-Synthesis" class="headerlink" title="Driver Synthesis"></a>Driver Synthesis</h2><p>驱动程序合成方面的已有工作的思路是利用API文档作为Prompt，要求LLM生成API调用序列作为模糊测试驱动程序</p>
 <p>由于LLM的幻觉和对不在训练数据中的程序效果差，直接使用LLM进行测试驱动程序生成效果不好</p>
 <ul>
@@ -277,18 +283,18 @@
 <h2 id="LLM-Enhanced-Connector-Synthesis"><a href="#LLM-Enhanced-Connector-Synthesis" class="headerlink" title="LLM-Enhanced Connector Synthesis"></a>LLM-Enhanced Connector Synthesis</h2><p>数据库连接器或数据库驱动程序通过定义的接口（包括函数和参数）将应用程序连接到数据库。模糊测试驱动程序由这些接口序列组成。直接使用LLM生成数据库驱动程序面临两个挑战。</p>
 <p>首先是容易出错：API序列在连接器的状态中包含语义细节，直接生成序列可能会引入错误。其次是范围有限：由于训练数据的限制，LLM缺乏关于连接器状态转换的知识。</p>
 <p>根据建议1.2，提出了LLM增强的状态感知数据库连接器合成。首先收集JDBC函数原型和使用JDBC的示例程序。然后我们将JDBC函数之间的连接关系建模为状态转换规则。接着，我们将函数原型、示例程序和连接规则作为输入提供给LLM。我们给出的提示类似于：“根据状态转换规则和函数的状态描述，请生成长度为15的API序列，要求覆盖与之前不同的状态转换组合。”</p>
-<p><img src="/2024/10/07/llm4fuzz/llm4fuzz\image-20241006200013351.png" alt="image-20241006200013351"></p>
+<p><img src="/2024/10/07/llm4fuzz/image-20241006200013351.png" alt="image-20241006200013351"></p>
 <p>将LLM增强的连接器合成实现为<strong>Wingfuzz𝑐𝑜𝑛𝑛</strong>，并将其与<strong>LLM𝑐𝑜𝑛𝑛</strong>进行比较，后者直接利用LLM为MySQL Connector/J、MariaDB Connector/J和AWS JDBC Driver for MySQL生成驱动程序。我们在ClickHouse上对每个工具进行了模糊测试。表1显示了<strong>LLM𝑐𝑜𝑛𝑛</strong>和<strong>Wingfuzz𝑐𝑜𝑛𝑛</strong>在三个选定DBMS上在12小时内的驱动器正确率和分支覆盖率。这些统计数据表明，<strong>Wingfuzz𝑐𝑜𝑛𝑛</strong>在驱动器正确率和分支覆盖率方面始终优于<strong>LLM𝑐𝑜𝑛𝑛</strong>。主要原因在于状态转换规则嵌入了语义信息，帮助LLM生成考虑数据库连接器内不同状态的API序列。</p>
 <h2 id="Cross-DBMS-SQL-Transfer"><a href="#Cross-DBMS-SQL-Transfer" class="headerlink" title="Cross-DBMS SQL Transfer"></a>Cross-DBMS SQL Transfer</h2><p>通过LLM直接生成SQL查询面临两个主要挑战：</p>
 <p>确保语义正确性和促进查询多样性。复杂的SQL语法，包括各种子句、表达式和规则，使得LLM在实现语义正确性方面面临挑战，而语义正确性对于触发复杂的DBMS行为至关重要。</p>
 <p>此外，SQL查询的多样性对于深入探测DBMS逻辑至关重要。然而，LLM的多样性受限，限制了对不同查询结构的探索。</p>
 <p>解决方案：</p>
 <p>不是直接创建SQL查询，而是利用LLM将其他DBMS的测试用例转移为初始种子，以对目标DBMS进行模糊测试。该方法包含三个步骤。首先，在其原生DBMS中执行现有测试用例，以捕获模式信息；其次，将模式信息提供给LLM生成新的测试用例；第三，临时注释掉无法解析的部分，以确保正确解析，然后在变异后取消注释。</p>
-<p><img src="/2024/10/07/llm4fuzz/llm4fuzz\image-20241006200444284.png" alt="image-20241006200444284"></p>
+<p><img src="/2024/10/07/llm4fuzz/image-20241006200444284.png" alt="image-20241006200444284"></p>
 <p><strong>Wingfuzz𝑖𝑛𝑝𝑢𝑡</strong>生成的测试用例包含比<strong>LLM𝑖𝑛𝑝𝑢𝑡</strong>多出159.35%、36.65%和112.14%的语义正确SQL语句，并且分别覆盖比<strong>LLM𝑖𝑛𝑝𝑢𝑡</strong>多出55.96%、21.83%和16.41%的分支。这表明，LLM无法直接生成高质量的SQL查询用于DBMS模糊测试。主要原因在于，转移种子提高了变异测试用例的多样性，而模糊测试器的变异器确保了SQL查询的语义正确性。</p>
 <h2 id="Monitor-Based-DBMS-Bug-Detection"><a href="#Monitor-Based-DBMS-Bug-Detection" class="headerlink" title="Monitor-Based DBMS Bug Detection"></a>Monitor-Based DBMS Bug Detection</h2><p>DBMS漏洞检测中最关键的一步是构建测试判定标准，以识别逻辑或性能漏洞。测试判定标准决定了DBMS行为的正确性或有效性。直接使用LLMs来构建测试判定标准具有挑战性，因为LLMs缺乏关于DBMS行为的特定知识。</p>
 <p>为了解决这些挑战，我们提出了基于运行时监控的DBMS漏洞检测方法，遵循REC 3.1，通过分析DBMS的运行时信息来检测异常。DBMS通常包含隐式的异常处理机制，以避免系统崩溃，通常会输出DBMS的关键内部状态。与通过检查SQL查询的执行结果来构建测试判定标准不同，我们的方法使用LLM分析运行时信息以进行漏洞检测。该过程包含两个主要步骤。首先，插入一个代理来提取DBMS的运行时信息。然后，使用LLM通过预定义的错误模式检测异常</p>
-<p><img src="/2024/10/07/llm4fuzz/llm4fuzz\image-20241006200836511.png" alt="image-20241006200836511"></p>
+<p><img src="/2024/10/07/llm4fuzz/image-20241006200836511.png" alt="image-20241006200836511"></p>
 <p>结果显示，<strong>Wingfuzz𝑏𝑢𝑔</strong>能检测到更多异常，并且比<strong>LLM𝑏𝑢𝑔</strong>产生的误报更少。这是因为运行时信息包含了DBMS的错误消息，有助于LLM分析并检测漏洞。</p>
 <h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>我们系统地分析了在模糊测试中使用LLM时面临的五个挑战，并通过对近期顶级会议论文的回顾确认了这些挑战的普遍性。这些挑战影响了基于LLM的模糊测试技术的有效性。为了解决这些问题，我们提供了一些建议，以帮助模糊测试的主要步骤，这些建议在我们的初步实验中已显示出有效性。</p>
 
@@ -312,7 +318,10 @@
     <a href="/2024/07/17/EVM-opcodes/" rel="prev" title="EVM_opcodes">
       <i class="fa fa-chevron-left"></i> EVM_opcodes
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/03/REVOKE/" rel="next" title="REVOKE">
+      REVOKE <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -385,7 +394,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -398,7 +407,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Wu S, Li Z, Zhou H, et al. Following the “Thread”: Toward Finding Manipulatable Bottlenecks in Blockchain Clients[C]&#x2F;&#x2F;Proceedings of the 33rd ACM SIGSOFT International Symposium on Software Testing an">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThreadNeck">
+<meta property="og:url" content="https://alleysira.github.io/2024/12/10/thread/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="Wu S, Li Z, Zhou H, et al. Following the “Thread”: Toward Finding Manipulatable Bottlenecks in Blockchain Clients[C]&#x2F;&#x2F;Proceedings of the 33rd ACM SIGSOFT International Symposium on Software Testing an">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241210172247318.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241210193943478.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241211152658856.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241211153851788.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241211163317680.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241211165226500.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241213101314474.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241213110330983.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241215100203061.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241215100836809.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241215100939772.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241215185902457.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241215190715896.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241215190930104.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241215191658700.png">
+<meta property="og:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241215192539520.png">
+<meta property="article:published_time" content="2024-12-10T07:59:04.000Z">
+<meta property="article:modified_time" content="2024-12-16T10:50:08.059Z">
+<meta property="article:author" content="Alleysira">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2024/12/10/thread/image-20241210172247318.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2024/12/10/thread/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>ThreadNeck | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2024/12/10/thread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="Eng.D student at School of Cyber Science and Teconology, BUAA.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ThreadNeck
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-12-10 15:59:04" itemprop="dateCreated datePublished" datetime="2024-12-10T15:59:04+08:00">2024-12-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-12-16 18:50:08" itemprop="dateModified" datetime="2024-12-16T18:50:08+08:00">2024-12-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Wu S, Li Z, Zhou H, et al. Following the “Thread”: Toward Finding Manipulatable Bottlenecks in Blockchain Clients[C]//Proceedings of the 33rd ACM SIGSOFT International Symposium on Software Testing and Analysis. 2024: 1440-1452.</p>
+<span id="more"></span>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>区块链客户端是区块链网络的基础，客户端本身存在性能瓶颈，攻击者可以故意利用瓶颈制造DoS。现有工作关注了少部分瓶颈，且局限于手工分析。本文深入分析了瓶颈的主要原因，开发了Thread-Neck，在客户端运行时检测症状。ThreadNeck 将客户端建模为多个线程，描绘它们之间的相互关系，以准确刻画客户端的行为。对Geth/Besu/Reth/FISCO-BCOS的实验发现了13个可利用的瓶颈，其中6个是未知的。</p>
+<p>代码仓库：Not Available</p>
+<h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>区块链应用：供应链、IoT、保险</p>
+<p>客户端存在瓶颈-&gt;DoS-&gt;数量减少-&gt;51%攻击、DApp宕机</p>
+<p>Related Attack: </p>
+<ul>
+<li>DoS相关的工作，NURGLE</li>
+<li>对client插桩可能误差（记录日志对IO的影响）</li>
+</ul>
+<p>挑战</p>
+<ul>
+<li>对客户端的执行的刻画：区块链相比传统软件更加复杂、数据层、网络、共识和合约。每层有独立的设计并且有交互，如何决定划分的细粒度？按层划分可能太粗，按函数划分理解调用的语境</li>
+<li>从正常状态中识别出瓶颈：难以生成对客户端的输入（需要满足密码学和共识的约束），客户端是有状态的并且和网络交互，难以穷尽所有执行。因此可行的方法是检测客户端的正常运行，寻找可能存在瓶颈的地方（好low），由于缺乏异常性能指标，这种方法也存在问题。例如，当内存和 CPU 使用等性能指标在正常操作中保持正常时，很难识别出瓶颈的细微迹象。</li>
+<li>跨客户端的多样性：每个客户端的瓶颈不同，设计和实现也不同，难以用统一框架进行检测</li>
+</ul>
+<p>解决方法：</p>
+<ul>
+<li>将客户端可化为线程，根据线程的生命周期对客户端进行划分，为客户端构建了一个线程等待与唤醒图，以展示线程之间的相互关系</li>
+<li>分析现有的性能诊断和优化的研究，提出了两类的瓶颈的根本原因。记录了发现了与瓶颈相关的症状，后续进行PoC验证</li>
+<li>将不同编程语言的线程模型进行对比，对不同实现提出对应的策略</li>
+</ul>
+<p>测试了4种客户端 （Geth/Besu/Reth/FISCO-BCOS），发现了13个可利用的瓶颈，攻击者可以DoS客户端或者对应的模块，6个未知的问题已经被开发者修复</p>
+<p>贡献</p>
+<ul>
+<li>首个系统研究区块链客户端瓶颈的工作</li>
+<li>设计并实现ThreadNeck，准确刻画了区块链客户端的执行并帮助确认瓶颈</li>
+<li>将ThreadNeck应用到4个主流客户端，发现了13个瓶颈</li>
+</ul>
+<h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><h3 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h3><p>客户端维护区块链，和其他客户端通信，验证和传播交易/区块</p>
+<p>作者认为Parity和Besu结构一致</p>
+<p>Geth的结构（很有帮助）</p>
+<p><img src="/2024/12/10/thread/image-20241210172247318.png" alt="image-20241210172247318"></p>
+<p>可以划分为</p>
+<ul>
+<li>网络层：管理和P2P网络的通信</li>
+<li>存储层：存储以太坊网络的状态，管理账户余额、合约、合约的状态</li>
+<li>执行引擎：执行交易、运行合约，包括交易池和EVM</li>
+<li>接口层：提供RPC、HTTP和其他接口，外部应用程序可以和客户端交互，发交易和读取区块链数据</li>
+<li>外部的consensus engine：确定规则，处理区块的产生和验证。PoS之后，共识引擎已经被分离了，通过接口层和执行层客户端接触</li>
+</ul>
+<p>用户通过DApp发送交易，首先交易作为RPC发送给客户端，然后通过网络层传播交易，能够出块的节点可以将交易打包进区块，新产生的区块被广播到网络中。其他节点收到区块后使用共识引擎验证区块，在EVM中执行交易，更新状态，结果存储在客户端</p>
+<h3 id="Thread-State"><a href="#Thread-State" class="headerlink" title="Thread State"></a>Thread State</h3><p>线程：程序中的执行路径，可能会存在多个状态</p>
+<ul>
+<li>running：运行</li>
+<li>runnable：可运行</li>
+<li>blocked：阻塞</li>
+</ul>
+<h3 id="Threat-Model"><a href="#Threat-Model" class="headerlink" title="Threat Model"></a>Threat Model</h3><p>大多数编程语言使用操作系统提供的线程，Golang的机制不同，采用goroutine，支持了更高的并发</p>
+<p><img src="/2024/12/10/thread/image-20241210193943478.png" alt="image-20241210193943478"></p>
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>瓶颈是软件实现中限制了应用效率的弱点</p>
+<h3 id="Motivating-Example"><a href="#Motivating-Example" class="headerlink" title="Motivating Example"></a>Motivating Example</h3><p>真实事件，调用extcodesize，带来严重IO负载</p>
+<p>cancun中的策略</p>
+<p><img src="/2024/12/10/thread/image-20241211152658856.png" alt="image-20241211152658856"></p>
+<h3 id="Root-Cause"><a href="#Root-Cause" class="headerlink" title="Root Cause"></a>Root Cause</h3><p>分析现有论文，总结方法</p>
+<ul>
+<li>无效同步：用于保证线程以特定顺序执行。无效同步指使用错误，导致某些线程挂起，影响程序性能，已有工作给出了无效同步的三类主要原因<ul>
+<li><img src="/2024/12/10/thread/image-20241211153851788.png" alt="image-20241211153851788"></li>
+<li>锁竞争：主要原因，攻击A，B和C会等待更长时间</li>
+<li>负载不均衡</li>
+<li>IO阻塞</li>
+</ul>
+</li>
+<li>资源耗尽：如CPU和内存</li>
+</ul>
+<p>为了检测无效同步类的瓶颈，需要理解线程间的交互，因此将客户端建模为线程，画出线程等待和唤醒图，分析线程之间的pattern</p>
+<p>为了检测资源类型的瓶颈，测量线程执行路径的资源消耗</p>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p><img src="/2024/12/10/thread/image-20241211163317680.png" alt="image-20241211163317680"></p>
+<p>可以划分为两个阶段</p>
+<ul>
+<li>在运行时刻画客户端，记录线程唤醒时间和其他相关信息，构造线程等待&amp;唤醒图，将线程之间的相互关系可视化</li>
+<li>分析图，监测两类瓶颈对应的症状，检测存在的瓶颈，对于检测出的线程，根据调用栈定位出测试用例。利用开发者提供的模板测试，进行PoC，测试发现的瓶颈是否会导致DoS</li>
+</ul>
+<h2 id="Building-Wait-amp-Wake-Graph"><a href="#Building-Wait-amp-Wake-Graph" class="headerlink" title="Building Wait&amp;Wake Graph"></a>Building Wait&amp;Wake Graph</h2><p>有向图，记录程序执行过程中线程之间等待和唤醒的关系</p>
+<ul>
+<li>点代表线程，包含调用栈，记录了程序的执行路径以及资源消耗<ul>
+<li>磁盘、网络接口认为是 虚拟线程</li>
+</ul>
+</li>
+<li>边代表唤醒关系， A-&gt;b 线程A唤醒了线程B，即B可能等待A的执行</li>
+</ul>
+<p><img src="/2024/12/10/thread/image-20241211165226500.png" alt="image-20241211165226500" style="zoom:67%;"></p>
+<p>接下来讨论如何构造这个图，根据编程语言实现 Thread 的方法</p>
+<h3 id="Native"><a href="#Native" class="headerlink" title="Native"></a>Native</h3><p>基于wPerf[OSDI18]，hook 内核函数 <code>try_to_wake_up</code></p>
+<h3 id="Golang"><a href="#Golang" class="headerlink" title="Golang"></a>Golang</h3><p>涉及对go routine的支持</p>
+<p>one OS thread -&gt; multiple go routines</p>
+<p>始终保持OS thread running</p>
+<p>解决办法：阅读go的源码，插桩 <code>goready</code> 函数</p>
+<p><img src="/2024/12/10/thread/image-20241213101314474.png" alt="image-20241213101314474"></p>
+<p>利用go官方的trace和pprof测量资源利用</p>
+<h3 id="Merge-Similar-Threads"><a href="#Merge-Similar-Threads" class="headerlink" title="Merge Similar Threads"></a>Merge Similar Threads</h3><p>区块链客户端运行的线程非常多，为了减小图的规模，将相似的线程进行合并</p>
+<p>因为很多线程实际执行了相同的功能（网络连接多个线程处理网络请求）</p>
+<p>基于call stack鉴定相似的线程</p>
+<p>线程建模为稀疏向量，计算余弦相似度</p>
+<h2 id="Identify-the-Bottlenecks"><a href="#Identify-the-Bottlenecks" class="headerlink" title="Identify the Bottlenecks"></a>Identify the Bottlenecks</h2><p>针对两类，无效同步和资源耗尽类型的瓶颈</p>
+<h3 id="无效同步"><a href="#无效同步" class="headerlink" title="无效同步"></a>无效同步</h3><p>观察出最主要的指标是图中的循环等待，问题转化为在图中检测循环</p>
+<p>重视被NIC（网络接口）调起的线程</p>
+<p><img src="/2024/12/10/thread/image-20241213110330983.png" alt="image-20241213110330983"></p>
+<p>去掉worker和pool之间的边</p>
+<p>注释掉可能会漏掉一些，因此手工代码审计了注释掉的worker和pool</p>
+<p>构造PoC很难：</p>
+<ul>
+<li>松耦合的系统</li>
+<li>需要对源码的深刻理解</li>
+</ul>
+<p>方法：unit test，用class和方法名去检索</p>
+<p>对于已知事件，策略</p>
+<ul>
+<li>增加交易数量</li>
+<li>提升交易复杂度</li>
+<li>区块大小</li>
+</ul>
+<p>未知事件，根据源码分析原因，哪个函数导致了瓶颈，是否被外部输入影响</p>
+<h3 id="资源耗尽"><a href="#资源耗尽" class="headerlink" title="资源耗尽"></a>资源耗尽</h3><p>xxx presents a challenge.</p>
+<p>符号执行无法观察资源占用，路径不敏感的符号执行生成的假阳多，路径敏感的符号执行可扩展性不足（区块链客户端是规模庞大的软件）</p>
+<p>解决方法：通过线程来刻画资源占用，关注了两类线程</p>
+<ul>
+<li>执行时间长或内存占用高</li>
+<li>执行时间或内存分配变化大，表明该类线程容易受到外部输入的影响</li>
+</ul>
+<p>使用标准差刻画变化性</p>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p><img src="/2024/12/10/thread/image-20241215100203061.png" alt="image-20241215100203061"></p>
+<p>使用Besu作为例子</p>
+<p>下载区块头，验证，下载区块体，验证交易签名，将区块导入链</p>
+<p>可以观察到存在两个循环，PoC的设计</p>
+<p>观察call stack，找到入口点，构造恶意合约，修改单元测试函数</p>
+<p><img src="/2024/12/10/thread/image-20241215100836809.png" alt="image-20241215100836809"></p>
+<h2 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h2><p>回答的研究问题</p>
+<p><img src="/2024/12/10/thread/image-20241215100939772.png" alt="image-20241215100939772"></p>
+<ul>
+<li>能否检测出瓶颈</li>
+<li>是否比已有工作更有效</li>
+<li>额外的开销有多少</li>
+<li>配置会如何影响检测的效果</li>
+</ul>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p><img src="/2024/12/10/thread/image-20241215185902457.png" alt="image-20241215185902457"></p>
+<p>和主网同步，使用现实世界中的交易作为输入</p>
+<p>使用主网数据的原因（多样性，更贴合现实世界）</p>
+<p>GraphQL API是什么？</p>
+<p>运行4天</p>
+<p>env：64-bit machine with 16 cores and 256GB memory</p>
+<p>使用滑动窗口策略，每2小时刻画120s，频率为4000HZ（这是什么）</p>
+<h3 id="RQ1"><a href="#RQ1" class="headerlink" title="RQ1"></a>RQ1</h3><p>7个已知，6个未知，所有都被确认，3个CVE</p>
+<p><img src="/2024/12/10/thread/image-20241215190715896.png" alt="image-20241215190715896"></p>
+<p>case study</p>
+<p><img src="/2024/12/10/thread/image-20241215190930104.png" alt="image-20241215190930104"></p>
+<p>发现IO-2，Peer，Downloader线程之间存在环</p>
+<p>peer可以在节点即将结束同步时恶意地延迟消息</p>
+<p>可能的缓解方法</p>
+<p><img src="/2024/12/10/thread/image-20241215191658700.png" alt="image-20241215191658700"></p>
+<h3 id="RQ2"><a href="#RQ2" class="headerlink" title="RQ2"></a>RQ2</h3><p>9%的CPU消耗，内存可不计</p>
+<h3 id="RQ3"><a href="#RQ3" class="headerlink" title="RQ3"></a>RQ3</h3><p>和已有工作在Besu和C++对比</p>
+<p>wPerf发现了568，未能发现本文工具未发现的</p>
+<p>给出了不能发现的原因</p>
+<h3 id="RQ4"><a href="#RQ4" class="headerlink" title="RQ4"></a>RQ4</h3><p>门限实验，合并同类线程的模块 和 资源占用的门限</p>
+<p><img src="/2024/12/10/thread/image-20241215192539520.png" alt="image-20241215192539520"></p>
+<p>50% 距离时会漏掉一个bug，因此采用了60%和70%</p>
+<p>15 线程</p>
+<h2 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h2><p>可以扩展到其他应用程序中</p>
+<p>为了选择区块链作为研究对象</p>
+<ul>
+<li>对web3社区的重要性</li>
+<li>区块链的开源，有丰富的单元测试用例</li>
+<li>工作原理近似，发现的瓶颈和缺陷可以迁移</li>
+</ul>
+<p>缺陷：无法适用于所有软件</p>
+<ul>
+<li><p>对于多线程软件使用IPC进行通信，无法有效监测</p>
+</li>
+<li><p>如果软件线程数太少，难以发现线程间同步的问题</p>
+</li>
+</ul>
+<h2 id="Threat-to-Validity"><a href="#Threat-to-Validity" class="headerlink" title="Threat to Validity"></a>Threat to Validity</h2><ul>
+<li><p>依赖人工撰写测试用例，消耗时间较长，缺乏可扩展性 </p>
+<ul>
+<li>计划后续使用大模型基于模板生成测试用例</li>
+<li>结合模糊测试增加测试用例的多样性</li>
+</ul>
+</li>
+<li><p>区块链客户端数量较少，未能支持Nethermind，未来计划支持更多客户端</p>
+</li>
+<li>瓶颈并不一定会导致系统性能降低，为了检测这类问题不能直接用现在的方法，需要设计新的oracle</li>
+<li>代码覆盖率不高，可能因为dead code和路径不够丰富</li>
+</ul>
+<h2 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work"></a>Related work</h2><p>On CPU 许多性能测量工具采用 插桩 和 采样方法实现，将代码在总体执行时间内的占比排序，缺少出花费最多时间的部分</p>
+<p>Off CPU 比如等待的事件也可能是瓶颈</p>
+<h3 id="区块链客户端性能测量"><a href="#区块链客户端性能测量" class="headerlink" title="区块链客户端性能测量"></a>区块链客户端性能测量</h3><p>高纬度的参数（吞吐量、延迟）</p>
+<p>插桩，分析时间消耗的分布，研究交易处理中的瓶颈</p>
+<p>每个opcode的耗时</p>
+<p>函数的耗时</p>
+<h3 id="区块链客户端优化"><a href="#区块链客户端优化" class="headerlink" title="区块链客户端优化"></a>区块链客户端优化</h3><p>优化共识算法</p>
+<p>分片</p>
+<p>合约交易并行</p>
+<p>DAG</p>
+<p>新的MPT的设计</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>检测区块链客户端中可利用的瓶颈</p>
+<p>给出了两类瓶颈的根本原因</p>
+<p>将客户端建模为多个线程，研究多个线程的关系</p>
+<h2 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h2><ul>
+<li>GraphQL API</li>
+<li>RPC eth_call is free?</li>
+<li>存储的消耗？</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/03/REVOKE/" rel="prev" title="REVOKE">
+      <i class="fa fa-chevron-left"></i> REVOKE
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract"><span class="nav-number">1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Intro"><span class="nav-number">2.</span> <span class="nav-text">Intro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Background"><span class="nav-number">3.</span> <span class="nav-text">Background</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Client"><span class="nav-number">3.1.</span> <span class="nav-text">Client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Thread-State"><span class="nav-number">3.2.</span> <span class="nav-text">Thread State</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Threat-Model"><span class="nav-number">3.3.</span> <span class="nav-text">Threat Model</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Motivation"><span class="nav-number">4.</span> <span class="nav-text">Motivation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Motivating-Example"><span class="nav-number">4.1.</span> <span class="nav-text">Motivating Example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Root-Cause"><span class="nav-number">4.2.</span> <span class="nav-text">Root Cause</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">5.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Building-Wait-amp-Wake-Graph"><span class="nav-number">6.</span> <span class="nav-text">Building Wait&amp;Wake Graph</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Native"><span class="nav-number">6.1.</span> <span class="nav-text">Native</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang"><span class="nav-number">6.2.</span> <span class="nav-text">Golang</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Merge-Similar-Threads"><span class="nav-number">6.3.</span> <span class="nav-text">Merge Similar Threads</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Identify-the-Bottlenecks"><span class="nav-number">7.</span> <span class="nav-text">Identify the Bottlenecks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E6%95%88%E5%90%8C%E6%AD%A5"><span class="nav-number">7.1.</span> <span class="nav-text">无效同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E8%80%97%E5%B0%BD"><span class="nav-number">7.2.</span> <span class="nav-text">资源耗尽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo"><span class="nav-number">7.3.</span> <span class="nav-text">Demo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluation"><span class="nav-number">8.</span> <span class="nav-text">Evaluation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">9.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RQ1"><span class="nav-number">9.1.</span> <span class="nav-text">RQ1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RQ2"><span class="nav-number">9.2.</span> <span class="nav-text">RQ2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RQ3"><span class="nav-number">9.3.</span> <span class="nav-text">RQ3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RQ4"><span class="nav-number">9.4.</span> <span class="nav-text">RQ4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Discussion"><span class="nav-number">10.</span> <span class="nav-text">Discussion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Threat-to-Validity"><span class="nav-number">11.</span> <span class="nav-text">Threat to Validity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-work"><span class="nav-number">12.</span> <span class="nav-text">Related work</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E9%87%8F"><span class="nav-number">12.1.</span> <span class="nav-text">区块链客户端性能测量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BC%98%E5%8C%96"><span class="nav-number">12.2.</span> <span class="nav-text">区块链客户端优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">13.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q"><span class="nav-number">14.</span> <span class="nav-text">Q</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">Eng.D student at School of Cyber Science and Teconology, BUAA.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
