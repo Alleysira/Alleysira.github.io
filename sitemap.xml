@@ -803,13 +803,6 @@
 
   
   <url>
-    <loc>https://alleysira.github.io/tags/Blockchain/</loc>
-    <lastmod>2024-12-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://alleysira.github.io/tags/Crypto/</loc>
     <lastmod>2024-12-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -825,6 +818,13 @@
   
   <url>
     <loc>https://alleysira.github.io/tags/Architecture/</loc>
+    <lastmod>2024-12-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/tags/Blockchain/</loc>
     <lastmod>2024-12-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -957,14 +957,14 @@
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/WebAssembly/</loc>
+    <loc>https://alleysira.github.io/tags/Differential-Testing/</loc>
     <lastmod>2024-12-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://alleysira.github.io/tags/Differential-Testing/</loc>
+    <loc>https://alleysira.github.io/tags/WebAssembly/</loc>
     <lastmod>2024-12-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1043,13 +1043,6 @@
 
   
   <url>
-    <loc>https://alleysira.github.io/categories/Blockchain/</loc>
-    <lastmod>2024-12-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://alleysira.github.io/categories/MPC/</loc>
     <lastmod>2024-12-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -1058,6 +1051,13 @@
   
   <url>
     <loc>https://alleysira.github.io/categories/Architecture/</loc>
+    <lastmod>2024-12-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://alleysira.github.io/categories/Blockchain/</loc>
     <lastmod>2024-12-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
