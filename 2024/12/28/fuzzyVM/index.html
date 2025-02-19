@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://alleysira.github.io/2024/12/28/fuzzyVM/image-20241228100946111.png">
 <meta property="og:image" content="https://alleysira.github.io/2024/12/28/fuzzyVM/image-20241228100956745.png">
 <meta property="article:published_time" content="2024-12-28T02:08:57.000Z">
-<meta property="article:modified_time" content="2024-12-28T09:18:53.320Z">
+<meta property="article:modified_time" content="2025-01-11T13:05:16.156Z">
 <meta property="article:author" content="Alleysira">
 <meta property="article:tag" content="Blockchain">
 <meta property="article:tag" content="EVM">
@@ -189,10 +189,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-12-28 10:08:57 / Modified: 17:18:53" itemprop="dateCreated datePublished" datetime="2024-12-28T10:08:57+08:00">2024-12-28</time>
+              <time title="Created: 2024-12-28 10:08:57" itemprop="dateCreated datePublished" datetime="2024-12-28T10:08:57+08:00">2024-12-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-01-11 21:05:16" itemprop="dateModified" datetime="2025-01-11T21:05:16+08:00">2025-01-11</time>
+              </span>
 
           
 
@@ -224,7 +230,13 @@
 <p>Filed an issue at <a target="_blank" rel="noopener" href="https://github.com/MariusVanDerWijden/FuzzyVM/issues/38">github</a>, not responding in 48H.</p>
 <p>Another try in wsl.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">alleysira@LAPTOP-M4HO8L6S:~/FuzzyVM$ GOCOVERDIR=coverdata ./FuzzyVM-ins run</span><br><span class="line">Duplicate test found</span><br><span class="line">&amp;map[FuzzyVM-1052571076-2145213028:0xc00058a000]fuzz: elapsed: 0s, gathering baseline coverage: 0/455 completed</span><br><span class="line">fuzz: elapsed: 3s, gathering baseline coverage: 250/455 completed</span><br><span class="line">fuzz: elapsed: 6s, gathering baseline coverage: 409/455 completed</span><br><span class="line">fuzz: elapsed: 8s, gathering baseline coverage: 455/455 completed, now fuzzing with 6 workers</span><br><span class="line">fuzz: elapsed: 9s, execs: 670 (87/sec), new interesting: 0 (total: 455)</span><br><span class="line">fuzz: elapsed: 16m9s, execs: 103867 (69/sec), new interesting: 164 (total: 619)</span><br><span class="line">fuzz: elapsed: 16m12s, execs: 103868 (0/sec), new interesting: 165 (total: 620)</span><br><span class="line">fuzz: elapsed: 16m14s, execs: 103894 (12/sec), new interesting: 165 (total: 620)</span><br><span class="line">--- FAIL: FuzzVM (974.43s)</span><br><span class="line">    fuzzing process hung or terminated unexpectedly while minimizing: EOF</span><br><span class="line">    Failing input written to testdata/fuzz/FuzzVM/b78e04fdd359ae40</span><br><span class="line">    To re-run:</span><br><span class="line">    go test -run=FuzzVM/b78e04fdd359ae40</span><br><span class="line">FAIL</span><br><span class="line">exit status 1</span><br><span class="line">FAIL    github.com/MariusVanDerWijden/FuzzyVM/fuzzer    975.320s</span><br><span class="line">exit status 1</span><br><span class="line">alleysira@LAPTOP-M4HO8L6S:~/FuzzyVM$ go tool covdata percent -i=coverdata</span><br><span class="line">        github.com/MariusVanDerWijden/FuzzyVM           coverage: 35.5% of statements</span><br><span class="line">        github.com/ethereum/go-ethereum/common          coverage: 7.9% of statements</span><br><span class="line">        github.com/ethereum/go-ethereum/core/rawdb           coverage: 0.0% of statements</span><br><span class="line">        github.com/ethereum/go-ethereum/core/vm         coverage: 7.2% of statements</span><br><span class="line">        github.com/ethereum/go-ethereum/tests           coverage: 0.2% of statements</span><br></pre></td></tr></table></figure>
-<p>Try exception handling mechanism later.</p>
+<p><code>func (st *StateTransition) TransitionDb() (*ExecutionResult, error)</code> in the <code>core/state_transition.go</code> is the func the called <code>evm/call</code> .</p>
+<p>Comment the lines in func <code>Fuzz</code> in <code>fuzzer/fuzzer.go</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// name := randTestName(data)</span></span><br><span class="line"><span class="comment">// // minimize test</span></span><br><span class="line"><span class="comment">// minimized, err := minimizeProgram(testMaker, name)</span></span><br><span class="line"><span class="comment">// if err == nil &#123;</span></span><br><span class="line"><span class="comment">// 	testMaker = minimized</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+<p>Use timeout setting in the <code>go fuzz</code> to fix the 0 coverage problem.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmd := exec.Command(cmdName, <span class="string">&quot;test&quot;</span>, <span class="string">&quot;--fuzz&quot;</span>, target, <span class="string">&quot;-fuzztime=10h&quot;</span>, <span class="string">&quot;--parallel&quot;</span>, fmt.Sprint(genThreads), dir)</span><br></pre></td></tr></table></figure>
+<p>Get func coverage.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-pkg=github.com/ethereum/go-ethereum/core/vm</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -247,7 +259,10 @@
     <a href="/2024/12/10/thread/" rel="prev" title="ThreadNeck">
       <i class="fa fa-chevron-left"></i> ThreadNeck
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2025/02/17/N-ETH/" rel="next" title="N-ETH">
+      N-ETH <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -319,7 +334,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-count">85</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -332,7 +347,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -364,7 +379,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

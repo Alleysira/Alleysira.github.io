@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alleysira.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Ron J, Soto-Valero C, Zhang L, et al. Highly Available Blockchain Nodes With N-Version Design[J]. IEEE Transactions on Dependable and Secure Computing, 2023.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="N-ETH">
+<meta property="og:url" content="https://alleysira.github.io/2025/02/17/N-ETH/">
+<meta property="og:site_name" content="Alleysira&#39;s blog">
+<meta property="og:description" content="Ron J, Soto-Valero C, Zhang L, et al. Highly Available Blockchain Nodes With N-Version Design[J]. IEEE Transactions on Dependable and Secure Computing, 2023.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://alleysira.github.io/2025/02/17/N-ETH/image-20250217155445532.png">
+<meta property="og:image" content="https://alleysira.github.io/2025/02/17/N-ETH/image-20250217155459718.png">
+<meta property="og:image" content="https://alleysira.github.io/2025/02/17/N-ETH/image-20250217160322437.png">
+<meta property="og:image" content="https://alleysira.github.io/2025/02/17/N-ETH/image-20250217174402898.png">
+<meta property="og:image" content="https://alleysira.github.io/2025/02/17/N-ETH/image-20250217190018814.png">
+<meta property="og:image" content="https://alleysira.github.io/2025/02/17/N-ETH/image-20250218160831317.png">
+<meta property="og:image" content="https://alleysira.github.io/2025/02/17/N-ETH/image-20250218160840201.png">
+<meta property="og:image" content="https://alleysira.github.io/2025/02/17/N-ETH/image-20250218170224394.png">
+<meta property="og:image" content="https://alleysira.github.io/2025/02/17/N-ETH/image-20250219093519507.png">
+<meta property="og:image" content="https://alleysira.github.io/2025/02/17/N-ETH/image-20250219094106106.png">
+<meta property="og:image" content="https://alleysira.github.io/2025/02/17/N-ETH/image-20250219113424230.png">
+<meta property="og:image" content="https://alleysira.github.io/2025/02/17/N-ETH/image-20250219152620565.png">
+<meta property="og:image" content="https://alleysira.github.io/2025/02/17/N-ETH/image-20250219153959141.png">
+<meta property="article:published_time" content="2025-02-17T03:01:02.000Z">
+<meta property="article:modified_time" content="2025-02-19T11:41:54.294Z">
+<meta property="article:author" content="Alleysira">
+<meta property="article:tag" content="Architecture">
+<meta property="article:tag" content="Blockchain">
+<meta property="article:tag" content="Design">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alleysira.github.io/2025/02/17/N-ETH/image-20250217155445532.png">
+
+<link rel="canonical" href="https://alleysira.github.io/2025/02/17/N-ETH/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>N-ETH | Alleysira's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Alleysira's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Alleysira's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://alleysira.github.io/2025/02/17/N-ETH/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alleysira">
+      <meta itemprop="description" content="Eng.D student at School of Cyber Science and Teconology, BUAA.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alleysira's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          N-ETH
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-02-17 11:01:02" itemprop="dateCreated datePublished" datetime="2025-02-17T11:01:02+08:00">2025-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-02-19 19:41:54" itemprop="dateModified" datetime="2025-02-19T19:41:54+08:00">2025-02-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Ron J, Soto-Valero C, Zhang L, et al. Highly Available Blockchain Nodes With N-Version Design[J]. IEEE Transactions on Dependable and Secure Computing, 2023.</p>
+<span id="more"></span>
+<p>My TLDR：现有区块链节点由软件实现，区块链节点可能宕机，本文利用以太坊节点多种实现的现状，结合N-Version理论，设计了容错机制，实验证明能够抵抗错误注入攻击</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Avizienis 的 <strong>N-Version Programming (NVP，N-版本编程)</strong> 是一种 <strong>容错软件设计</strong> 方法，由计算机科学家 <strong>Algirdas Avizienis</strong> 在 1977 年提出。该方法的核心思想是通过<strong>冗余和多样性</strong>来提高软件的可靠性和容错能力。其中，同一个 SPEC 的不同实现称为 Version。</p>
+<p>请求路由、错误处理、响应比较和排序</p>
+<p>实验测量响应的延迟和正确性，和未修改的原始实现进行对比可用率，实验验证了额外的资源开销</p>
+<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><h2 id="Blockchain"><a href="#Blockchain" class="headerlink" title="Blockchain"></a>Blockchain</h2><p>区块链网络结构</p>
+<p><img src="/2025/02/17/N-ETH/image-20250217155445532.png" alt="image-20250217155445532"></p>
+<p>将RPC方法简化为两类：查询区块链历史信息以及发送新交易</p>
+<p>RPC请求和响应的例子</p>
+<p><img src="/2025/02/17/N-ETH/image-20250217155459718.png" alt="image-20250217155459718"></p>
+<h2 id="N-Version-Design"><a href="#N-Version-Design" class="headerlink" title="N-Version Design"></a>N-Version Design</h2><p>$N$个同一个规范的不同实现，为了提升软件的可靠性、性能或安全性</p>
+<p>基本做法是比较或匹配$N$个程序的输出</p>
+<p>一般来说，N-Version编程要求不同团队独立开发，设计、编程语言、软件栈相互独立</p>
+<p>然而，在没有协调的情况下，由于市场竞争、优化、争议的设计理念等因素，现实中自然产生了同一个规范的不同实现（浏览器）</p>
+<p>idea：利用已有的多种实现，称之为 自然N-Version设计</p>
+<p><img src="/2025/02/17/N-ETH/image-20250217160322437.png" alt="image-20250217160322437"></p>
+<h1 id="Highly-Available-Blockchain-Node"><a href="#Highly-Available-Blockchain-Node" class="headerlink" title="Highly Available Blockchain Node"></a>Highly Available Blockchain Node</h1><h2 id="Availability-Definition"><a href="#Availability-Definition" class="headerlink" title="Availability Definition"></a>Availability Definition</h2><ul>
+<li>Available：响应即时、一致(compliant)、正确</li>
+<li>Degraded: 响应即时，但是不一致或不新鲜</li>
+<li>Unavailable：不及时响应或拒绝</li>
+</ul>
+<p>Timeliness 定义为 $T$ 时间内获取响应</p>
+<p>Compliance 定义为返回的响应是否符合API中的定义 </p>
+<p>Freshness 定义为是否为最新的状态，实现上是比较最新的区块链号和外部oracle的距离</p>
+<p><img src="/2025/02/17/N-ETH/image-20250217174402898.png" alt="image-20250217174402898"></p>
+<h2 id="Architecture-of-N-V-Node"><a href="#Architecture-of-N-V-Node" class="headerlink" title="Architecture of N-V Node"></a>Architecture of N-V Node</h2><p>N-Version Node包括$N$个子节点和一个代理</p>
+<p>代理负责根据动态优先级策略将请求路由到子节点</p>
+<p> <img src="/2025/02/17/N-ETH/image-20250217190018814.png" alt="image-20250217190018814"></p>
+<h2 id="Dispatching-Policy"><a href="#Dispatching-Policy" class="headerlink" title="Dispatching Policy"></a>Dispatching Policy</h2><p>根据稳定性负载均衡，分配给最可靠的子节点</p>
+<p>做法：为每个子节点维护可用性分数，成功请求数/总的请求数</p>
+<p>对所有子节点进行降序排序</p>
+<p>Proxy收到请求后，转发给排名第一的子节点</p>
+<p>如果子节点成功则立刻返回，否则保存response，尝试排名第二的节点</p>
+<p>直到产生可用回复或所有节点返回一致的结果</p>
+<h2 id="Comparison-Oracle"><a href="#Comparison-Oracle" class="headerlink" title="Comparison Oracle"></a>Comparison Oracle</h2><p>当没有子节点可用时，需要选择degraded中最好的响应进行返回</p>
+<p>选择规则：</p>
+<ul>
+<li>一致性强于不一致的响应</li>
+<li>最新鲜的一致性响应</li>
+</ul>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><p>实现了原型N-ETH</p>
+<p>GETH v1.12.2, BESU v23.7.0, ERIGON v2.48.1，NETHERMIND v1.20.1</p>
+<h1 id="Experimental-protocol"><a href="#Experimental-protocol" class="headerlink" title="Experimental protocol"></a>Experimental protocol</h1><ul>
+<li>RQ1: 区块链节点的不确定性会导致什么结果<ul>
+<li>做法：system-call错误注入</li>
+</ul>
+</li>
+<li><p>RQ2: 传统区块链节点在错误注入下的可用性 </p>
+<ul>
+<li>N=1</li>
+</ul>
+</li>
+<li><p>RQ3: N-version 节点提升了多少可用性</p>
+<ul>
+<li>注入错误，变化N，最大测试到29</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2025/02/17/N-ETH/image-20250218160831317.png" alt="image-20250218160831317"></p>
+<p><img src="/2025/02/17/N-ETH/image-20250218160840201.png" alt="image-20250218160840201"></p>
+<h2 id="Workload（输入）"><a href="#Workload（输入）" class="headerlink" title="Workload（输入）"></a>Workload（输入）</h2><p>测试的输入是任意数量的JSON-RPC调用，测量响应的一致性、新鲜性和延迟</p>
+<p>两个workload集</p>
+<ul>
+<li>360000个RPC调用，每个调研的方法名和参数从21个方法的池子中来，查询当前和历史的区块链状态</li>
+<li>360000个类似的RPC调用，查询当前最新的区块，收集新鲜性信息</li>
+</ul>
+<h2 id="Fault-Injection"><a href="#Fault-Injection" class="headerlink" title="Fault Injection"></a>Fault Injection</h2><p>区块链节点运行在操作系统上，其运行环境可能出现错误 （网络、硬件等），传递给上层的区块链节点的就是 <code>system_call</code>，因此考虑对区块链软件传入错误</p>
+<p><img src="/2025/02/17/N-ETH/image-20250218170224394.png" alt="image-20250218170224394"></p>
+<ol>
+<li>记录所有版本的区块链节点的 <code>system_call</code> 以及对应的返回值</li>
+<li>收集 <code>system_call</code> 信息为集合， $<syscall,err,f>$，$f$ 是出现的次数</syscall,err,f></li>
+<li>聚合不同版本节点的集合，$f$ 取相同name的最小值，根据 $f$ 降序排序</li>
+<li>取 $n$ 个子集，$top-n$，每个集合包含最前$n$的元素</li>
+<li>$f$ 放大5%</li>
+</ol>
+<p>获得了20个错误注入策略</p>
+<ul>
+<li>已知（从真实信息中提取）</li>
+</ul>
+<p>节点在以太坊主网进行实验，挑战</p>
+<ul>
+<li>物理资源：2TB、16GB RAM</li>
+<li>共识层客户端</li>
+<li>需要10+小时的同步</li>
+<li>660个以太坊节点</li>
+</ul>
+<p>仅有一个clean copy，具体实验是复制这个节点的数据，实验开销为 $10,000</p>
+<h1 id="Experimental-Results"><a href="#Experimental-Results" class="headerlink" title="Experimental Results"></a>Experimental Results</h1><h2 id="节点受到错误注入后的错误情况"><a href="#节点受到错误注入后的错误情况" class="headerlink" title="节点受到错误注入后的错误情况"></a>节点受到错误注入后的错误情况</h2><p><img src="/2025/02/17/N-ETH/image-20250219093519507.png" alt="image-20250219093519507"></p>
+<p>观察到 同一个错误对不同版本的影响不同</p>
+<p>三大类错误：network issues, timeouts, or data corruption</p>
+<p>发现有5种错误仅出现在一个版本中，说明了多样化的实现会导致多种错误，与N-Version的设计假设吻合</p>
+<p><img src="/2025/02/17/N-ETH/image-20250219094106106.png" alt="image-20250219094106106"></p>
+<p>给出了指在某个错误注入策略下出现错误的RPC调用的占比</p>
+<p>标准差很低，表明不同策略在同一个版本上的效果统一，即和方法无关，其他的16个策略在<a target="_blank" rel="noopener" href="https://github.com/ASSERT-KTH/N-ETH/tree/main/results">github仓库</a>.</p>
+<p>RQ1确认了进行N-version设计的假设：不是所有的子节点同时都会down</p>
+<h2 id="不同版本节点的可用性"><a href="#不同版本节点的可用性" class="headerlink" title="不同版本节点的可用性"></a>不同版本节点的可用性</h2><p><img src="/2025/02/17/N-ETH/image-20250219113424230.png" alt="image-20250219113424230"></p>
+<p>黄色星星是可用性最高的版本</p>
+<p>Geth能够在前16个策略都保持较高可用性，然而Nethermind和Erigon 在FI7丧失可用性</p>
+<p>平均，GETH’s availability drops to 0.8486; BESU’s availability drops to 0.9113; ERIGON’s availability drops to 0.5149; NETHERMIND’s availability drops to 0.3788</p>
+<h2 id="N-version-能够如何提升可用性"><a href="#N-version-能够如何提升可用性" class="headerlink" title="N-version 能够如何提升可用性"></a>N-version 能够如何提升可用性</h2><p><img src="/2025/02/17/N-ETH/image-20250219152620565.png" alt="image-20250219152620565"></p>
+<p>对比实验，N=4时 98.5% full availability, and 99.9999% 可用+退化的可用性</p>
+<p>给出了资源消耗</p>
+<p><img src="/2025/02/17/N-ETH/image-20250219153959141.png" alt="image-20250219153959141"></p>
+<p>可用性增长 84.7%-&gt;98.5%</p>
+<h1 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h1><p>本质是冗余提升可用性，但是对于节点服务提供商而言，性能不是问题</p>
+<p>多个RPC的构造</p>
+<h1 id="My-Discussion"><a href="#My-Discussion" class="headerlink" title="My Discussion"></a>My Discussion</h1><ul>
+<li><p>Q</p>
+<ul>
+<li>作为P2P网络，有共识机制保障，单个节点的宕机并不重要，本协议的受众实际上是对自己节点可用性要求非常高的用户，势必带来了额外的计算/存储开销</li>
+<li>本文最核心的idea是利用了以太坊现有的多种实现的现状</li>
+<li>为什么不是vote？而是排序，最多带来N开销</li>
+</ul>
+</li>
+<li><p>pros</p>
+<ul>
+<li>提升了区块链节点服务的可用性</li>
+</ul>
+</li>
+<li><p>cons</p>
+<ul>
+<li>如果少数节点返回了正确结果，整个框架如何响应？（For example: geth:besu:nethermind=1:1:1, geth and besu return same but wrong response, while only nethermind gives correct response)</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Architecture/" rel="tag"># Architecture</a>
+              <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+              <a href="/tags/Design/" rel="tag"># Design</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/28/fuzzyVM/" rel="prev" title="fuzzyVM">
+      <i class="fa fa-chevron-left"></i> fuzzyVM
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Background"><span class="nav-number">2.</span> <span class="nav-text">Background</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Blockchain"><span class="nav-number">2.1.</span> <span class="nav-text">Blockchain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#N-Version-Design"><span class="nav-number">2.2.</span> <span class="nav-text">N-Version Design</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Highly-Available-Blockchain-Node"><span class="nav-number">3.</span> <span class="nav-text">Highly Available Blockchain Node</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Availability-Definition"><span class="nav-number">3.1.</span> <span class="nav-text">Availability Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Architecture-of-N-V-Node"><span class="nav-number">3.2.</span> <span class="nav-text">Architecture of N-V Node</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dispatching-Policy"><span class="nav-number">3.3.</span> <span class="nav-text">Dispatching Policy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Comparison-Oracle"><span class="nav-number">3.4.</span> <span class="nav-text">Comparison Oracle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementation"><span class="nav-number">3.5.</span> <span class="nav-text">Implementation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Experimental-protocol"><span class="nav-number">4.</span> <span class="nav-text">Experimental protocol</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Workload%EF%BC%88%E8%BE%93%E5%85%A5%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">Workload（输入）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fault-Injection"><span class="nav-number">4.2.</span> <span class="nav-text">Fault Injection</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Experimental-Results"><span class="nav-number">5.</span> <span class="nav-text">Experimental Results</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E5%8F%97%E5%88%B0%E9%94%99%E8%AF%AF%E6%B3%A8%E5%85%A5%E5%90%8E%E7%9A%84%E9%94%99%E8%AF%AF%E6%83%85%E5%86%B5"><span class="nav-number">5.1.</span> <span class="nav-text">节点受到错误注入后的错误情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E8%8A%82%E7%82%B9%E7%9A%84%E5%8F%AF%E7%94%A8%E6%80%A7"><span class="nav-number">5.2.</span> <span class="nav-text">不同版本节点的可用性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#N-version-%E8%83%BD%E5%A4%9F%E5%A6%82%E4%BD%95%E6%8F%90%E5%8D%87%E5%8F%AF%E7%94%A8%E6%80%A7"><span class="nav-number">5.3.</span> <span class="nav-text">N-version 能够如何提升可用性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Discussion"><span class="nav-number">6.</span> <span class="nav-text">Discussion</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#My-Discussion"><span class="nav-number">7.</span> <span class="nav-text">My Discussion</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alleysira</p>
+  <div class="site-description" itemprop="description">Eng.D student at School of Cyber Science and Teconology, BUAA.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alleysira" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alleysira" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alleysira</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
